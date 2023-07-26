@@ -43,6 +43,14 @@ public class TempInput : PlayerComponent
             Player.UseItemHeld.ForceStop();
         }
     }
+    public void DropItem(CallbackContext context)
+    {
+        if (context.started)
+        {
+            Player.DropItem.Try(Player.EquippedItem.Get());
+        }
+    }
+
 
     public void SetJump(CallbackContext context)
     {

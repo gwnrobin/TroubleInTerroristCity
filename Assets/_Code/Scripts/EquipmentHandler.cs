@@ -290,7 +290,6 @@ public class EquipmentHandler : PlayerComponent
                 else
                     _continuouslyUsedTimes = 1;
             }
-            print(_continuouslyUsedTimes);
         }
 
         return usedSuccessfully;
