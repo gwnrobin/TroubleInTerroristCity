@@ -96,6 +96,7 @@ public class EquipmentHandler : PlayerComponent
         m_PersistentAudioSource.bypassEffects = m_PersistentAudioSource.bypassListenerEffects = m_PersistentAudioSource.bypassReverbZones = false;
         m_PersistentAudioSource.maxDistance = 500f;
     }
+
     public bool ContainsEquipmentItem(int itemId) => _equipmentItems.ContainsKey(itemId);
 
     public virtual void EquipItem(Item item)

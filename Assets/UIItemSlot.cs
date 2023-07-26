@@ -13,6 +13,10 @@ public class UIItemSlot : MonoBehaviour
 
     public void ChangeText(ItemSlot item)
     {
-        textComponent.text = item.Item.name;
+
+        if(item.Item != null)
+            textComponent.text = item.Item.name;
+        else
+            textComponent.text = "Empty";
     }
 }

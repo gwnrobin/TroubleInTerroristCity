@@ -17,6 +17,9 @@ public class Item : MonoBehaviour
 	public int StackSize = 1;
 	public string Category;
 
+	[SerializeField]
+	public GameObject Pickup;
+
 	public int Id { get => m_Id; }
 	public string Name { get { return m_Name; } }
 

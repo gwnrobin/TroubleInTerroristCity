@@ -2690,6 +2690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 296031294}
   - component: {fileID: 296031295}
+  - component: {fileID: 296031297}
   - component: {fileID: 296031296}
   m_Layer: 3
   m_Name: Inventory
@@ -2763,6 +2764,32 @@ MonoBehaviour:
   - Name: Pistol
     StartupItems:
     - {fileID: 1505091040}
+--- !u!114 &296031297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296031293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb85bf62c49a1bd43a80987b43df64ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WallsLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  m_DropItemsOnDeath: 1
+  m_DropOffset: {x: 0, y: 1, z: 0.8}
+  m_CrouchHeightDropMod: 0.5
+  m_DropAngularFactor: 8
+  m_DropSpeed: 1.5
+  m_DropSounds:
+    m_Clips:
+    - {fileID: 8300000, guid: 1a22249db2dcfc94781032451d7fb760, type: 3}
+    m_VolumeRange: {x: 0.15, y: 0.25}
+    m_PitchRange: {x: 0.9, y: 1.1}
+    m_VolumeMultiplier: 1
 --- !u!1 &303614828
 GameObject:
   m_ObjectHideFlags: 0
@@ -6628,7 +6655,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -6688,13 +6715,11 @@ MonoBehaviour:
   Description: 
   StackSize: 1
   Category: Primary
+  Pickup: {fileID: 538434282}
   m_Id: 1
   m_Name: 
   m_CurrentStackSize: 1
-  m_Properties:
-  - m_Name: 
-    m_Type: 1
-    m_Value: 0
+  m_Properties: []
 --- !u!114 &538434288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16934,6 +16959,7 @@ MonoBehaviour:
   Description: 
   StackSize: 1
   Category: Pistols
+  Pickup: {fileID: 1505091039}
   m_Id: 5
   m_Name: 
   m_CurrentStackSize: 1
@@ -46685,6 +46711,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 387e6b7c-0a74-4415-bb15-ec942ac83cd2
     m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6803061341234373711}
+        m_TargetAssemblyTypeName: TempInput, Assembly-CSharp
+        m_MethodName: DropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 32d5a9d9-583a-472e-88a7-a04c5b9d8906
+    m_ActionName: Player/DropItem[/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
