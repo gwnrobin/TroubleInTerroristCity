@@ -87,7 +87,7 @@ namespace Kinemation.FPSFramework.Editor.Attributes
                 }
             }
         }
-        
+
         private static void CreateEmptyAnimSequence()
         {
             var path = AssetDatabase.GetAssetPath(Selection.activeInstanceID);

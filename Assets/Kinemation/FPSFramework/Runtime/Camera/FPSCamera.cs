@@ -58,7 +58,6 @@ namespace Kinemation.FPSFramework.Runtime.Camera
             _out.z = CoreToolkitLib.Glerp(_out.z, curveValue.z * _target.z, _shake.smoothSpeed);
 
             Quaternion rot = Quaternion.Euler(_out);
-
             transform.rotation *= rot;
         }
 
