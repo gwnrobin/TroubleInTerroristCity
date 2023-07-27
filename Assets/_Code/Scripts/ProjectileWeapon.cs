@@ -48,14 +48,6 @@ public class ProjectileWeapon : EquipmentItem
         UpdateFireModeSettings(SelectedFireMode);
     }
 
-    public override void Equip(Item item)
-    {
-        base.Equip(item);
-
-        //Player._recoilAnimation.Init(recoilData, _projectileWeaponInfo.Shooting.RoundsPerMinute, (FireMode)SelectedFireMode);
-        //Player.CoreAnimComponent.OnGunEquipped(gunData);
-    }
-
     public override void OnAimStart()
     {
         base.OnAimStart();

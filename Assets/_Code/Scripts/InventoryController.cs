@@ -45,11 +45,16 @@ public class InventoryController: HumanoidComponent
 
 	public bool TryDropItem(Item item)
 	{
+		GameObject i = GetEquipmentPickup(item);
+
+		if (i == null)
+			return false;
+
 		bool canBeDropped = item != null &&
-			item.Pickup != null &&
-			Humanoid.DropItem.LastExecutionTime + 0.5f < Time.time &&
-			Humanoid.EquipItem.LastExecutionTime + 0.5f < Time.time &&
-			m_Inventory.RemoveItem(item);
+		item.Pickup != null &&
+		Humanoid.DropItem.LastExecutionTime + 0.5f < Time.time &&
+		Humanoid.EquipItem.LastExecutionTime + 0.5f < Time.time &&
+		m_Inventory.RemoveItem(item);
 
 		if (canBeDropped)
 		{
@@ -58,7 +63,7 @@ public class InventoryController: HumanoidComponent
 			if (Humanoid.Crouch.Active)
 				heightDropMultiplier = m_CrouchHeightDropMod;
 
-			StartCoroutine(C_Drop(item, heightDropMultiplier));
+			StartCoroutine(C_Drop(i, heightDropMultiplier));
 
 			return true;
 		}
@@ -71,7 +76,7 @@ public class InventoryController: HumanoidComponent
 		Humanoid.EquipItem.Try(Humanoid.Inventory.GetContainerWithName("Pistol").Slots[0].Item, true);
 	}
 
-	private IEnumerator C_Drop(Item item, float heightDropMultiplier)
+	private IEnumerator C_Drop(GameObject item, float heightDropMultiplier)
 	{
 		if (item == null)
 			yield return null;
@@ -93,7 +98,7 @@ public class InventoryController: HumanoidComponent
 			dropRotation = Random.rotationUniform;
 		}
 
-		GameObject droppedItem = GetEquipmentPickup(item);
+		GameObject droppedItem = item;
 
 		droppedItem.transform.parent = null;
 		droppedItem.SetActive(true);
@@ -118,10 +123,10 @@ public class InventoryController: HumanoidComponent
 
 		m_DropSounds.Play2D(ItemSelection.Method.RandomExcludeLast);
 
-		var pickup = droppedItem.GetComponent<ItemPickup>();
+		//var pickup = droppedItem.GetComponent<ItemPickup>();
 
-		if (pickup != null)
-			pickup.SetItem(item);
+		//if (pickup != null)
+		//	pickup.SetItem(item);
 	}
 
 	private GameObject GetEquipmentPickup(Item item)

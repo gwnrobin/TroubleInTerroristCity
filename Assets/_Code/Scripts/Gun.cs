@@ -36,15 +36,8 @@ public class Gun : ProjectileWeapon
 
     private void Start()
     {
-        CurrentAmmoInfo.Set(
-        new AmmoInfo()
-        {
-            CurrentInMagazine = _projectileWeaponInfo.Shooting.MagazineSize,
-
-            // Get the ammo count from the inventory
-            CurrentInStorage = 0
-        });
-        //print(_projectileWeaponInfo.Shooting.MagazineSize);
+        _ammoProperty = _projectileWeaponInfo.Shooting.MagazineSize;
+        UpdateAmmoInfo();
     }
 
     public override void Initialize(EquipmentHandler eHandler)
