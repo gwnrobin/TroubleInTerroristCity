@@ -18,6 +18,12 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
     {
         public Vector3 maxMoveLocSway;
         public Vector3 maxMoveRotSway;
+
+        public VectorSpringData moveLocSway;
+        public VectorSpringData moveRotSway;
+
+        public Vector3 locSpeed;
+        public Vector3 rotSpeed;
     }
     
     [Serializable]
@@ -55,6 +61,23 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         }
     }
 
+    [Serializable]
+    public struct AdsData
+    {
+        public TargetAimData target;
+        public LocRot pointAimOffset;
+        public float aimSpeed;
+        public float changeSightSpeed;
+        public float pointAimSpeed;
+
+        public AdsData(float speed)
+        {
+            target = null;
+            pointAimOffset = LocRot.identity;
+            aimSpeed = changeSightSpeed = pointAimSpeed = speed;
+        }
+    }
+
     // Defines weapon-related properties, updated when weapon is equipped/unequipped
     [Serializable]
     public struct WeaponAnimData
@@ -88,5 +111,13 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             blockData = new GunBlockData(LocRot.identity);
             rotationOffset = Quaternion.identity;
         }
+    }
+
+    [Serializable]
+    public struct WeaponTransformData
+    {
+        public Transform pivotPoint;
+        public Transform aimPoint;
+        public Transform leftHandTarget;
     }
 }

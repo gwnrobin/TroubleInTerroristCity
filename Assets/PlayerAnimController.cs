@@ -84,6 +84,7 @@ public class PlayerAnimController : PlayerComponent
         Player.CharAnimData.recoilAnim = new LocRot(recoilAnimation.OutLoc, Quaternion.Euler(recoilAnimation.OutRot));
         fpsAnimator.SetCharData(Player.CharAnimData);
         fpsAnimator.animGraph.UpdateGraph();
+        fpsAnimator.UpdateCoreComponent();
     }
     public CoreAnimGraph GetAnimGraph()
     {

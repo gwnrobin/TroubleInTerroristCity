@@ -94,6 +94,25 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             _forceBlendTime = _forceStartBlendTime = 0f;
         }
 
+        public void OnSampleUpdate(AvatarMask mask, bool bUpdateWeights = true)
+        {
+            for (int i = 1; i <= _playingIndex; i++)
+            {
+                if (!mixer.GetInput(i).IsValid())
+                {
+                    continue;
+                }
+                
+                mixer.SetLayerMaskFromAvatarMask((uint) i, mask);
+
+                if (bUpdateWeights)
+                {
+                    float weight = mixer.GetInputWeight(i);
+                    mixer.SetInputWeight(i, weight * _mixerWeight);
+                }
+            }
+        }
+
         public void SetAvatarMask(AvatarMask mask)
         {
             for (int i = 1; i <= _playingIndex; i++)

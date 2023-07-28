@@ -26,6 +26,9 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         [Range(0f, 1f)] public float aimLayerAlphaRot;
         [SerializeField] [Bone] protected Transform aimTarget;
 
+        [SerializeField] private LocRot crouchPose;
+        [SerializeField] [AnimCurveName(true)] private string crouchPoseCurve;
+
         protected bool bAds;
         protected float adsProgress;
         
@@ -64,16 +67,12 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             bPointAim = bAiming;
         }
 
-        public override void OnAnimStart()
-        {
-            
-        }
-
         public override void OnAnimUpdate()
         {
             Vector3 baseLoc = GetMasterPivot().position;
             Quaternion baseRot = GetMasterPivot().rotation;
-            
+
+            ApplyCrouchPose();
             ApplyPointAiming();
             ApplyAiming();
             
@@ -86,11 +85,11 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
         public void CalculateAimData()
         {
-            var aimData = GetGunData().gunAimData;
-            
-            var stateName = aimData.target.stateName.Length > 0
-                ? aimData.target.stateName
-                : aimData.target.staticPose.name;
+            var aimData = GetGunAsset() == null ? GetGunData().gunAimData.target : GetGunAsset().adsData.target;
+
+            var stateName = aimData.stateName.Length > 0
+                ? aimData.stateName
+                : aimData.staticPose.name;
 
             if (GetAnimator() != null)
             {
@@ -99,8 +98,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             }
             
             // Cache the local data, so we can apply it without issues
-            aimData.target.aimLoc = aimData.pivotPoint.InverseTransformPoint(aimTarget.position);
-            aimData.target.aimRot = Quaternion.Inverse(aimData.pivotPoint.rotation) * GetRootBone().rotation;
+            aimData.aimLoc = GetPivotPoint().InverseTransformPoint(aimTarget.position);
+            aimData.aimRot = Quaternion.Inverse(GetPivotPoint().rotation) * GetRootBone().rotation;
         }
 
         protected void UpdateAimWeights(float adsRate = 1f, float pointAimRate = 1f)
@@ -117,12 +116,12 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
         protected LocRot GetAdsOffset()
         {
-            var aimData = GetGunData().gunAimData;
             LocRot adsOffset = new LocRot(Vector3.zero, Quaternion.identity);
-            if (aimData.aimPoint != null)
+
+            if (GetAimPoint() != null)
             {
-                adsOffset.rotation = Quaternion.Inverse(aimData.pivotPoint.rotation) * aimData.aimPoint.rotation;
-                adsOffset.position = -aimData.pivotPoint.InverseTransformPoint(aimData.aimPoint.position);
+                adsOffset.rotation = Quaternion.Inverse(GetPivotPoint().rotation) * GetAimPoint().rotation;
+                adsOffset.position = -GetPivotPoint().InverseTransformPoint(GetAimPoint().position);
             }
 
             return adsOffset;
@@ -131,6 +130,11 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         protected virtual void ApplyAiming()
         {
             var aimData = GetGunData().gunAimData;
+            var targetAimData = GetGunAsset() != null ? GetGunAsset().adsData.target : aimData.target;
+
+            float aimSpeed = GetGunAsset() != null ? GetGunAsset().adsData.aimSpeed : aimData.aimSpeed;
+            float pointAimSpeed = GetGunAsset() != null ? GetGunAsset().adsData.pointAimSpeed : aimData.pointAimSpeed;
+            float changeSightSpeed = GetGunAsset() != null ? GetGunAsset().adsData.changeSightSpeed : aimData.changeSightSpeed;
             
             // Base Animation layer
             
@@ -141,11 +145,11 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             GetMasterPivot().position = defaultPose.position;
             GetMasterPivot().rotation = defaultPose.rotation;
 
-            UpdateAimWeights(aimData.aimSpeed, aimData.pointAimSpeed);
+            UpdateAimWeights(aimSpeed, pointAimSpeed);
 
-            interpAimPoint = CoreToolkitLib.Glerp(interpAimPoint, GetAdsOffset(), aimData.changeSightSpeed);
+            interpAimPoint = CoreToolkitLib.Glerp(interpAimPoint, GetAdsOffset(), changeSightSpeed);
             
-            LocRot additiveAim = aimData.target != null ? new LocRot(aimData.target.aimLoc, aimData.target.aimRot) 
+            LocRot additiveAim = targetAimData != null ? new LocRot(targetAimData.aimLoc, targetAimData.aimRot) 
                 : new LocRot(Vector3.zero, Quaternion.identity);
             
             Vector3 addAimLoc = additiveAim.position;
@@ -173,14 +177,22 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             GetMasterPivot().rotation = Quaternion.Slerp(handsPose.rotation, GetMasterPivot().rotation, aimWeight);
         }
 
+        protected void ApplyCrouchPose()
+        {
+            float poseAlpha = GetAnimator().GetFloat(crouchPoseCurve) * (1f - adsWeight);
+            GetMasterIK().Move(GetRootBone(), crouchPose.position, poseAlpha);
+            GetMasterIK().Rotate(GetRootBone().rotation, crouchPose.rotation, poseAlpha);
+        }
+
         protected virtual void ApplyPointAiming()
         {
-            var aimData = GetGunData().gunAimData;
+            var pointAimOffset = GetGunAsset() != null ? GetGunAsset().adsData.pointAimOffset 
+                : GetGunData().gunAimData.pointAimOffset;
             
             CoreToolkitLib.MoveInBoneSpace(GetRootBone(), GetMasterPivot(),
-                aimData.pointAimOffset.position, pointAimWeight);
+                pointAimOffset.position, pointAimWeight);
             CoreToolkitLib.RotateInBoneSpace(GetRootBone().rotation, GetMasterPivot(),
-                aimData.pointAimOffset.rotation, pointAimWeight);
+                pointAimOffset.rotation, pointAimWeight);
         }
 
         protected virtual void ApplyHandsOffset()
@@ -191,7 +203,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                 viewOffsetCache = viewOffset;
             }
 
-            viewOffset = CoreToolkitLib.Lerp(viewOffsetCache, GetGunData().viewOffset, progress);
+            var targetViewOffset = GetGunAsset() != null ? GetGunAsset().viewOffset : GetGunData().viewOffset;
+            viewOffset = CoreToolkitLib.Lerp(viewOffsetCache, targetViewOffset, progress);
             
             CoreToolkitLib.MoveInBoneSpace(GetRootBone(), GetMasterPivot(), 
                 viewOffset.position, 1f);

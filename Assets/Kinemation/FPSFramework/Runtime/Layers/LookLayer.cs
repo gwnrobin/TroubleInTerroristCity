@@ -260,6 +260,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
         public override void OnAnimStart()
         {
+            elbowsWeight = 1f;
+            
             Transform[] bones = null;
             var boneContainer = GetComponentInChildren<BoneContainer>();
             if (boneContainer != null)

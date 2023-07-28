@@ -22,15 +22,17 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
         public override void OnAnimUpdate()
         {
-            float traceLength = GetGunData().blockData.weaponLength;
-            float startOffset = GetGunData().blockData.startOffset;
-            float threshold = GetGunData().blockData.threshold;
-            LocRot restPose = GetGunData().blockData.restPose;
+            var blockData = GetGunAsset() != null ? GetGunAsset().blockData : GetGunData().blockData;
+            
+            float traceLength = blockData.weaponLength;
+            float startOffset = blockData.startOffset;
+            float threshold = blockData.threshold;
+            LocRot restPose = blockData.restPose;
             
             start = GetMasterPivot().position - GetMasterPivot().forward * startOffset;
             end = start + GetMasterPivot().forward * traceLength;
-            LocRot offsetPose = new LocRot(Vector3.zero, Quaternion.identity);
             
+            LocRot offsetPose = new LocRot(Vector3.zero, Quaternion.identity);
             if (Physics.Raycast(start, GetMasterPivot().forward, out RaycastHit hit, traceLength, layerMask))
             {
                 float distance = (end - start).magnitude - (hit.point - start).magnitude;
@@ -47,10 +49,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
             smoothPose = CoreToolkitLib.Glerp(smoothPose, offsetPose, 10f);
             
-            CoreToolkitLib.MoveInBoneSpace(GetMasterPivot(), GetMasterPivot(), smoothPose.position, 
-                smoothLayerAlpha);
-            CoreToolkitLib.RotateInBoneSpace(GetMasterPivot().rotation, GetMasterPivot(), smoothPose.rotation, 
-                smoothLayerAlpha);
+            GetMasterIK().Move(smoothPose.position, smoothLayerAlpha);
+            GetMasterIK().Rotate(smoothPose.rotation, smoothLayerAlpha);
         }
     }
 }

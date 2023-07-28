@@ -87,8 +87,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             float pelvisOffset = dtR.y < dtL.y ? dtR.y : dtL.y;
             smoothPelvis = CoreToolkitLib.Glerp(smoothPelvis, pelvisOffset, pelvisInterpSpeed);
             
-            CoreToolkitLib.MoveInBoneSpace(GetRootBone(), GetPelvis(),
-                new Vector3(0f, smoothPelvis, 0f), smoothLayerAlpha);
+            //CoreToolkitLib.MoveInBoneSpace(GetRootBone(), GetPelvis(),
+              //  new Vector3(0f, smoothPelvis, 0f), smoothLayerAlpha);
         }
     }
 }

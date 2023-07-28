@@ -3,6 +3,7 @@
 using System;
 using Kinemation.FPSFramework.Runtime.Core.Components;
 using Kinemation.FPSFramework.Runtime.Core.Types;
+using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using UnityEngine;
 
 namespace Kinemation.FPSFramework.Runtime.Layers
@@ -16,12 +17,12 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         public VectorCurve loc;
         
         // How fast to blend to another motion
-        [SerializeField] private float blendSpeed;
-        [SerializeField] private float playRate;
+        public float blendSpeed;
+        public float playRate;
         
         private float playBack;
         private float blendAlpha;
-        
+
         public LocRot outMotion;
         // Used to blend to the currentMotion
         private LocRot cachedMotion;
@@ -75,7 +76,22 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         {
             motion.Reset();
         }
-        
+
+        public void Play(IKAnimation animationAsset)
+        {
+            var cache = motion;
+            
+            var newMotion = new DynamicMotion();
+            newMotion.loc = animationAsset.loc;
+            newMotion.rot = animationAsset.rot;
+            newMotion.blendSpeed = animationAsset.blendSpeed;
+            newMotion.playRate = animationAsset.playRate;
+
+            motion = newMotion;
+            motion.Reset();
+            motion.Play(ref cache);
+        }
+
         public void Play(DynamicMotion motionToPlay)
         {
             var cache = motion;
@@ -97,11 +113,16 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
     public class SlotLayer : AnimLayer
     {
-        public MotionPlayer motionPlayer;
+        private MotionPlayer motionPlayer;
         
         public void PlayMotion(DynamicMotion motionToPlay)
         {
             motionPlayer.Play(motionToPlay);
+        }
+
+        public void PlayMotion(IKAnimation animationAsset)
+        {
+            motionPlayer.Play(animationAsset);
         }
 
         public override void OnAnimStart()
@@ -111,12 +132,16 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
         public override void OnAnimUpdate()
         {
+            LocRot cache = new LocRot(GetMasterPivot());
+            
             motionPlayer.UpdateMotion();
             
-            CoreToolkitLib.MoveInBoneSpace(GetRootBone(), GetMasterPivot(), motionPlayer.Get().position, 
+            GetMasterIK().Move(GetRootBone(), motionPlayer.Get().position, smoothLayerAlpha);
+            GetMasterIK().Rotate(GetRootBone().rotation, motionPlayer.Get().rotation, smoothLayerAlpha);
+
+            GetMasterPivot().position = Vector3.Lerp(cache.position, GetMasterPivot().position, smoothLayerAlpha);
+            GetMasterPivot().rotation = Quaternion.Slerp(cache.rotation, GetMasterPivot().rotation,
                 smoothLayerAlpha);
-            CoreToolkitLib.RotateInBoneSpace(GetRootBone().rotation, GetMasterPivot(), 
-                motionPlayer.Get().rotation, smoothLayerAlpha);
         }
     }
 }

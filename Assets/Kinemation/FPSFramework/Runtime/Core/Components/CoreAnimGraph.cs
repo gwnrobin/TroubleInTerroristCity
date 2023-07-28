@@ -52,9 +52,9 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                 Debug.LogWarning(gameObject.name + " Animator Controller is null!");
                 return false;
             }
-
+            
             _playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
-
+            
             _masterMixer = AnimationLayerMixerPlayable.Create(_playableGraph, 2);
             _slotAnimMixer = new CoreAnimMixer(_playableGraph, 1 + maxAnimCount, true);
             var output = AnimationPlayableOutput.Create(_playableGraph, "FPSAnimator", _animator);
@@ -87,7 +87,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                 _slotAnimMixer.Update();
             }
         }
-
+        
         public float GetCurveValue(string curveName)
         {
             return _slotAnimMixer.GetCurveValue(curveName);
@@ -178,27 +178,19 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
         public void BeginSample()
         {
-            // Disable the animator layer
-            _overlayPoseMixer.mixer.SetInputWeight(0, 0f);
             // Make sure the overlay pose is applied to the whole body
-            _overlayPoseMixer.SetAvatarMask(new AvatarMask());
-            _slotAnimMixer.SetAvatarMask(new AvatarMask());
+            _overlayPoseMixer.OnSampleUpdate(new AvatarMask());
+            _slotAnimMixer.OnSampleUpdate(new AvatarMask());
             // Apply graph
             _playableGraph.Evaluate();
         }
 
         public void EndSample()
         {
-            // Enable animator back
-            _overlayPoseMixer.mixer.SetInputWeight(0, 1f);
             // Restore original avatar mask
-            _overlayPoseMixer.SetAvatarMask(upperBodyMask);
-            _slotAnimMixer.SetAvatarMask(upperBodyMask);
             // Update graph weights. We need to keep the weights as is before the IK bone retargeting
-            _overlayPoseMixer.UpdateMixerWeight();
-            _slotAnimMixer.UpdateMixerWeight();
-            // Apply graph
-            _playableGraph.Evaluate();
+            _overlayPoseMixer.OnSampleUpdate(upperBodyMask, false);
+            _slotAnimMixer.OnSampleUpdate(upperBodyMask, false);
         }
 
         // Samples overlay static pose, must be called during Update()

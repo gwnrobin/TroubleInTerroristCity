@@ -51,7 +51,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             {
                 if (leftHandMask.GetTransformActive(i))
                 {
-                    leftHandChain.Add(new BoneTransform(transform.Find(leftHandMask.GetTransformPath(i))));
+                    var t = transform.Find(leftHandMask.GetTransformPath(i));
+                    leftHandChain.Add(new BoneTransform(t));
                 }
             }
         }
@@ -69,12 +70,12 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                 leftHandChain[i] = bone;
             }
 
-            var pivot = GetGunData().gunAimData.pivotPoint;
-
-            pivot.rotation *= GetGunData().rotationOffset;
-            defaultLeftHand.position = pivot.InverseTransformPoint(GetLeftHandIK().target.position);
-            defaultLeftHand.rotation = Quaternion.Inverse(pivot.rotation) * GetLeftHandIK().target.rotation;
-            pivot.rotation *= Quaternion.Inverse(GetGunData().rotationOffset);
+            var rotOffset = GetGunAsset() != null ? GetGunAsset().rotationOffset : GetGunData().rotationOffset;
+            
+            GetPivotPoint().rotation *= rotOffset;
+            defaultLeftHand.position = GetPivotPoint().InverseTransformPoint(GetLeftHandIK().target.position);
+            defaultLeftHand.rotation = Quaternion.Inverse(GetPivotPoint().rotation) * GetLeftHandIK().target.rotation;
+            GetPivotPoint().rotation *= Quaternion.Inverse(rotOffset);
         }
 
         private void OverrideLeftHand(float weight)
@@ -91,15 +92,15 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             var basePos = GetMasterPivot().InverseTransformPoint(GetLeftHand().position) + GetPivotOffset();
             var baseRot = 
                 Quaternion.Inverse(Quaternion.Inverse(GetMasterPivot().rotation) * GetLeftHand().rotation);
-            
+
             LocRot handTransform;
-            if (GetGunData().leftHandTarget == null)
+            if (GetTransforms().leftHandTarget == null)
             {
                 handTransform = defaultLeftHand;
             }
             else
             {
-                var target = GetGunData().leftHandTarget;
+                var target = GetTransforms().leftHandTarget;
                 handTransform = new LocRot(target.localPosition, target.localRotation);
             }
             

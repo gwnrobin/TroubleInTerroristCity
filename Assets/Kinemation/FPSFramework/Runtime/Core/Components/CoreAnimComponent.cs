@@ -13,12 +13,16 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
     [Serializable]
     public struct DynamicBone
     {
-        [Tooltip("Actual bone")] [Bone] public Transform target;
+        [Tooltip("Target Skeleton Bone")] 
+        [Bone] public Transform target;
 
-        [Tooltip("Target for elbows/knees")] [Bone]
-        public Transform hintTarget;
+        [Tooltip("Elbow/Knee Skeleton Bone")] 
+        [Bone] public Transform hintTarget;
+        
+        [Tooltip("Elbow/Knee IK Object")]
+        public GameObject hintObj;
 
-        [Tooltip("The representation of the DynamicBone in space")]
+        [Tooltip("Target IK Object")]
         public GameObject obj;
 
         public void Retarget()
@@ -30,6 +34,14 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
             obj.transform.position = target.position;
             obj.transform.rotation = target.rotation;
+
+            if (hintObj == null || hintTarget == null)
+            {
+                return;
+            }
+            
+            hintObj.transform.position = hintTarget.position;
+            hintObj.transform.rotation = hintTarget.rotation;
         }
 
         public void Rotate(Quaternion parent, Quaternion rotation, float alpha)
@@ -62,6 +74,9 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
         [Tooltip("Check if your rig has an IK gun bone")]
         public Transform weaponBone;
+        
+        [Tooltip("Check if your rig has an IK gun bone")]
+        public Transform weaponBoneAdditive;
 
         public Transform weaponBoneRight;
         public Transform weaponBoneLeft;
@@ -145,9 +160,11 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
         [SerializeField, Range(0f, 1f)] protected float layerAlpha = 1f;
         [SerializeField] protected float lerpSpeed;
+        [Range(0f, 1f)] public float elbowsWeight = 0f;
         protected float smoothLayerAlpha;
 
-        [Header("Misc")] [SerializeField] public bool runInEditor;
+        [Header("Misc")] 
+        [SerializeField] public bool runInEditor;
         protected CoreAnimComponent core;
 
         public void SetLayerAlpha(float weight)
@@ -155,16 +172,16 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
             layerAlpha = Mathf.Clamp01(weight);
         }
 
+        public float GetLayerAlpha()
+        {
+            return smoothLayerAlpha;
+        }
+
         // Called in Start()
         public virtual void OnAnimStart()
         {
         }
-
-        // Called each frame to copy IK bones transforms
-        public virtual void OnRetarget()
-        {
-        }
-
+        
         // Called before the main anim update cycle
         public virtual void OnPreAnimUpdate()
         {
@@ -176,7 +193,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         public virtual void OnAnimUpdate()
         {
         }
-
+        
         // Called after the IK is applied
         public virtual void OnPostIK()
         {
@@ -195,10 +212,15 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         {
             core = GetComponent<CoreAnimComponent>();
         }
-
+        
         protected WeaponAnimData GetGunData()
         {
             return core.gunData;
+        }
+
+        protected WeaponAnimAsset GetGunAsset()
+        {
+            return core.weaponAsset;
         }
 
         protected CharAnimData GetCharData()
@@ -235,7 +257,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         {
             return core.ikRigData.leftHand;
         }
-
+        
         protected Transform GetRightHand()
         {
             return core.ikRigData.rightHand.obj.transform;
@@ -288,10 +310,24 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
             GetLeftHand().rotation = leftHandTip.rotation;
         }
 
+        protected Transform GetPivotPoint()
+        {
+            return core.weaponTransformData.pivotPoint;
+        }
+        
+        protected Transform GetAimPoint()
+        {
+            return core.weaponTransformData.aimPoint;
+        }
+
+        protected WeaponTransformData GetTransforms()
+        {
+            return core.weaponTransformData;
+        }
+
         protected Vector3 GetPivotOffset()
         {
-            var pivotPoint = GetGunData().gunAimData.pivotPoint;
-            return pivotPoint != null ? pivotPoint.localPosition : Vector3.zero;
+            return GetPivotPoint() != null ? GetPivotPoint().localPosition : Vector3.zero;
         }
     }
 
@@ -303,6 +339,9 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         [FormerlySerializedAs("rigData")] public DynamicRigData ikRigData;
         public CharAnimData characterData;
         public WeaponAnimData gunData;
+
+        public WeaponAnimAsset weaponAsset;
+        [HideInInspector] public WeaponTransformData weaponTransformData;
 
         [HideInInspector] public CoreAnimGraph animGraph;
         [SerializeField] [HideInInspector] private List<AnimLayer> animLayers;
@@ -342,9 +381,11 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                 float tWeight = sliderWeight * weights.Item1;
                 float hWeight = sliderWeight * weights.Item2;
 
+                Transform hintTarget = tipBone.hintObj == null ? tipBone.hintTarget : tipBone.hintObj.transform;
+
                 var lowerBone = tipBone.target.parent;
                 CoreToolkitLib.SolveTwoBoneIK(lowerBone.parent, lowerBone, tipBone.target,
-                    tipBone.obj.transform, tipBone.hintTarget, tWeight, tWeight, hWeight);
+                    tipBone.obj.transform, hintTarget, tWeight, tWeight, hWeight);
             }
 
             SolveIK(ikRigData.rightHand, rightHandWeight, handIkWeight);
@@ -379,26 +420,43 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
             ikRigData.weaponTransform = LocRot.identity;
             ikRigData.weaponBoneRight.localPosition = ikRigData.weaponBoneLeft.localPosition = Vector3.zero;
             ikRigData.weaponBoneRight.localRotation = ikRigData.weaponBoneLeft.localRotation = Quaternion.identity;
+            
+            var additiveBone = new GameObject("WeaponBoneAdditive")
+            {
+                transform =
+                {
+                    parent = ikRigData.rootBone,
+                    localRotation = Quaternion.identity,
+                    localPosition = Vector3.zero
+                }
+            };
+            ikRigData.weaponBoneAdditive = additiveBone.transform;
         }
 
-        private void UpdateWeaponBone()
+        private Quaternion spineRotMS;
+
+        public void UpdateCoreComponent()
         {
-            ikRigData.Retarget();
             // Use the base static pose data to override weapon bone
             ikRigData.RetargetWeaponBone();
 
             animGraph.BeginSample();
             ikRigData.masterDynamic.Retarget();
-            Quaternion spineRotMS = ikRigData.GetSpineRootMS();
+            spineRotMS = ikRigData.GetSpineRootMS();
             animGraph.EndSample();
+        }
 
+        private void UpdateWeaponBone()
+        {
             ikRigData.UpdateWeaponParent();
 
-            var pivotPoint = gunData.gunAimData.pivotPoint;
+            var rotOffset = weaponAsset != null ? weaponAsset.rotationOffset : gunData.rotationOffset;
+            ikRigData.masterDynamic.Rotate(rotOffset, 1f);
+
+            var pivotPoint = weaponTransformData.pivotPoint;
             var pivotOffset = pivotPoint != null ? pivotPoint.localPosition : Vector3.zero;
 
             ikRigData.masterDynamic.Move(pivotOffset, 1f);
-            ikRigData.masterDynamic.Rotate(gunData.rotationOffset, 1f);
 
             ikRigData.rightHand.Retarget();
             ikRigData.leftHand.Retarget();
@@ -416,17 +474,17 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                 return;
             }
 #endif
+            ikRigData.Retarget();
             UpdateWeaponBone();
-            Retarget();
             PreUpdateLayers();
             UpdateLayers();
             ApplyIK();
-            PostUpdateLayers();
+            PostUpdateLayers();       
 
-            var pivotPoint = gunData.gunAimData.pivotPoint;
+            var pivotPoint = weaponTransformData.pivotPoint;
             var pivotOffset = pivotPoint != null ? pivotPoint.localPosition : Vector3.zero;
             ikRigData.AlignWeaponBone(-pivotOffset);
-
+            
             OnPostAnimUpdate?.Invoke();
         }
 
@@ -434,23 +492,8 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         {
             OnPostAnimUpdate = null;
         }
-
-        private void Retarget()
-        {
-            foreach (var layer in animLayers)
-            {
-                if (!Application.isPlaying && !layer.runInEditor)
-                {
-                    continue;
-                }
-
-                layer.OnRetarget();
-            }
-
-//ikRigData.Retarget();
-        }
-
-// Called right after retargeting
+        
+        // Called right after retargeting
         private void PreUpdateLayers()
         {
             foreach (var layer in animLayers)
@@ -466,6 +509,19 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
         private void UpdateLayers()
         {
+            bool bValidElbows = ikRigData.rightHand.hintObj != null && ikRigData.leftHand.hintObj != null;
+            if (bValidElbows)
+            {
+                var rightElbowIK = ikRigData.rightHand.hintObj.transform;
+                var leftElbowIK = ikRigData.leftHand.hintObj.transform;
+
+                rightElbowIK.position = ikRigData.rightHand.hintTarget.position;
+                rightElbowIK.rotation = ikRigData.rightHand.hintTarget.rotation;
+                
+                leftElbowIK.position = ikRigData.leftHand.hintTarget.position;
+                leftElbowIK.rotation = ikRigData.leftHand.hintTarget.rotation;
+            }
+            
             foreach (var layer in animLayers)
             {
                 if (!Application.isPlaying && !layer.runInEditor)
@@ -473,11 +529,34 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                     continue;
                 }
 
+                Transform rightElbow = null, leftElbow = null;
+                LocRot cacheElbowRight = LocRot.identity, cacheElbowLeft = LocRot.identity;
+                
+                if (bValidElbows)
+                {
+                    rightElbow = ikRigData.rightHand.hintObj.transform;
+                    leftElbow = ikRigData.leftHand.hintObj.transform;
+                    
+                    cacheElbowRight = new LocRot(rightElbow);
+                    cacheElbowLeft = new LocRot(leftElbow);
+                }
+                
                 layer.OnAnimUpdate();
+                
+                if (bValidElbows)
+                {
+                    float alpha = layer.elbowsWeight;
+                    
+                    rightElbow.position = Vector3.Lerp(cacheElbowRight.position,rightElbow.position, alpha);
+                    rightElbow.rotation = Quaternion.Slerp(cacheElbowRight.rotation,rightElbow.rotation, alpha);
+                    
+                    leftElbow.position = Vector3.Lerp(cacheElbowLeft.position,leftElbow.position, alpha);
+                    leftElbow.rotation = Quaternion.Slerp(cacheElbowLeft.rotation,leftElbow.rotation, alpha);
+                }
             }
         }
 
-// Called after IK update
+        // Called after IK pass
         private void PostUpdateLayers()
         {
             foreach (var layer in animLayers)
@@ -521,15 +600,25 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                 layer.OnPoseSampled();
             }
         }
-
+        
         public void OnGunEquipped(WeaponAnimData gunAimData)
         {
             gunData = gunAimData;
+            weaponTransformData.aimPoint = gunAimData.gunAimData.aimPoint;
+            weaponTransformData.pivotPoint = gunAimData.gunAimData.pivotPoint;
+            weaponTransformData.leftHandTarget = gunAimData.leftHandTarget;
+            weaponAsset = null;
+        }
+
+        public void OnGunEquipped(WeaponAnimAsset asset, WeaponTransformData data)
+        {
+            weaponAsset = asset;
+            weaponTransformData = data;
         }
 
         public void OnSightChanged(Transform newSight)
         {
-            gunData.gunAimData.aimPoint = newSight;
+            weaponTransformData.aimPoint = newSight;
         }
 
         public void SetCharData(CharAnimData data)
@@ -651,7 +740,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
             if (ikRigData.weaponBone == null)
             {
-                var gunBone = transform.Find("WeaponBone");
+                var gunBone = ikRigData.rootBone.Find("WeaponBone");
 
                 if (gunBone != null)
                 {
@@ -713,6 +802,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
                 Transform head = ikRigData.animator.GetBoneTransform(HumanBodyBones.Head);
                 SetupIKBones(head);
+                SetupWeaponBones();
                 return;
             }
 
@@ -763,14 +853,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                     {
                         ikRigData.leftHand.hintTarget = bone.parent;
                     }
-
-                    if (ikRigData.weaponBoneLeft == null)
-                    {
-                        var weaponBone = new GameObject("WeaponBoneLeft");
-                        ikRigData.weaponBoneLeft = weaponBone.transform;
-                        ikRigData.weaponBoneLeft.parent = ikRigData.leftHand.target;
-                    }
-
+                    
                     foundLeftHand = true;
                     continue;
                 }
@@ -791,14 +874,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                     {
                         ikRigData.rightHand.hintTarget = bone.parent;
                     }
-
-                    if (ikRigData.weaponBoneRight == null)
-                    {
-                        var weaponBone = new GameObject("WeaponBoneRight");
-                        ikRigData.weaponBoneRight = weaponBone.transform;
-                        ikRigData.weaponBoneRight.parent = ikRigData.rightHand.target;
-                    }
-
+                    
                     foundRightHand = true;
                 }
 
@@ -841,6 +917,8 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                 }
             }
 
+            SetupWeaponBones();
+            
             bool bFound = foundRightHand && foundLeftHand && foundRightFoot && foundLeftFoot && foundHead &&
                           foundPelvis;
 
@@ -864,10 +942,12 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                     ikRigData.masterDynamic.obj.transform.localPosition = Vector3.zero;
                 }
             }
+            
+            ikRigData.masterDynamic.target = ikRigData.weaponBone;
 
             if (ikRigData.rightHand.obj == null)
             {
-                var boneObject = head.transform.Find("RightHandIK");
+                var boneObject = ikRigData.masterDynamic.obj.transform.Find("RightHandIK");
 
                 if (boneObject != null)
                 {
@@ -882,10 +962,26 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
                 ikRigData.rightHand.obj.transform.localPosition = Vector3.zero;
             }
 
+            if (ikRigData.rightHand.hintObj == null)
+            {
+                var boneObject = ikRigData.masterDynamic.obj.transform.Find("RightElbowIK");
 
+                if (boneObject != null)
+                {
+                    ikRigData.rightHand.hintObj = boneObject.gameObject;
+                }
+                else
+                {
+                    ikRigData.rightHand.hintObj = new GameObject("RightElbowIK");
+                }
+
+                ikRigData.rightHand.hintObj.transform.parent = ikRigData.masterDynamic.obj.transform;
+                ikRigData.rightHand.hintObj.transform.localPosition = Vector3.zero;
+            }
+            
             if (ikRigData.leftHand.obj == null)
             {
-                var boneObject = head.transform.Find("LeftHandIK");
+                var boneObject = ikRigData.masterDynamic.obj.transform.Find("LeftHandIK");
 
                 if (boneObject != null)
                 {
@@ -898,6 +994,61 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
                 ikRigData.leftHand.obj.transform.parent = ikRigData.masterDynamic.obj.transform;
                 ikRigData.leftHand.obj.transform.localPosition = Vector3.zero;
+            }
+            
+            if (ikRigData.leftHand.hintObj == null)
+            {
+                var boneObject = ikRigData.masterDynamic.obj.transform.Find("LeftElbowIK");
+
+                if (boneObject != null)
+                {
+                    ikRigData.leftHand.hintObj = boneObject.gameObject;
+                }
+                else
+                {
+                    ikRigData.leftHand.hintObj = new GameObject("LeftElbowIK");
+                }
+
+                ikRigData.leftHand.hintObj.transform.parent = ikRigData.masterDynamic.obj.transform;
+                ikRigData.leftHand.hintObj.transform.localPosition = Vector3.zero;
+            }
+        }
+
+        private void SetupWeaponBones()
+        {
+            var rightHand = ikRigData.rightHand.target;
+            var lefTHand= ikRigData.leftHand.target;
+            
+            if (rightHand != null && ikRigData.weaponBoneRight == null)
+            {
+                var boneObject = rightHand.Find("WeaponBoneRight");
+
+                if (boneObject == null)
+                {
+                    var weaponBone = new GameObject("WeaponBoneRight");
+                    ikRigData.weaponBoneRight = weaponBone.transform;
+                    ikRigData.weaponBoneRight.parent = rightHand;
+                }
+                else
+                {
+                    ikRigData.weaponBoneRight = boneObject;
+                }
+            }
+            
+            if (lefTHand != null && ikRigData.weaponBoneLeft == null)
+            {
+                var boneObject = lefTHand.Find("WeaponBoneLeft");
+
+                if (boneObject == null)
+                {
+                    var weaponBone = new GameObject("WeaponBoneLeft");
+                    ikRigData.weaponBoneLeft = weaponBone.transform;
+                    ikRigData.weaponBoneLeft.parent = lefTHand;
+                }
+                else
+                {
+                    ikRigData.weaponBoneLeft = boneObject;
+                }
             }
         }
 

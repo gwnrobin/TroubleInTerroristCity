@@ -50,10 +50,43 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             rotation = rot;
         }
         
-        public LocRot(Transform t)
+        public LocRot(Transform t, bool worldSpace = true)
         {
-            position = t.position;
-            rotation = t.rotation;
+            if (worldSpace)
+            {
+                position = t.position;
+                rotation = t.rotation;
+            }
+            else
+            {
+                position = t.localPosition;
+                rotation = t.localRotation;
+            }
+        }
+    }
+
+    public struct SpringState
+    {
+        public float error;
+        public float velocity;
+
+        public void Reset()
+        {
+            error = velocity = 0f;
+        }
+    }
+
+    public struct VectorSpringState
+    {
+        public SpringState x;
+        public SpringState y;
+        public SpringState z;
+        
+        public void Reset()
+        {
+            x.Reset();
+            y.Reset();
+            z.Reset();
         }
     }
 
@@ -65,8 +98,6 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         public float speed;
         public float mass;
         public float maxValue;
-        [NonSerialized] public float error;
-        [NonSerialized] public float velocity;
 
         public SpringData(float stiffness, float damping, float speed, float mass)
         {
@@ -74,9 +105,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             criticalDamping = damping;
             this.speed = speed;
             this.mass = mass;
-
-            error = 0f;
-            velocity = 0f;
+            
             maxValue = 0f;
         }
         
@@ -86,9 +115,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             criticalDamping = damping;
             this.speed = speed;
             mass = 1f;
-
-            error = 0f;
-            velocity = 0f;
+            
             maxValue = 0f;
         }
     }
@@ -158,7 +185,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         private const float FloatMin = 1e-10f;
         private const float SqrEpsilon = 1e-8f;
 
-        public static float SpringInterp(float current, float target, ref SpringData springData)
+        public static float SpringInterp(float current, float target, ref SpringData springData, ref SpringState state)
         {
             float interpSpeed = Mathf.Min(Time.deltaTime * springData.speed, 1f);
             target = Mathf.Clamp(target, -springData.maxValue, springData.maxValue);
@@ -169,13 +196,13 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
                 {
                     float damping = 2 * Mathf.Sqrt(springData.mass * springData.stiffness) * springData.criticalDamping;
                     float error = target - current;
-                    float errorDeriv = (error - springData.error);
-                    springData.velocity +=
+                    float errorDeriv = (error - state.error);
+                    state.velocity +=
                         (error * springData.stiffness * interpSpeed + errorDeriv * damping) /
                         springData.mass;
-                    springData.error = error;
+                    state.error = error;
 
-                    float value = current + springData.velocity * interpSpeed;
+                    float value = current + state.velocity * interpSpeed;
                     return value;
                 }
             
@@ -185,29 +212,18 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             return current;
         }
 
-        public static Vector3 SpringInterp(Vector3 current, Vector3 target, ref VectorSpringData springData)
+        public static Vector3 SpringInterp(Vector3 current, Vector3 target, ref VectorSpringData springData, 
+            ref VectorSpringState state)
         {
             Vector3 final = Vector3.zero;
 
-            final.x = SpringInterp(current.x, target.x * springData.scale.x, ref springData.x);
-            final.y = SpringInterp(current.y, target.y * springData.scale.y, ref springData.y);
-            final.z = SpringInterp(current.z, target.z * springData.scale.z, ref springData.z);
+            final.x = SpringInterp(current.x, target.x * springData.scale.x, ref springData.x, ref state.x);
+            final.y = SpringInterp(current.y, target.y * springData.scale.y, ref springData.y, ref state.y);
+            final.z = SpringInterp(current.z, target.z * springData.scale.z, ref springData.z, ref state.z);
 
             return final;
         }
-
-        public static LocRot SpringInterp(LocRot current, LocRot target,
-            ref LocRotSpringData springData)
-        {
-            LocRot final = new LocRot(Vector3.zero, Quaternion.identity);
-
-            final.position = SpringInterp(current.position, target.position, ref springData.loc);
-            final.rotation = Quaternion.Euler(SpringInterp(current.rotation.eulerAngles, target.rotation.eulerAngles,
-                ref springData.rot));
-            
-            return final;
-        }
-
+        
         // Frame-rate independent interpolation
         public static float Glerp(float a, float b, float speed)
         {
@@ -253,7 +269,6 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         public static void RotateInBoneSpace(Quaternion parent, Transform bone, Quaternion rotation, float alpha)
         {
             Quaternion boneRot = bone.rotation;
-            //(parent * rotation) * (Quaternion.Inverse(parent) * boneRot);
             Quaternion outRot = rotation * (Quaternion.Inverse(parent) * boneRot);
             bone.rotation = Quaternion.Slerp(boneRot, parent * outRot, alpha);
         }
