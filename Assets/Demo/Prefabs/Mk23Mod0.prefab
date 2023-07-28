@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData:
+  weaponAnimData:
     leftHandTarget: {fileID: 0}
     rotationOffset: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
     gunAimData:
@@ -143,6 +143,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0, y: 0, z: 0}
       maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0.52
       startOffset: 0.05
@@ -150,6 +192,11 @@ MonoBehaviour:
       restPose:
         position: {x: -0.05, y: -0.09, z: -0.03}
         rotation: {x: -0.22627231, y: 0.18844119, z: -0.091121025, w: -0.9513084}
+  weaponAsset: {fileID: 11400000, guid: b479c727365835b47911b938ef833fb6, type: 2}
+  weaponTransformData:
+    pivotPoint: {fileID: 5900204409153896922}
+    aimPoint: {fileID: 6506212990733282748}
+    leftHandTarget: {fileID: 0}
   aimOffsetTable: {fileID: 11400000, guid: 052241ee40ded7e449d93b8dc8023f3d, type: 2}
   recoilData: {fileID: 11400000, guid: b8322254b95a80542b94c6fdb865f169, type: 2}
   fireMode: 0
@@ -245,6 +292,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 877739867843346512, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 877739867843346512, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000178
+      objectReference: {fileID: 0}
+    - target: {fileID: 877739867843346512, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000604
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
       propertyPath: m_Name

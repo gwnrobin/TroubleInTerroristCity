@@ -15,6 +15,6 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 85d2a60476fe0c14eb5fb236f50052e7, type: 2}
   mask: {fileID: 0}
   blendTime:
-    blendInTime: 0
+    blendInTime: 0.06
     blendOutTime: 0
   curves: []

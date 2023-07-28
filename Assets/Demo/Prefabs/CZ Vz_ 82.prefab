@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData:
+  weaponAnimData:
     leftHandTarget: {fileID: 6990100777791848041}
     rotationOffset: {x: 0, y: 0, z: 0, w: 1}
     gunAimData:
@@ -601,6 +601,11 @@ MonoBehaviour:
       restPose:
         position: {x: 0, y: 0, z: 0}
         rotation: {x: 0, y: 0, z: 0, w: 0}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
   aimOffsetTable: {fileID: 11400000, guid: 052241ee40ded7e449d93b8dc8023f3d, type: 2}
   recoilData: {fileID: 11400000, guid: b8322254b95a80542b94c6fdb865f169, type: 2}
   fireMode: 0

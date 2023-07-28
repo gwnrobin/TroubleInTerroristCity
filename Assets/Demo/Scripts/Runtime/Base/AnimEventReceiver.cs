@@ -20,5 +20,10 @@ namespace Demo.Scripts.Runtime.Base
         {
             controller.SetActionActive(isActive);
         }
+        /*
+        public void ChangeWeapon()
+        {
+            controller.EquipWeapon();
+        }*/
     }
 }
