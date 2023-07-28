@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace Demo.Scripts.Runtime.Base
 {
-    public class AnimEventReceiver : MonoBehaviour
+    public class AnimEventReceiver : PlayerComponent
     {
         [SerializeField] private PlayerAnimController controller;
+
+        [SerializeField] private EquipmentController equipmentController;
 
         private void Start()
         {
@@ -20,10 +22,12 @@ namespace Demo.Scripts.Runtime.Base
         {
             controller.SetActionActive(isActive);
         }
-        /*
+        
         public void ChangeWeapon()
         {
-            controller.EquipWeapon();
-        }*/
+            equipmentController.Equip(Player.EquippedItem.Get());
+            //equipmentController.m_WaitingToEquip = false;
+            //controller.EquipWeapon();
+        }
     }
 }

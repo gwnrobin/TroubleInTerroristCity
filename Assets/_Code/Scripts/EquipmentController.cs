@@ -64,16 +64,17 @@ public class EquipmentController : PlayerComponent
             if (endedReloading)
                 Player.Reload.ForceStop();
         }
-
+        
         //Equip the new item after the previous one has been unequipped
         if (m_WaitingToEquip && Time.time > m_NextTimeToEquip)
         {
-            Equip(Player.EquippedItem.Get());
+            //activeEHandler.EquipNewWeapon();
+            //Equip(Player.EquippedItem.Get());
             m_WaitingToEquip = false;
         }
     }
 
-    private void Equip(Item item)
+    public void Equip(Item item)
     {
         if (Player.Aim.Active)
             Player.Aim.ForceStop();
@@ -92,7 +93,7 @@ public class EquipmentController : PlayerComponent
         int newIndex = _index;
         newIndex += index;
 
-        if (newIndex > activeEHandler._equipmentItems.Count - 1)
+        if (newIndex > 2)
         {
             newIndex = 0;
         }
@@ -136,6 +137,7 @@ public class EquipmentController : PlayerComponent
             return false;
 
         ChangeItem(item, instantly);
+        activeEHandler.StartWeaponChange();
 
         return true;
     }

@@ -28654,7 +28654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData:
+  weaponAnimData:
     leftHandTarget: {fileID: 0}
     rotationOffset: {x: 0, y: 0, z: 0, w: 1}
     gunAimData:
@@ -28718,6 +28718,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0, y: 0, z: 0}
       maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0
       startOffset: 0
@@ -28725,6 +28767,11 @@ MonoBehaviour:
       restPose:
         position: {x: 0, y: 0, z: 0}
         rotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
   aimOffsetTable: {fileID: 11400000, guid: 7058601491d8f444287872b2f8c05086, type: 2}
   recoilData: {fileID: 11400000, guid: 0720a1377eae4234b89eb7e573924ff2, type: 2}
   fireMode: 1
@@ -29671,6 +29718,7 @@ MonoBehaviour:
   curveName: 
   layerAlpha: 1
   lerpSpeed: 0
+  elbowsWeight: 0
   runInEditor: 0
   footTraceLength: 1.2
   footInterpSpeed: 18
@@ -30523,6 +30571,7 @@ MonoBehaviour:
   curveName: MaskLeftHandIK
   layerAlpha: 1
   lerpSpeed: 0
+  elbowsWeight: 0
   runInEditor: 1
   maskCurveName: MaskLeftHand
   leftHandTarget: {fileID: 0}
@@ -32854,7 +32903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData:
+  weaponAnimData:
     leftHandTarget: {fileID: 0}
     rotationOffset: {x: 0, y: 0, z: 0, w: 1}
     gunAimData:
@@ -32918,6 +32967,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0, y: 0, z: 0}
       maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0
       startOffset: 0
@@ -32925,6 +33016,11 @@ MonoBehaviour:
       restPose:
         position: {x: 0, y: 0, z: 0}
         rotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
   aimOffsetTable: {fileID: 11400000, guid: 7058601491d8f444287872b2f8c05086, type: 2}
   recoilData: {fileID: 11400000, guid: b0d912a5cd6b9864c87bd779c079da50, type: 2}
   fireMode: 2
@@ -33016,6 +33112,7 @@ MonoBehaviour:
   curveName: 
   layerAlpha: 1
   lerpSpeed: 9
+  elbowsWeight: 0
   runInEditor: 0
   adsEaseMode:
     easeFunc: 1
@@ -33036,6 +33133,10 @@ MonoBehaviour:
   aimLayerAlphaLoc: 0
   aimLayerAlphaRot: 0
   aimTarget: {fileID: 947625269304481939}
+  crouchPose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  crouchPoseCurve: 
 --- !u!1 &2465168968814270437
 GameObject:
   m_ObjectHideFlags: 0
@@ -33765,6 +33866,7 @@ MonoBehaviour:
   curveName: 
   layerAlpha: 1
   lerpSpeed: 5
+  elbowsWeight: 0
   runInEditor: 1
   handsLayerAlpha: 1
   handsLerpSpeed: 8
@@ -34366,6 +34468,7 @@ MonoBehaviour:
   curveName: 
   layerAlpha: 1
   lerpSpeed: 0
+  elbowsWeight: 0
   runInEditor: 0
   useMeshSpace: 0
 --- !u!33 &3075883092242081630
@@ -35224,7 +35327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData:
+  weaponAnimData:
     leftHandTarget: {fileID: 0}
     rotationOffset: {x: 0, y: 0, z: 0, w: 1}
     gunAimData:
@@ -35288,6 +35391,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0, y: 0, z: 0}
       maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0
       startOffset: 0
@@ -35295,6 +35440,11 @@ MonoBehaviour:
       restPose:
         position: {x: 0, y: 0, z: 0}
         rotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
   aimOffsetTable: {fileID: 11400000, guid: 7058601491d8f444287872b2f8c05086, type: 2}
   recoilData: {fileID: 11400000, guid: 701f03450b087154cb4b65151dff9f83, type: 2}
   fireMode: 1
@@ -37935,6 +38085,7 @@ MonoBehaviour:
   curveName: 
   layerAlpha: 1
   lerpSpeed: 0
+  elbowsWeight: 0
   runInEditor: 0
 --- !u!114 &4960595434188648102
 MonoBehaviour:
@@ -39178,7 +39329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData:
+  weaponAnimData:
     leftHandTarget: {fileID: 0}
     rotationOffset: {x: 0, y: 0, z: 0, w: 1}
     gunAimData:
@@ -39242,6 +39393,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0, y: 0, z: 0}
       maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0
       startOffset: 0
@@ -39249,6 +39442,11 @@ MonoBehaviour:
       restPose:
         position: {x: 0, y: 0, z: 0}
         rotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
   aimOffsetTable: {fileID: 11400000, guid: 052241ee40ded7e449d93b8dc8023f3d, type: 2}
   recoilData: {fileID: 11400000, guid: b8322254b95a80542b94c6fdb865f169, type: 2}
   fireMode: 0
@@ -39714,6 +39912,7 @@ MonoBehaviour:
   curveName: 
   layerAlpha: 1
   lerpSpeed: 0
+  elbowsWeight: 0
   runInEditor: 0
   headBone: {fileID: 6735484617787855212}
   freeAimData:
@@ -40562,6 +40761,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0.01, y: -0.006, z: 0.01}
       maxMoveRotSway: {x: 2, y: 0.8, z: -7}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0.93
       startOffset: 0.37
@@ -40578,6 +40819,124 @@ MonoBehaviour:
   scopes:
   - {fileID: 5599222141914839115}
   test: {fileID: 0}
+  weaponAnimData:
+    leftHandTarget: {fileID: 0}
+    rotationOffset: {x: 0, y: 0, z: 0, w: 1}
+    gunAimData:
+      target: {fileID: 0}
+      pivotPoint: {fileID: 0}
+      aimPoint: {fileID: 0}
+      pointAimOffset:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 1}
+      aimSpeed: 1
+      changeSightSpeed: 1
+      pointAimSpeed: 1
+    viewOffset:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+    springData:
+      loc:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      rot:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+    freeAimData:
+      scalar: 0
+      maxValue: 0
+      speed: 0
+    moveSwayData:
+      maxMoveLocSway: {x: 0, y: 0, z: 0}
+      maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
+    blockData:
+      weaponLength: 0
+      startOffset: 0
+      threshold: 0
+      restPose:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
 --- !u!33 &6173493756248705787
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -40837,6 +41196,7 @@ MonoBehaviour:
   curveName: SprintWeight
   layerAlpha: 1
   lerpSpeed: 12
+  elbowsWeight: 0
   runInEditor: 0
   highReadyPose:
     position: {x: -0.01, y: 0.02, z: -0.04}
@@ -40848,6 +41208,7 @@ MonoBehaviour:
   readyInterpSpeed: 6
   rotationScale: 0.05
   translationScale: 0.0002
+  smoothSpeed: 1
   sprintPoseWeight: SprintPoseWeight
   sprintBlendCurve:
     serializedVersion: 2
@@ -40899,6 +41260,7 @@ MonoBehaviour:
   curveName: 
   layerAlpha: 1
   lerpSpeed: 0
+  elbowsWeight: 0
   runInEditor: 0
   layerMask:
     serializedVersion: 2
@@ -42199,535 +42561,12 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 403081883557755764}
   sensitivity: 0.5
   freeLookAngle: {x: 60, y: 60}
-  aimMotion:
-    rot:
-      x:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 25.50231
-          outSlope: 25.50231
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.19606067
-          value: 5
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.50711656
-          value: 0.34131145
-          inSlope: -7.8347464
-          outSlope: -7.8347464
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0
-          inSlope: -0.692479
-          outSlope: -0.692479
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      y:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: -74.0714
-          outSlope: -74.0714
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.13165486
-          value: -9.75186
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.24479043
-          value: -3.5046895
-          inSlope: 37.653664
-          outSlope: 37.653664
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.41680908
-          value: -0.04902649
-          inSlope: 0.31371203
-          outSlope: 0.31371203
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.2147705
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      z:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 157.2428
-          outSlope: 157.2428
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.17838435
-        - serializedVersion: 3
-          time: 0.10620625
-          value: 19.769085
-          inSlope: -0.52861786
-          outSlope: -0.52861786
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.28829584
-        - serializedVersion: 3
-          time: 0.39317572
-          value: -6.521182
-          inSlope: 2.2684348
-          outSlope: 2.2684348
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.6688708
-        - serializedVersion: 3
-          time: 0.66402733
-          value: 1.3551264
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.9674443
-          value: -0.9411144
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1.2848692
-          value: 0.4957242
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1.622503
-          value: 0
-          inSlope: 0.62581545
-          outSlope: 0.62581545
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.30532622
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-    loc:
-      x:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      y:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      z:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0.41795668
-          outSlope: 0.41795668
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.12331939
-          value: 0.051542163
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.39814115
-          value: -0.011881448
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.6981615
-          value: 0.0043928353
-          inSlope: 0.0037862265
-          outSlope: 0.0037862265
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.25225678
-        - serializedVersion: 3
-          time: 1
-          value: 0
-          inSlope: 0.0049459194
-          outSlope: 0.0049459194
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.22070263
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-    blendSpeed: 1.75
-    playRate: 1.7
-    outMotion:
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 0}
-  leanMotion:
-    rot:
-      x:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 33.92428
-          outSlope: 33.92428
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.10369922
-          value: 3.5179214
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.4776504
-          value: -0.78794664
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.7829776
-          value: 0.26841444
-          inSlope: 0.44898066
-          outSlope: 0.44898066
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.24068643
-        - serializedVersion: 3
-          time: 1.1343384
-          value: 0
-          inSlope: -0.12507069
-          outSlope: -0.12507069
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.30901733
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      y:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: -13.718715
-          outSlope: -13.718715
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.16458333
-          value: -2.2578716
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.34806573
-          value: 1.4402542
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.4981079
-          value: 0
-          inSlope: -8.795292
-          outSlope: -8.795292
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.3141751
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      z:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 157.2428
-          outSlope: 157.2428
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.17838435
-        - serializedVersion: 3
-          time: 0.10620625
-          value: 19.769085
-          inSlope: -0.52861786
-          outSlope: -0.52861786
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.28829584
-        - serializedVersion: 3
-          time: 0.39317572
-          value: -6.521182
-          inSlope: 2.2684348
-          outSlope: 2.2684348
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.6688708
-        - serializedVersion: 3
-          time: 0.66402733
-          value: 1.3551264
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.9674443
-          value: -0.9411144
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1.2848692
-          value: 0.4957242
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1.622503
-          value: 0
-          inSlope: 0.62581545
-          outSlope: 0.62581545
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.30532622
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-    loc:
-      x:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.8342285
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      y:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      z:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0.41795668
-          outSlope: 0.41795668
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.12331939
-          value: 0.051542163
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.39814115
-          value: -0.011881448
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.6981615
-          value: 0.0043928353
-          inSlope: 0.0037862265
-          outSlope: 0.0037862265
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.25225678
-        - serializedVersion: 3
-          time: 1
-          value: 0
-          inSlope: 0.0049459194
-          outSlope: 0.0049459194
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.22070263
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-    blendSpeed: 1.7
-    playRate: 1.6
-    outMotion:
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 0}
+  aimMotionAsset: {fileID: 11400000, guid: 8d4c00b0add69ee479563b13a59805f9, type: 2}
+  leanMotionAsset: {fileID: 11400000, guid: ba2e1a2496024db428982ac4e189d5e2, type: 2}
+  crouchMotionAsset: {fileID: 11400000, guid: e17c7783a4255b748bf51256f0ae18c6, type: 2}
+  unCrouchMotionAsset: {fileID: 11400000, guid: 2201ebb031bed8249a648b1e4a66b39d, type: 2}
+  onJumpMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
+  onLandedMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
   turnInPlaceAngle: 85
   turnCurve:
     serializedVersion: 2
@@ -43326,6 +43165,7 @@ MonoBehaviour:
     animator: {fileID: 5124081822636291270}
     pelvis: {fileID: 7591111827473237747}
     weaponBone: {fileID: 465058772043170240}
+    weaponBoneAdditive: {fileID: 0}
     weaponBoneRight: {fileID: 5998754868805713864}
     weaponBoneLeft: {fileID: 2381914274611037245}
     weaponBoneWeight: 0
@@ -43335,22 +43175,27 @@ MonoBehaviour:
     masterDynamic:
       target: {fileID: 465058772043170240}
       hintTarget: {fileID: 0}
+      hintObj: {fileID: 0}
       obj: {fileID: 6789142537905541580}
     rightHand:
       target: {fileID: 5858584690050643272}
       hintTarget: {fileID: 565766560858407368}
+      hintObj: {fileID: 776853424060325511}
       obj: {fileID: 6539572292683399777}
     leftHand:
       target: {fileID: 7756408196636781721}
       hintTarget: {fileID: 7096551203594153810}
+      hintObj: {fileID: 4527987051116654113}
       obj: {fileID: 7232098096307494004}
     rightFoot:
       target: {fileID: 5967901663162143787}
       hintTarget: {fileID: 3051905070219767569}
+      hintObj: {fileID: 0}
       obj: {fileID: 8062478740342796714}
     leftFoot:
       target: {fileID: 7543127271155038266}
       hintTarget: {fileID: 2701460781972246134}
+      hintObj: {fileID: 0}
       obj: {fileID: 637568914536521175}
     spineRoot: {fileID: 5497368586465015022}
     rootBone: {fileID: 5282489128286930409}
@@ -43418,6 +43263,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0, y: 0, z: 0}
       maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0
       startOffset: 0
@@ -43425,6 +43312,11 @@ MonoBehaviour:
       restPose:
         position: {x: 0, y: 0, z: 0}
         rotation: {x: 0, y: 0, z: 0, w: 0}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
   animGraph: {fileID: 4455606302184141427}
   animLayers:
   - {fileID: 1200897252997915678}
@@ -43723,6 +43615,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0, y: 0, z: 0}
       maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0.52
       startOffset: 0.05
@@ -43739,6 +43673,124 @@ MonoBehaviour:
   scopes:
   - {fileID: 1337175829181668012}
   test: {fileID: 0}
+  weaponAnimData:
+    leftHandTarget: {fileID: 0}
+    rotationOffset: {x: 0, y: 0, z: 0, w: 1}
+    gunAimData:
+      target: {fileID: 0}
+      pivotPoint: {fileID: 0}
+      aimPoint: {fileID: 0}
+      pointAimOffset:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 1}
+      aimSpeed: 1
+      changeSightSpeed: 1
+      pointAimSpeed: 1
+    viewOffset:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+    springData:
+      loc:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      rot:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+    freeAimData:
+      scalar: 0
+      maxValue: 0
+      speed: 0
+    moveSwayData:
+      maxMoveLocSway: {x: 0, y: 0, z: 0}
+      maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
+    blockData:
+      weaponLength: 0
+      startOffset: 0
+      threshold: 0
+      restPose:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponAsset: {fileID: 11400000, guid: b479c727365835b47911b938ef833fb6, type: 2}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
 --- !u!114 &7090702509111061338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46499,7 +46551,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb80aa9551eed74fbfdbd2713c9f7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  controller: {fileID: 6803061341234373713}
+  equipmentController: {fileID: 4603933444046417798}
 --- !u!4 &8052794525006146108
 Transform:
   m_ObjectHideFlags: 0
@@ -47030,6 +47083,48 @@ MonoBehaviour:
     moveSwayData:
       maxMoveLocSway: {x: 0.01, y: -0.006, z: 0.01}
       maxMoveRotSway: {x: 2, y: 0.8, z: -7}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
     blockData:
       weaponLength: 0.93
       startOffset: 0.37
@@ -47045,6 +47140,124 @@ MonoBehaviour:
     rotation: {x: -0, y: -0, z: -0, w: 1}
   scopes: []
   test: {fileID: 391651947737662775, guid: 7b9db62ca4918f8469ff1d286eefd260, type: 3}
+  weaponAnimData:
+    leftHandTarget: {fileID: 0}
+    rotationOffset: {x: 0, y: 0, z: 0, w: 1}
+    gunAimData:
+      target: {fileID: 0}
+      pivotPoint: {fileID: 0}
+      aimPoint: {fileID: 0}
+      pointAimOffset:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 1}
+      aimSpeed: 1
+      changeSightSpeed: 1
+      pointAimSpeed: 1
+    viewOffset:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+    springData:
+      loc:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      rot:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+    freeAimData:
+      scalar: 0
+      maxValue: 0
+      speed: 0
+    moveSwayData:
+      maxMoveLocSway: {x: 0, y: 0, z: 0}
+      maxMoveRotSway: {x: 0, y: 0, z: 0}
+      moveLocSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      moveRotSway:
+        x:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        y:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        z:
+          stiffness: 0
+          criticalDamping: 0
+          speed: 0
+          mass: 0
+          maxValue: 0
+        scale: {x: 0, y: 0, z: 0}
+      locSpeed: {x: 0, y: 0, z: 0}
+      rotSpeed: {x: 0, y: 0, z: 0}
+    blockData:
+      weaponLength: 0
+      startOffset: 0
+      threshold: 0
+      restPose:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponAsset: {fileID: 0}
+  weaponTransformData:
+    pivotPoint: {fileID: 0}
+    aimPoint: {fileID: 0}
+    leftHandTarget: {fileID: 0}
 --- !u!114 &8289850118785616543
 MonoBehaviour:
   m_ObjectHideFlags: 0

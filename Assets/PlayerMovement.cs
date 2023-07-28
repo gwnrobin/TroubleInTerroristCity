@@ -129,8 +129,12 @@ public class PlayerMovement : PlayerComponent
     [Space]
 
     [Header("Dynamic Motions")]
-    [SerializeField] private DynamicMotion aimMotion;
-    [SerializeField] private DynamicMotion leanMotion;
+    [SerializeField] private IKAnimation aimMotionAsset;
+    [SerializeField] private IKAnimation leanMotionAsset;
+    [SerializeField] private IKAnimation crouchMotionAsset;
+    [SerializeField] private IKAnimation unCrouchMotionAsset;
+    [SerializeField] private IKAnimation onJumpMotionAsset;
+    [SerializeField] private IKAnimation onLandedMotionAsset;
 
     [Space]
 
@@ -336,6 +340,7 @@ public class PlayerMovement : PlayerComponent
 
         Player.PoseState.Set(FPSPoseState.Crouching);
         animator.SetBool(Crouching, true);
+        playerAnimController.SlotLayer.PlayMotion(crouchMotionAsset);
     }
 
     private void Standup()
@@ -344,6 +349,7 @@ public class PlayerMovement : PlayerComponent
 
         Player.PoseState.Set(FPSPoseState.Standing);
         animator.SetBool(Crouching, false);
+        playerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
     }
     #endregion
     private void Lean()
@@ -354,7 +360,7 @@ public class PlayerMovement : PlayerComponent
         if (Player.ActionState.Val != FPSActionState.Ready)
         {
             Player.CharAnimData.leanDirection = (int)Player.Lean.Parameter;
-            playerAnimController.SlotLayer.PlayMotion(leanMotion);
+            playerAnimController.SlotLayer.PlayMotion(leanMotionAsset);
         }
     }
 
@@ -460,6 +466,7 @@ public class PlayerMovement : PlayerComponent
 
         // Apply gravity.
         velocity.y -= gravity * deltaTime;
+        playerAnimController.SlotLayer.PlayMotion(!IsGrounded ? onJumpMotionAsset : onLandedMotionAsset);
     }
     private void UpdateLookInput()
     {

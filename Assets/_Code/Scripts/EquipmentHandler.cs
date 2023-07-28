@@ -42,6 +42,8 @@ public class EquipmentHandler : PlayerComponent
 
     [SerializeField] private RecoilAnimation recoilAnimation;
     private static readonly int OverlayType = Animator.StringToHash("OverlayType");
+    private static readonly int Equip = Animator.StringToHash("Equip");
+    private static readonly int UnEquip = Animator.StringToHash("Unequip");
 
     protected AudioSource m_AudioSource;
     protected AudioSource m_PersistentAudioSource;
@@ -119,7 +121,7 @@ public class EquipmentHandler : PlayerComponent
 
         //if(_attachedEquipmentItem.GetType() == typeof(ProjectileWeapon))
         InitWeapon((ProjectileWeapon)_attachedEquipmentItem);
-
+        animator.Play(Equip);
         //animator.Play(gun.poseName);
         //Player.EquipmentController.SetActiveEquipment(gun);
         _attachedEquipmentItem.gameObject.SetActive(true);
@@ -141,6 +143,12 @@ public class EquipmentHandler : PlayerComponent
         //Player.EquippedItem.Set(item);
         _attachedEquipmentItem.Equip(item);
     }
+
+    public void StartWeaponChange()
+    {
+        animator.CrossFade(UnEquip, 0.1f);
+    }
+
 
     public EquipmentItem GetEquipmentItem(int itemId)
     {
@@ -194,6 +202,7 @@ public class EquipmentHandler : PlayerComponent
         if (_attachedEquipmentItem == null)
             return;
 
+        animator.CrossFade(UnEquip, 0.1f);
         _attachedItem = null;
         _nextTimeCanUseItem = Time.time + _attachedEquipmentItem.EquipmentInfo.Unequipping.Duration;
 
