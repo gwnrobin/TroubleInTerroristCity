@@ -12,20 +12,15 @@ public class ProjectileWeapon : EquipmentItem
     public Value<AmmoInfo> CurrentAmmoInfo = new Value<AmmoInfo>();
     public Message<Vector3[]> FireHitPoints = new Message<Vector3[]>();
 
-    protected int _ammoProperty = 30;
+    protected int _ammoProperty = 0;
 
-    // Reloading
-    private int m_AmmoToAdd;
-    private bool m_ReloadLoopStarted;
-    private float m_ReloadLoopEndTime;
-    private float m_ReloadStartTime;
-    private bool m_EndReload;
-
+    public float FireRate { get => _projectileWeaponInfo.Shooting.RoundsPerMinute; }
+    public FireMode FireMode { get => _projectileWeaponInfo.Shooting.Modes; }
     public int MagazineSize { get => _projectileWeaponInfo.Shooting.MagazineSize; }
     public bool AmmoEnabled { get => _projectileWeaponInfo.Shooting.EnableAmmo; }
 
     //temp public
-    public ProjectileWeaponInfo _projectileWeaponInfo;
+    protected ProjectileWeaponInfo _projectileWeaponInfo;
 
     public int SelectedFireMode { get; protected set; } = 8;
 
@@ -38,6 +33,17 @@ public class ProjectileWeapon : EquipmentItem
 
     public AnimSequence overlayPose;
     public LocRot weaponBone = LocRot.identity;
+
+    public WeaponAnimData weaponAnimData = new(LocRot.identity);
+    public WeaponAnimAsset weaponAsset;
+    public WeaponTransformData weaponTransformData;
+
+    // Reloading
+    private int m_AmmoToAdd;
+    private bool m_ReloadLoopStarted;
+    private float m_ReloadLoopEndTime;
+    private float m_ReloadStartTime;
+    private bool m_EndReload;
 
     public override void Initialize(EquipmentHandler eHandler)
     {

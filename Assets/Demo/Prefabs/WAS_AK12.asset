@@ -22,7 +22,7 @@ MonoBehaviour:
     changeSightSpeed: 2
     pointAimSpeed: 3
   viewOffset:
-    position: {x: -0.05, y: 0.07, z: 0.03}
+    position: {x: -0.02, y: 0.13, z: 0.06}
     rotation: {x: 0, y: 0, z: 0.032195758, w: 0.99948156}
   springData:
     loc:

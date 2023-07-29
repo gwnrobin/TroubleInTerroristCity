@@ -16,13 +16,13 @@ MonoBehaviour:
   adsData:
     target: {fileID: 0}
     pointAimOffset:
-      position: {x: -0.01, y: 0.02, z: -0.03}
+      position: {x: -0.05, y: 0.1, z: -0.03}
       rotation: {x: 0.000019564823, y: 0.000610666, z: -0.0320214, w: -0.999487}
     aimSpeed: 3.5
     changeSightSpeed: 3
     pointAimSpeed: 3
   viewOffset:
-    position: {x: -0.005, y: 0.05, z: 0.08}
+    position: {x: 0.03, y: 0.05, z: 0.08}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   springData:
     loc:

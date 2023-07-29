@@ -24,13 +24,7 @@ public class Gun : ProjectileWeapon
 
     private int _scopeIndex;
 
-    public GameObject test;
-
     protected ItemProperty m_FireModes;
-
-    public WeaponAnimData weaponAnimData = new(LocRot.identity);
-    public WeaponAnimAsset weaponAsset;
-    public WeaponTransformData weaponTransformData;
 
     // Returns the aim point by default
     public virtual Transform GetAimPoint()
