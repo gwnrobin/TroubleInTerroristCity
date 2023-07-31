@@ -52,6 +52,9 @@ public class ProjectileWeapon : EquipmentItem
         _projectileWeaponInfo = EquipmentInfo as ProjectileWeaponInfo;
         animator = GetComponentInChildren<Animator>();
         UpdateFireModeSettings(SelectedFireMode);
+
+        _ammoProperty = _projectileWeaponInfo.Shooting.MagazineSize;
+        UpdateAmmoInfo();
     }
 
     public override void OnAimStart()

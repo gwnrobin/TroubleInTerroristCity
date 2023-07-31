@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Demo.Scripts.Runtime.Base;
 using HQFPSTemplate.Surfaces;
@@ -30,12 +31,6 @@ public class Gun : ProjectileWeapon
     public virtual Transform GetAimPoint()
     {
         return gunData.gunAimData.aimPoint;
-    }
-
-    private void Start()
-    {
-        _ammoProperty = _projectileWeaponInfo.Shooting.MagazineSize;
-        UpdateAmmoInfo();
     }
 
     public override void Initialize(EquipmentHandler eHandler)
