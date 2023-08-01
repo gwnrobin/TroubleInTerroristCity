@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1fb12a7d6f45ad9de02232442a17ff, type: 3}
   m_Name: C_Vector_ReloadEmpty
   m_EditorClassIdentifier: 
-  clip: {fileID: 7400000, guid: 989df359d5dabaf4894aaa872640347e, type: 2}
+  clip: {fileID: 7400000, guid: e1345593574f3f046959ea7c58dd1152, type: 2}
   mask: {fileID: 0}
   blendTime:
     blendInTime: 0.15
