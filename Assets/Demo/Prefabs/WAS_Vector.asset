@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3399879f743e4df2b0f3e0021bea0961, type: 3}
   m_Name: WAS_Vector
   m_EditorClassIdentifier: 
-  rotationOffset: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
+  rotationOffset: {x: 0.70710677, y: 0, z: 0, w: -0.70710677}
   adsData:
     target: {fileID: 0}
     pointAimOffset:
