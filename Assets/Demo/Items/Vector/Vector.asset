@@ -36,8 +36,8 @@ MonoBehaviour:
     UseAimBlur: 0
     AimSounds:
       m_Clips:
-      - {fileID: 8300000, guid: fa598a1541b963e4b9ffe3fe54cd9ab3, type: 3}
       - {fileID: 8300000, guid: 8621119ba0e1106459419de5ac7e7122, type: 3}
+      - {fileID: 8300000, guid: fa598a1541b963e4b9ffe3fe54cd9ab3, type: 3}
       m_VolumeRange: {x: 0.12, y: 0.15}
       m_PitchRange: {x: 0.9, y: 1.1}
       m_VolumeMultiplier: 1
@@ -106,13 +106,13 @@ MonoBehaviour:
     FireAnimationSpeed: 1
     ShootAudio:
       m_Clips:
-      - {fileID: 8300000, guid: d764ea05a5a274c4cb0529dd328f6794, type: 3}
+      - {fileID: 8300000, guid: e28332ba25469944cba5bf4b06497ade, type: 3}
       m_VolumeRange: {x: 0.95, y: 0.96}
       m_PitchRange: {x: 0.7, y: 1.2}
       m_VolumeMultiplier: 0.8
     ShootTailAudio:
       m_Clips:
-      - {fileID: 8300000, guid: 6fee423fa05606741b9e24716cb168b6, type: 3}
+      - {fileID: 0}
       m_VolumeRange: {x: 0.5, y: 0.75}
       m_PitchRange: {x: 0.9, y: 1.1}
       m_VolumeMultiplier: 1
@@ -133,11 +133,11 @@ MonoBehaviour:
     - Delay: 0.7
       Sound:
         m_Clips:
-        - {fileID: 8300000, guid: 38fbdc72c97a2ad4ab876cecfc62701e, type: 3}
-        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
-        - {fileID: 8300000, guid: 4bb85b09ed0bf484c98e550c60bc9e4c, type: 3}
         - {fileID: 8300000, guid: f1db6630a910cf94485de3b65d4a8d67, type: 3}
         - {fileID: 8300000, guid: 575c4e2899cf99c4e93358cea2c31cfd, type: 3}
+        - {fileID: 8300000, guid: 4bb85b09ed0bf484c98e550c60bc9e4c, type: 3}
+        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
+        - {fileID: 8300000, guid: 38fbdc72c97a2ad4ab876cecfc62701e, type: 3}
         m_VolumeRange: {x: 0.5, y: 0.65}
         m_PitchRange: {x: 0.95, y: 1.05}
         m_VolumeMultiplier: 1

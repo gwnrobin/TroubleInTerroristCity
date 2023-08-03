@@ -18,6 +18,7 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 		[Space]
 
 		public Vector3 MuzzleFlashOffset;
+		public Vector3 MuzzleFlashRotOffset;
 		public Vector2 MuzzleFlashRandomScale;
 		public Vector3 MuzzleFlashRandomRot;
 
@@ -139,17 +140,18 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 					Quaternion.identity,
 					muzzle
 				);
-
+				//
 				muzzleFlash.transform.localPosition = ParticleEffects.MuzzleFlashOffset;
 
 				var randomMuzzleFlashRot = ParticleEffects.MuzzleFlashRandomRot;
+				var MuzzleFlashRot = ParticleEffects.MuzzleFlashRotOffset;
 
 				randomMuzzleFlashRot = new Vector3(
 					Random.Range(-randomMuzzleFlashRot.x, randomMuzzleFlashRot.x),
 					Random.Range(-randomMuzzleFlashRot.y, randomMuzzleFlashRot.y),
 					Random.Range(-randomMuzzleFlashRot.z, randomMuzzleFlashRot.z));
 
-				muzzleFlash.transform.localRotation = Quaternion.Euler(randomMuzzleFlashRot);
+				muzzleFlash.transform.localRotation = Quaternion.Euler(randomMuzzleFlashRot + MuzzleFlashRot);
 
 				float randomMuzzleFlashScale = Random.Range(ParticleEffects.MuzzleFlashRandomScale.x, ParticleEffects.MuzzleFlashRandomScale.y);
 
@@ -176,10 +178,12 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 		yield return casingSpawnDelay;
 
 		Quaternion cassingSpawnRotation = Quaternion.Euler(Random.Range(-30, 30), Random.Range(-30, 30), Random.Range(-30, 30));
-		Vector3 cassingSpawnPosition = casingEjectionPoint.TransformVector(!Player.Aim.Active ? CasingEjection.SpawnOffset : CasingEjection.AimSpawnOffset);
+		Vector3 cassingSpawnPosition = casingEjectionPoint.position;
 
-		var cassing = PoolingManager.Instance.GetObject(CasingEjection.CasingPrefab.gameObject, casingEjectionPoint.position + cassingSpawnPosition, cassingSpawnRotation);
+		var cassing = PoolingManager.Instance.GetObject(CasingEjection.CasingPrefab.gameObject, cassingSpawnPosition, cassingSpawnRotation);
 		cassing.transform.localScale = new Vector3(CasingEjection.CasingScale, CasingEjection.CasingScale, CasingEjection.CasingScale);
+
+		cassing.transform.localPosition = cassingSpawnPosition;
 
 		var cassingRB = cassing.GetComponent<Rigidbody>();
 
