@@ -1,10 +1,6 @@
-﻿using Kinemation.FPSFramework.Runtime.Camera;
-using Kinemation.FPSFramework.Runtime.Core.Components;
-using Kinemation.FPSFramework.Runtime.Core.Types;
-using Kinemation.FPSFramework.Runtime.FPSAnimator;
-using Kinemation.FPSFramework.Runtime.Layers;
-using Kinemation.FPSFramework.Runtime.Recoil;
+﻿using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
+
 public class Player : Humanoid
 {
     public Camera Camera { get => m_PlayerCamera; }
@@ -39,9 +35,6 @@ public class Player : Humanoid
     [Header("Camera")]
     [SerializeField] private Camera m_PlayerCamera = null;
 
-    //protected NetworkVariable<CharAnimData> charAnimData = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    //protected NetworkVariable<CharAnimStates> charAnimStates = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
     public Value<FPSActionState> ActionState = new(0);
     public Value<FPSMovementState> MovementState = new(0);
     public Value<FPSPoseState> PoseState = new(0);
@@ -60,17 +53,3 @@ public class Player : Humanoid
         Cursor.lockState = CursorLockMode.Locked;
     }
 }
-/*
-public struct CharAnimStates : INetworkSerializable
-{
-    public int action;
-    public int movement;
-    public int pose;
-
-    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-    {
-        serializer.SerializeValue(ref action);
-        serializer.SerializeValue(ref movement);
-        serializer.SerializeValue(ref pose);
-    }
-}*/

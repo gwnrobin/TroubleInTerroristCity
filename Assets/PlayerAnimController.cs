@@ -4,11 +4,12 @@ using Kinemation.FPSFramework.Runtime.Core.Types;
 using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using Kinemation.FPSFramework.Runtime.Layers;
 using Kinemation.FPSFramework.Runtime.Recoil;
+using Unity.Netcode;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
-public class PlayerAnimController : PlayerComponent
+public class PlayerAnimController : PlayerNetworkComponent
 {
     public FPSCameraShake shake;
     private FPSCamera fpsCamera;
@@ -22,6 +23,11 @@ public class PlayerAnimController : PlayerComponent
     [HideInInspector] public SwayLayer SwayLayer;
     [HideInInspector] public LocomotionLayer LocoLayer;
     [HideInInspector] public SlotLayer SlotLayer;
+
+    //public CharAnimStates charAnimStates = new CharAnimStates();
+
+    protected NetworkVariable<CharAnimData> charAnimData = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    //protected NetworkVariable<CharAnimStates> charAnimStates = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     private bool _hasActiveAction;
 
@@ -43,11 +49,40 @@ public class PlayerAnimController : PlayerComponent
         fpsAnimator = GetComponentInChildren<CoreAnimComponent>();
 
         InitAnimController();
+
+        GetComponent<ClientNetworkTransform>().OnClientRequestChange += Chagend;
+    }
+
+    private void Chagend(Vector3 pos, Quaternion rot, Vector3 scale)
+    {
+        
     }
 
     private void Update()
     {
         UpdateAnimController();
+
+        if (IsOwner)
+        {
+            charAnimData.Value = Player.CharAnimData;
+            //_charAnimStates.action = (int)actionState.Val;
+            //_charAnimStates.movement = (int)movementState.Val;
+            //_charAnimStates.pose = (int)poseState.Val;
+            //charAnimStates.Value = _charAnimStates;
+            print("set _char");
+        }
+        else
+        {
+            Player.CharAnimData = charAnimData.Value;
+            //_charAnimStates = charAnimStates.Value;
+            //actionState.Set((FPSActionState)_charAnimStates.action);
+            //movementState.Set((FPSMovementState)_charAnimStates.movement);
+            //poseState.Set((FPSPoseState)_charAnimStates.pose);
+
+            Player.MoveInput.Set(Player.CharAnimData.moveInput);
+        }
+
+        fpsAnimator.SetCharData(Player.CharAnimData);
     }
 
     public void SetActionActive(int isActive)
@@ -123,4 +158,20 @@ public class PlayerAnimController : PlayerComponent
     {
         fpsAnimator.animGraph.StopAnimation(blendTime);
     }
+
+    protected struct CharAnimStatesPack : INetworkSerializable
+    {
+        public int action;
+        public int movement;
+        public int pose;
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref action);
+            serializer.SerializeValue(ref movement);
+            serializer.SerializeValue(ref pose);
+        }
+    }
+
 }
+

@@ -1,6 +1,7 @@
 // Designed by Kinemation, 2023
 
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
@@ -146,9 +147,8 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             loc = rot = new VectorSpringData(stiffness, damping, speed);
         }
     }
-    
     // General input data used by Anim Layers
-    public struct CharAnimData
+    public struct CharAnimData : INetworkSerializable
     {
         // Input
         public Vector2 deltaAimInput;
@@ -169,15 +169,24 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             totalAimInput.x = Mathf.Clamp(totalAimInput.x, -90f, 90f);
             totalAimInput.y = Mathf.Clamp(totalAimInput.y, -90f, 90f);
         }
-        
+
         public void SetAimInput(Vector2 aimInput)
         {
             deltaAimInput = aimInput - totalAimInput;
             totalAimInput.x = Mathf.Clamp(aimInput.x, -90f, 90f);
             totalAimInput.y = Mathf.Clamp(aimInput.y, -90f, 90f);
         }
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref deltaAimInput);
+            serializer.SerializeValue(ref totalAimInput);
+            serializer.SerializeValue(ref moveInput);
+            serializer.SerializeValue(ref leanDirection);
+            serializer.SerializeValue(ref recoilAnim.position);
+            serializer.SerializeValue(ref recoilAnim.rotation);
+        }
     }
-    
     public static class CoreToolkitLib
     {
         public delegate void PostUpdateDelegate();
