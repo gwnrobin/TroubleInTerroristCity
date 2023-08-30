@@ -115,6 +115,7 @@ public class ProjectileWeapon : EquipmentItem
 
         if (SelectedFireMode == (int)FireMode.Full)
             return TryUseOnce(itemUseRays, useType);
+
         return false;
     }
 

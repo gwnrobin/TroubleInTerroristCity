@@ -50,7 +50,7 @@ public class PlayerAnimController : PlayerNetworkComponent
 
         InitAnimController();
 
-        GetComponent<ClientNetworkTransform>().OnClientRequestChange += Chagend;
+        //GetComponent<ClientNetworkTransform>().OnClientRequestChange += Chagend;
     }
 
     private void Chagend(Vector3 pos, Quaternion rot, Vector3 scale)

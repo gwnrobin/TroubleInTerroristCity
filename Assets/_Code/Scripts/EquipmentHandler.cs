@@ -289,10 +289,13 @@ public class EquipmentHandler : PlayerComponent
             Ray[] itemUseRays = GenerateItemUseRays(Player, _itemUseTransform, _attachedEquipmentItem.GetUseRaysAmount(), _attachedEquipmentItem.GetUseRaySpreadMod());
 
             if (continuously)
+            {
                 usedSuccessfully = _attachedEquipmentItem.TryUseContinuously(itemUseRays, useType);
+            }
             else
+            {
                 usedSuccessfully = _attachedEquipmentItem.TryUseOnce(itemUseRays, useType);
-
+            }
 
             if (usedSuccessfully)
             {
@@ -337,6 +340,8 @@ public class EquipmentHandler : PlayerComponent
         }
 
         float raySpread = equipmentSpreadMod * spreadMod;
+
+        print(anchor.position);
 
         for (int i = 0; i < itemUseRays.Length; i++)
         {

@@ -36,14 +36,14 @@ MonoBehaviour:
     UseAimBlur: 0
     AimSounds:
       m_Clips:
-      - {fileID: 8300000, guid: 8621119ba0e1106459419de5ac7e7122, type: 3}
       - {fileID: 8300000, guid: fa598a1541b963e4b9ffe3fe54cd9ab3, type: 3}
+      - {fileID: 8300000, guid: 8621119ba0e1106459419de5ac7e7122, type: 3}
       m_VolumeRange: {x: 0.12, y: 0.15}
       m_PitchRange: {x: 0.9, y: 1.1}
       m_VolumeMultiplier: 1
   Shooting:
     EnableAmmo: 1
-    MagazineSize: 30
+    MagazineSize: 9999
     Modes: 8
     FireRateOverTime:
       serializedVersion: 2
@@ -135,11 +135,11 @@ MonoBehaviour:
     - Delay: 0.7
       Sound:
         m_Clips:
-        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
         - {fileID: 8300000, guid: 38fbdc72c97a2ad4ab876cecfc62701e, type: 3}
+        - {fileID: 8300000, guid: 575c4e2899cf99c4e93358cea2c31cfd, type: 3}
         - {fileID: 8300000, guid: 4bb85b09ed0bf484c98e550c60bc9e4c, type: 3}
         - {fileID: 8300000, guid: f1db6630a910cf94485de3b65d4a8d67, type: 3}
-        - {fileID: 8300000, guid: 575c4e2899cf99c4e93358cea2c31cfd, type: 3}
+        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
         m_VolumeRange: {x: 0.5, y: 0.65}
         m_PitchRange: {x: 0.95, y: 1.05}
         m_VolumeMultiplier: 1

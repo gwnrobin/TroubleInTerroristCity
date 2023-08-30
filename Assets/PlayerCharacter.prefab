@@ -12687,7 +12687,7 @@ GameObject:
   - component: {fileID: 7730380060103988487}
   - component: {fileID: 1342790746151114142}
   - component: {fileID: 3472791118802716262}
-  - component: {fileID: 5028984720724636188}
+  - component: {fileID: 2356210293207123609}
   m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -13394,7 +13394,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 1
---- !u!114 &5028984720724636188
+--- !u!114 &2356210293207123609
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13625,6 +13625,7 @@ GameObject:
   - component: {fileID: 5237812467648223439}
   - component: {fileID: 4510050410648679668}
   - component: {fileID: 6851911500363687732}
+  - component: {fileID: 7903900200900152843}
   m_Layer: 3
   m_Name: Camera
   m_TagString: Untagged
@@ -13847,6 +13848,36 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &7903900200900152843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7041401875037833371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 0
+  SyncPositionY: 0
+  SyncPositionZ: 0
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 1
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &7046374789582568415
 GameObject:
   m_ObjectHideFlags: 0
