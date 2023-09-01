@@ -49,13 +49,6 @@ public class PlayerAnimController : PlayerNetworkComponent
         fpsAnimator = GetComponentInChildren<CoreAnimComponent>();
 
         InitAnimController();
-
-        GetComponent<ClientNetworkTransform>().OnClientRequestChange += Chagend;
-    }
-
-    private void Chagend(Vector3 pos, Quaternion rot, Vector3 scale)
-    {
-        
     }
 
     private void Update()

@@ -52,11 +52,6 @@ public class EquipmentController : PlayerComponent
 
     private void Update()
     {
-        if (Player.UseItemHeld.Active)
-        {
-            Player.UseItem.Try(true, 0);
-        }
-
         if (Player.Reload.Active)
         {
             bool endedReloading = activeEHandler.EquipmentItem.IsDoneReloading();
@@ -71,6 +66,18 @@ public class EquipmentController : PlayerComponent
             //activeEHandler.EquipNewWeapon();
             //Equip(Player.EquippedItem.Get());
             m_WaitingToEquip = false;
+        }
+
+        StartCoroutine(UseLate());
+    }
+
+    private IEnumerator UseLate()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (Player.UseItemHeld.Active)
+        {
+            Player.UseItem.Try(true, 0);
         }
     }
 
