@@ -36,6 +36,8 @@ namespace Kinemation.FPSFramework.Runtime.Camera
         private Vector3 _out;
         private float _playBack = 0f;
 
+        public Transform pos;
+
         private float GetRandomTarget(Vector4 target)
         {
             return Random.Range(Random.Range(target.x, target.y), Random.Range(target.z, target.w));
@@ -64,6 +66,8 @@ namespace Kinemation.FPSFramework.Runtime.Camera
         public void UpdateCamera()
         {
             UpdateShake();
+
+            //Debug.DrawRay(transform.position, transform.forward, Color.red);
         }
 
         public void PlayShake(CameraShakeInfo shake)
@@ -74,6 +78,16 @@ namespace Kinemation.FPSFramework.Runtime.Camera
             _target.z = GetRandomTarget(_shake.roll);
 
             _playBack = 0f;
+        }
+
+        private void Update()
+        {
+            Debug.DrawRay(transform.position, transform.forward, Color.red);
+        }
+
+        private void LateUpdate()
+        {
+            Debug.DrawRay(transform.position, transform.forward, Color.yellow);
         }
     }
 }

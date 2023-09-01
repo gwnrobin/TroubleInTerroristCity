@@ -1,3 +1,4 @@
+using Kinemation.FPSFramework.Runtime.Camera;
 using Kinemation.FPSFramework.Runtime.Layers;
 using Kinemation.FPSFramework.Runtime.Recoil;
 using System;
@@ -28,7 +29,7 @@ public class EquipmentHandler : PlayerComponent
     public RecoilAnimation RecoilAnimation => recoilAnimation;
 
     [SerializeField]
-    protected Transform _itemUseTransform = null;
+    protected Transform _itemUseTransform;
 
     [SerializeField]
     [Group("Inverse of Accuracy - ", true)]
@@ -148,7 +149,6 @@ public class EquipmentHandler : PlayerComponent
     {
         animator.CrossFade(UnEquip, 0.1f);
     }
-
 
     public EquipmentItem GetEquipmentItem(int itemId)
     {

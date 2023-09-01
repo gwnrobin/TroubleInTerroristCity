@@ -52,11 +52,6 @@ public class EquipmentController : PlayerComponent
 
     private void Update()
     {
-        if (Player.UseItemHeld.Active)
-        {
-            Player.UseItem.Try(true, 0);
-        }
-
         if (Player.Reload.Active)
         {
             bool endedReloading = activeEHandler.EquipmentItem.IsDoneReloading();
@@ -64,13 +59,25 @@ public class EquipmentController : PlayerComponent
             if (endedReloading)
                 Player.Reload.ForceStop();
         }
-        
+
         //Equip the new item after the previous one has been unequipped
         if (m_WaitingToEquip && Time.time > m_NextTimeToEquip)
         {
             //activeEHandler.EquipNewWeapon();
             //Equip(Player.EquippedItem.Get());
             m_WaitingToEquip = false;
+        }
+
+        StartCoroutine(UseLate());
+    }
+
+    private IEnumerator UseLate()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (Player.UseItemHeld.Active)
+        {
+            Player.UseItem.Try(true, 0);
         }
     }
 

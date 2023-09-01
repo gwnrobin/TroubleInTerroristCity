@@ -56,7 +56,7 @@ public class Gun : ProjectileWeapon
         // The points in space that this gun's bullets hit
         Vector3[] hitPoints = new Vector3[_raycastData.RayCount];
 
-        Debug.DrawRay(itemUseRays[0].origin, itemUseRays[0].direction, Color.yellow, 5f);
+        Debug.DrawRay(itemUseRays[0].origin, itemUseRays[0].direction, Color.blue, 5f);
 
         //Raycast Shooting with multiple rays (e.g. Shotgun)
         if (_raycastData.RayCount > 1)
@@ -103,7 +103,6 @@ public class Gun : ProjectileWeapon
             // Get the damage amount
             float damage = _raycastData.RayImpact.GetDamageAtDistance(hitInfo.distance);
 
-            Debug.DrawRay(itemUseRay.origin, itemUseRay.direction * 100, Color.yellow, 2, false);
             var damageInfo = new DamageInfo(-damage, DamageType.Bullet, hitInfo.point, itemUseRay.direction, impulse * _raycastData.RayCount, hitInfo.normal, Player, hitInfo.transform);
 
             // Try to damage the Hit object
