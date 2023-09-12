@@ -7273,7 +7273,7 @@ GameObject:
   - component: {fileID: 748134230014299665}
   - component: {fileID: 4347778759293258333}
   - component: {fileID: 4562269761723919579}
-  - component: {fileID: 8085084995664881578}
+  - component: {fileID: 5315484943862119081}
   m_Layer: 3
   m_Name: PoliceModel
   m_TagString: Untagged
@@ -7893,7 +7893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4096787055258564747}
   equipmentController: {fileID: 780182989777462318}
---- !u!114 &8085084995664881578
+--- !u!114 &5315484943862119081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7902,7 +7902,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4405391454284770460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Script: {fileID: 11500000, guid: e0f7b2006ddd0ed46b9063ead57e8602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []

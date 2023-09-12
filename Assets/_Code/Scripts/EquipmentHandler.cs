@@ -265,18 +265,18 @@ public class EquipmentHandler : PlayerComponent
 
     public virtual bool TryStartHolster()
     {
-        Player.ActionState.Set(FPSActionState.None);
-        playerAnimController.LocoLayer.SetReadyWeight(0f);
-        playerAnimController.LookLayer.SetLayerAlpha(1f);
+        Player.ActionState.Set(FPSActionState.Ready);
+        playerAnimController.LocoLayer.SetReadyWeight(1f);
+        playerAnimController.LookLayer.SetLayerAlpha(.5f);
 
         return true;
     }
 
     public virtual void OnHolsterStop()
     {
-        Player.ActionState.Set(FPSActionState.Ready);
-        playerAnimController.LocoLayer.SetReadyWeight(1f);
-        playerAnimController.LookLayer.SetLayerAlpha(.5f);
+        Player.ActionState.Set(FPSActionState.None);
+        playerAnimController.LocoLayer.SetReadyWeight(0f);
+        playerAnimController.LookLayer.SetLayerAlpha(1f);
     }
 
     public virtual bool TryUse(bool continuously, int useType)

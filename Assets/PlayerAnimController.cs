@@ -24,10 +24,10 @@ public class PlayerAnimController : PlayerNetworkComponent
     [HideInInspector] public LocomotionLayer LocoLayer;
     [HideInInspector] public SlotLayer SlotLayer;
 
-    //public CharAnimStates charAnimStates = new CharAnimStates();
+    //public CharAnimStates _charAnimStates = new CharAnimStates();
 
     protected NetworkVariable<CharAnimData> charAnimData = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    //protected NetworkVariable<CharAnimStates> charAnimStates = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    protected NetworkVariable<CharAnimStates> charAnimStates = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     private bool _hasActiveAction;
 
@@ -35,8 +35,12 @@ public class PlayerAnimController : PlayerNetworkComponent
     // Runs once at the beginning of the next update
     protected CoreToolkitLib.PostUpdateDelegate queuedAnimEvents;
 
+    private CharAnimStates _charAnimStates;
+
     private IEnumerator Start()
     {
+        _charAnimStates = new CharAnimStates();
+
         yield return new WaitForEndOfFrame();
 
         if (fpsCamera != null)
@@ -58,19 +62,42 @@ public class PlayerAnimController : PlayerNetworkComponent
         if (IsOwner)
         {
             charAnimData.Value = Player.CharAnimData;
-            //_charAnimStates.action = (int)actionState.Val;
-            //_charAnimStates.movement = (int)movementState.Val;
-            //_charAnimStates.pose = (int)poseState.Val;
-            //charAnimStates.Value = _charAnimStates;
-            print("set _char");
+            _charAnimStates.action = (int)Player.ActionState.Val;
+            _charAnimStates.pose = (int)Player.PoseState.Val;
+            charAnimStates.Value = _charAnimStates;
         }
         else
         {
             Player.CharAnimData = charAnimData.Value;
-            //_charAnimStates = charAnimStates.Value;
-            //actionState.Set((FPSActionState)_charAnimStates.action);
-            //movementState.Set((FPSMovementState)_charAnimStates.movement);
-            //poseState.Set((FPSPoseState)_charAnimStates.pose);
+            _charAnimStates = charAnimStates.Value;
+
+            if(charAnimStates.Value.pose == (int)FPSPoseState.Crouching)
+            {
+                Player.Crouch.TryStart();
+            }
+            else
+            {
+                Player.Crouch.TryStop();
+            }
+
+            if(_charAnimStates.action == (int)FPSActionState.Ready)
+            {
+                Player.Holster.TryStart(true);
+            }
+            else if(_charAnimStates.action == (int)FPSActionState.Aiming)
+            {
+                Player.Aim.TryStart(true);
+            }
+            else if (_charAnimStates.action == (int)FPSActionState.PointAiming)
+            {
+                Player.PointAim.TryStart(true);
+            }
+            else
+            {
+                Player.PointAim.ForceStop();
+                Player.Holster.ForceStop();
+                Player.Aim.ForceStop();
+            }
 
             Player.MoveInput.Set(Player.CharAnimData.moveInput);
         }
@@ -152,16 +179,14 @@ public class PlayerAnimController : PlayerNetworkComponent
         fpsAnimator.animGraph.StopAnimation(blendTime);
     }
 
-    protected struct CharAnimStatesPack : INetworkSerializable
+    protected struct CharAnimStates : INetworkSerializable
     {
         public int action;
-        public int movement;
         public int pose;
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
             serializer.SerializeValue(ref action);
-            serializer.SerializeValue(ref movement);
             serializer.SerializeValue(ref pose);
         }
     }

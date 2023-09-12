@@ -296,11 +296,13 @@ public class EquipmentController : PlayerComponent
 
     private bool TryStartAim()
     {
+        print("startAimTry");
         if (Player.Sprint.Active ||
             Player.Reload.Active ||
             (!m_AimWhileReloading && Player.Aim.Active))
             return false;
 
+        print("aiming");
         return activeEHandler.TryStartAim();
     }
 
