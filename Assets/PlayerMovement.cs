@@ -194,6 +194,8 @@ public class PlayerMovement : PlayerComponent
     private float m_LastLandTime;
     private float m_NextTimeCanChangeHeight;
 
+    private bool skippedFirstFrame = false;
+
     private void Start()
     {
         DefaultHeight = controller.height;
@@ -218,6 +220,7 @@ public class PlayerMovement : PlayerComponent
         playerAnimController.FpsAnimator.OnPostAnimUpdate += UpdateCameraRotation;
     }
 
+    private bool first = false;
     private void FixedUpdate()
     {
         float deltaTime = Time.deltaTime;
@@ -234,8 +237,12 @@ public class PlayerMovement : PlayerComponent
         else
             translation = transform.TransformVector(m_DesiredVelocityLocal * deltaTime);
 
-        m_CollisionFlags = controller.Move(translation);
+        if (first)
+        {
+            m_CollisionFlags = controller.Move(translation);
+        }
 
+        first = true;
         if ((m_CollisionFlags & CollisionFlags.Below) == CollisionFlags.Below && !m_PreviouslyGrounded)
         {
             bool wasJumping = Player.Jump.Active;
@@ -337,7 +344,7 @@ public class PlayerMovement : PlayerComponent
     private void Crouch()
     {
         playerAnimController.LookLayer.SetPelvisWeight(0f);
-
+        print( "crouch");
         Player.PoseState.Set(FPSPoseState.Crouching);
         animator.SetBool(Crouching, true);
         playerAnimController.SlotLayer.PlayMotion(crouchMotionAsset);

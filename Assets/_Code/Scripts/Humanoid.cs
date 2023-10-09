@@ -1,4 +1,6 @@
-﻿public class Humanoid : Entity
+﻿using Unity.Netcode;
+
+public class Humanoid : Entity
 {
     public readonly Value<float> MovementSpeedFactor = new Value<float>(1f);
 

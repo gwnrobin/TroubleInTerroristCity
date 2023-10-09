@@ -1,4 +1,6 @@
-﻿using Kinemation.FPSFramework.Runtime.Core.Types;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
 
 public class Player : Humanoid
@@ -45,11 +47,35 @@ public class Player : Humanoid
     protected override void Start()
     {
         base.Start();
-
+        
         Time.timeScale = 1f;
 
         Application.targetFrameRate = 120;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    
+    public Dictionary<string, Activity> GetAllActivities()
+    {
+        Dictionary<string, Activity> activities = new Dictionary<string, Activity>();
+        FieldInfo[] fields = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        foreach (FieldInfo field in fields)
+        {
+            if (field.FieldType == typeof(Activity) && field.GetValue(this) != null)
+            {
+                activities.Add(field.Name, (Activity)field.GetValue(this));
+            }
+        }
+
+        PropertyInfo[] properties = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        foreach (PropertyInfo property in properties)
+        {
+            if (property.PropertyType == typeof(Activity) && property.GetValue(this) != null)
+            {
+                activities.Add(property.Name, (Activity)property.GetValue(this));
+            }
+        }
+
+        return activities;
     }
 }

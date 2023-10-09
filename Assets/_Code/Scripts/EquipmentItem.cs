@@ -135,6 +135,7 @@ public class EquipmentItem : PlayerComponent
 
     // Reloading Methods
     public virtual bool TryStartReload() { return false; }
+    public virtual void StartReload() {; }
     public virtual bool IsDoneReloading() { return false; }
     public virtual void OnReloadStop() {; }
 

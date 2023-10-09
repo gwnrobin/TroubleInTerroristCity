@@ -68,6 +68,29 @@ namespace HQFPSTemplate
             }
 
             GUI.enabled = true;
+            
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Network Activities: ", EditorStyles.boldLabel);
+            GUI.enabled = false;
+
+            foreach (var field in fields)
+            {
+                Type fieldType = field.FieldType;
+
+                if ((fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(NetworkActivity)) || fieldType == typeof(NetworkActivity))
+                {
+                    object activityObj = field.GetValue(target);
+
+                    var activeField = fieldType.GetField("m_Active", BindingFlags.NonPublic | BindingFlags.Instance);
+
+                    object activeValue = activeField.GetValue(activityObj);
+
+                    EditorGUILayout.LabelField(field.Name.DoUnityLikeNameFormat() + (((bool)activeValue) ? " (Active)" : " (Inactive)"));
+                }
+            }
+
+            GUI.enabled = true;
         }
     }
 }

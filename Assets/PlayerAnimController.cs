@@ -27,8 +27,7 @@ public class PlayerAnimController : PlayerNetworkComponent
     //public CharAnimStates _charAnimStates = new CharAnimStates();
 
     protected NetworkVariable<CharAnimData> charAnimData = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    protected NetworkVariable<CharAnimStates> charAnimStates = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+    
     private bool _hasActiveAction;
 
     // Used primarily for function calls from Animation Events
@@ -54,51 +53,18 @@ public class PlayerAnimController : PlayerNetworkComponent
 
         InitAnimController();
     }
-
+    
     private void Update()
     {
         UpdateAnimController();
-
+        
         if (IsOwner)
         {
             charAnimData.Value = Player.CharAnimData;
-            _charAnimStates.action = (int)Player.ActionState.Val;
-            _charAnimStates.pose = (int)Player.PoseState.Val;
-            charAnimStates.Value = _charAnimStates;
         }
         else
         {
             Player.CharAnimData = charAnimData.Value;
-            _charAnimStates = charAnimStates.Value;
-
-            if(charAnimStates.Value.pose == (int)FPSPoseState.Crouching)
-            {
-                Player.Crouch.TryStart();
-            }
-            else
-            {
-                Player.Crouch.TryStop();
-            }
-
-            if(_charAnimStates.action == (int)FPSActionState.Ready)
-            {
-                Player.Holster.TryStart(true);
-            }
-            else if(_charAnimStates.action == (int)FPSActionState.Aiming)
-            {
-                Player.Aim.TryStart(true);
-            }
-            else if (_charAnimStates.action == (int)FPSActionState.PointAiming)
-            {
-                Player.PointAim.TryStart(true);
-            }
-            else
-            {
-                Player.PointAim.ForceStop();
-                Player.Holster.ForceStop();
-                Player.Aim.ForceStop();
-            }
-
             Player.MoveInput.Set(Player.CharAnimData.moveInput);
         }
 

@@ -13,7 +13,7 @@ public class Activity
     private event Action m_StartCallbacks;
     private event Action m_StopCallbacks;
 
-    private bool m_Active = false;
+    protected bool m_Active = false;
 
     /// <summary>
     /// Will be called when this activity starts.

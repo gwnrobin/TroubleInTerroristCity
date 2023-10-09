@@ -163,66 +163,67 @@ public class ProjectileWeapon : EquipmentItem
 
     public override bool TryStartReload()
     {
-        if (m_ReloadLoopEndTime < Time.time && _projectileWeaponInfo.Shooting.EnableAmmo && CurrentAmmoInfo.Val.CurrentInMagazine < _projectileWeaponInfo.Shooting.MagazineSize)
-        {
-            m_AmmoToAdd = _projectileWeaponInfo.Shooting.MagazineSize - CurrentAmmoInfo.Val.CurrentInMagazine;
+        if (!(m_ReloadLoopEndTime < Time.time && _projectileWeaponInfo.Shooting.EnableAmmo &&
+              CurrentAmmoInfo.Val.CurrentInMagazine < _projectileWeaponInfo.Shooting.MagazineSize))
+            return false;
 
-            if (CurrentAmmoInfo.Val.CurrentInStorage < m_AmmoToAdd)
-                m_AmmoToAdd = CurrentAmmoInfo.Val.CurrentInStorage;
+        m_AmmoToAdd = _projectileWeaponInfo.Shooting.MagazineSize - CurrentAmmoInfo.Val.CurrentInMagazine;
 
-            if (m_AmmoToAdd > 0)
-            {
-                //EHandler.ClearDelayedSounds();
+        if (CurrentAmmoInfo.Val.CurrentInStorage < m_AmmoToAdd)
+            m_AmmoToAdd = CurrentAmmoInfo.Val.CurrentInStorage;
 
-                if (CurrentAmmoInfo.Val.CurrentInMagazine == 0 && _projectileWeaponInfo.Reloading.HasEmptyReload)
-                {
-                    //Dry Reload
-                    if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Once)
-                        m_ReloadLoopEndTime = Time.time + _projectileWeaponInfo.Reloading.EmptyReloadDuration;
-                    else if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Progressive)
-                        m_ReloadStartTime = Time.time + _projectileWeaponInfo.Reloading.EmptyReloadDuration;
+        if (m_AmmoToAdd <= 0)
+            return false;
+        
+        return true;
+    }
 
-                    //EHandler.Animator_SetTrigger(animHash_EmptyReload);
-                    EHandler.PlayerAnimController.PlayAnimation(reloadClip);
-                    animator.Play("Reload", 0, 0f);
+    public override void StartReload()
+    {
+         //EHandler.ClearDelayedSounds();
+         if (CurrentAmmoInfo.Val.CurrentInMagazine == 0 && _projectileWeaponInfo.Reloading.HasEmptyReload)
+         {
+             //Dry Reload
+             if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Once) 
+                 m_ReloadLoopEndTime = Time.time + _projectileWeaponInfo.Reloading.EmptyReloadDuration;
+             else if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Progressive)
+                 m_ReloadStartTime = Time.time + _projectileWeaponInfo.Reloading.EmptyReloadDuration;
 
-                    //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.EmptyReloadLoopCamForces);
-                    EHandler.PlayDelayedSounds(_projectileWeaponInfo.Reloading.EmptyReloadSounds);
-                }
-                else
-                {
-                    //Tactical Reload
-                    if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Once)
-                    {
-                        m_ReloadLoopEndTime = Time.time + _projectileWeaponInfo.Reloading.ReloadDuration;
+             //EHandler.Animator_SetTrigger(animHash_EmptyReload);
+             EHandler.PlayerAnimController.PlayAnimation(reloadClip);
+             animator.Play("Reload", 0, 0f);
 
-                        EHandler.PlayerAnimController.PlayAnimation(reloadClip);
-                        animator.Play("Reload", 0, 0f);
-                        //EHandler.Animator_SetTrigger(animHash_Reload);
+             //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.EmptyReloadLoopCamForces);
+             EHandler.PlayDelayedSounds(_projectileWeaponInfo.Reloading.EmptyReloadSounds);
+         }
+         else
+         {
+             //Tactical Reload
+             if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Once)
+             {
+                 m_ReloadLoopEndTime = Time.time + _projectileWeaponInfo.Reloading.ReloadDuration;
 
-                        //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.ReloadLoopCamForces);
-                        EHandler.PlayDelayedSounds(_projectileWeaponInfo.Reloading.ReloadSounds);
-                    }
-                    else if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Progressive)
-                    {
-                        m_ReloadStartTime = Time.time + _projectileWeaponInfo.Reloading.ReloadStartDuration;
-                        //EHandler.Animator_SetTrigger(animHash_StartReload);
+                 EHandler.PlayerAnimController.PlayAnimation(reloadClip);
+                 animator.Play("Reload", 0, 0f);
+                 //EHandler.Animator_SetTrigger(animHash_Reload);
 
-                        //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.ReloadStartCamForces);
-                        //EHandler.PlayDelayedSounds(_weaponInfo.Reloading.ReloadStartSounds);
-                    }
-                }
+                 //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.ReloadLoopCamForces);
+                 EHandler.PlayDelayedSounds(_projectileWeaponInfo.Reloading.ReloadSounds);
+             }
+             else if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Progressive)
+             {
+                 m_ReloadStartTime = Time.time + _projectileWeaponInfo.Reloading.ReloadStartDuration;
+                 //EHandler.Animator_SetTrigger(animHash_StartReload);
 
-                if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Once)
-                    UpdateAmmoInfo();
+                 //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.ReloadStartCamForces);
+                 //EHandler.PlayDelayedSounds(_weaponInfo.Reloading.ReloadStartSounds);
+             }
+         }
 
-                m_GeneralEvents.OnReload.Invoke(true); // Invoke the Reload Start Unity Event
+         if (_projectileWeaponInfo.Reloading.ReloadType == ProjectileWeaponInfo.ReloadType.Once)
+             UpdateAmmoInfo();
 
-                return true;
-            }
-        }
-
-        return false;
+         m_GeneralEvents.OnReload.Invoke(true); // Invoke the Reload Start Unity Event 
     }
 
     //This method is called by the 'Equipment Handler' to check if the reload is finished

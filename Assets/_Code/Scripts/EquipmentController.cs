@@ -37,6 +37,7 @@ public class EquipmentController : PlayerComponent
 
         Player.UseItem.SetTryer(TryUse);
         Player.Reload.SetStartTryer(TryStartReload);
+        Player.Reload.AddStartListener(StartReload);
 
         Player.Lean.SetStartTryer(TryStartLean);
         Player.ChangeScope.SetTryer(TrySwitchScope);
@@ -226,10 +227,6 @@ public class EquipmentController : PlayerComponent
 
     private bool TryStartReload()
     {
-        //Reload-start conditions
-        if (false)
-            return false;
-
         bool reloadStarted = activeEHandler.TryStartReload();
 
         if (reloadStarted)
@@ -240,6 +237,8 @@ public class EquipmentController : PlayerComponent
 
         return reloadStarted;
     }
+
+    private void StartReload() => activeEHandler.StartReload();
 
     private bool TryUse(bool continuously, int useIndex)
     {
@@ -296,7 +295,6 @@ public class EquipmentController : PlayerComponent
 
     private bool TryStartAim()
     {
-        print("startAimTry");
         if (Player.Sprint.Active ||
             Player.Reload.Active ||
             (!m_AimWhileReloading && Player.Aim.Active))

@@ -17,14 +17,12 @@ public class EntityDamageDealer : EntityComponent
         if (damageable != null)
         {
             DealDamage(damageable, damageInfo);
-            print(damageable);
 
             return true;
         }
         else if (damageInfo.HitObject.TryGetComponent(out IDamageable dmgObject))
         {
             DealDamage(dmgObject, damageInfo);
-            print(damageable);
 
             return true;
         }

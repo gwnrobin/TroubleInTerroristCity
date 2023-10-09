@@ -218,6 +218,7 @@ public class EquipmentHandler : PlayerComponent
     }
 
     public virtual bool TryStartReload() => _attachedEquipmentItem.TryStartReload();
+    public virtual void StartReload() => _attachedEquipmentItem.StartReload();
 
     public virtual bool TryStartAim()
     {

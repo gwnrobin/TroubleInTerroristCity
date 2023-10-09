@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 
-public class Entity : MonoBehaviour//NetworkBehaviour
+public class Entity : NetworkBehaviour
 {
     public Inventory Inventory { get { return m_Inventory; } }
 
