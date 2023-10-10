@@ -331,7 +331,7 @@ public class EquipmentController : PlayerComponent
 
     private bool TryStartHolster()
     {
-        if (Player.Aim.Active && Player.ActionState.Val != FPSActionState.Ready)
+        if (Player.Aim.Active && !Player.Holster.Active)
             return false;
 
         return activeEHandler.TryStartHolster();

@@ -227,7 +227,6 @@ public class EquipmentHandler : PlayerComponent
             !_attachedEquipmentItem.EquipmentInfo.Aiming.Enabled || !_attachedEquipmentItem.CanAim()) // Can this item be aimed?
             return false;
         //SetCharacterMovementSpeed(m_AttachedEquipmentItem.EInfo.Aiming.AimMovementSpeedMod);
-        Player.ActionState.Set(FPSActionState.Aiming);
         playerAnimController.AdsLayer.SetAds(true);
         playerAnimController.SwayLayer.SetFreeAimEnable(false);
         recoilAnimation.isAiming = true;
@@ -240,7 +239,6 @@ public class EquipmentHandler : PlayerComponent
     public virtual void OnAimStop()
     {
         //SetCharacterMovementSpeed(1f);
-        Player.ActionState.Set(FPSActionState.None);
         playerAnimController.AdsLayer.SetAds(false);
         playerAnimController.AdsLayer.SetPointAim(false);
         playerAnimController.SwayLayer.SetFreeAimEnable(true);
@@ -253,7 +251,6 @@ public class EquipmentHandler : PlayerComponent
     public virtual bool TryStartPointAiming()
     {
         playerAnimController.AdsLayer.SetPointAim(false);
-        Player.ActionState.Set(FPSActionState.Aiming);
 
         return true;
     }
@@ -261,12 +258,10 @@ public class EquipmentHandler : PlayerComponent
     public virtual void OnPointAimingStop()
     {
         playerAnimController.AdsLayer.SetPointAim(true);
-        Player.ActionState.Set(FPSActionState.PointAiming);
     }
 
     public virtual bool TryStartHolster()
     {
-        Player.ActionState.Set(FPSActionState.Ready);
         playerAnimController.LocoLayer.SetReadyWeight(1f);
         playerAnimController.LookLayer.SetLayerAlpha(.5f);
 
@@ -275,7 +270,6 @@ public class EquipmentHandler : PlayerComponent
 
     public virtual void OnHolsterStop()
     {
-        Player.ActionState.Set(FPSActionState.None);
         playerAnimController.LocoLayer.SetReadyWeight(0f);
         playerAnimController.LookLayer.SetLayerAlpha(1f);
     }

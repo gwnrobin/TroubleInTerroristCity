@@ -297,14 +297,11 @@ public class PlayerMovement : PlayerComponent
         playerAnimController.LookLayer.SetLayerAlpha(0.5f);
         playerAnimController.AdsLayer.SetLayerAlpha(0f);
         playerAnimController.LocoLayer.SetReadyWeight(0f);
-
-        Player.MovementState.Set(FPSMovementState.Sprinting);
-        Player.ActionState.Set(FPSActionState.None);
     }
 
     private void StopSprint()
     {
-        if (Player.PoseState.Val == FPSPoseState.Crouching)
+        if (Player.Crouch.Active)
         {
             return;
         }
@@ -312,7 +309,6 @@ public class PlayerMovement : PlayerComponent
         m_CurrentMovementState = null;
         playerAnimController.LookLayer.SetLayerAlpha(1f);
         playerAnimController.AdsLayer.SetLayerAlpha(1f);
-        Player.MovementState.Set(FPSMovementState.Walking);
     }
     #endregion
 
@@ -344,8 +340,6 @@ public class PlayerMovement : PlayerComponent
     private void Crouch()
     {
         playerAnimController.LookLayer.SetPelvisWeight(0f);
-        print( "crouch");
-        Player.PoseState.Set(FPSPoseState.Crouching);
         animator.SetBool(Crouching, true);
         playerAnimController.SlotLayer.PlayMotion(crouchMotionAsset);
     }
@@ -353,18 +347,16 @@ public class PlayerMovement : PlayerComponent
     private void Standup()
     {
         playerAnimController.LookLayer.SetPelvisWeight(1f);
-
-        Player.PoseState.Set(FPSPoseState.Standing);
         animator.SetBool(Crouching, false);
         playerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
     }
     #endregion
     private void Lean()
     {
-        if (Player.MovementState.Val == FPSMovementState.Sprinting)
+        if (Player.Sprint.Active)
             return;
 
-        if (Player.ActionState.Val != FPSActionState.Ready)
+        if (!Player.Holster.Active)
         {
             Player.CharAnimData.leanDirection = (int)Player.Lean.Parameter;
             playerAnimController.SlotLayer.PlayMotion(leanMotionAsset);
@@ -616,7 +608,7 @@ public class PlayerMovement : PlayerComponent
         Vector2 normInput = new Vector2(moveX, moveY);
         normInput.Normalize();
 
-        if (Player.MovementState.Val == FPSMovementState.Sprinting)
+        if (Player.Sprint.Active)
         {
             normInput.x = rawInput.x = 0f;
             normInput.y = rawInput.y = 2f;

@@ -37,11 +37,6 @@ public class Player : Humanoid
     [Header("Camera")]
     [SerializeField] private Camera m_PlayerCamera = null;
 
-    public Value<FPSActionState> ActionState = new(0);
-    public Value<FPSMovementState> MovementState = new(0);
-    public Value<FPSPoseState> PoseState = new(0);
-    public Value<FPSCameraState> CameraState = new(0);
-
     public CharAnimData CharAnimData;
 
     protected override void Start()
