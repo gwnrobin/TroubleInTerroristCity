@@ -33,6 +33,7 @@ public class EquipmentController : PlayerComponent
         Player.Sprint.AddStopListener(() => activeEHandler.RecoilAnimation.Stop());
 
         Player.Aim.SetStartTryer(TryStartAim);
+        Player.Aim.AddStartListener(StartAim);
         Player.Aim.AddStopListener(OnAimStop);
 
         Player.UseItem.SetTryer(TryUse);
@@ -299,10 +300,11 @@ public class EquipmentController : PlayerComponent
             Player.Reload.Active ||
             (!m_AimWhileReloading && Player.Aim.Active))
             return false;
-
-        print("aiming");
+        
         return activeEHandler.TryStartAim();
     }
+
+    private void StartAim() => activeEHandler.StartAim();
 
     private void OnAimStop() => activeEHandler.OnAimStop();
 

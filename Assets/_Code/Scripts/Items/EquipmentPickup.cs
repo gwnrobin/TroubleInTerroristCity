@@ -12,7 +12,7 @@ public class EquipmentPickup : ItemPickup
 			if (interactProgress > 0.45f && humanoid.SwapItem.Try(m_ItemInstance))
             {
 				//Destroy(gameObject);
-				gameObject.transform.SetParent(humanoid.Inventory.gameObject.transform);
+				gameObject.transform.SetParent(humanoid.gameObject.transform);
 				gameObject.SetActive(false);
 				print("swap to " + m_ItemInstance.Name);
 			}
@@ -43,8 +43,7 @@ public class EquipmentPickup : ItemPickup
 					else
 						print("pickup " + m_ItemInstance.name);
 					//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color>", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name), m_BaseMessageColor);
-
-					//Destroy(gameObject);
+					
 					gameObject.transform.SetParent(humanoid.Inventory.gameObject.transform);
 					gameObject.SetActive(false);
 				}

@@ -226,14 +226,18 @@ public class EquipmentHandler : PlayerComponent
             (!_attachedEquipmentItem.EquipmentInfo.Aiming.AimWhileAirborne && !Player.IsGrounded.Get()) || // Can this item be aimed while airborne?
             !_attachedEquipmentItem.EquipmentInfo.Aiming.Enabled || !_attachedEquipmentItem.CanAim()) // Can this item be aimed?
             return false;
+
+        return true;
+    }
+
+    public virtual void StartAim()
+    {
         //SetCharacterMovementSpeed(m_AttachedEquipmentItem.EInfo.Aiming.AimMovementSpeedMod);
         playerAnimController.AdsLayer.SetAds(true);
         playerAnimController.SwayLayer.SetFreeAimEnable(false);
         recoilAnimation.isAiming = true;
 
         _attachedEquipmentItem.OnAimStart();
-
-        return true;
     }
 
     public virtual void OnAimStop()

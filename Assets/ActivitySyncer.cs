@@ -40,10 +40,7 @@ public class ActivitySyncer : PlayerNetworkComponent
         if (IsOwner)
             return;
 
-        Activity activity = default;
-        _activities.TryGetValue(activityName, out activity);
-
-        if(activity == null)
+        if (!_activities.TryGetValue(activityName, out Activity activity))
             return;
         
         if (active)

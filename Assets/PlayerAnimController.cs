@@ -33,13 +33,8 @@ public class PlayerAnimController : PlayerNetworkComponent
     // Used primarily for function calls from Animation Events
     // Runs once at the beginning of the next update
     protected CoreToolkitLib.PostUpdateDelegate queuedAnimEvents;
-
-    private CharAnimStates _charAnimStates;
-
     private IEnumerator Start()
     {
-        _charAnimStates = new CharAnimStates();
-
         yield return new WaitForEndOfFrame();
 
         if (fpsCamera != null)
@@ -144,18 +139,5 @@ public class PlayerAnimController : PlayerNetworkComponent
     {
         fpsAnimator.animGraph.StopAnimation(blendTime);
     }
-
-    protected struct CharAnimStates : INetworkSerializable
-    {
-        public int action;
-        public int pose;
-
-        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-        {
-            serializer.SerializeValue(ref action);
-            serializer.SerializeValue(ref pose);
-        }
-    }
-
 }
 

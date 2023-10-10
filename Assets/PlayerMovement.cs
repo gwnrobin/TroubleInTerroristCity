@@ -392,6 +392,7 @@ public class PlayerMovement : PlayerComponent
 
         return true;
     }
+    // ReSharper disable Unity.PerformanceAnalysis
     private void UpdateGroundedMovement(float deltaTime, Vector3 targetVelocity, ref Vector3 velocity)
     {
         // Make sure to lower the speed when moving on steep surfaces.
@@ -426,7 +427,7 @@ public class PlayerMovement : PlayerComponent
             if (surfaceAngle > m_SlidingState.SlideTreeshold && Player.MoveInput.Get().sqrMagnitude == 0f)
             {
                 Vector3 slideDirection = (SurfaceNormal + Vector3.down);
-                m_SlideVelocity += slideDirection * m_SlidingState.SlideSpeed * deltaTime;
+                m_SlideVelocity += slideDirection * (m_SlidingState.SlideSpeed * deltaTime);
             }
             else
                 m_SlideVelocity = Vector3.Lerp(m_SlideVelocity, Vector3.zero, deltaTime * 10f);
@@ -461,7 +462,7 @@ public class PlayerMovement : PlayerComponent
             velocity.y = 0f;
 
         // Modify the current velocity by taking into account how well we can change direction when not grounded (see "m_AirControl" tooltip).
-        velocity += targetVelocity * m_CoreMovement.Acceleration * m_CoreMovement.AirborneControl * deltaTime;
+        velocity += targetVelocity * (m_CoreMovement.Acceleration * m_CoreMovement.AirborneControl * deltaTime);
 
         // Apply gravity.
         velocity.y -= gravity * deltaTime;
