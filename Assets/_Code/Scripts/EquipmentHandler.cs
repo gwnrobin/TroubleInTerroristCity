@@ -22,7 +22,8 @@ public class EquipmentHandler : PlayerComponent
     public int ContinuouslyUsedTimes { get => _continuouslyUsedTimes; }
     public Message OnChangeItem = new Message();
     public Activity UsingItem = new Activity();
-
+    
+    public Transform ItemUseTransform => _itemUseTransform;
     public PlayerAnimController PlayerAnimController => playerAnimController;
     public EquipmentItem EquipmentItem => _attachedEquipmentItem;
     public RecoilAnimation RecoilAnimation => recoilAnimation;
@@ -36,6 +37,7 @@ public class EquipmentHandler : PlayerComponent
 
     protected EquipmentItem _attachedEquipmentItem;
     protected Item _attachedItem;
+    protected Unarmed _unarmed;
 
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAnimController playerAnimController;
@@ -58,7 +60,7 @@ public class EquipmentHandler : PlayerComponent
     protected IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
-        //m_Unarmed = GetComponentInChildren<Unarmed>(true);
+        _unarmed = GetComponentInChildren<Unarmed>(true);
 
         EquipmentItem[] equipmentItems = GetComponentsInChildren<EquipmentItem>(true);
         //ItemInfo itemInfo;
@@ -103,7 +105,7 @@ public class EquipmentHandler : PlayerComponent
 
     public virtual void EquipItem(Item item)
     {
-        //ClearDelayedSounds();
+        ClearDelayedSounds();
         _attachedItem = item;
 
         // Disable previous equipment item
@@ -115,17 +117,17 @@ public class EquipmentHandler : PlayerComponent
         // Enable next equipment item
         _attachedEquipmentItem = GetEquipmentItem(itemId);
         _attachedEquipmentItem.gameObject.SetActive(true);
-
+        /*
         animator.SetFloat(OverlayType, (float)_attachedEquipmentItem.overlayType);
         playerAnimController.StopAnimation(0.1f);
 
-        //if(_attachedEquipmentItem.GetType() == typeof(ProjectileWeapon))
+        if(_attachedEquipmentItem.GetType() == typeof(ProjectileWeapon))
         InitWeapon((ProjectileWeapon)_attachedEquipmentItem);
         animator.Play(Equip);
         //animator.Play(gun.poseName);
         //Player.EquipmentController.SetActiveEquipment(gun);
         _attachedEquipmentItem.gameObject.SetActive(true);
-
+        */
         // Notify the item components (e.g. animation, physics etc.) present on the Equipment Item object
         IEquipmentComponent[] itemComponents = _attachedEquipmentItem.GetComponents<IEquipmentComponent>();
 
@@ -152,8 +154,8 @@ public class EquipmentHandler : PlayerComponent
 
     public EquipmentItem GetEquipmentItem(int itemId)
     {
-        //if (itemId == 0)
-        //    return m_Unarmed;
+        if (itemId == 0)
+            return _unarmed;
 
         if (_equipmentItems.TryGetValue(itemId, out EquipmentItem equipmentItem))
             return equipmentItem;

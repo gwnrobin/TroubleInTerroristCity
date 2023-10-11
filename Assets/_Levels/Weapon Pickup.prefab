@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5826863456844889650}
   - component: {fileID: 6431703386923665807}
   - component: {fileID: 8244119194453420095}
-  - component: {fileID: 116637119658733966}
   - component: {fileID: 7615633403902421552}
   - component: {fileID: 6563118688989390341}
   m_Layer: 0
@@ -35,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5826863456844889650
 Rigidbody:
@@ -131,26 +130,9 @@ MonoBehaviour:
   m_BaseMessageColor: {r: 1, g: 1, b: 1, a: 0.678}
   m_ItemCountColor: {r: 0.976, g: 0.6, b: 0.129, a: 1}
   m_InventoryFullColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &116637119658733966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4118889945812101346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1771809c6c1acc04aab1ebd6a49dadc5, type: 3}
-  m_Name: AK
-  m_EditorClassIdentifier: 
-  Description: 
-  StackSize: 1
-  Category: Primary
-  Pickup: {fileID: 4118889945812101346}
-  m_Id: 2
-  m_Name: 
-  m_CurrentStackSize: 1
-  m_Properties: []
+  PickedUpEquipment:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &7615633403902421552
 AudioSource:
   m_ObjectHideFlags: 0

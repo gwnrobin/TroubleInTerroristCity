@@ -217,8 +217,8 @@ public class EquipmentController : PlayerComponent
             return false;
         else
         {
-            //Player.Inventory.RemoveItem(Player.EquippedItem.Get());
-            Player.EquippedItem.Get().gameObject.SetActive(false);
+            Player.Inventory.RemoveItem(Player.EquippedItem.Get());
+            //Player.EquippedItem.Get().gameObject.SetActive(false);
             Player.EquipItem.Try(null, true);
             return true;
         }

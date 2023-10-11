@@ -73,13 +73,13 @@ public class ItemProperty
     private float m_Value;
 
 
-    //public ItemProperty(ItemPropertyInfo propertyInfo)
-    //{
-    //    m_Name = propertyInfo.Name;
-    //    m_Type = propertyInfo.Type;
+    public ItemProperty(ItemPropertyInfo propertyInfo)
+    {
+        m_Name = propertyInfo.Name;
+        m_Type = propertyInfo.Type;
 
-    //    m_Value = propertyInfo.GetAsFloat();
-    //}
+        m_Value = propertyInfo.GetAsFloat();
+    }
 
     public ItemProperty GetMemberwiseClone()
     {

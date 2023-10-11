@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item
 {
 	[NonSerialized]
 	public Message<ItemProperty> PropertyChanged = new Message<ItemProperty>();
@@ -11,14 +11,7 @@ public class Item : MonoBehaviour
 	[NonSerialized]
 	public Message StackChanged = new Message();
 
-	[Multiline(5)]
-	public string Description;
-
-	public int StackSize = 1;
-	public string Category;
-
-	[SerializeField]
-	public GameObject Pickup;
+	public ItemInfo Info { get { return ItemDatabase.GetItemById(m_Id); } }
 
 	public int Id { get => m_Id; }
 	public string Name { get { return m_Name; } }
@@ -57,6 +50,40 @@ public class Item : MonoBehaviour
 	public static implicit operator bool(Item item)
 	{
 		return item != null;
+	}
+	
+	public static Item Create(string name, int count = 1)
+	{
+		ItemInfo itemInfo = null;
+
+		if(ItemDatabase.Instance != null)
+			itemInfo = ItemDatabase.GetItemByName(name);
+		else
+			Debug.LogWarning("Can't create item with name '" + name + "'. It doesn't exist in the database!");
+
+		if(itemInfo != null)
+			return new Item(itemInfo, count);
+		else
+			return null;
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public Item(ItemInfo itemInfo, int count = 1, ItemProperty[] customProperties = null)
+	{
+		m_Id = itemInfo.Id;
+		m_Name = itemInfo.Name;
+		
+		CurrentStackSize = Mathf.Clamp(count, 1, itemInfo.StackSize);
+
+		if(customProperties != null)
+			m_Properties = CloneProperties(customProperties);
+		else
+			m_Properties = InstantiateProperties(itemInfo.Properties);
+
+		for(int i = 0;i < m_Properties.Length;i++)
+			m_Properties[i].Changed.AddListener(OnPropertyChanged);
 	}
 
 	public bool HasProperty(string name)
@@ -123,15 +150,15 @@ public class Item : MonoBehaviour
 		return clonedProperties;
 	}
 
-	//private ItemProperty[] InstantiateProperties(ItemPropertyInfoList propertyInfos)
-	//{
-	//	ItemProperty[] properties = new ItemProperty[propertyInfos.Length];
+	private ItemProperty[] InstantiateProperties(ItemPropertyInfoList propertyInfos)
+	{
+		ItemProperty[] properties = new ItemProperty[propertyInfos.Length];
 
-	//	for (int i = 0; i < propertyInfos.Length; i++)
-	//		properties[i] = new ItemProperty(propertyInfos[i]);
+		for (int i = 0; i < propertyInfos.Length; i++)
+			properties[i] = new ItemProperty(propertyInfos[i]);
 
-	//	return properties;
-	//}
+		return properties;
+	}
 
 	private void OnPropertyChanged(ItemProperty itemProperty)
 	{

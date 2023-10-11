@@ -13,8 +13,8 @@ public class GearSync : PlayerNetworkComponent
     {
         foreach (var weapon in weaponBone.GetComponents<Item>())
         {
-            items.Add(weapon.Id, weapon);
-            print(weapon.Id + " - " + weapon.name);
+            //items.Add(weapon.Id, weapon);
+            //print(weapon.Id + " - " + weapon.name);
         }
         
         if(!IsOwner)
@@ -22,11 +22,11 @@ public class GearSync : PlayerNetworkComponent
             
         if (IsHost)
         {
-            Player.EquippedItem.AddChangeListener((Item item) => SyncGearClientRpc(item.Id));
+            //Player.EquippedItem.AddChangeListener((Item item) => SyncGearClientRpc(item.Id));
         }
         else if(IsClient)
         {
-            Player.EquippedItem.AddChangeListener((Item item) => SyncGearServerRpc(item.Id));
+            //Player.EquippedItem.AddChangeListener((Item item) => SyncGearServerRpc(item.Id));
         }
     }
     

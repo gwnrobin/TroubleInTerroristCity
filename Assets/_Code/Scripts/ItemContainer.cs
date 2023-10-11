@@ -73,16 +73,16 @@ public class ItemContainer : IEnumerable
 	//Filter for the Selected Slot (clamps its value to the slots array size)
 	private int FilterSelectedSlotIndex(int prevIndex, int newIndex) => Mathf.Clamp(newIndex, 0, Slots.Length - 1);
 
-	public int AddItem(Item item, int amount, ItemProperty[] customProperties = null)
+	public int AddItem(ItemInfo itemInfo, int amount, ItemProperty[] customProperties = null)
 	{
-		if (item == null || !AllowsItem(item))
+		if(itemInfo == null || !AllowsItem(itemInfo))
 			return 0;
 
 		int added = 0;
 
 		if (m_OneStackPerItem)
 		{
-			int slotIndex = GetSlotIndexForItem(item.Id);
+			int slotIndex = GetSlotIndexForItem(itemInfo.Id);
 
 			if (slotIndex == -1)
 			{
@@ -90,61 +90,62 @@ public class ItemContainer : IEnumerable
 				{
 					if (!m_Slots[i].HasItem)
 					{
-						added += AddItemToSlot(m_Slots[i], item, amount, customProperties);
+						added += AddItemToSlot(m_Slots[i], itemInfo, amount, customProperties);
 						break;
 					}
 				}
 			}
 			else
-				added += AddItemToSlot(m_Slots[slotIndex], item, amount, customProperties);
+				added += AddItemToSlot(m_Slots[slotIndex], itemInfo, amount, customProperties);
 		}
 		else
 		{
 			// Go through each slot and see where we can add the item(s)
 			for (int i = 0; i < m_Slots.Length; i++)
 			{
-				added += AddItemToSlot(m_Slots[i], item, amount, customProperties);
+				added += AddItemToSlot(m_Slots[i], itemInfo, amount, customProperties);
 
 				// We've added all the items, we can stop now
 				if (added == amount)
 					return added;
 			}
 		}
+
 		return added;
 	}
 
-	//public int AddItem(string name, int amount, ItemProperty[] customProperties = null)
-	//{
-	//	ItemInfo itemInfo;
+	public int AddItem(string name, int amount, ItemProperty[] customProperties = null)
+	{
+		ItemInfo itemInfo;
 
-	//	if (!ItemDatabase.TryGetItemByName(name, out itemInfo) || !AllowsItem(itemInfo))
-	//		return 0;
+		if (!ItemDatabase.TryGetItemByName(name, out itemInfo) || !AllowsItem(itemInfo))
+			return 0;
 
-	//	return AddItem(itemInfo, amount, customProperties);
-	//}
+		return AddItem(itemInfo, amount, customProperties);
+	}
 
-	//public int AddItem(int id, int amount, ItemProperty[] customProperties = null)
-	//{
-	//	ItemInfo itemInfo;
+	public int AddItem(int id, int amount, ItemProperty[] customProperties = null)
+	{
+		ItemInfo itemInfo;
 
-	//	if (!ItemDatabase.TryGetItemById(id, out itemInfo) || !AllowsItem(itemInfo))
-	//		return 0;
+		if (!ItemDatabase.TryGetItemById(id, out itemInfo) || !AllowsItem(itemInfo))
+			return 0;
 
-	//	return AddItem(itemInfo, amount, customProperties);
-	//}
+		return AddItem(itemInfo, amount, customProperties);
+	}
 
 	public bool AddItem(Item item)
 	{
-		if (AllowsItem(item))
+		if(AllowsItem(item))
 		{
-			if (item.StackSize > 1)
-				return AddItem(item, item.CurrentStackSize, item.Properties) > 0;
+			if (item.Info.StackSize > 1)
+				return AddItem(item.Info, item.CurrentStackSize, item.Properties) > 0;
 			else
 			{
 				// The item's not stackable, try find an empty slot for it
-				for (int i = 0; i < m_Slots.Length; i++)
+				for(int i = 0;i < m_Slots.Length;i ++)
 				{
-					if (!m_Slots[i].HasItem)
+					if(!m_Slots[i].HasItem)
 					{
 						m_Slots[i].SetItem(item);
 						return true;
@@ -279,44 +280,46 @@ public class ItemContainer : IEnumerable
 		return count;
 	}
 
-	public bool AllowsItem(Item itemInfo)
+	public bool AllowsItem(Item item) => AllowsItem(item.Info);
+
+	public bool AllowsItem(ItemInfo itemInfo)
 	{
 		// Check category
 		bool isFromValidCategories = m_ValidCategories == null || m_ValidCategories.Length == 0;
 
-		if (m_ValidCategories != null)
+		if(m_ValidCategories != null)
 		{
-			for (int i = 0; i < m_ValidCategories.Length; i++)
+			for(int i = 0;i < m_ValidCategories.Length;i ++)
 			{
-				if (m_ValidCategories[i] == itemInfo.Category)
+				if(m_ValidCategories[i] == itemInfo.Category)
 					isFromValidCategories = true;
 			}
 		}
-
-		if (!isFromValidCategories)
+		
+		if(!isFromValidCategories)
 			return false;
 
-		//// Check properties
-		//if (m_RequiredProperties != null)
-		//{
-		//	for (int i = 0; i < m_RequiredProperties.Length; i++)
-		//	{
-		//		bool hasProperty = false;
+		// Check properties
+		if(m_RequiredProperties != null)
+		{
+			for(int i = 0;i < m_RequiredProperties.Length;i ++)
+			{
+				bool hasProperty = false;
 
-		//		for (int p = 0; p < itemInfo.Properties.Length; p++)
-		//		{
-		//			if (itemInfo.Properties[p].Name == m_RequiredProperties[i])
-		//			{
-		//				hasProperty = true;
-		//				break;
-		//			}
-		//		}
+				for(int p = 0;p < itemInfo.Properties.Length;p ++)
+				{
+					if(itemInfo.Properties[p].Name == m_RequiredProperties[i])
+					{
+						hasProperty = true;
+						break;
+					}
+				}
 
-		//		if (!hasProperty)
-		//			return false;
-		//	}
-		//}
-
+				if(!hasProperty)
+					return false;
+			}
+		}
+			
 		return true;
 	}
 
@@ -335,16 +338,16 @@ public class ItemContainer : IEnumerable
 	}
 
 
-	private int AddItemToSlot(ItemSlot slot, Item item, int amount, ItemProperty[] properties = null)
+	private int AddItemToSlot(ItemSlot slot, ItemInfo itemInfo, int amount, ItemProperty[] properties = null)
 	{
-		if (slot.HasItem && item.Name != slot.Item.Name)
+		if (slot.HasItem && itemInfo.Name != slot.Item.Name)
 			return 0;
 
 		bool wasEmpty = false;
 
 		if (!slot.HasItem)
 		{
-			slot.SetItem(item);
+			slot.SetItem(new Item(itemInfo, 1, properties));
 			amount--;
 			wasEmpty = true;
 		}

@@ -18,8 +18,7 @@ public class ProjectileWeapon : EquipmentItem
     public FireMode FireMode { get => _projectileWeaponInfo.Shooting.Modes; }
     public int MagazineSize { get => _projectileWeaponInfo.Shooting.MagazineSize; }
     public bool AmmoEnabled { get => _projectileWeaponInfo.Shooting.EnableAmmo; }
-
-    //temp public
+    
     protected ProjectileWeaponInfo _projectileWeaponInfo;
 
     public int SelectedFireMode { get; protected set; } = 8;

@@ -45,16 +45,11 @@ public class InventoryController: HumanoidComponent
 
 	public bool TryDropItem(Item item)
 	{
-		GameObject i = GetEquipmentPickup(item);
-
-		if (i == null)
-			return false;
-
 		bool canBeDropped = item != null &&
-		item.Pickup != null &&
-		Humanoid.DropItem.LastExecutionTime + 0.5f < Time.time &&
-		Humanoid.EquipItem.LastExecutionTime + 0.5f < Time.time &&
-		m_Inventory.RemoveItem(item);
+		                    item.Info.Pickup != null &&
+		                    Humanoid.DropItem.LastExecutionTime + 0.5f < Time.time &&
+		                    Humanoid.EquipItem.LastExecutionTime + 0.5f < Time.time &&
+		                    m_Inventory.RemoveItem(item);
 
 		if (canBeDropped)
 		{
@@ -63,7 +58,7 @@ public class InventoryController: HumanoidComponent
 			if (Humanoid.Crouch.Active)
 				heightDropMultiplier = m_CrouchHeightDropMod;
 
-			StartCoroutine(C_Drop(i, heightDropMultiplier));
+			StartCoroutine(C_Drop(item, heightDropMultiplier));
 
 			return true;
 		}
@@ -76,7 +71,7 @@ public class InventoryController: HumanoidComponent
 		Humanoid.EquipItem.Try(Humanoid.Inventory.GetContainerWithName("Pistol").Slots[0].Item, true);
 	}
 
-	private IEnumerator C_Drop(GameObject item, float heightDropMultiplier)
+	private IEnumerator C_Drop(Item item, float heightDropMultiplier)
 	{
 		if (item == null)
 			yield return null;
@@ -98,7 +93,7 @@ public class InventoryController: HumanoidComponent
 			dropRotation = Random.rotationUniform;
 		}
 
-		GameObject droppedItem = item;
+		GameObject droppedItem = Instantiate(item.Info.Pickup, dropPosition, dropRotation) as GameObject;
 
 		droppedItem.transform.parent = null;
 		droppedItem.SetActive(true);
@@ -123,27 +118,11 @@ public class InventoryController: HumanoidComponent
 
 		m_DropSounds.Play2D(ItemSelection.Method.RandomExcludeLast);
 
-		//var pickup = droppedItem.GetComponent<ItemPickup>();
+		var pickup = droppedItem.GetComponent<ItemPickup>();
 
-		//if (pickup != null)
-		//	pickup.SetItem(item);
+		if (pickup != null)
+			pickup.SetItem(item);
 	}
-
-	private GameObject GetEquipmentPickup(Item item)
-    {
-		Item[] items = gameObject.transform.GetComponentsInChildren<Item>(true);
-
-		foreach(Item i in items)
-        {
-			print(i);
-			if(i.Id == item.Id)
-            {
-				return i.gameObject;
-			}
-        }			
-
-		return null;
-    }
 
 	private void OnEntityDeath()
 	{

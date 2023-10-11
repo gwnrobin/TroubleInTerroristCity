@@ -78,9 +78,7 @@ public class ItemPickup : InteractiveObject
 
 		if (m_PickUpMethod != PickUpMethod.InteractionBased)
 			InteractionEnabled = false;
-
-		m_ItemInstance = GetComponent<Item>();
-		/*
+		
 		if (ItemDatabase.TryGetItemByName(m_Item, out ItemInfo itemInfo))
 		{
 			m_ItemInstance = new Item(itemInfo, m_ItemCount);
@@ -97,7 +95,7 @@ public class ItemPickup : InteractiveObject
 				SetInteractionText(m_ItemInstance);
 		}
 		else
-			InteractionEnabled = false;*/
+			InteractionEnabled = false;
 	}
 
 	protected virtual void TryPickUp(Humanoid humanoid, float interactProgress)
@@ -107,7 +105,7 @@ public class ItemPickup : InteractiveObject
 			// Item added to inventory
 			if (humanoid.Inventory.AddItem(m_ItemInstance, m_TargetContainers))
 			{
-				if (m_ItemInstance.StackSize > 1)
+				if (m_ItemInstance.Info.StackSize > 1)
 					print("");
 				//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color> x {2}", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name, m_ItemInstance.CurrentStackSize), m_BaseMessageColor);
 				else

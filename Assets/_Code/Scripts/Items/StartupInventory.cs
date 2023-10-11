@@ -44,7 +44,7 @@ public class StartupInventory : EntityComponent
 
         [Space]
 
-        public List<Item> StartupItems = null;
+        public ItemGeneratorList StartupItems = null;
     }
 
     [SerializeField]
@@ -56,40 +56,45 @@ public class StartupInventory : EntityComponent
     private void AddItemsToInventory()
     {
         Inventory inventory = GetComponent<Inventory>();
+
         if (inventory != null)
         {
             foreach (var container in m_ItemContainersStartupItems)
             {
                 ItemContainer itemContainer = inventory.GetContainerWithName(container.Name);
+
                 if (itemContainer != null)
                 {
                     foreach (var item in container.StartupItems)
                     {
-                        //if (item.GenerateMethod == ItemGenerator.Method.Specific)
-                        //    itemContainer.AddItem(item.Name, item.GetRandomCount());
-                        //else if (item.GenerateMethod == ItemGenerator.Method.RandomFromCategory)
-                        //{
-                        //    ItemInfo itemInfo = ItemDatabase.GetRandomItemFromCategory(item.Category);
+                        if (item.GenerateMethod == ItemGenerator.Method.Specific)
+                            itemContainer.AddItem(item.Name, item.GetRandomCount());
+                        else if (item.GenerateMethod == ItemGenerator.Method.RandomFromCategory)
+                        {
+                            ItemInfo itemInfo = ItemDatabase.GetRandomItemFromCategory(item.Category);
 
-                        //    if (itemInfo != null)
-                        //        itemContainer.AddItem(itemInfo.Id, item.GetRandomCount());
-                        //}
-                        //else if (item.GenerateMethod == ItemGenerator.Method.Random)
-                        //{
-                        //    var category = ItemDatabase.GetRandomCategory();
+                            if (itemInfo != null)
+                                itemContainer.AddItem(itemInfo.Id, item.GetRandomCount());
+                        }
+                        else if (item.GenerateMethod == ItemGenerator.Method.Random)
+                        {
+                            var category = ItemDatabase.GetRandomCategory();
 
-                        //    if (category != null)
-                        //    {
-                        //        ItemInfo itemInfo = ItemDatabase.GetRandomItemFromCategory(category.Name);
+                            if (category != null)
+                            {
+                                ItemInfo itemInfo = ItemDatabase.GetRandomItemFromCategory(category.Name);
 
-                        //        if (itemInfo != null)
-                        //            itemContainer.AddItem(itemInfo.Id, item.GetRandomCount());
-                        //    }
-                        //}
-                        itemContainer.AddItem(item, 1);
+                                if (itemInfo != null)
+                                    itemContainer.AddItem(itemInfo.Id, item.GetRandomCount());
+                            }
+                        }
                     }
                 }
             }
         }
     }
 }
+
+
+[Serializable]
+public class ItemGeneratorList : ReorderableArray<ItemGenerator> { }

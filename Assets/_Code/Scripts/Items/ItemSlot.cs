@@ -91,17 +91,17 @@ public class ItemSlot
 
 	public int AddToStack(int amount)
 	{
-		if (!HasItem || Item.StackSize <= 1)
+		if (!HasItem || Item.Info.StackSize <= 1)
 			return 0;
 
 		int oldStackCount = Item.CurrentStackSize;
-		int surplus = amount + oldStackCount - Item.StackSize;
+		int surplus = amount + oldStackCount - Item.Info.StackSize;
 		int currentStackCount = oldStackCount;
 
 		if (surplus <= 0)
 			currentStackCount += amount;
 		else
-			currentStackCount = Item.StackSize;
+			currentStackCount = Item.Info.StackSize;
 
 		Item.CurrentStackSize = currentStackCount;
 

@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EquipmentPickup : ItemPickup
 {
+	public UnityEvent PickedUpEquipment;
+	
 	protected override void TryPickUp(Humanoid humanoid, float interactProgress)
 	{
 		if (m_ItemInstance != null)
@@ -11,9 +12,8 @@ public class EquipmentPickup : ItemPickup
 			// Check if this Item is swappable
 			if (interactProgress > 0.45f && humanoid.SwapItem.Try(m_ItemInstance))
             {
-				//Destroy(gameObject);
-				gameObject.transform.SetParent(humanoid.gameObject.transform);
-				gameObject.SetActive(false);
+				//PickedUpEquipment.Invoke();
+				//gameObject.SetActive(false);
 				print("swap to " + m_ItemInstance.Name);
 			}
 			else
@@ -31,21 +31,23 @@ public class EquipmentPickup : ItemPickup
 
 					addedItem = true;
 				}
-				else
-					addedItem = humanoid.Inventory.AddItem(m_ItemInstance, m_TargetContainers);
+				else 
+					addedItem = humanoid.Inventory.AddItem(m_ItemInstance, m_TargetContainers); 
 
+				
 				// Item added to inventory
 				if (addedItem)
 				{
-					if (m_ItemInstance.StackSize > 1)
-						print("pickup " + m_ItemInstance.name);
+					if (m_ItemInstance.Info.StackSize > 1)
+						print("pickup " + m_ItemInstance.Name);
 					//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color> x {2}", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name, m_ItemInstance.CurrentStackSize), m_BaseMessageColor);
 					else
-						print("pickup " + m_ItemInstance.name);
+						print("pickup " + m_ItemInstance.Name);
 					//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color>", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name), m_BaseMessageColor);
 					
-					gameObject.transform.SetParent(humanoid.Inventory.gameObject.transform);
-					gameObject.SetActive(false);
+					Destroy(this.gameObject);
+					//gameObject.SetActive(false);
+					//PickedUpEquipment.Invoke();
 				}
 				// Item not added to inventory
 				else

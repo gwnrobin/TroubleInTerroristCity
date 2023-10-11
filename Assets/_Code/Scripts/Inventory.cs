@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory : EntityComponent
@@ -86,7 +87,6 @@ public class Inventory : EntityComponent
 			if (flags.HasFlag(Containers[i].Flag))
 			{
 				bool added = Containers[i].AddItem(item);
-
 				if (added)
 					return true;
 			}

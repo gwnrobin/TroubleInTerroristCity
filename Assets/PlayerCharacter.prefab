@@ -2313,6 +2313,7 @@ Transform:
   - {fileID: 2950094083429401873}
   - {fileID: 3736658222073259969}
   - {fileID: 668000712320439852}
+  - {fileID: 4362498072134973443}
   m_Father: {fileID: 401005980375581885}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9381,7 +9382,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6962326357065059095}
-  - component: {fileID: 1077284983605953176}
   m_Layer: 3
   m_Name: GearSync
   m_TagString: Untagged
@@ -9404,20 +9404,6 @@ Transform:
   m_Father: {fileID: 986402498197524104}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1077284983605953176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4973401351951063041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfe61356b3e6a5a45aeb0a4eee72352d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equipmentController: {fileID: 780182989777462318}
-  weaponBone: {fileID: 8653715811881256993}
 --- !u!1 &5003455260101320344
 GameObject:
   m_ObjectHideFlags: 0
@@ -9985,6 +9971,69 @@ MonoBehaviour:
   m_OnDamageEventSimple:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &5269796476475941009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4362498072134973443}
+  - component: {fileID: 1032077108891215462}
+  m_Layer: 3
+  m_Name: Unarmed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4362498072134973443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269796476475941009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8653715811881256993}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1032077108891215462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269796476475941009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0931821ec3fb11242abb9905918ad68b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  overlayType: 0
+  EquipmentInfo: {fileID: 11400000, guid: 2a0883440f936a442b687039845ee03c, type: 2}
+  m_GeneralEvents:
+    OnEquipped:
+      m_PersistentCalls:
+        m_Calls: []
+    OnReload:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAim:
+      m_PersistentCalls:
+        m_Calls: []
+    OnUse:
+      m_PersistentCalls:
+        m_Calls: []
+    OnChangeUseMode:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &5275602393985143586
 GameObject:
   m_ObjectHideFlags: 0
@@ -14879,7 +14928,7 @@ MonoBehaviour:
   m_ItemContainersStartupItems:
   - Name: Pistol
     StartupItems:
-    - {fileID: 0}
+      m_List: []
 --- !u!82 &838494653694612735
 AudioSource:
   m_ObjectHideFlags: 0
