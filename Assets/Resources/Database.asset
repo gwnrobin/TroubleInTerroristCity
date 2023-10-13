@@ -12,6 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae80e31a532f4cf4985cd82b10ddcfb1, type: 3}
   m_Name: Database
   m_EditorClassIdentifier: 
-  m_Categories: []
+  m_Categories:
+  - m_Name: Pistol
+    m_Items:
+    - m_Name: SilencedPistol
+      m_Id: -4214810
+      m_Category: Pistol
+      m_Icon: {fileID: 0}
+      m_Description: piew
+      m_Pickup: {fileID: 2934354455126241283, guid: eff1b59b2142e3748a8803e4bc638b92, type: 3}
+      m_StackSize: 1
+      m_Properties:
+        m_List:
+        - m_Name: Ammo
+          m_Type: 1
+          m_FixedValue: 7
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
+  - m_Name: SMG
+    m_Items:
+    - m_Name: Vector
+      m_Id: 6595530
+      m_Category: SMG
+      m_Icon: {fileID: 0}
+      m_Description: piew
+      m_Pickup: {fileID: 6532043267659945332, guid: 468a4af651a8e9c46a34566652bf5a68, type: 3}
+      m_StackSize: 1
+      m_Properties:
+        m_List:
+        - m_Name: Ammo
+          m_Type: 1
+          m_FixedValue: 30
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
   m_ItemProperties:
-    m_List: []
+    m_List:
+    - Name: Ammo
+      Type: 1

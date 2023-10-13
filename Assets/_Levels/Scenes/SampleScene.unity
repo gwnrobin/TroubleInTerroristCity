@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1626.801, g: 1809.7991, b: 2261.6487, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6712,14 +6712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1771809c6c1acc04aab1ebd6a49dadc5, type: 3}
   m_Name: AK
   m_EditorClassIdentifier: 
-  Description: 
-  StackSize: 1
-  Category: Primary
-  Pickup: {fileID: 538434282}
-  m_Id: 2
-  m_Name: 
-  m_CurrentStackSize: 1
-  m_Properties: []
 --- !u!114 &538434288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17090,17 +17082,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4996499045066214462, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
   m_PrefabInstance: {fileID: 1504255721}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1505091040 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8696737150469148434, guid: eff1b59b2142e3748a8803e4bc638b92, type: 3}
-  m_PrefabInstance: {fileID: 2273308425874284536}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1771809c6c1acc04aab1ebd6a49dadc5, type: 3}
-  m_Name: pistol
-  m_EditorClassIdentifier: 
 --- !u!1001 &1519397541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28300,7 +28281,7 @@ PrefabInstance:
     - target: {fileID: 596227197136457724, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_ItemContainersStartupItems.Array.data[0].StartupItems.Array.data[0]
       value: 
-      objectReference: {fileID: 1505091040}
+      objectReference: {fileID: 0}
     - target: {fileID: 3279990666433179544, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2392067223

@@ -17,9 +17,11 @@ public class ItemGenerator
     [SerializeField]
     public Method GenerateMethod = Method.Specific;
 
+    [DatabaseCategory]
     [SerializeField]
     public string Category = null;
 
+    [DatabaseItem]
     [SerializeField]
     public string Name = null;
 

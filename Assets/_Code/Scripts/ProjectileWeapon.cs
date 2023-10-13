@@ -49,7 +49,6 @@ public class ProjectileWeapon : EquipmentItem
         base.Initialize(eHandler);
 
         _projectileWeaponInfo = EquipmentInfo as ProjectileWeaponInfo;
-        animator = GetComponentInChildren<Animator>();
         UpdateFireModeSettings(SelectedFireMode);
 
         _ammoProperty = _projectileWeaponInfo.Shooting.MagazineSize;
@@ -190,7 +189,7 @@ public class ProjectileWeapon : EquipmentItem
 
              //EHandler.Animator_SetTrigger(animHash_EmptyReload);
              EHandler.PlayerAnimController.PlayAnimation(reloadClip);
-             animator.Play("Reload", 0, 0f);
+             Animator.Play("Reload", 0, 0f);
 
              //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.EmptyReloadLoopCamForces);
              EHandler.PlayDelayedSounds(_projectileWeaponInfo.Reloading.EmptyReloadSounds);
@@ -203,7 +202,7 @@ public class ProjectileWeapon : EquipmentItem
                  m_ReloadLoopEndTime = Time.time + _projectileWeaponInfo.Reloading.ReloadDuration;
 
                  EHandler.PlayerAnimController.PlayAnimation(reloadClip);
-                 animator.Play("Reload", 0, 0f);
+                 Animator.Play("Reload", 0, 0f);
                  //EHandler.Animator_SetTrigger(animHash_Reload);
 
                  //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.ReloadLoopCamForces);

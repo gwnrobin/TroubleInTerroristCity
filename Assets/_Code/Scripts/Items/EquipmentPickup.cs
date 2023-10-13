@@ -45,9 +45,9 @@ public class EquipmentPickup : ItemPickup
 						print("pickup " + m_ItemInstance.Name);
 					//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color>", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name), m_BaseMessageColor);
 					
-					Destroy(this.gameObject);
+					//Destroy(this.gameObject);
 					//gameObject.SetActive(false);
-					//PickedUpEquipment.Invoke();
+					PickedUpEquipment.Invoke();
 				}
 				// Item not added to inventory
 				else

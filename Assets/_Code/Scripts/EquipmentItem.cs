@@ -2,6 +2,7 @@ using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class DelayedSound : ICloneable
@@ -27,7 +28,41 @@ public class QueuedSound
 public class EquipmentItem : PlayerComponent
 {
     #region Internal
+    
+    [Serializable]
+    public class GeneralInfo
+    {
+        // General
+        [DatabaseItem]
+        public string CorrespondingItem;
 
+        [Space(4f)]
+        public EquipmentItemInfo EquipmentInfo = null;
+
+        // Animation
+        [Space(4f)]
+        [BHeader("Animation", false, order = 2)]
+
+        //public EquipmentAnimationInfo EquipmentAnimationInfo = null;
+
+        [EnableIf("EquipmentAnimationInfo", true, 6f)]
+        public Animator Animator = null;
+        
+        // Physics
+        //[Space(4f)]
+        //[BHeader("Physics", false, order = 2)]
+
+        //public EquipmentPhysicsInfo EquipmentPhysicsInfo = null;
+
+        //[EnableIf("EquipmentPhysicsInfo", true, 6f)]
+        //public Transform PhysicsPivot = null;
+
+        // Model (Skin Handler)
+        //[Space(4f)]
+        //[BHeader("Model", false, order = 2)]
+
+        //public EquipmentModelHandler EquipmentModel = null;
+    }
     [Serializable]
     public class GeneralEvents
     {
@@ -51,16 +86,21 @@ public class EquipmentItem : PlayerComponent
     }
 
     #endregion
-    public int id = 0;
-    public OverlayType overlayType;
+    
     public EquipmentHandler EHandler { get; private set; }
-
-    public EquipmentItemInfo EquipmentInfo = null;
+    //public EquipmentModelHandler EModel => m_GeneralInfo.EquipmentModel;
+    public EquipmentItemInfo EquipmentInfo => generalInfo.EquipmentInfo;
+    //public EquipmentAnimationInfo EAnimation => m_GeneralInfo.EquipmentAnimationInfo;
+    //public EquipmentPhysicsInfo EPhysics => m_GeneralInfo.EquipmentPhysicsInfo;
+    //public Transform PhysicsPivot { get { return m_GeneralInfo.PhysicsPivot; } }
+    public Animator Animator => generalInfo.Animator;
+    public string CorrespondingItemName => generalInfo.CorrespondingItem;
+    
+    [SerializeField, Group]
+    protected GeneralInfo generalInfo = null;
 
     [SerializeField, Group]
     public GeneralEvents m_GeneralEvents = null;
-
-    protected Animator animator;
 
     // Using
     protected float m_UseThreshold = 0.1f;
@@ -68,11 +108,18 @@ public class EquipmentItem : PlayerComponent
 
     // Aiming
     protected float m_NextTimeCanAim;
+    
+    public virtual void Initialize(EquipmentHandler eHandler)
+    {
+        EHandler = eHandler;
+
+        //EAnimation.AssignEquipmentAnimation(Animator);
+    }
 
     public virtual void OnAimStart()
     {
         //EHandler.Animator_SetInteger(animHash_IdleIndex, 0);
-        m_NextTimeCanAim = Time.time + EquipmentInfo.Aiming.AimThreshold;
+        m_NextTimeCanAim = Time.time + generalInfo.EquipmentInfo.Aiming.AimThreshold;
 
         m_GeneralEvents.OnAim.Invoke(true);
     }
@@ -113,12 +160,6 @@ public class EquipmentItem : PlayerComponent
 
         m_GeneralEvents.OnEquipped.Invoke(false);
     }
-
-    public virtual void Initialize(EquipmentHandler eHandler)
-    {
-        EHandler = eHandler;
-    }
-
 
     // Using Methods
     public virtual bool TryUseOnce(Ray[] itemUseRays, int useType = 0) { return false; }

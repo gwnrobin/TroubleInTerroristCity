@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Unarmed-Default
+  m_Name: Unarmed Info
   m_EditorClassIdentifier: Assembly-CSharp::UnarmedInfo
   General:
     UseWhileAirborne: 0
@@ -19,6 +19,7 @@ MonoBehaviour:
     CrosshairID: 0
     StaminaTakePerUse: 0
     MovementSpeedMod: 1
+    overlayType: 0
   Equipping:
     Duration: 0.6
     AnimationSpeed: 1
@@ -50,7 +51,29 @@ MonoBehaviour:
     ResetSwingsIfNotUsed: 0
     ResetSwingsDelay: 1
     SwingSelection: 1
-    Swings: []
+    Swings:
+    - SwingName: piew
+      Cooldown: 0
+      CastDelay: 0
+      CastRadius: 0
+      HitDamage: 0
+      HitImpact: 0
+      AnimationIndex: 0
+      AnimationSpeed: 0
+      SwingAudio:
+        Delay: 0
+        Sound:
+          m_Clips: []
+          m_VolumeRange: {x: 0, y: 0}
+          m_PitchRange: {x: 0, y: 0}
+          m_VolumeMultiplier: 0
+      HitAudio:
+        Delay: 0
+        Sound:
+          m_Clips: []
+          m_VolumeRange: {x: 0, y: 0}
+          m_PitchRange: {x: 0, y: 0}
+          m_VolumeMultiplier: 0
   UnarmedSettings:
     AlwaysShowArms: 0
     ArmsShowDuration: 3

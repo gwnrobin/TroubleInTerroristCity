@@ -130,11 +130,11 @@ public partial class Unarmed : MeleeWeapon
 
     protected virtual void Update()
     {
-        if (!_unarmedInfo.UnarmedSettings.AlwaysShowArms && m_NextTimeToHideArms < Time.time && m_ArmsAreVisible)
-        {
-            ChangeArmsVisibility(false);
-            //EHandler.Animator_SetTrigger(animHash_Hide);
-        }
+        //if (!_unarmedInfo.UnarmedSettings.AlwaysShowArms && m_NextTimeToHideArms < Time.time && m_ArmsAreVisible)
+        //{
+        //    ChangeArmsVisibility(false);
+        //    //EHandler.Animator_SetTrigger(animHash_Hide);
+        //}
     }
 
     private void ChangeArmsVisibility(bool show)

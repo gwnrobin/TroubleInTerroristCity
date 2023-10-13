@@ -63,27 +63,34 @@ public class EquipmentHandler : PlayerComponent
         _unarmed = GetComponentInChildren<Unarmed>(true);
 
         EquipmentItem[] equipmentItems = GetComponentsInChildren<EquipmentItem>(true);
-        //ItemInfo itemInfo;
-        foreach (var item in equipmentItems)
+        ItemInfo itemInfo;
+        foreach (var eItem in equipmentItems)
         {
-            int id = item.id;
+            itemInfo = ItemDatabase.GetItemByName(eItem.CorrespondingItemName);
+            
+            if (eItem != _unarmed)
+            {
+                int id = itemInfo.Id;
 
-            if (!_equipmentItems.ContainsKey(id))
-                _equipmentItems.Add(id, item);
-            else
-                Debug.LogWarning($"There are multiple equipment items that correspond to the same item under '{gameObject.name}'");
+                //Initialize the equipment items
+                if (!_equipmentItems.ContainsKey(id))
+                    _equipmentItems.Add(id, eItem);
+                else
+                    Debug.LogWarning($"There are multiple equipment items that correspond to the same item under '{gameObject.name}'");
+            }
+                
+            eItem.Initialize(this);
 
-            item.Initialize(this);
-
-            var itemComponents = item.gameObject.GetComponents<IEquipmentComponent>();
+            // Notify the item components (e.g. animation, physics etc.) present on the Equipment Item object
+            var itemComponents = eItem.gameObject.GetComponents<IEquipmentComponent>();
 
             if (itemComponents.Length > 0)
             {
                 foreach (var component in itemComponents)
-                    component.Initialize(item);
+                    component.Initialize(eItem);
             }
 
-            item.gameObject.SetActive(false);
+            eItem.gameObject.SetActive(false);
         }
 
         //EquipItem(equipmentItems[0]);
@@ -117,17 +124,20 @@ public class EquipmentHandler : PlayerComponent
         // Enable next equipment item
         _attachedEquipmentItem = GetEquipmentItem(itemId);
         _attachedEquipmentItem.gameObject.SetActive(true);
-        /*
-        animator.SetFloat(OverlayType, (float)_attachedEquipmentItem.overlayType);
-        playerAnimController.StopAnimation(0.1f);
+        
+        //this should be moved
+        if (_attachedEquipmentItem.GetType() == typeof(Gun))
+        {
+            animator.SetFloat(OverlayType, (float)_attachedEquipmentItem.EquipmentInfo.General.overlayType);
+            playerAnimController.StopAnimation(0.1f);
+        
+            InitWeapon((ProjectileWeapon)_attachedEquipmentItem);
+            animator.Play(Equip);
+            //animator.Play(gun.poseName);
+            //Player.EquipmentController.SetActiveEquipment(gun);
+            _attachedEquipmentItem.gameObject.SetActive(true);
+        }
 
-        if(_attachedEquipmentItem.GetType() == typeof(ProjectileWeapon))
-        InitWeapon((ProjectileWeapon)_attachedEquipmentItem);
-        animator.Play(Equip);
-        //animator.Play(gun.poseName);
-        //Player.EquipmentController.SetActiveEquipment(gun);
-        _attachedEquipmentItem.gameObject.SetActive(true);
-        */
         // Notify the item components (e.g. animation, physics etc.) present on the Equipment Item object
         IEquipmentComponent[] itemComponents = _attachedEquipmentItem.GetComponents<IEquipmentComponent>();
 
@@ -141,8 +151,7 @@ public class EquipmentHandler : PlayerComponent
         _nextTimeCanUseItem = Time.time + _attachedEquipmentItem.EquipmentInfo.Equipping.Duration;
 
         OnChangeItem.Send();
-
-        //Player.EquippedItem.Set(item);
+        
         _attachedEquipmentItem.Equip(item);
     }
 

@@ -24,6 +24,8 @@ public abstract class EquipmentItemInfo : ScriptableObject
 
         [Range(0.01f, 2f)]
         public float MovementSpeedMod = 1f;
+        
+        public OverlayType overlayType;
     }
 
     [Serializable]

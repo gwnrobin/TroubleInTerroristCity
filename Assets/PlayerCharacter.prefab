@@ -2311,7 +2311,6 @@ Transform:
   - {fileID: 7070323526544141027}
   - {fileID: 1218097048987330303}
   - {fileID: 2950094083429401873}
-  - {fileID: 3736658222073259969}
   - {fileID: 668000712320439852}
   - {fileID: 4362498072134973443}
   m_Father: {fileID: 401005980375581885}
@@ -8321,9 +8320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bc7aa9a25bafb4d85fa6f8e7a16e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 3
-  overlayType: 2
-  EquipmentInfo: {fileID: 11400000, guid: 1a73c9e1a4232bc41b513323cbfd661d, type: 2}
+  generalInfo:
+    CorrespondingItem: Vector
+    EquipmentInfo: {fileID: 11400000, guid: 1a73c9e1a4232bc41b513323cbfd661d, type: 2}
+    Animator: {fileID: 9108038369941534438}
   m_GeneralEvents:
     OnEquipped:
       m_PersistentCalls:
@@ -9028,6 +9028,7 @@ Transform:
   - {fileID: 7028552994954714845}
   - {fileID: 8367690172811597121}
   - {fileID: 6962326357065059095}
+  - {fileID: 3736658222073259969}
   m_Father: {fileID: 5197205015254951027}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10015,9 +10016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0931821ec3fb11242abb9905918ad68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  overlayType: 0
-  EquipmentInfo: {fileID: 11400000, guid: 2a0883440f936a442b687039845ee03c, type: 2}
+  generalInfo:
+    CorrespondingItem: SilencedPistol
+    EquipmentInfo: {fileID: 11400000, guid: 58820b41fc893a7428eca33d495c5a0c, type: 2}
+    Animator: {fileID: 0}
   m_GeneralEvents:
     OnEquipped:
       m_PersistentCalls:
@@ -14928,7 +14930,11 @@ MonoBehaviour:
   m_ItemContainersStartupItems:
   - Name: Pistol
     StartupItems:
-      m_List: []
+      m_List:
+      - GenerateMethod: 0
+        Category: Pistol
+        Name: SilencedPistol
+        CountRange: {x: 0, y: 0}
 --- !u!82 &838494653694612735
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15884,7 +15890,7 @@ Transform:
   - {fileID: 7135748301673423542}
   - {fileID: 6338877893136988894}
   - {fileID: 1153244615299545569}
-  m_Father: {fileID: 8653715811881256993}
+  m_Father: {fileID: 986402498197524104}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7294230756558594766
@@ -15899,9 +15905,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bc7aa9a25bafb4d85fa6f8e7a16e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
-  overlayType: 2
-  EquipmentInfo: {fileID: 11400000, guid: c868339749a47d04d82d0966ebecc41b, type: 2}
+  generalInfo:
+    CorrespondingItem: SilencedPistol
+    EquipmentInfo: {fileID: 0}
+    Animator: {fileID: 0}
   m_GeneralEvents:
     OnEquipped:
       m_PersistentCalls:
@@ -17912,9 +17919,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: generalInfo.Animator
+      value: 
+      objectReference: {fileID: 7953644408801990048}
+    - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: generalInfo.EquipmentInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: bf0b21aec451a0c4dbbebc7cee899697, type: 2}
+    - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: weaponTransformData.aimPoint
       value: 
       objectReference: {fileID: 3205497845152861427}
+    - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: generalInfo.CorrespondingItem
+      value: SilencedPistol
+      objectReference: {fileID: 0}
     - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: weaponTransformData.pivotPoint
       value: 
@@ -17997,5 +18016,10 @@ Transform:
 --- !u!4 &3205497845152861427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5384397329050546554, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+  m_PrefabInstance: {fileID: 7405342313343581577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7953644408801990048 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 622634650022012969, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
   m_PrefabInstance: {fileID: 7405342313343581577}
   m_PrefabAsset: {fileID: 0}
