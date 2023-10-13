@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Unarmed Info
-  m_EditorClassIdentifier: Assembly-CSharp::UnarmedInfo
+  m_Script: {fileID: 11500000, guid: 1291dd7b495cd084e87eb81b1698142f, type: 3}
+  m_Name: Unarmed
+  m_EditorClassIdentifier: 
   General:
     UseWhileAirborne: 0
     UseWhileRunning: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     ResetSwingsDelay: 1
     SwingSelection: 1
     Swings:
-    - SwingName: piew
+    - SwingName: 213
       Cooldown: 0
       CastDelay: 0
       CastRadius: 0

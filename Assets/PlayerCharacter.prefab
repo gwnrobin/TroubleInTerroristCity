@@ -9383,6 +9383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6962326357065059095}
+  - component: {fileID: 3553404138920050051}
   m_Layer: 3
   m_Name: GearSync
   m_TagString: Untagged
@@ -9405,6 +9406,19 @@ Transform:
   m_Father: {fileID: 986402498197524104}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3553404138920050051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973401351951063041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe61356b3e6a5a45aeb0a4eee72352d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentController: {fileID: 780182989777462318}
 --- !u!1 &5003455260101320344
 GameObject:
   m_ObjectHideFlags: 0
@@ -10018,7 +10032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generalInfo:
     CorrespondingItem: SilencedPistol
-    EquipmentInfo: {fileID: 11400000, guid: 58820b41fc893a7428eca33d495c5a0c, type: 2}
+    EquipmentInfo: {fileID: 11400000, guid: b3cd8acb13a48284183e5e45d6cfa447, type: 2}
     Animator: {fileID: 0}
   m_GeneralEvents:
     OnEquipped:

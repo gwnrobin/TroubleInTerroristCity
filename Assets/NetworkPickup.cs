@@ -20,5 +20,6 @@ public class NetworkPickup : NetworkBehaviour
     private void DespawnServerRpc()
     {
         _networkObject.Despawn(false);
+        gameObject.SetActive(false);
     }
 }
