@@ -201,6 +201,7 @@ namespace HQFPSTemplate.Surfaces
 		{
 			GameObject effectTemplate = new GameObject(name);
 			SurfaceEffect effectComponent = effectTemplate.AddComponent<SurfaceEffect>();
+			effectTemplate.AddComponent<MixerConnecter>();
 			effectComponent.Init(effectPair.AudioEffect, effectPair.VisualEffect, m_SpatializeAudio);
 
 			PoolingManager.Instance.CreatePool(effectTemplate, poolSizeMin, poolSizeMin, autoShrink, poolId, 5f);

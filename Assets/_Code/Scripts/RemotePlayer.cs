@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class RemotePlayer : NetworkBehaviour
 {
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private AudioListener _audioListener;
     [SerializeField] private List<MonoBehaviour> toDelete = new();
 
     private void Start()
@@ -16,7 +17,8 @@ public class RemotePlayer : NetworkBehaviour
             {
                 Destroy(component);
             }
-            camera.enabled = false;
+            _camera.enabled = false;
+            _audioListener.enabled = false;
         }
     }
 }

@@ -20,6 +20,8 @@ public class Hitbox : MonoBehaviour, IDamageable
     public Collider Collider => m_Collider;
     public Rigidbody Rigidbody => m_Rigidbody;
 
+    public Entity Entity => m_ParentEntity;
+
     [SerializeField]
     [Range(0f, 100f)]
     private float m_DamageMultiplier = 1f;

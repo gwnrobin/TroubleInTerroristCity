@@ -28,6 +28,8 @@ public class AudioUtils : Singleton<AudioUtils>
 		audioObject.transform.parent = parent;
 		audioObject.transform.localPosition = localPosition;
 
+		audioObject.AddComponent<MixerConnecter>();
+
 		var audioSource = audioObject.GetComponent<AudioSource>();
 		audioSource.volume = startVolume;
 		audioSource.spatialBlend = is2D ? 0f : 1f;

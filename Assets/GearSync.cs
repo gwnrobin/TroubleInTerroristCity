@@ -36,6 +36,7 @@ public class GearSync : PlayerNetworkComponent
         if (!ItemDatabase.TryGetItemById(itemId, out var item))
             return;
 
-        equipmentController.Equip(new Item(item, 1));
+        //equipmentController.Equip(new Item(item, 1));
+        Player.EquipItem.Try(new Item(item, 1), true);
     }
 }

@@ -123,7 +123,7 @@ public class PlayerMovement : PlayerComponent
     [SerializeField] private Transform mainCamera;
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private Transform firstPersonCamera;
-    [SerializeField] private float sensitivity;
+    //[SerializeField] private float sensitivity;
     [SerializeField] private Vector2 freeLookAngle;
 
     [Space]
@@ -472,8 +472,8 @@ public class PlayerMovement : PlayerComponent
     {
         _freeLook = Input.GetKey(KeyCode.X);
 
-        float deltaMouseX = Player.LookInput.Get().x * sensitivity;
-        float deltaMouseY = -Player.LookInput.Get().y * sensitivity;
+        float deltaMouseX = Player.LookInput.Get().x * SettingMenu.Instance.GameSettings.Sensitivity;
+        float deltaMouseY = -Player.LookInput.Get().y * SettingMenu.Instance.GameSettings.Sensitivity;
 
         if (_freeLook)
         {

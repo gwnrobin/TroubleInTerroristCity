@@ -8,8 +8,6 @@ public class EntityDamageDealer : EntityComponent
     private void Start()
     {
         Entity.DealDamage.SetTryer(DealDamage);
-
-        //Entity.DealDamage.AddListener((DamageInfo info, IDamageable damageable) => PlayerShootGunServerRpc(info.Delta));
     }
 
     protected virtual bool DealDamage(DamageInfo damageInfo, IDamageable damageable = null)
@@ -26,19 +24,12 @@ public class EntityDamageDealer : EntityComponent
 
             return true;
         }
-        else return false;
+        else 
+            return false;
     }
 
     protected virtual void DealDamage(IDamageable damageable, DamageInfo damageInfo)
     {
         damageable.TakeDamage(damageInfo);
-        //PlayerShootGunServerRpc(damageInfo.Delta);
     }
-    /*
-    [ServerRpc(RequireOwnership = false)]
-    public void PlayerShootGunServerRpc(float damage)
-    {
-        print(damage);
-    }*/
-
 }

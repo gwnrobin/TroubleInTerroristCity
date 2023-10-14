@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Kinemation.FPSFramework.Runtime.Core.Types;
+using Unity.Netcode;
 using UnityEngine;
 
 public class Player : Humanoid
@@ -46,8 +47,8 @@ public class Player : Humanoid
         Time.timeScale = 1f;
 
         Application.targetFrameRate = 120;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
     
     public Dictionary<string, Activity> GetAllActivities()
