@@ -220,8 +220,7 @@ public class PlayerMovement : PlayerComponent
         playerAnimController.FpsAnimator.OnPostAnimUpdate += UpdateCameraRotation;
     }
 
-    private bool first = false;
-    private void FixedUpdate()
+    private void Update()
     {
         float deltaTime = Time.deltaTime;
 
@@ -236,13 +235,9 @@ public class PlayerMovement : PlayerComponent
         }
         else
             translation = transform.TransformVector(m_DesiredVelocityLocal * deltaTime);
+        
+        m_CollisionFlags = controller.Move(translation);
 
-        if (first)
-        {
-            m_CollisionFlags = controller.Move(translation);
-        }
-
-        first = true;
         if ((m_CollisionFlags & CollisionFlags.Below) == CollisionFlags.Below && !m_PreviouslyGrounded)
         {
             bool wasJumping = Player.Jump.Active;

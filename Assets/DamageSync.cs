@@ -47,6 +47,7 @@ public class DamageSync : PlayerNetworkComponent
         if (PlayerManager.Instance.Players.TryGetValue(info.HitObjectId, out Humanoid value))
         {
             value.ChangeHealth.Try(new DamageInfo(info.Delta, DamageType.Generic, Vector3.zero));
+            Debug.Log("deal damage to: " + info.HitObjectId + " amount: " + info.Delta + " " + value, value.gameObject);
         }
     }
 }

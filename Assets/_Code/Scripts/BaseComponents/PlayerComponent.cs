@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class PlayerComponent : MonoBehaviour
+public abstract class PlayerComponent : EntityComponent 
 {
     /// <summary></summary>
     public Player Player

@@ -2463,7 +2463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ff2b872ea77274f8c7fc1fca2f534a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioMixerGroup: {fileID: 1205309323287524077, guid: ed2db227c4c7f78428252e2c4a3f8445, type: 2}
 --- !u!1 &1832357218061949411
 GameObject:
   m_ObjectHideFlags: 0
@@ -4475,6 +4474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8833793258156505605}
   - component: {fileID: 4366618060039776916}
+  - component: {fileID: 8118011571271528722}
   m_Layer: 3
   m_Name: PlayerVitals
   m_TagString: Untagged
@@ -4520,6 +4520,23 @@ MonoBehaviour:
     m_HitResistance: 0.1
     m_StabResistance: 0.1
     m_BulletResistance: 0.1
+--- !u!114 &8118011571271528722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210516703037372991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba1ef2745ef780479c02f1f260187cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObjectsToDisable: []
+  m_BehavioursToDisable: []
+  m_CollidersToDisable: []
+  m_Respawn: 1
+  m_RespawnDuration: 0
 --- !u!1 &3244965547013878782
 GameObject:
   m_ObjectHideFlags: 0
@@ -12898,7 +12915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1506703951560441322}
-  _audioListener: {fileID: 0}
+  _audioListener: {fileID: 8314357287228807455}
   toDelete:
   - {fileID: 2121038476062411351}
   - {fileID: 1609328483734768225}
@@ -13004,7 +13021,6 @@ MonoBehaviour:
   mainCamera: {fileID: 2806651716572766033}
   cameraHolder: {fileID: 2250455080018238139}
   firstPersonCamera: {fileID: 7983884761663826398}
-  sensitivity: 0.1
   freeLookAngle: {x: 60, y: 60}
   aimMotionAsset: {fileID: 11400000, guid: 8d4c00b0add69ee479563b13a59805f9, type: 2}
   leanMotionAsset: {fileID: 11400000, guid: ba2e1a2496024db428982ac4e189d5e2, type: 2}
@@ -13601,7 +13617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ff2b872ea77274f8c7fc1fca2f534a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioMixerGroup: {fileID: 1205309323287524077, guid: ed2db227c4c7f78428252e2c4a3f8445, type: 2}
 --- !u!1 &6979679445606276482
 GameObject:
   m_ObjectHideFlags: 0
@@ -15089,7 +15104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ff2b872ea77274f8c7fc1fca2f534a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioMixerGroup: {fileID: 1205309323287524077, guid: ed2db227c4c7f78428252e2c4a3f8445, type: 2}
 --- !u!1 &7628366654262830365
 GameObject:
   m_ObjectHideFlags: 0

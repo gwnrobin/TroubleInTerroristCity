@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class NetworkManagerUI : MonoBehaviour
 {
-    [SerializeField] private Button serverBtn;
     [SerializeField] private Button hostBtn;
     [SerializeField] private Button clientBtn;
     [SerializeField] private TMP_InputField ip;
@@ -16,16 +15,14 @@ public class NetworkManagerUI : MonoBehaviour
     private void Awake()
     {
         originText = ip.text;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         
-        serverBtn.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartServer();
-            Cursor.lockState = CursorLockMode.Locked;
-        });
         hostBtn.onClick.AddListener(() =>
         {
             NetworkManager.Singleton.StartHost();
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         });
         clientBtn.onClick.AddListener(() =>
         {
@@ -34,6 +31,8 @@ public class NetworkManagerUI : MonoBehaviour
                 transport.ConnectionData.Address = ip.text;
             }
             NetworkManager.Singleton.StartClient();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         });
     }
 }

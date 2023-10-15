@@ -47,8 +47,8 @@ public class Player : Humanoid
         Time.timeScale = 1f;
 
         Application.targetFrameRate = 120;
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     public Dictionary<string, Activity> GetAllActivities()

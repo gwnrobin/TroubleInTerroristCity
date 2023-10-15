@@ -24,10 +24,10 @@ public class SettingMenu : Singleton<SettingMenu>
     public void ToggleMenu(InputAction.CallbackContext context)
     {
        _gameObject.SetActive(!_gameObject.activeSelf);
-       //Cursor.visible = !Cursor.visible;
+       Cursor.visible = !Cursor.visible;
        if (Cursor.lockState == CursorLockMode.Locked)
        {
-           Cursor.lockState = CursorLockMode.None;
+           Cursor.lockState = CursorLockMode.Confined;
        }
        else
        {
@@ -41,14 +41,12 @@ public class SettingMenu : Singleton<SettingMenu>
 
         _resolutionDropdown.ClearOptions();
 
-        //Cursor.visible = false;
-
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
         for (int i = 0; i < _resolutions.Length; i++)
         {
-            string option = _resolutions[i].width + " x " + _resolutions[i].height;
+            string option = _resolutions[i].width + " x " + _resolutions[i].height + " - " + _resolutions[i].refreshRateRatio;
             options.Add(option);
 
             if (_resolutions[i].width == Screen.currentResolution.width && _resolutions[i].height == Screen.currentResolution.height)
@@ -109,15 +107,4 @@ public class SettingMenu : Singleton<SettingMenu>
     {
         Screen.fullScreen = isFullscreen;
     }
-}
-
-[CreateAssetMenu(fileName = "Settings", menuName = "GameSettings", order = 1)]
-public class GameSettings : ScriptableObject
-{
-    public float Sensitivity;
-    public float Volume;
-    public int Resolution;
-    public int QualitySettings;
-
-    public bool ResolutionBeenChanged;
 }

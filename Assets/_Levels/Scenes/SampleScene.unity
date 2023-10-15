@@ -4653,7 +4653,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 150, y: -87.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &335882230
@@ -5548,7 +5548,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4070110420906886193, guid: 7f8891e1f40ac3e44a5b337c7df8086f, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6474272514536288056, guid: 7f8891e1f40ac3e44a5b337c7df8086f, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 627722369146465232, guid: 7f8891e1f40ac3e44a5b337c7df8086f, type: 3}
       insertIndex: -1
@@ -7707,8 +7708,8 @@ GameObject:
   - component: {fileID: 486751535}
   - component: {fileID: 486751534}
   - component: {fileID: 486751538}
-  - component: {fileID: 486751540}
   - component: {fileID: 486751539}
+  - component: {fileID: 486751540}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -7839,7 +7840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8a91fbea749a3478d19146f1c01462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameSettings: {fileID: 11400000, guid: ddfee98405741b340a6d83b8d00f781f, type: 2}
+  _gameSettings: {fileID: 11400000, guid: 17af1099b6456814e9cbf44d60970b60, type: 2}
   _gameObject: {fileID: 1328323305}
   _audioMixer: {fileID: 24100000, guid: ed2db227c4c7f78428252e2c4a3f8445, type: 2}
   _resolutionDropdown: {fileID: 804366058}
@@ -7860,7 +7861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: b261775e7e06dce479c83ce490e36da5, type: 3}
   m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 815316934}
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7987,7 +7988,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c78125e9-e20d-4f19-a731-4114123c9fa5
     m_ActionName: UI/exit[/Keyboard/escape]
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
@@ -19947,17 +19948,6 @@ Transform:
   m_Father: {fileID: 2076744744}
   m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -26.198}
---- !u!114 &1408381920 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8941773241188043153, guid: 7f8891e1f40ac3e44a5b337c7df8086f, type: 3}
-  m_PrefabInstance: {fileID: 370597191}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1425786419
 GameObject:
   m_ObjectHideFlags: 0
@@ -25294,7 +25284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95261f9f64249b1409166634bc7e789c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverBtn: {fileID: 1408381920}
   hostBtn: {fileID: 158221277}
   clientBtn: {fileID: 803085814}
   ip: {fileID: 1835541881}
