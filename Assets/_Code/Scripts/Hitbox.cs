@@ -57,7 +57,7 @@ public class Hitbox : MonoBehaviour, IDamageable
                 if (m_ParentEntity.Health.Get() > 0f)
                 {
                     damageData.Delta *= m_DamageMultiplier;
-                    m_ParentEntity.ChangeHealth.Try(damageData);
+                    //m_ParentEntity.ChangeHealth.Try(damageData);
                 }
 
                 if (m_Rigidbody != null)

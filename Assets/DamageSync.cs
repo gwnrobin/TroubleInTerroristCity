@@ -19,17 +19,16 @@ public class DamageSync : PlayerNetworkComponent
         {
             Player.DealDamage.AddListener(SendDataToServer);
         }
-        
     }
 
     private void SendDataToClient(DamageInfo info, IDamageable damageable)
     {
-        SendHitToClientRpc(new NetworkDamageInfo(info.Delta, info.HitObject.GetComponent<Hitbox>().Entity.OwnerClientId));
+        SendHitToClientRpc(new NetworkDamageInfo(info.Delta, info.HitObject.GetComponent<Hitbox>().Entity.NetworkObjectId));
     }
 
     private void SendDataToServer(DamageInfo info, IDamageable damageable)
     {
-        SendHitToServerRpc(new NetworkDamageInfo(info.Delta, info.HitObject.GetComponent<Hitbox>().Entity.OwnerClientId));
+        SendHitToServerRpc(new NetworkDamageInfo(info.Delta, info.HitObject.GetComponent<Hitbox>().Entity.NetworkObjectId));
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -43,11 +42,13 @@ public class DamageSync : PlayerNetworkComponent
     {
         if (IsOwner)
             return;
-
-        if (PlayerManager.Instance.Players.TryGetValue(info.HitObjectId, out Humanoid value))
+        
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(info.HitObjectId, out NetworkObject playerNetworkObject))
         {
-            value.ChangeHealth.Try(new DamageInfo(info.Delta, DamageType.Generic, Vector3.zero));
-            Debug.Log("deal damage to: " + info.HitObjectId + " amount: " + info.Delta + " " + value, value.gameObject);
+            Player player = playerNetworkObject.GetComponent<Player>();
+            
+            player.ChangeHealth.Try(new DamageInfo(info.Delta, DamageType.Generic, Vector3.zero));
+            Debug.Log("deal damage to: " + info.HitObjectId + " amount: " + info.Delta, player);
         }
     }
 }

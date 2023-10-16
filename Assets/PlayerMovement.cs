@@ -222,6 +222,9 @@ public class PlayerMovement : PlayerComponent
 
     private void Update()
     {
+        if(Player.Pause.Active)
+            return;
+        
         float deltaTime = Time.deltaTime;
 
         Vector3 translation;

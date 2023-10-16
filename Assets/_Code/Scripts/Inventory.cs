@@ -222,13 +222,13 @@ public class Inventory : EntityComponent
 
 	private void Awake()
 	{
-		//if (ItemDatabase.Instance == null)
-		//{
-		//	Debug.LogError("No ItemDatabase found, this storage component will be disabled!", this);
-		//	enabled = false;
+		if (ItemDatabase.Instance == null)
+		{
+			Debug.LogError("No ItemDatabase found, this storage component will be disabled!", this);
+			enabled = false;
 
-		//	return;
-		//}
+			return;
+		}
 
 		InitiateContainers();
 	}

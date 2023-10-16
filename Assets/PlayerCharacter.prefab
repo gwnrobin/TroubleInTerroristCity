@@ -1085,7 +1085,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 6646797350181982759, guid: f298b27dadc7b3b469ea144ee0396015, type: 3}
   m_Bones:
@@ -3372,7 +3372,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -1291287568390825744, guid: f298b27dadc7b3b469ea144ee0396015, type: 3}
   m_Bones:
@@ -3791,7 +3791,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4916412448168650492, guid: f298b27dadc7b3b469ea144ee0396015, type: 3}
   m_Bones:
@@ -6789,7 +6789,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 6136541501203981902, guid: f298b27dadc7b3b469ea144ee0396015, type: 3}
   m_Bones:
@@ -11683,7 +11683,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -6465852655101721896, guid: f298b27dadc7b3b469ea144ee0396015, type: 3}
   m_Bones:
@@ -12921,7 +12921,6 @@ MonoBehaviour:
   - {fileID: 1609328483734768225}
   - {fileID: 4510050410648679668}
   - {fileID: 7389931124194704957}
-  - {fileID: 7389931124194704957}
 --- !u!143 &7121845627757917675
 CharacterController:
   m_ObjectHideFlags: 0
@@ -13430,6 +13429,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 32d5a9d9-583a-472e-88a7-a04c5b9d8906
     m_ActionName: Player/DropItem[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1609328483734768225}
+        m_TargetAssemblyTypeName: TempInput, Assembly-CSharp
+        m_MethodName: SetPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9626fefd-d9da-4931-b199-b253b6ca1381
+    m_ActionName: Player/Exit[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

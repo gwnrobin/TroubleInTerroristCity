@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class WeaponUI : MonoBehaviour
 {
-	public Player Player;
-
 	[Header("Item Container")]
 
 	[SerializeField]
@@ -21,11 +19,11 @@ public class WeaponUI : MonoBehaviour
 	[SerializeField]
 	private List<UIItemSlot> text = new();
 
-	private void Start()
+	public void InitWeaponUI(Player player)
 	{
 		for(int i = 0; i < m_ContainerName.Count; i++)
 		{
-			ItemContainer itemContainer = Player.Inventory.GetContainerWithName(m_ContainerName[i]);
+			ItemContainer itemContainer = player.Inventory.GetContainerWithName(m_ContainerName[i]);
 
 			UIItemSlot textComponent = text[i];
 

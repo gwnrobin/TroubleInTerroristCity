@@ -25,6 +25,7 @@ public class ContainerGenerator
 	private bool m_OneStackPerItem;
 
 	[SerializeField]
+	[DatabaseCategory]
 	private string[] m_ValidCategories;
 
 	[SerializeField]
