@@ -9710,6 +9710,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  Players:
+    _serializedList: []
+  _playerNetworkIdList: 
+  _playerPrefabIdList: 
+  localPrefabId: 0
 --- !u!114 &627066475
 MonoBehaviour:
   m_ObjectHideFlags: 0
