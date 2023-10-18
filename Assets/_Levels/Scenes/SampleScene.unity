@@ -9712,9 +9712,6 @@ MonoBehaviour:
         m_CallState: 2
   Players:
     _serializedList: []
-  _playerNetworkIdList: 
-  _playerPrefabIdList: 
-  localPrefabId: 0
 --- !u!114 &627066475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33586,6 +33583,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mk23Mod0 Pickup
       objectReference: {fileID: 0}
+    - target: {fileID: 6240263444378972937, guid: eff1b59b2142e3748a8803e4bc638b92, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33604,6 +33605,14 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 115151183529741927, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: m_InitialContainers.Array.data[2].m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 115151183529741927, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: m_InitialContainers.Array.data[2].m_ValidCategories.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 115151183529741927, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_InitialContainers.Array.data[0].m_ValidCategories.Array.data[0]
       value: Pistol
       objectReference: {fileID: 0}
@@ -33614,6 +33623,10 @@ PrefabInstance:
     - target: {fileID: 115151183529741927, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_InitialContainers.Array.data[1].m_ValidCategories.Array.data[0]
       value: SMG
+      objectReference: {fileID: 0}
+    - target: {fileID: 115151183529741927, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: m_InitialContainers.Array.data[2].m_ValidCategories.Array.data[0]
+      value: Pistol
       objectReference: {fileID: 0}
     - target: {fileID: 596227197136457724, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_ItemContainersStartupItems.Array.data[0].StartupItems.Array.data[0]
@@ -33634,6 +33647,10 @@ PrefabInstance:
     - target: {fileID: 3279990666433179544, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2392067223
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083242439587022994, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5028984720724636188, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -33690,6 +33707,14 @@ PrefabInstance:
     - target: {fileID: 6934466112918179643, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753926685172652403, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126934477559763541, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1767137241
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

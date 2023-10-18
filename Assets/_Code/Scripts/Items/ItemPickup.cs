@@ -17,6 +17,7 @@ public class ItemPickup : InteractiveObject
 	[BHeader("Item", true, order = 100)]
 
 	[SerializeField]
+	[DatabaseItem]
 	protected string m_Item = string.Empty;
 
 	[SerializeField]

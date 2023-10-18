@@ -272,7 +272,7 @@ MonoBehaviour:
   m_InteractionEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_Item: pistol
+  m_Item: SilencedPistol
   m_ItemCount: 1
   m_TargetContainers: 1
   m_PickUpMethod: 1

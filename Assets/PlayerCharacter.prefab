@@ -15010,7 +15010,7 @@ MonoBehaviour:
       - GenerateMethod: 0
         Category: Pistol
         Name: SilencedPistol
-        CountRange: {x: 0, y: 0}
+        CountRange: {x: 1, y: 1}
 --- !u!82 &838494653694612735
 AudioSource:
   m_ObjectHideFlags: 0
