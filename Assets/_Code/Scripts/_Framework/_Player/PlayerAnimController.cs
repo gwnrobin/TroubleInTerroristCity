@@ -1,3 +1,4 @@
+using System;
 using Kinemation.FPSFramework.Runtime.Camera;
 using Kinemation.FPSFramework.Runtime.Core.Components;
 using Kinemation.FPSFramework.Runtime.Core.Types;
@@ -47,10 +48,14 @@ public class PlayerAnimController : PlayerNetworkComponent
         InitAnimController();
     }
     
-    private void LateUpdate()
+    private void Update()
     {
         UpdateAnimController();
-        
+
+    }
+
+    private void LateUpdate()
+    {
         if (IsOwner)
         {
             charAnimData.Value = Player.CharAnimData;
@@ -96,6 +101,7 @@ public class PlayerAnimController : PlayerNetworkComponent
         }
 
         Player.CharAnimData.recoilAnim = new LocRot(recoilAnimation.OutLoc, Quaternion.Euler(recoilAnimation.OutRot));
+        fpsAnimator.SetCharData(Player.CharAnimData);
         fpsAnimator.animGraph.UpdateGraph();
         fpsAnimator.UpdateCoreComponent();
     }

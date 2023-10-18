@@ -18073,11 +18073,11 @@ PrefabInstance:
     - target: {fileID: 5296938185864960985, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: muzzle
       value: 
-      objectReference: {fileID: 2019898723589665294}
+      objectReference: {fileID: 3842557321837783537}
     - target: {fileID: 5296938185864960985, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: casingEjectionPoint
       value: 
-      objectReference: {fileID: 5115209926283386918}
+      objectReference: {fileID: 1028614971016673254}
     - target: {fileID: 5635649553782405272, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -18148,6 +18148,11 @@ Transform:
 --- !u!4 &3205497845152861427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5384397329050546554, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+  m_PrefabInstance: {fileID: 7405342313343581577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3842557321837783537 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6023157818909316216, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
   m_PrefabInstance: {fileID: 7405342313343581577}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &7953644408801990048 stripped

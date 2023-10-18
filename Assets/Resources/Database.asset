@@ -29,11 +29,11 @@ MonoBehaviour:
           m_FixedValue: 7
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
-  - m_Name: SMG
+  - m_Name: Primary
     m_Items:
     - m_Name: Vector
       m_Id: 6595530
-      m_Category: SMG
+      m_Category: Primary
       m_Icon: {fileID: 0}
       m_Description: piew
       m_Pickup: {fileID: 6532043267659945332, guid: 468a4af651a8e9c46a34566652bf5a68, type: 3}
