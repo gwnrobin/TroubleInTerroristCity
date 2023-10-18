@@ -14949,7 +14949,7 @@ MonoBehaviour:
     m_Size: 1
     m_OneStackPerItem: 0
     m_ValidCategories:
-    - Pistols
+    - Pistol
     m_RequiredProperties: []
   - m_Name: Primary
     m_Flag: 2

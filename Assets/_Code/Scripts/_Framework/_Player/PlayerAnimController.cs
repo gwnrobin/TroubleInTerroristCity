@@ -33,12 +33,10 @@ public class PlayerAnimController : PlayerNetworkComponent
     // Used primarily for function calls from Animation Events
     // Runs once at the beginning of the next update
     protected CoreToolkitLib.PostUpdateDelegate queuedAnimEvents;
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitForEndOfFrame();
-
         if (fpsCamera != null)
-        fpsAnimator.OnPostAnimUpdate += fpsCamera.UpdateCamera;
+            fpsAnimator.OnPostAnimUpdate += fpsCamera.UpdateCamera;
     }
 
     private void Awake()
@@ -49,7 +47,7 @@ public class PlayerAnimController : PlayerNetworkComponent
         InitAnimController();
     }
     
-    private void Update()
+    private void LateUpdate()
     {
         UpdateAnimController();
         
@@ -98,7 +96,6 @@ public class PlayerAnimController : PlayerNetworkComponent
         }
 
         Player.CharAnimData.recoilAnim = new LocRot(recoilAnimation.OutLoc, Quaternion.Euler(recoilAnimation.OutRot));
-        fpsAnimator.SetCharData(Player.CharAnimData);
         fpsAnimator.animGraph.UpdateGraph();
         fpsAnimator.UpdateCoreComponent();
     }

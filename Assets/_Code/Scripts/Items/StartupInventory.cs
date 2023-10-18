@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[Serializable]
+ [Serializable]
 public class ItemGenerator
 {
     public enum Method
@@ -14,19 +12,13 @@ public class ItemGenerator
         Random
     }
 
-    [SerializeField]
-    public Method GenerateMethod = Method.Specific;
+    [SerializeField] public Method GenerateMethod = Method.Specific;
 
-    [DatabaseCategory]
-    [SerializeField]
-    public string Category = null;
+    [DatabaseCategory] [SerializeField] public string Category = null;
 
-    [DatabaseItem]
-    [SerializeField]
-    public string Name = null;
+    [DatabaseItem] [SerializeField] public string Name = null;
 
-    [SerializeField]
-    [MinMax(1, 100, false)]
+    [SerializeField] [MinMax(1, 100, false)]
     private Vector2Int CountRange = new Vector2Int(1, 100);
 
 
@@ -44,13 +36,10 @@ public class StartupInventory : EntityComponent
     {
         public string Name;
 
-        [Space]
-
-        public ItemGeneratorList StartupItems = null;
+        [Space] public ItemGeneratorList StartupItems = null;
     }
 
-    [SerializeField]
-    private ItemContainerStartupItems[] m_ItemContainersStartupItems;
+    [SerializeField] private ItemContainerStartupItems[] m_ItemContainersStartupItems;
 
 
     public override void OnEntityStart() => AddItemsToInventory();
@@ -70,7 +59,7 @@ public class StartupInventory : EntityComponent
                     foreach (var item in container.StartupItems)
                     {
                         if (item.GenerateMethod == ItemGenerator.Method.Specific)
-                            itemContainer.AddItem(item.Name, item.GetRandomCount());
+                            print(itemContainer.AddItem(item.Name, item.GetRandomCount()));
                         else if (item.GenerateMethod == ItemGenerator.Method.RandomFromCategory)
                         {
                             ItemInfo itemInfo = ItemDatabase.GetRandomItemFromCategory(item.Category);
@@ -98,5 +87,11 @@ public class StartupInventory : EntityComponent
 }
 
 
+
 [Serializable]
 public class ItemGeneratorList : ReorderableArray<ItemGenerator> { }
+
+public class DatabaseProperty : PropertyAttribute 
+{
+		
+}

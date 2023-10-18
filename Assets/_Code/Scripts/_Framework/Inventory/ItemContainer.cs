@@ -117,10 +117,10 @@ public class ItemContainer : IEnumerable
 	public int AddItem(string name, int amount, ItemProperty[] customProperties = null)
 	{
 		ItemInfo itemInfo;
-
+		Debug.Log(ItemDatabase.TryGetItemByName(name, out itemInfo) + " - " + AllowsItem(itemInfo));
 		if (!ItemDatabase.TryGetItemByName(name, out itemInfo) || !AllowsItem(itemInfo))
 			return 0;
-
+		Debug.Log(name);
 		return AddItem(itemInfo, amount, customProperties);
 	}
 
@@ -289,13 +289,13 @@ public class ItemContainer : IEnumerable
 
 		if(m_ValidCategories != null)
 		{
-			for(int i = 0;i < m_ValidCategories.Length;i ++)
+			for(int i = 0; i < m_ValidCategories.Length; i++)
 			{
 				if(m_ValidCategories[i] == itemInfo.Category)
 					isFromValidCategories = true;
 			}
 		}
-		
+
 		if(!isFromValidCategories)
 			return false;
 

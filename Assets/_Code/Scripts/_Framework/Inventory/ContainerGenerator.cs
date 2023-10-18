@@ -29,6 +29,7 @@ public class ContainerGenerator
 	private string[] m_ValidCategories;
 
 	[SerializeField]
+	[DatabaseProperty]
 	private string[] m_RequiredProperties;
 
 

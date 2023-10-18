@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -27,7 +28,13 @@ public class Inventory : EntityComponent
 	private List<ItemContainer> m_SavableContainers;
 	private List<ItemContainer> m_AllContainers;
 
-    public string[] GetAllContainerNames()
+
+	private void Update()
+	{
+		//print(m_AllContainers[0].GetItemCount("SilencedPistol"));
+	}
+
+	public string[] GetAllContainerNames()
 	{
 		string[] containerNames = new string[m_InitialContainers.Count];
 
