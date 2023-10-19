@@ -13,6 +13,8 @@ public class EquipmentController : PlayerComponent
 
     [SerializeField]
     private bool m_AutoReloadOnEmpty = true;
+    
+    private bool LastFrameActiveReload = false;
 
     private float m_NextTimeCanAutoReload;
     private float m_NextTimeToEquip;
@@ -51,17 +53,17 @@ public class EquipmentController : PlayerComponent
     }
 
     private bool TryStartUse() { return true; }
-
+    
     private void Update()
     {
-        if (Player.Reload.Active)
+        //temp solution 
+        if (Player.Reload.Active || (LastFrameActiveReload =! Player.Reload.Active))
         {
             bool endedReloading = activeEHandler.EquipmentItem.IsDoneReloading();
 
             if (endedReloading)
                 Player.Reload.ForceStop();
         }
-        
         //Equip the new item after the previous one has been unequipped
         if (m_WaitingToEquip && Time.time > m_NextTimeToEquip)
         {
@@ -69,6 +71,8 @@ public class EquipmentController : PlayerComponent
             //Equip(Player.EquippedItem.Get());
             m_WaitingToEquip = false;
         }
+
+        LastFrameActiveReload = Player.Reload.Active;
 
         StartCoroutine(UseLate());
     }
@@ -246,7 +250,6 @@ public class EquipmentController : PlayerComponent
         EquipmentItem eItem = activeEHandler.EquipmentItem;
         //float staminaTakePerUse = eItem.EInfo.General.StaminaTakePerUse;
         bool eItemCanBeUsed = eItem.CanBeUsed();
-
         // Interrupt the reload if possible
         if (!continuously && Player.Reload.Active /*&& eItem.EInfo.General.CanStopReloading*/ && eItemCanBeUsed)
             Player.Reload.ForceStop();

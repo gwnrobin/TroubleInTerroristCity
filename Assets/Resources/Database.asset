@@ -19,7 +19,7 @@ MonoBehaviour:
       m_Id: -4214810
       m_Category: Pistol
       m_Icon: {fileID: 0}
-      m_Description: piew
+      m_Description: 
       m_Pickup: {fileID: 2934354455126241283, guid: eff1b59b2142e3748a8803e4bc638b92, type: 3}
       m_StackSize: 1
       m_Properties:

@@ -179,6 +179,8 @@ public class ProjectileWeapon : EquipmentItem
     public override void StartReload()
     {
          //EHandler.ClearDelayedSounds();
+         m_AmmoToAdd = _projectileWeaponInfo.Shooting.MagazineSize - CurrentAmmoInfo.Val.CurrentInMagazine;
+         
          if (CurrentAmmoInfo.Val.CurrentInMagazine == 0 && _projectileWeaponInfo.Reloading.HasEmptyReload)
          {
              //Dry Reload
@@ -227,6 +229,7 @@ public class ProjectileWeapon : EquipmentItem
     //This method is called by the 'Equipment Handler' to check if the reload is finished
     public override bool IsDoneReloading()
     {
+        print("test");
         if (!m_ReloadLoopStarted)
         {
             if (Time.time > m_ReloadStartTime)

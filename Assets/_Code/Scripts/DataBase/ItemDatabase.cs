@@ -358,7 +358,7 @@ public class ItemInfo
 	[Space]
 
 	[SerializeField]
-	//[MultilineCustom(5)]
+	[MultilineCustom(5)]
 	private string m_Description;
 
 	[SerializeField]

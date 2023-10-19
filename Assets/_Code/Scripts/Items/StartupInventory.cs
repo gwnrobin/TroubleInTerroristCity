@@ -59,7 +59,7 @@ public class StartupInventory : EntityComponent
                     foreach (var item in container.StartupItems)
                     {
                         if (item.GenerateMethod == ItemGenerator.Method.Specific)
-                            print(itemContainer.AddItem(item.Name, item.GetRandomCount()));
+                            itemContainer.AddItem(item.Name, item.GetRandomCount());
                         else if (item.GenerateMethod == ItemGenerator.Method.RandomFromCategory)
                         {
                             ItemInfo itemInfo = ItemDatabase.GetRandomItemFromCategory(item.Category);

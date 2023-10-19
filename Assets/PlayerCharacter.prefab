@@ -2344,6 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18adfc1f0cd81e048ab449b975cbf31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnlimitedAmmo: 0
   _itemUseTransform: {fileID: 2806651716572766033}
   _useRaySpread:
     JumpSpreadMod: 3.5
@@ -12914,6 +12915,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14510f8118690b4c8c6aec65ea385f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Remote:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1695634002862067497}
+        m_TargetAssemblyTypeName: EquipmentHandler, Assembly-CSharp
+        m_MethodName: set_SetUnlimitedAmmo
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _camera: {fileID: 1506703951560441322}
   _audioListener: {fileID: 8314357287228807455}
   toDelete:
@@ -12921,6 +12937,7 @@ MonoBehaviour:
   - {fileID: 1609328483734768225}
   - {fileID: 4510050410648679668}
   - {fileID: 7389931124194704957}
+  - {fileID: 1342790746151114142}
 --- !u!143 &7121845627757917675
 CharacterController:
   m_ObjectHideFlags: 0
@@ -18129,6 +18146,10 @@ PrefabInstance:
     - target: {fileID: 7052632531516528151, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530951257248991855, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0671
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
