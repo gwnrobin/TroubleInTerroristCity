@@ -18095,6 +18095,10 @@ PrefabInstance:
       propertyPath: casingEjectionPoint
       value: 
       objectReference: {fileID: 1028614971016673254}
+    - target: {fileID: 5296938185864960985, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: ParticleEffects.MuzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5635649553782405272, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: m_RootOrder
       value: -1

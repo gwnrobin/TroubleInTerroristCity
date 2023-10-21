@@ -216,13 +216,15 @@ public class PlayerMovement : PlayerComponent
 
         Player.Lean.AddStartListener(Lean);
         Player.Lean.AddStopListener(() => Player.CharAnimData.leanDirection = 0);
+        
+        Player.DisabledMovement.SetStartTryer(TryDisableMovement);
 
         playerAnimController.FpsAnimator.OnPostAnimUpdate += UpdateCameraRotation;
     }
 
     private void Update()
     {
-        if(Player.Pause.Active)
+        if(Player.DisabledMovement.Active)
             return;
         
         float deltaTime = Time.deltaTime;
@@ -268,13 +270,23 @@ public class PlayerMovement : PlayerComponent
         else if (!Player.Jump.Active)
             UpdateGroundedMovement(deltaTime, targetVelocity, ref m_DesiredVelocityLocal);
 
-        UpdateLookInput();
+        if (!Player.Pause.Active)
+        {
+            UpdateLookInput();
+        }
+
         UpdateMovementAnimations();
         Player.IsGrounded.Set(IsGrounded);
         Player.Velocity.Set(Velocity);
 
         m_PreviouslyGrounded = IsGrounded;
     }
+
+    private bool TryDisableMovement()
+    {
+        return true;
+    }
+    
     #region Sprint
     private bool TryStartSprint()
     {

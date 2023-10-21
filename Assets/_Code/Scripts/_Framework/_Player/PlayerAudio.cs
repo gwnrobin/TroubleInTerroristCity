@@ -109,7 +109,7 @@ public class PlayerAudio : PlayerComponent
 		Player.Prone.AddStartListener(() => { m_PlayerMovementAudio.ProneAudio.Play(m_AudioSource); });
 		Player.Prone.AddStopListener(() => { m_PlayerMovementAudio.StandUpAudio.Play(m_AudioSource); });
 
-		//Player.Health.AddChangeListener(OnChanged_Health);
+		Player.Health.AddChangeListener(OnChanged_Health);
 		//Player.Stamina.AddChangeListener(OnChanged_Stamina);
 
 		//ShakeManager.ShakeEvent.AddListener(OnShakeEvent);
@@ -190,7 +190,7 @@ public class PlayerAudio : PlayerComponent
 			m_PlayerVitalsAudio.EarRingingAudio.Play(ItemSelection.Method.RandomExcludeLast, m_AudioSource, distanceFactor);
 		}
 	}
-
+    */
 	private void OnChanged_Health(float health)
 	{
 		float delta = health - Entity.Health.GetPreviousValue();
@@ -204,7 +204,7 @@ public class PlayerAudio : PlayerComponent
 			}
 		}
 	}
-
+	/*
 	private void OnChanged_Stamina(float stamina)
 	{
 		if (Player.Stamina.GetPreviousValue() == stamina)

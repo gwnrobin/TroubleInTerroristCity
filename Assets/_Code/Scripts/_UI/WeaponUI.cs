@@ -29,6 +29,8 @@ public class WeaponUI : MonoBehaviour
 
 			if (itemContainer != null)
 				itemContainer.Changed.AddListener(textComponent.ChangeText);
+			
+			itemContainer.UpdateContainer();
 		}
 	}
 }

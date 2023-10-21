@@ -229,7 +229,6 @@ public class ProjectileWeapon : EquipmentItem
     //This method is called by the 'Equipment Handler' to check if the reload is finished
     public override bool IsDoneReloading()
     {
-        print("test");
         if (!m_ReloadLoopStarted)
         {
             if (Time.time > m_ReloadStartTime)

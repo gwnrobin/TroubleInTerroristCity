@@ -1,23 +1,35 @@
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerManager : NetworkSingleton<PlayerManager>
 {
-    public UnityEvent<Player> OnOwnerSpawn;
+    public UnityEvent<Player> PlayerJoined;
     
     [SerializedDictionary("id", "player")]
     public SerializedDictionary<ulong, Player> Players = new SerializedDictionary<ulong, Player>();
-    
+    [SerializeField]
     private List<ulong> _playerNetworkIds = new List<ulong>();
+    [SerializeField]
     private List<ulong> _playerPrefabIds = new List<ulong>();
     
     private ulong _localPrefabId = 0;
     
-    public Player GetPlayer(ulong objectId)
+    public Player GetPlayerByObjectId(ulong objectId)
     {
         return Players.TryGetValue(objectId, out Player player) ? player : null;
+    }
+    
+    public Player GetPlayerByNetworkId(ulong networkId)
+    {
+        return GetPlayerByObjectId(_playerPrefabIds[_playerNetworkIds.IndexOf(networkId)]);
+    }
+
+    public List<ulong> GetAllNetworkIds()
+    {
+        return _playerNetworkIds;
     }
     
     public override void OnNetworkSpawn()
@@ -40,6 +52,8 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         
         ulong[] prefabIds = _playerPrefabIds.ToArray();
         ulong[] networkIds = _playerNetworkIds.ToArray();
+
+        PlayerJoined.Invoke(GetPlayerByNetworkId(playerId));
         
         SendPlayerIdsToClient(prefabIds, networkIds, playerId);
         ClientConnectedClientRPC(prefabId, playerId);
@@ -74,9 +88,6 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         {
             RegisterPlayer(prefabIds[i], networkIds[i]);
         }
-        
-        NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(_localPrefabId, out NetworkObject playerNetworkObject);
-        OnOwnerSpawn.Invoke(playerNetworkObject.GetComponent<Player>());
     }
     
     [ClientRpc]

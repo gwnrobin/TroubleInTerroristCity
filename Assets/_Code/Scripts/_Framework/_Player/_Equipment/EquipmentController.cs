@@ -57,12 +57,17 @@ public class EquipmentController : PlayerComponent
     private void Update()
     {
         //temp solution 
-        if (Player.Reload.Active || (LastFrameActiveReload =! Player.Reload.Active))
+        if (activeEHandler.EquipmentItem != null)
         {
             bool endedReloading = activeEHandler.EquipmentItem.IsDoneReloading();
 
             if (endedReloading)
                 Player.Reload.ForceStop();
+        }
+
+        if (Player.Reload.Active || (LastFrameActiveReload != Player.Reload.Active))
+        {
+
         }
         //Equip the new item after the previous one has been unequipped
         if (m_WaitingToEquip && Time.time > m_NextTimeToEquip)
@@ -103,44 +108,22 @@ public class EquipmentController : PlayerComponent
 
     private void ChangeWeapon(int index)
     {
-        int newIndex = _index;
-        newIndex += index;
+        int maxWeapons = 3;
+        _index = (_index + index + maxWeapons) % maxWeapons;
 
-        if (newIndex > 2)
-        {
-            newIndex = 0;
-        }
-        if (newIndex < 0)
-        {
-            newIndex = 2;
-        }
+        string[] containerNames = { "Pistol", "Primary", "Special" };
+        string containerName = containerNames[_index];
 
-        _index = newIndex;
+        Item item = Player.Inventory.GetContainerWithName(containerName).Slots[0].Item;
 
-        //Player.SwapItem.Try(activeEHandler._equipmentItems[_index]);
-        if(_index == 0)
+        if (item != null)
         {
-            Item item = Player.Inventory.GetContainerWithName("Pistol").Slots[0].Item;
-            if (item != null)
-                Player.EquipItem.Try(item, true);
-            else
-                ChangeWeapon(_index); 
+            Player.EquipItem.Try(item, true);
         }
-        else if (_index == 1)
+        else
         {
-            Item item = Player.Inventory.GetContainerWithName("Primary").Slots[0].Item;
-            if (item != null)
-                Player.EquipItem.Try(item, true);
-            else
-                ChangeWeapon(_index);
-        }
-        else if (_index == 2)
-        {
-            Item item = Player.Inventory.GetContainerWithName("Special").Slots[0].Item;
-            if (item != null)
-                Player.EquipItem.Try(item, true);
-            else
-                ChangeWeapon(_index);
+            // Handle the case when the item is null (no valid weapon found)
+            // You might want to display a message or perform a different action.
         }
     }
     
@@ -248,6 +231,9 @@ public class EquipmentController : PlayerComponent
     private bool TryUse(bool continuously, int useIndex)
     {
         EquipmentItem eItem = activeEHandler.EquipmentItem;
+
+        if (eItem == null)
+            return false;
         //float staminaTakePerUse = eItem.EInfo.General.StaminaTakePerUse;
         bool eItemCanBeUsed = eItem.CanBeUsed();
         // Interrupt the reload if possible

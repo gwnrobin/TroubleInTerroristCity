@@ -65,6 +65,14 @@ public class ItemContainer : IEnumerable
 		SelectedSlot.SetFilter(FilterSelectedSlotIndex);
 	}
 
+	public void UpdateContainer()
+	{
+		for (int i = 0; i < m_Slots.Length; i++)
+		{
+			m_Slots[i].Changed.Send(m_Slots[i], SlotChangeType.ItemChanged);
+		}
+	}
+
 	IEnumerator IEnumerable.GetEnumerator()
 	{
 		return m_Slots.GetEnumerator();

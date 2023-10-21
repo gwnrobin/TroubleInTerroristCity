@@ -43,7 +43,7 @@ public class DamageSync : PlayerNetworkComponent
         if (IsOwner)
             return;
         
-        PlayerManager.Instance.GetPlayer(info.HitObjectId)?.ChangeHealth.Try(new DamageInfo(info.Delta, DamageType.Generic, Vector3.zero));
+        PlayerManager.Instance.GetPlayerByObjectId(info.HitObjectId)?.ChangeHealth.Try(new DamageInfo(info.Delta, DamageType.Generic, Vector3.zero));
         Debug.Log("deal damage to: " + info.HitObjectId + " amount: " + info.Delta);
     }
 }

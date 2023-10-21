@@ -28,6 +28,8 @@ public class Player : Humanoid
     public readonly Value<Vector2> LookInput = new Value<Vector2>(Vector2.zero);
     public readonly Value<int> ScrollValue = new Value<int>(0);
 
+    public readonly Activity DisabledMovement = new Activity();
+
     public readonly Attempt DestroyEquippedItem = new Attempt();
     //public readonly Attempt ChangeUseMode = new Attempt();
 
