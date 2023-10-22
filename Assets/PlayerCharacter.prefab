@@ -4476,6 +4476,7 @@ GameObject:
   - component: {fileID: 8833793258156505605}
   - component: {fileID: 4366618060039776916}
   - component: {fileID: 8118011571271528722}
+  - component: {fileID: 2847420513674071144}
   m_Layer: 3
   m_Name: PlayerVitals
   m_TagString: Untagged
@@ -4538,6 +4539,18 @@ MonoBehaviour:
   m_CollidersToDisable: []
   m_Respawn: 1
   m_RespawnDuration: 0
+--- !u!114 &2847420513674071144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210516703037372991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5e2e91374249846a8cedd5cd170d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3244965547013878782
 GameObject:
   m_ObjectHideFlags: 0

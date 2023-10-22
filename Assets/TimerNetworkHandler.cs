@@ -17,7 +17,7 @@ public class TimerNetworkHandler : NetworkBehaviour
 
     public void SendTimes()
     {
-        SetTimerClientRPC(_gamemode.GetCurrentTimeLeft);
+        //SetTimerClientRPC(_gamemode.GetCurrentTimeLeft);
         //print(_gamemode.GetCurrentTimeLeft);
     }
     

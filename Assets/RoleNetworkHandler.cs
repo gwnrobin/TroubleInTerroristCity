@@ -19,6 +19,9 @@ public class RoleNetworkHandler : NetworkBehaviour
 
     public void SendRoles()
     {
+        if (!IsHost)
+            return;
+        
         ulong[] innocents = _gamemode.GetInnocents.ToArray();
         ulong[] traitors = _gamemode.GetTraitors.ToArray();
         
