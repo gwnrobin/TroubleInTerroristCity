@@ -98,7 +98,6 @@ public class EquipmentHandler : PlayerComponent
 
         //EquipItem(equipmentItems[0]);
         //Player.EquipItem.Try(Player.Inventory.GetContainerWithFlags(ItemContainerFlags.Holster).Slots[0].Item, true);
-        Player.EquipItem.Try(Player.Inventory.GetContainerWithName("Pistol").Slots[0].Item, true);
 
         // Equipment Items AudioSource (For Overall first person items audio)
         m_AudioSource = AudioUtils.CreateAudioSource("Audio Source", transform, Vector3.zero, false, 1f, 1f);

@@ -1512,7 +1512,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4495326157868174478, guid: ac1f70f46dd6cc84899ebf86fa8da647, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4495326157868174478, guid: ac1f70f46dd6cc84899ebf86fa8da647, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1920,23 +1920,6 @@ MonoBehaviour:
   m_Size: {x: 8, y: 5, z: 3}
   m_FadeFactor: 0.298
   m_Version: 3
---- !u!1 &192118862 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6934466112918179643, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
-  m_PrefabInstance: {fileID: 2338232040271508111}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &192118863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192118862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826d4b2185cee524383fd85ad4092f5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &198068224
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,7 +4045,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &310609171
 GameObject:
@@ -5010,8 +4993,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6094,7 +6077,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 99, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &413592026
 MonoBehaviour:
@@ -8077,6 +8060,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c78125e9-e20d-4f19-a731-4114123c9fa5
     m_ActionName: UI/exit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9626fefd-d9da-4931-b199-b253b6ca1381
+    m_ActionName: Player/Exit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f491c5fb-5465-4d35-b190-27ed269bf1c5
+    m_ActionName: Player/Repawn[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -11978,7 +11969,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 99, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &804366058
 MonoBehaviour:
@@ -26116,6 +26107,21 @@ MonoBehaviour:
   clientBtn: {fileID: 803085814}
   ip: {fileID: 1835541881}
   transport: {fileID: 1362323087}
+  JoinedServer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 304876241}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1759279123
 GameObject:
   m_ObjectHideFlags: 0
@@ -27635,8 +27641,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -27671,7 +27677,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 1.8534547, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -34440,6 +34446,10 @@ PrefabInstance:
       propertyPath: m_ItemContainersStartupItems.Array.data[0].StartupItems.m_List.Array.data[0].CountRange.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1254442960885338376, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1698029839298760870, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2493783593
@@ -34460,9 +34470,17 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2835468713
       objectReference: {fileID: 0}
+    - target: {fileID: 2756381763323005365, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 346953567
+      objectReference: {fileID: 0}
     - target: {fileID: 3279990666433179544, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2392067223
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354698890719251267, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4083242439587022994, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_IsActive
@@ -34474,7 +34492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5197205015254951027, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5197205015254951027, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34535,10 +34553,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6934466112918179643, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 192118863}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 623d74fcc4b7a3849a304765e7613709, type: 3}
 --- !u!1 &2576718551167734312
 GameObject:

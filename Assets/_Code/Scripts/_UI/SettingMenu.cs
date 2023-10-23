@@ -56,18 +56,10 @@ public class SettingMenu : Singleton<SettingMenu>
         }
         
         _resolutionDropdown.AddOptions(options);
+        _resolutionDropdown.value = currentResolutionIndex;
+        _resolutionDropdown.RefreshShownValue();
         
-        if (!_gameSettings.ResolutionBeenChanged)
-        {
-            _resolutionDropdown.value = currentResolutionIndex;
-            _resolutionDropdown.RefreshShownValue();
-        }
-        else
-        {
-            SetResolution(_gameSettings.Resolution);
-            _resolutionDropdown.value = GameSettings.Resolution;
-            _resolutionDropdown.RefreshShownValue();
-        }
+        SetResolution(currentResolutionIndex);
         
         SetVolume(_gameSettings.Volume);
         _volumeSlider.value = _gameSettings.Volume;
@@ -80,7 +72,7 @@ public class SettingMenu : Singleton<SettingMenu>
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = _resolutions[resolutionIndex];
-        
+        print(resolution.width + " - " + resolution.height);
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         _gameSettings.Resolution = resolutionIndex;
         _gameSettings.ResolutionBeenChanged = true;

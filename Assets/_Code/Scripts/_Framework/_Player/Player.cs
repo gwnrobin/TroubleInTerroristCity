@@ -42,13 +42,12 @@ public class Player : Humanoid
 
     public CharAnimData CharAnimData;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         
         Time.timeScale = 1f;
-
-        Application.targetFrameRate = 120;
+        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

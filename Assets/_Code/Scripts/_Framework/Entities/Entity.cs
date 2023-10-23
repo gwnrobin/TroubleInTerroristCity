@@ -36,7 +36,7 @@ public class Entity : NetworkBehaviour
     [SerializeField]
     private Inventory m_Inventory = null;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         Hitboxes = GetComponentsInChildren<Hitbox>();
 
