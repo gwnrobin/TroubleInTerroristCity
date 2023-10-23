@@ -28,7 +28,6 @@ public class Respawn : PlayerNetworkComponent
     {
         yield return new WaitForEndOfFrame();
         
-        print("test");
         GetComponent<PlayerMovement>().enabled = false;
         transform.position = GameManager.Instance.GetRandomSpawnPoint().position;
         GetComponent<PlayerMovement>().enabled = true;

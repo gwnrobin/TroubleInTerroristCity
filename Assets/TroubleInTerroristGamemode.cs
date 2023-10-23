@@ -90,7 +90,6 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     [ClientRpc]
     private void SendEventClientRPC(string eventName, ClientRpcParams clientRpcParams = default)
     {
-        print(eventName);
         if (_events.TryGetValue(eventName, out UnityEvent serverEvent))
         {
             serverEvent?.Invoke();

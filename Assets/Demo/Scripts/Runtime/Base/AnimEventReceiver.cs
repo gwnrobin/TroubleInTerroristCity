@@ -25,6 +25,7 @@ namespace Demo.Scripts.Runtime.Base
         
         public void ChangeWeapon()
         {
+            print("should equiip");
             equipmentController.Equip(Player.EquippedItem.Get());
             //equipmentController.m_WaitingToEquip = false;
             //controller.EquipWeapon();

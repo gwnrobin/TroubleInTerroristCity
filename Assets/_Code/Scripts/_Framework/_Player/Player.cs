@@ -42,9 +42,9 @@ public class Player : Humanoid
 
     public CharAnimData CharAnimData;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         
         Time.timeScale = 1f;
         
