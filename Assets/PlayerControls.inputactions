@@ -148,6 +148,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Repawn",
+                    "type": "Button",
+                    "id": "f491c5fb-5465-4d35-b190-27ed269bf1c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -511,6 +520,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "621229f1-d936-4e7c-9c0a-8fc1a117c548",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Repawn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

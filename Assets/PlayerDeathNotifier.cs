@@ -9,7 +9,7 @@ public class PlayerDeathNotifier : PlayerNetworkComponent
         base.OnNetworkSpawn();
         if (IsOwner)
         {
-            Player.Death.AddListener(() => TroubleInTerroristGamemode.Instance.PlayerDieServerRPC(OwnerClientId));
+            Player.Death.AddListener(() => TroubleInTerroristGamemode.Instance.PlayerDie(OwnerClientId));
         }
     }
 }

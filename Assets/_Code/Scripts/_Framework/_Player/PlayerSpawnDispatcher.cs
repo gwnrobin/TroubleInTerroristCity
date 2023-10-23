@@ -25,7 +25,7 @@ public class PlayerSpawnDispatcher : NetworkBehaviour
     {
         yield return new WaitUntil(() =>PlayerManager.Instance.Players.Count != 0);
         
-        PlayerSpawn.Invoke(PlayerManager.Instance.GetPlayerByNetworkId(id).GetComponent<Player>());
+        //PlayerSpawn.Invoke(PlayerManager.Instance.GetPlayerByNetworkId(id).GetComponent<Player>());
     }
 
 }

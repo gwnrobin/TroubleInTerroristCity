@@ -9,9 +9,6 @@ using Random = UnityEngine.Random;
 
 public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGamemode>
 {
-    [SerializedDictionary("Name", "Roles")]
-    public SerializedDictionary<string, List<ulong>> _roles = new SerializedDictionary<string, List<ulong>>();
-    
     public UnityEvent StartPreRound;
     public UnityEvent EndPreRound;
     
@@ -21,8 +18,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     public UnityEvent TraitorWin;
     public UnityEvent InnocentWin;
     
-    [SerializedDictionary("name", "Events")]
-    public SerializedDictionary<string, UnityEvent> Events = new SerializedDictionary<string, UnityEvent>();
+    public UnityEvent PlayerDied;
 
     private Dictionary<string, UnityEvent> _events = new Dictionary<string, UnityEvent>();
     
@@ -32,11 +28,15 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     
     private bool _gamemodeStarted = false;
     
+    private List<ulong> _innocents = new List<ulong>();
+    private List<ulong> _traitors = new List<ulong>();
     
     [SerializeField]
     private List<ulong> _playersAlive = new List<ulong>();
+    private List<ulong> _playersDead = new List<ulong>();
     
-    public List<ulong> GetPeopleFromRole(string role) => _roles.TryGetValue(role, out List<ulong> list) ? list : null;
+    public List<ulong> GetInnocents => _innocents;
+    public List<ulong> GetTraitors => _traitors;
 
     public override void OnNetworkSpawn()
     {
@@ -47,18 +47,14 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         _events.Add("StartRound", StartRound);
         _events.Add("EndRound", EndRound);
         
-        Events.Add("StartPreRound", StartPreRound);
-        Events.Add("EndPreRound", EndPreRound);
-        Events.Add("StartRound", StartRound);
-        Events.Add("EndRound", EndRound);
-
-        foreach (var role in _roles)
-        {
-            Events.Add(role.Key, new UnityEvent());
-        }
-        
         _events.Add("TraitorWin", TraitorWin);
         _events.Add("InnocentWin", InnocentWin);
+    }
+
+    public void PlayerDie(ulong id)
+    {
+        PlayerDied?.Invoke();
+        PlayerDieServerRPC(id);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -66,7 +62,11 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     {
         if (!_gamemodeStarted)
             return;
-        
+
+        var player = PlayerManager.Instance.GetPlayerByNetworkId(id).GetComponent<NetworkObject>();
+        player.RemoveOwnership();
+        player.Despawn();
+        _playersDead.Add(id);
         _playersAlive.Remove(id);
         CheckGameState();
     }
@@ -111,7 +111,12 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     private IEnumerator GetReadyCoroutine()
     {
         SendEventClientRPC("StartPreRound");
+        foreach (var deadPlayer in _playersDead)
+        {
+            PlayerManager.Instance.SetNewPrefab(deadPlayer);
+        }
         
+        _playersDead.Clear();
         yield return new WaitForSeconds(_getReadyDuration);
         
         SendEventClientRPC("EndPreRound");

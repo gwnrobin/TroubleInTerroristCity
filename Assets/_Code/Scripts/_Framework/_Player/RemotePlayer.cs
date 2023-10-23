@@ -12,8 +12,10 @@ public class RemotePlayer : NetworkBehaviour
     [SerializeField] private AudioListener _audioListener;
     [SerializeField] private List<MonoBehaviour> toDelete = new();
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
+        
         if(!IsLocalPlayer)
         {
             foreach (MonoBehaviour component in toDelete)
@@ -25,4 +27,5 @@ public class RemotePlayer : NetworkBehaviour
             Remote?.Invoke();;
         }
     }
+    
 }
