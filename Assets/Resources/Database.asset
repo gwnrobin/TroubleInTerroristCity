@@ -45,6 +45,20 @@ MonoBehaviour:
           m_FixedValue: 30
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
+    - m_Name: Tommy
+      m_Id: -6999953
+      m_Category: Primary
+      m_Icon: {fileID: 0}
+      m_Description: piew
+      m_Pickup: {fileID: 6532043267659945332, guid: 468a4af651a8e9c46a34566652bf5a68, type: 3}
+      m_StackSize: 1
+      m_Properties:
+        m_List:
+        - m_Name: Ammo
+          m_Type: 1
+          m_FixedValue: 30
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
   m_ItemProperties:
     m_List:
     - Name: Ammo

@@ -83,7 +83,6 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
             {
                 data.playerObject = playerObject.GetComponent<Player>();
                 data.PrefabId = playerObject.GetComponent<NetworkObject>().NetworkObjectId;
-                print(data.PrefabId);
             
                 Players[networkId] = data;
             }

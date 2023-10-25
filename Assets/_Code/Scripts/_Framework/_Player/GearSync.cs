@@ -6,8 +6,10 @@ using UnityEngine;
 public class GearSync : PlayerNetworkComponent
 {
     [SerializeField] private EquipmentController equipmentController;
-    private void Start()
+
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
         if(!IsOwner)
             return;
             
