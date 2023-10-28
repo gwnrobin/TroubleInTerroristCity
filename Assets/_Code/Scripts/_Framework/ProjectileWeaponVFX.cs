@@ -70,8 +70,8 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 
 	[Space]
 
-	//[SerializeField]
-	//private LightEffect m_LightEffect = null;
+	[SerializeField]
+	private LightEffect m_LightEffect = null;
 
 	private ProjectileWeapon weapon;
 	private WaitForSeconds casingSpawnDelay;
@@ -113,7 +113,7 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 
 	private void SpawnEffects(Vector3[] hitPoints)
 	{
-		if (gameObject.activeSelf == false)
+		if (!gameObject.activeSelf)
 			return;
 
 		if (muzzle != null)
@@ -160,8 +160,8 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 		}
 
 		// Light
-		//if (m_LightEffect != null)
-		//	m_LightEffect.Play(false);
+		if (m_LightEffect != null)
+			m_LightEffect.Play(false);
 
 		// Spawn the shell if a prefab is assigned
 		if (CasingEjection.CasingPrefab != null && casingEjectionPoint != null)
