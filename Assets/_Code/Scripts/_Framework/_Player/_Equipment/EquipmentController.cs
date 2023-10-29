@@ -129,7 +129,6 @@ public class EquipmentController : PlayerComponent
     
     private bool TryChangeItem(Item item, bool instantly)
     {
-        print(item);
         if (Player.EquippedItem.Get() == item && item != null)
             return false;
 

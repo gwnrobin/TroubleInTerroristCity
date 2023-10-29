@@ -14,7 +14,6 @@ public class EquipPistol : PlayerNetworkComponent
     private IEnumerator LateStart()
     {
         yield return new WaitForSeconds(1f);
-        Player.EquipItem.Try(Player.Inventory.GetContainerWithName("Pistol").Slots[0].Item, true);
-        print(Player.Inventory.GetContainerWithName("Pistol").Slots[0].Item);
+        //Player.EquipItem.Try(Player.Inventory.GetContainerWithName("Pistol").Slots[0].Item, true);
     }
 }

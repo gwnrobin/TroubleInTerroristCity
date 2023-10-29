@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-[RequireComponent(typeof(Inventory))]
-public class InventoryController: HumanoidComponent
+public class NetworkInventoryController : PlayerNetworkComponent
 {
 	[SerializeField]
 	protected LayerMask m_WallsLayer = new LayerMask();
@@ -34,24 +34,28 @@ public class InventoryController: HumanoidComponent
 
 	protected Inventory m_Inventory;
 
-
-	public bool dropItem = true;
-
-	public override void OnEntityStart()
+	public void Start()
 	{
+		if (IsServer)
+		{
+			Player.DropItem.AddListener(StartDrop);
+		}
+		else
+		{
+			Player.DropItem.AddListener((Item item) => SendToServerRPC(item.Id));
+		}
 		m_Inventory = GetComponent<Inventory>();
-		Humanoid.DropItem.SetTryer(TryDropItem);
-		Humanoid.DropItem.AddListener(StartDrop);
-		Humanoid.DropItem.AddListener(OnPlayerDropItem);
-		Entity.Death.AddListener(OnEntityDeath);
+		Player.DropItem.SetTryer(TryDropItem);
+		Player.DropItem.AddListener(OnPlayerDropItem);
+		Player.Death.AddListener(OnEntityDeath);
 	}
 
 	public virtual bool TryDropItem(Item item)
 	{
 		bool canBeDropped = item != null &&
 		                    item.Info.Pickup != null &&
-		                    Humanoid.DropItem.LastExecutionTime + 0.5f < Time.time &&
-		                    Humanoid.EquipItem.LastExecutionTime + 0.5f < Time.time &&
+		                    Player.DropItem.LastExecutionTime + 0.5f < Time.time &&
+		                    Player.EquipItem.LastExecutionTime + 0.5f < Time.time &&
 		                    m_Inventory.RemoveItem(item);
 		
 		return canBeDropped;
@@ -60,25 +64,21 @@ public class InventoryController: HumanoidComponent
 	public void StartDrop(Item item)
 	{
 		StartCoroutine(C_Drop(item));
-		print("test");
 	}
 
 	private void OnPlayerDropItem(Item droppedItem)
 	{
-		Humanoid.EquipItem.Try(Humanoid.Inventory.GetContainerWithName("Pistol").Slots[0].Item, true);
+		Player.EquipItem.Try(null, true);
 	}
 
 	public IEnumerator C_Drop(Item item)
 	{
 		if (item == null)
 			yield return null;
-
-		if (!dropItem)
-			yield return null;
 		
 		float heightDropMultiplier = 1f;
 
-		if (Humanoid.Crouch.Active)
+		if (Player.Crouch.Active)
 			heightDropMultiplier = m_CrouchHeightDropMod;
 
 		bool nearWall = false;
@@ -89,7 +89,7 @@ public class InventoryController: HumanoidComponent
 		if (Physics.Raycast(transform.position, transform.InverseTransformDirection(Vector3.forward) * 1.5f, m_DropOffset.z, m_WallsLayer))
 		{
 			dropPosition = transform.position + transform.TransformVector(new Vector3(0f, m_DropOffset.y * heightDropMultiplier, -0.2f));
-			dropRotation = Quaternion.LookRotation(Entity.LookDirection.Get());
+			dropRotation = Quaternion.LookRotation(Player.LookDirection.Get());
 			nearWall = true;
 		}
 		else
@@ -102,6 +102,7 @@ public class InventoryController: HumanoidComponent
 
 		droppedItem.transform.parent = null;
 		droppedItem.SetActive(true);
+		droppedItem.GetComponent<NetworkObject>().Spawn();
 		droppedItem.transform.position = dropPosition;
 		droppedItem.transform.rotation = dropRotation;
 
@@ -110,14 +111,14 @@ public class InventoryController: HumanoidComponent
 
 		if (rigidbody != null)
 		{
-			Physics.IgnoreCollision(Entity.GetComponent<Collider>(), collider);
+			Physics.IgnoreCollision(Player.GetComponent<Collider>(), collider);
 
 			rigidbody.isKinematic = false;
 
 			if (rigidbody != null && !nearWall)
 			{
 				rigidbody.AddTorque(Random.rotation.eulerAngles * m_DropAngularFactor);
-				rigidbody.AddForce(Entity.LookDirection.Get() * m_DropSpeed, ForceMode.VelocityChange);
+				rigidbody.AddForce(Player.LookDirection.Get() * m_DropSpeed, ForceMode.VelocityChange);
 			}
 		}
 
@@ -141,11 +142,19 @@ public class InventoryController: HumanoidComponent
 
 					if (slot.Item)
 					{
-						TryDropItem(slot.Item);
+						Player.DropItem.Try(slot.Item);
 						slot.SetItem(null);
 					}
 				}
 			}
 		}
 	}
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void SendToServerRPC(int itemId)
+    {
+        ItemInfo itemInfo = ItemDatabase.GetItemById(itemId);
+
+        StartCoroutine(C_Drop(new Item(itemInfo, 1)));
+    }
 }

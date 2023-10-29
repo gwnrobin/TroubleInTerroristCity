@@ -4882,7 +4882,7 @@ MonoBehaviour:
   m_ObjectsToDisable: []
   m_BehavioursToDisable: []
   m_CollidersToDisable: []
-  m_Respawn: 1
+  m_Respawn: 0
   m_RespawnDuration: 0
 --- !u!114 &2847420513674071144
 MonoBehaviour:
@@ -15205,11 +15205,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7028552994954714845}
   - component: {fileID: 115151183529741927}
-  - component: {fileID: 1294968863553273804}
   - component: {fileID: 596227197136457724}
   - component: {fileID: 838494653694612735}
   - component: {fileID: 6574275027209306228}
   - component: {fileID: 1466006655487517277}
+  - component: {fileID: 2892935045162184237}
   m_Layer: 3
   m_Name: Inventory
   m_TagString: Untagged
@@ -15266,32 +15266,6 @@ MonoBehaviour:
     m_ValidCategories:
     - Special
     m_RequiredProperties: []
---- !u!114 &1294968863553273804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7581439644311637863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb85bf62c49a1bd43a80987b43df64ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_WallsLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  m_DropItemsOnDeath: 1
-  m_DropOffset: {x: 0, y: 1, z: 0.8}
-  m_CrouchHeightDropMod: 0.5
-  m_DropAngularFactor: 8
-  m_DropSpeed: 1.5
-  m_DropSounds:
-    m_Clips:
-    - {fileID: 8300000, guid: 1a22249db2dcfc94781032451d7fb760, type: 3}
-    m_VolumeRange: {x: 0.15, y: 0.25}
-    m_PitchRange: {x: 0.9, y: 1.1}
-    m_VolumeMultiplier: 1
 --- !u!114 &596227197136457724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15432,6 +15406,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63ee6a003c62a649ab7acefe2f48439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2892935045162184237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7581439644311637863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811ef50393eac6346874f83f459d465b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WallsLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  m_DropItemsOnDeath: 1
+  m_DropOffset: {x: 0, y: 1, z: 0.8}
+  m_CrouchHeightDropMod: 0.5
+  m_DropAngularFactor: 8
+  m_DropSpeed: 1.5
+  m_DropSounds:
+    m_Clips:
+    - {fileID: 8300000, guid: 1a22249db2dcfc94781032451d7fb760, type: 3}
+    m_VolumeRange: {x: 0.15, y: 0.25}
+    m_PitchRange: {x: 0.9, y: 1.1}
+    m_VolumeMultiplier: 1
 --- !u!1 &7628366654262830365
 GameObject:
   m_ObjectHideFlags: 0
@@ -16614,6 +16614,7 @@ MonoBehaviour:
     MagazineAngularVelocity: {x: 0, y: 0, z: 0}
   muzzle: {fileID: 2019898723589665294}
   casingEjectionPoint: {fileID: 5115209926283386918}
+  m_LightEffect: {fileID: 0}
 --- !u!1 &8283528291543907245
 GameObject:
   m_ObjectHideFlags: 0

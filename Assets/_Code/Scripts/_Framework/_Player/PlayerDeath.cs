@@ -142,9 +142,9 @@ public class PlayerDeath : PlayerComponent
 				//	collider.enabled = true;
 
 				//if (Player.OnLadder.Active) Player.OnLadder.TryStop();
-				//if (Player.Run.Active) Player.Run.ForceStop();
-				//if (Player.Crouch.Active) Player.Crouch.TryStop();
-				//if (Player.Prone.Active) Player.Prone.TryStop();
+				if (Player.Sprint.Active) Player.Sprint.ForceStop();
+				if (Player.Crouch.Active) Player.Crouch.TryStop();
+				if (Player.Prone.Active) Player.Prone.TryStop();
 				//if (Player.Swimming.Active) Player.Swimming.TryStop();
 
 				Player.transform.position = GameManager.Instance.GetRandomSpawnPoint().position;

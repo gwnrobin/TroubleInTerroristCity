@@ -50,7 +50,7 @@ MonoBehaviour:
       m_Category: Primary
       m_Icon: {fileID: 0}
       m_Description: piew
-      m_Pickup: {fileID: 6532043267659945332, guid: 468a4af651a8e9c46a34566652bf5a68, type: 3}
+      m_Pickup: {fileID: 2180426359323338185, guid: d98891f19bc4ce246aa0ce2b04878b6a, type: 3}
       m_StackSize: 1
       m_Properties:
         m_List:
