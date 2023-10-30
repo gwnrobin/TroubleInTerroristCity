@@ -15,11 +15,11 @@ public class GearSync : PlayerNetworkComponent
             
         if (IsHost)
         {
-            Player.EquippedItem.AddChangeListener((Item item) => SyncGearClientRpc(item.Id));
+            Player.EquippedItem.AddChangeListener((Item item) => SyncGearClientRpc(item != null ? item.Id : 0));
         }
         else if(IsClient)
         {
-            Player.EquippedItem.AddChangeListener((Item item) => SyncGearServerRpc(item.Id));
+            Player.EquippedItem.AddChangeListener((Item item) => SyncGearServerRpc(item != null ? item.Id : 0));
         }
     }
     
@@ -38,6 +38,12 @@ public class GearSync : PlayerNetworkComponent
         if (!ItemDatabase.TryGetItemById(itemId, out var item))
             return;
 
+        if (item == null)
+        {
+            equipmentController.activeEHandler.GetEquipmentItem(0);
+            return;
+        }
+        
         //equipmentController.Equip(new Item(item, 1));
         Player.EquipItem.Try(new Item(item, 1), true);
     }

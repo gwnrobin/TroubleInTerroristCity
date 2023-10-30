@@ -18,15 +18,15 @@ public class EquipmentController : PlayerComponent
 
     private float m_NextTimeCanAutoReload;
     private float m_NextTimeToEquip;
-    private bool m_WaitingToEquip;
+    private bool m_WaitingToEquip = true;
 
     private int _index;
 
     private void Awake()
     {
+        Player.EquipItem.SetTryer(TryChangeItem);
         Player.SwapItem.SetTryer(TrySwapItems);
         Player.ScrollValue.AddChangeListener(ChangeWeapon);
-        Player.EquipItem.SetTryer(TryChangeItem);
 
         Player.DestroyEquippedItem.SetTryer(TryDestroyHeldItem);
 
@@ -73,7 +73,7 @@ public class EquipmentController : PlayerComponent
         if (m_WaitingToEquip && Time.time > m_NextTimeToEquip)
         {
             //activeEHandler.EquipNewWeapon();
-            //Equip(Player.EquippedItem.Get());
+            Equip(Player.EquippedItem.Get());
             m_WaitingToEquip = false;
         }
 
@@ -101,7 +101,7 @@ public class EquipmentController : PlayerComponent
             Player.Reload.ForceStop();
 
         activeEHandler.EquipItem(item);
-
+        
         Player.ActiveEquipmentItem.Set(activeEHandler.EquipmentItem);
         //m_FPCamera.fieldOfView = activeEHandler.EquipmentItem.EModel.TargetFOV;
     }

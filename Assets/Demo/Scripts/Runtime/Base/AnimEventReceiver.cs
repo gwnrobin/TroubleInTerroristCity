@@ -25,8 +25,9 @@ namespace Demo.Scripts.Runtime.Base
         
         public void ChangeWeapon()
         {
-            equipmentController.Equip(Player.EquippedItem.Get());
+            //equipmentController.Equip(Player.EquippedItem.Get());
             //equipmentController.m_WaitingToEquip = false;
+            //controller.EquipWeapon();
             //controller.EquipWeapon();
         }
     }

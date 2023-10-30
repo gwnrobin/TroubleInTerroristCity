@@ -72,7 +72,6 @@ public class SettingMenu : Singleton<SettingMenu>
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = _resolutions[resolutionIndex];
-        print(resolution.width + " - " + resolution.height);
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         _gameSettings.Resolution = resolutionIndex;
         _gameSettings.ResolutionBeenChanged = true;

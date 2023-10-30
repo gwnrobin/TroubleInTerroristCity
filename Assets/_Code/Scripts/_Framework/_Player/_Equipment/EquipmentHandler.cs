@@ -60,10 +60,10 @@ public class EquipmentHandler : PlayerComponent
 
     public Dictionary<int, EquipmentItem> _equipmentItems = new Dictionary<int, EquipmentItem>();
 
-    protected IEnumerator Start()
+    protected void Start()
     {
-        yield return new WaitForEndOfFrame();
         _unarmed = GetComponentInChildren<Unarmed>(true);
+        //yield return new WaitForEndOfFrame();
 
         EquipmentItem[] equipmentItems = GetComponentsInChildren<EquipmentItem>(true);
         ItemInfo itemInfo;
@@ -95,10 +95,7 @@ public class EquipmentHandler : PlayerComponent
 
             eItem.gameObject.SetActive(false);
         }
-
-        //EquipItem(equipmentItems[0]);
-        //Player.EquipItem.Try(Player.Inventory.GetContainerWithFlags(ItemContainerFlags.Holster).Slots[0].Item, true);
-        //Player.EquipItem.Try(Player.Inventory.GetContainerWithName("Pistol").Slots[0].Item, true);
+        
         // Equipment Items AudioSource (For Overall first person items audio)
         m_AudioSource = AudioUtils.CreateAudioSource("Audio Source", transform, Vector3.zero, false, 1f, 1f);
         m_AudioSource.bypassEffects = m_AudioSource.bypassListenerEffects = m_AudioSource.bypassReverbZones = false;
@@ -124,6 +121,7 @@ public class EquipmentHandler : PlayerComponent
         int itemId = item != null ? item.Id : 0;
 
         // Enable next equipment item
+        print(itemId);
         _attachedEquipmentItem = GetEquipmentItem(itemId);
         _attachedEquipmentItem.gameObject.SetActive(true);
         
@@ -137,9 +135,9 @@ public class EquipmentHandler : PlayerComponent
             animator.Play(Equip);
             //animator.Play(gun.poseName);
             //Player.EquipmentController.SetActiveEquipment(gun);
-            _attachedEquipmentItem.gameObject.SetActive(true);
         }
-
+        
+        _attachedEquipmentItem.gameObject.SetActive(true);
         // Notify the item components (e.g. animation, physics etc.) present on the Equipment Item object
         IEquipmentComponent[] itemComponents = _attachedEquipmentItem.GetComponents<IEquipmentComponent>();
 

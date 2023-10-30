@@ -35,9 +35,9 @@ public partial class Unarmed : MeleeWeapon
     {
         //EAnimation.AssignArmAnimations(EHandler.FPArmsHandler.Animator);
 
-        if (_unarmedInfo.UnarmedSettings.AlwaysShowArms || Player.Sprint.Active)
-            ChangeArmsVisibility(true);
-
+       // if (_unarmedInfo.UnarmedSettings.AlwaysShowArms || Player.Sprint.Active)
+       //     ChangeArmsVisibility(true);
+        print(_unarmedInfo);
         m_NextTimeCanUse = Time.time + _unarmedInfo.MeleeSettings.Swings[0].Cooldown;
 
         Player.Sprint.AddStartListener(OnStartRunning);
