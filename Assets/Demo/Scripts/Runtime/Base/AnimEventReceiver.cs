@@ -6,7 +6,7 @@ namespace Demo.Scripts.Runtime.Base
 {
     public class AnimEventReceiver : PlayerComponent
     {
-        [SerializeField] private PlayerAnimController controller;
+        [SerializeField] private NetworkPlayerAnimController controller;
 
         [SerializeField] private EquipmentController equipmentController;
 
@@ -14,7 +14,7 @@ namespace Demo.Scripts.Runtime.Base
         {
             if (controller == null)
             {
-                controller = GetComponentInParent<PlayerAnimController>();
+                controller = GetComponentInParent<NetworkPlayerAnimController>();
             }
         }
         

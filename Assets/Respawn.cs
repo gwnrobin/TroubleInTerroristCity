@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Respawn : PlayerNetworkComponent
+public class Respawn : NetworkPlayerComponent
 {
     public override void OnNetworkSpawn()
     {

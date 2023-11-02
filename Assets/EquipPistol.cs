@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipPistol : PlayerNetworkComponent
+public class EquipPistol : NetworkPlayerComponent
 {
     public override void OnNetworkSpawn()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class GearSync : PlayerNetworkComponent
+public class GearSync : NetworkPlayerComponent
 {
     [SerializeField] private EquipmentController equipmentController;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ActivitySyncer : PlayerNetworkComponent
+public class ActivitySyncer : NetworkPlayerComponent
 {
     private Dictionary<string, Activity> _activities;
     private void Start()

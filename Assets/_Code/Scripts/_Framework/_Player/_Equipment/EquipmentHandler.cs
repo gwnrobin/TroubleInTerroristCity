@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EquipmentHandler : PlayerComponent
 {
@@ -25,7 +26,7 @@ public class EquipmentHandler : PlayerComponent
     
     public bool SetUnlimitedAmmo{ set => UnlimitedAmmo = value; } 
     public Transform ItemUseTransform => _itemUseTransform;
-    public PlayerAnimController PlayerAnimController => playerAnimController;
+    public NetworkPlayerAnimController NetworkPlayerAnimController => networkPlayerAnimController;
     public EquipmentItem EquipmentItem => _attachedEquipmentItem;
     public RecoilAnimation RecoilAnimation => recoilAnimation;
 
@@ -43,7 +44,7 @@ public class EquipmentHandler : PlayerComponent
     protected Unarmed _unarmed;
 
     [SerializeField] private Animator animator;
-    [SerializeField] private PlayerAnimController playerAnimController;
+    [FormerlySerializedAs("playerAnimController")] [SerializeField] private NetworkPlayerAnimController networkPlayerAnimController;
 
     [SerializeField] private RecoilAnimation recoilAnimation;
     private static readonly int OverlayType = Animator.StringToHash("OverlayType");
@@ -129,7 +130,7 @@ public class EquipmentHandler : PlayerComponent
         if (_attachedEquipmentItem.GetType() == typeof(Gun))
         {
             animator.SetFloat(OverlayType, (float)_attachedEquipmentItem.EquipmentInfo.General.overlayType);
-            playerAnimController.StopAnimation(0.1f);
+            networkPlayerAnimController.StopAnimation(0.1f);
         
             InitWeapon((ProjectileWeapon)_attachedEquipmentItem);
             animator.Play(Equip);
@@ -200,20 +201,20 @@ public class EquipmentHandler : PlayerComponent
         recoilAnimation.Init(weapon.recoilData, weapon.FireRate, weapon.FireMode);
         if (weapon.weaponAsset != null)
         {
-            playerAnimController.FpsAnimator.OnGunEquipped(weapon.weaponAsset, weapon.weaponTransformData);
+            networkPlayerAnimController.FpsAnimator.OnGunEquipped(weapon.weaponAsset, weapon.weaponTransformData);
         }
         else
         {
-            playerAnimController.FpsAnimator.OnGunEquipped(weapon.weaponAnimData);
+            networkPlayerAnimController.FpsAnimator.OnGunEquipped(weapon.weaponAnimData);
         }
         //playerAnimController.FpsAnimator.OnGunEquipped(weapon.gunData);
-        playerAnimController.FpsAnimator.ikRigData.weaponTransform = weapon.weaponBone;
+        networkPlayerAnimController.FpsAnimator.ikRigData.weaponTransform = weapon.weaponBone;
 
-        playerAnimController.LookLayer.SetAimOffsetTable(weapon.aimOffsetTable);
+        networkPlayerAnimController.LookLayer.SetAimOffsetTable(weapon.aimOffsetTable);
 
-        playerAnimController.FpsAnimator.OnPrePoseSampled();
-        playerAnimController.PlayPose(weapon.overlayPose);
-        playerAnimController.FpsAnimator.OnPoseSampled();
+        networkPlayerAnimController.FpsAnimator.OnPrePoseSampled();
+        networkPlayerAnimController.PlayPose(weapon.overlayPose);
+        networkPlayerAnimController.FpsAnimator.OnPoseSampled();
     }
 
     public virtual void UnequipItem()
@@ -244,8 +245,8 @@ public class EquipmentHandler : PlayerComponent
     public virtual void StartAim()
     {
         //SetCharacterMovementSpeed(m_AttachedEquipmentItem.EInfo.Aiming.AimMovementSpeedMod);
-        playerAnimController.AdsLayer.SetAds(true);
-        playerAnimController.SwayLayer.SetFreeAimEnable(false);
+        networkPlayerAnimController.AdsLayer.SetAds(true);
+        networkPlayerAnimController.SwayLayer.SetFreeAimEnable(false);
         recoilAnimation.isAiming = true;
 
         _attachedEquipmentItem.OnAimStart();
@@ -254,9 +255,9 @@ public class EquipmentHandler : PlayerComponent
     public virtual void OnAimStop()
     {
         //SetCharacterMovementSpeed(1f);
-        playerAnimController.AdsLayer.SetAds(false);
-        playerAnimController.AdsLayer.SetPointAim(false);
-        playerAnimController.SwayLayer.SetFreeAimEnable(true);
+        networkPlayerAnimController.AdsLayer.SetAds(false);
+        networkPlayerAnimController.AdsLayer.SetPointAim(false);
+        networkPlayerAnimController.SwayLayer.SetFreeAimEnable(true);
         recoilAnimation.isAiming = false;
 
         if (_attachedEquipmentItem != null)
@@ -265,28 +266,28 @@ public class EquipmentHandler : PlayerComponent
 
     public virtual bool TryStartPointAiming()
     {
-        playerAnimController.AdsLayer.SetPointAim(false);
+        networkPlayerAnimController.AdsLayer.SetPointAim(false);
 
         return true;
     }
 
     public virtual void OnPointAimingStop()
     {
-        playerAnimController.AdsLayer.SetPointAim(true);
+        networkPlayerAnimController.AdsLayer.SetPointAim(true);
     }
 
     public virtual bool TryStartHolster()
     {
-        playerAnimController.LocoLayer.SetReadyWeight(1f);
-        playerAnimController.LookLayer.SetLayerAlpha(.5f);
+        networkPlayerAnimController.LocoLayer.SetReadyWeight(1f);
+        networkPlayerAnimController.LookLayer.SetLayerAlpha(.5f);
 
         return true;
     }
 
     public virtual void OnHolsterStop()
     {
-        playerAnimController.LocoLayer.SetReadyWeight(0f);
-        playerAnimController.LookLayer.SetLayerAlpha(1f);
+        networkPlayerAnimController.LocoLayer.SetReadyWeight(0f);
+        networkPlayerAnimController.LookLayer.SetLayerAlpha(1f);
     }
 
     public virtual bool TryUse(bool continuously, int useType)

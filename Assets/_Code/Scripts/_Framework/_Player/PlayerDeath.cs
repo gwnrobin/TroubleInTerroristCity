@@ -113,8 +113,9 @@ public class PlayerDeath : PlayerComponent
 
 		private bool TryDead() => true;
 
-		private void Respawn() 
+		private void Respawn()
 		{
+			print("respawn");
 			//if (m_RestartSceneOnRespawn)
 				//GameManager.Instance.StartGame();
 			//else

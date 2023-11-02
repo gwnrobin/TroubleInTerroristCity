@@ -19,20 +19,9 @@ public class EquipmentPickup : ItemPickup
 			else
 			{
 				bool addedItem;
-				// If the currently equipped item is null,
-				// get the attached slot
-				if (humanoid.EquippedItem.Get() == null)
-				{
-					var itemContainer = humanoid.Inventory.GetContainerWithFlags(m_TargetContainers);
-					var selectedSlot = itemContainer.Slots[itemContainer.SelectedSlot.Get()];
 
-					if (selectedSlot.Item == null)
-						selectedSlot.SetItem(m_ItemInstance);
-
-					addedItem = true;
-				}
-				else 
-					addedItem = humanoid.Inventory.AddItem(m_ItemInstance, m_TargetContainers); 
+				addedItem = humanoid.Inventory.AddItem(m_ItemInstance, m_TargetContainers); 
+					
 
 				
 				// Item added to inventory
@@ -45,8 +34,6 @@ public class EquipmentPickup : ItemPickup
 						print("pickup " + m_ItemInstance.Name);
 					//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color>", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name), m_BaseMessageColor);
 					
-					//Destroy(this.gameObject);
-					//gameObject.SetActive(false);
 					PickedUpEquipment.Invoke();
 				}
 				// Item not added to inventory

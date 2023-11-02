@@ -10,7 +10,7 @@ using System.Collections;
 using UnityEngine;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
-public class PlayerAnimController : PlayerNetworkComponent
+public class NetworkPlayerAnimController : NetworkPlayerComponent
 {
     public FPSCameraShake shake;
     private FPSCamera fpsCamera;

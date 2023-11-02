@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDeathNotifier : PlayerNetworkComponent
+public class NetworkPlayerDeathNotifier : NetworkPlayerComponent
 {
     public override void OnNetworkSpawn()
     {

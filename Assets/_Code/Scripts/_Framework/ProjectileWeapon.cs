@@ -151,7 +151,7 @@ public class ProjectileWeapon : EquipmentItem
         EHandler.RecoilAnimation.Play();
         // Cam Forces
         //Player.Camera.Physics.PlayDelayedCameraForces(m_PW.Shooting.HandlingCamForces);
-        EHandler.PlayerAnimController.PlayCameraShake(EHandler.PlayerAnimController.shake);
+        EHandler.NetworkPlayerAnimController.PlayCameraShake(EHandler.NetworkPlayerAnimController.shake);
 
         // Ammo
         _ammoProperty--;
@@ -190,7 +190,7 @@ public class ProjectileWeapon : EquipmentItem
                  m_ReloadStartTime = Time.time + _projectileWeaponInfo.Reloading.EmptyReloadDuration;
 
              //EHandler.Animator_SetTrigger(animHash_EmptyReload);
-             EHandler.PlayerAnimController.PlayAnimation(reloadClip);
+             EHandler.NetworkPlayerAnimController.PlayAnimation(reloadClip);
              Animator.Play("Reload", 0, 0f);
 
              //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.EmptyReloadLoopCamForces);
@@ -203,7 +203,7 @@ public class ProjectileWeapon : EquipmentItem
              {
                  m_ReloadLoopEndTime = Time.time + _projectileWeaponInfo.Reloading.ReloadDuration;
 
-                 EHandler.PlayerAnimController.PlayAnimation(reloadClip);
+                 EHandler.NetworkPlayerAnimController.PlayAnimation(reloadClip);
                  Animator.Play("Reload", 0, 0f);
                  //EHandler.Animator_SetTrigger(animHash_Reload);
 

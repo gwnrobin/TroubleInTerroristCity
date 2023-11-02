@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class DamageSync : PlayerNetworkComponent 
+public class DamageSync : NetworkPlayerComponent 
 {
 
     private void Start()

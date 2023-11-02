@@ -108,7 +108,7 @@ public class EquipmentController : PlayerComponent
 
     private void ChangeWeapon(int index)
     {
-        int maxWeapons = 3;
+        int maxWeapons = 4;
         _index = (_index + index + maxWeapons) % maxWeapons;
 
         string[] containerNames = { "Pistol", "Primary", "Special" };
@@ -122,8 +122,7 @@ public class EquipmentController : PlayerComponent
         }
         else
         {
-            // Handle the case when the item is null (no valid weapon found)
-            // You might want to display a message or perform a different action.
+            Player.EquipItem.Try(null, true);
         }
     }
     

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : PlayerComponent
 {
@@ -112,7 +113,7 @@ public class PlayerMovement : PlayerComponent
     [Header("General")]
     [SerializeField] private CharacterController controller;
     [SerializeField] private Animator animator;
-    [SerializeField] private PlayerAnimController playerAnimController;
+    [FormerlySerializedAs("playerAnimController")] [SerializeField] private NetworkPlayerAnimController networkPlayerAnimController;
     [SerializeField] private float moveSmoothing = 2f;
     [SerializeField] private LayerMask m_ObstacleCheckMask = ~0;
     [SerializeField] private float gravity;
@@ -219,7 +220,7 @@ public class PlayerMovement : PlayerComponent
         
         Player.DisabledMovement.SetStartTryer(TryDisableMovement);
 
-        playerAnimController.FpsAnimator.OnPostAnimUpdate += UpdateCameraRotation;
+        networkPlayerAnimController.FpsAnimator.OnPostAnimUpdate += UpdateCameraRotation;
     }
 
     private void Update()
@@ -304,9 +305,9 @@ public class PlayerMovement : PlayerComponent
 
     private void StartSprint()
     {
-        playerAnimController.LookLayer.SetLayerAlpha(0.5f);
-        playerAnimController.AdsLayer.SetLayerAlpha(0f);
-        playerAnimController.LocoLayer.SetReadyWeight(0f);
+        networkPlayerAnimController.LookLayer.SetLayerAlpha(0.5f);
+        networkPlayerAnimController.AdsLayer.SetLayerAlpha(0f);
+        networkPlayerAnimController.LocoLayer.SetReadyWeight(0f);
     }
 
     private void StopSprint()
@@ -317,8 +318,8 @@ public class PlayerMovement : PlayerComponent
         }
 
         m_CurrentMovementState = null;
-        playerAnimController.LookLayer.SetLayerAlpha(1f);
-        playerAnimController.AdsLayer.SetLayerAlpha(1f);
+        networkPlayerAnimController.LookLayer.SetLayerAlpha(1f);
+        networkPlayerAnimController.AdsLayer.SetLayerAlpha(1f);
     }
     #endregion
 
@@ -349,16 +350,16 @@ public class PlayerMovement : PlayerComponent
 
     private void Crouch()
     {
-        playerAnimController.LookLayer.SetPelvisWeight(0f);
+        networkPlayerAnimController.LookLayer.SetPelvisWeight(0f);
         animator.SetBool(Crouching, true);
-        playerAnimController.SlotLayer.PlayMotion(crouchMotionAsset);
+        networkPlayerAnimController.SlotLayer.PlayMotion(crouchMotionAsset);
     }
 
     private void Standup()
     {
-        playerAnimController.LookLayer.SetPelvisWeight(1f);
+        networkPlayerAnimController.LookLayer.SetPelvisWeight(1f);
         animator.SetBool(Crouching, false);
-        playerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
+        networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
     }
     #endregion
     private void Lean()
@@ -369,7 +370,7 @@ public class PlayerMovement : PlayerComponent
         if (!Player.Holster.Active)
         {
             Player.CharAnimData.leanDirection = (int)Player.Lean.Parameter;
-            playerAnimController.SlotLayer.PlayMotion(leanMotionAsset);
+            networkPlayerAnimController.SlotLayer.PlayMotion(leanMotionAsset);
         }
     }
 
@@ -476,7 +477,7 @@ public class PlayerMovement : PlayerComponent
 
         // Apply gravity.
         velocity.y -= gravity * deltaTime;
-        playerAnimController.SlotLayer.PlayMotion(!IsGrounded ? onJumpMotionAsset : onLandedMotionAsset);
+        networkPlayerAnimController.SlotLayer.PlayMotion(!IsGrounded ? onJumpMotionAsset : onLandedMotionAsset);
     }
     private void UpdateLookInput()
     {

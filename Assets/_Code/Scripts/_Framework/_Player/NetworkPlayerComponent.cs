@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerNetworkComponent : NetworkBehaviour
+public class NetworkPlayerComponent : NetworkBehaviour
 {
     public Player Player
     {
