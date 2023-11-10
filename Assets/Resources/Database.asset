@@ -59,6 +59,20 @@ MonoBehaviour:
           m_FixedValue: 30
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
+    - m_Name: AR15
+      m_Id: -4543909
+      m_Category: Primary
+      m_Icon: {fileID: 0}
+      m_Description: piew
+      m_Pickup: {fileID: 2180426359323338185, guid: d98891f19bc4ce246aa0ce2b04878b6a, type: 3}
+      m_StackSize: 1
+      m_Properties:
+        m_List:
+        - m_Name: Ammo
+          m_Type: 1
+          m_FixedValue: 30
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
   m_ItemProperties:
     m_List:
     - Name: Ammo
