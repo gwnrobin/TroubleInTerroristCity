@@ -7,8 +7,10 @@ using Kinemation.FPSFramework.Runtime.Layers;
 using Kinemation.FPSFramework.Runtime.Recoil;
 using Unity.Netcode;
 using System.Collections;
+using Kinemation.FPSFramework.Runtime.Core.Playables;
 using UnityEngine;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
+using UnityEngine.Events;
 
 public class NetworkPlayerAnimController : NetworkPlayerComponent
 {
@@ -33,11 +35,11 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
 
     // Used primarily for function calls from Animation Events
     // Runs once at the beginning of the next update
-    protected CoreToolkitLib.PostUpdateDelegate queuedAnimEvents;
+    protected UnityEvent queuedAnimEvents;
     private void Start()
     {
         if (fpsCamera != null)
-            fpsAnimator.OnPostAnimUpdate += fpsCamera.UpdateCamera;
+            fpsAnimator.onPostUpdate.AddListener(fpsCamera.UpdateCamera);
     }
 
     private void Awake()
@@ -102,6 +104,7 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
 
         Player.CharAnimData.recoilAnim = new LocRot(recoilAnimation.OutLoc, Quaternion.Euler(recoilAnimation.OutRot));
         fpsAnimator.SetCharData(Player.CharAnimData);
+        
         fpsAnimator.animGraph.UpdateGraph();
         fpsAnimator.UpdateCoreComponent();
     }
@@ -110,7 +113,6 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
         return fpsAnimator.animGraph;
     }
 
-    // Call this to play a Camera shake
     public void PlayCameraShake(FPSCameraShake shake)
     {
         if (fpsCamera != null)
@@ -118,12 +120,13 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
             fpsCamera.PlayShake(shake.shakeInfo);
         }
     }
+        
     public void PlayController(RuntimeAnimatorController controller, AnimSequence motion)
     {
         if (motion == null) return;
         fpsAnimator.animGraph.PlayController(controller, motion.clip, motion.blendTime.blendInTime);
     }
-
+        
     // Call this to play a static pose on the character upper body
     public void PlayPose(AnimSequence motion)
     {
@@ -132,12 +135,13 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
     }
 
     // Call this to play an animation on the character upper body
-    public void PlayAnimation(AnimSequence motion)
+    public void PlayAnimation(AnimSequence motion, float startTime = 0f)
     {
         if (motion == null) return;
-        fpsAnimator.animGraph.PlayAnimation(motion.clip, motion.blendTime, motion.curves.ToArray(), motion.mask);
+            
+        fpsAnimator.animGraph.PlayAnimation(motion, startTime);
     }
-
+        
     public void StopAnimation(float blendTime = 0f)
     {
         fpsAnimator.animGraph.StopAnimation(blendTime);

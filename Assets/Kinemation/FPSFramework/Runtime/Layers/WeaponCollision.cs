@@ -1,4 +1,4 @@
-// Designed by Kinemation, 2023
+// Designed by KINEMATION, 2023
 
 using Kinemation.FPSFramework.Runtime.Core.Components;
 using Kinemation.FPSFramework.Runtime.Core.Types;
@@ -9,20 +9,23 @@ namespace Kinemation.FPSFramework.Runtime.Layers
     public class WeaponCollision : AnimLayer
     {
         [SerializeField] protected LayerMask layerMask;
-        
+
         protected Vector3 start;
         protected Vector3 end;
         protected LocRot smoothPose;
+        protected LocRot offsetPose;
 
         private void OnDrawGizmos()
         {
+            if (!drawDebugInfo) return;
+            
             Gizmos.color = Color.green;
             Gizmos.DrawLine(start, end);
         }
 
-        public override void OnAnimUpdate()
+        protected void Trace()
         {
-            var blockData = GetGunAsset() != null ? GetGunAsset().blockData : GetGunData().blockData;
+            var blockData = GetGunAsset().blockData;
             
             float traceLength = blockData.weaponLength;
             float startOffset = blockData.startOffset;
@@ -32,7 +35,6 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             start = GetMasterPivot().position - GetMasterPivot().forward * startOffset;
             end = start + GetMasterPivot().forward * traceLength;
             
-            LocRot offsetPose = new LocRot(Vector3.zero, Quaternion.identity);
             if (Physics.Raycast(start, GetMasterPivot().forward, out RaycastHit hit, traceLength, layerMask))
             {
                 float distance = (end - start).magnitude - (hit.point - start).magnitude;
@@ -46,7 +48,17 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                     offsetPose.rotation = Quaternion.Euler(0f, 0f, 15f * (distance / threshold));
                 }
             }
-
+            else
+            {
+                offsetPose = LocRot.identity;
+            }
+        }
+        
+        public override void OnAnimUpdate()
+        {
+            if (GetGunAsset() == null) return;
+            
+            Trace();
             smoothPose = CoreToolkitLib.Glerp(smoothPose, offsetPose, 10f);
             
             GetMasterIK().Move(smoothPose.position, smoothLayerAlpha);

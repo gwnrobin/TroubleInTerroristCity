@@ -25,15 +25,7 @@ public class ProjectileWeapon : EquipmentItem
 
     public AnimSequence reloadClip;
     public AnimSequence grenadeClip;
-
-    public WeaponAnimData gunData = new(LocRot.identity);
-    public AimOffsetTable aimOffsetTable;
-    public RecoilAnimData recoilData;
-
-    public AnimSequence overlayPose;
-    public LocRot weaponBone = LocRot.identity;
-
-    public WeaponAnimData weaponAnimData = new(LocRot.identity);
+    
     public WeaponAnimAsset weaponAsset;
     public WeaponTransformData weaponTransformData;
 

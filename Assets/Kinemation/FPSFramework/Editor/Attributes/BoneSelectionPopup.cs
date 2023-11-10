@@ -1,7 +1,8 @@
-// Designed by Kinemation, 2023
+// Designed by KINEMATION, 2023
 
 using System.Collections.Generic;
 using System.IO;
+using Kinemation.FPSFramework.Runtime.Core.Types;
 using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using UnityEditor;
 using UnityEngine;

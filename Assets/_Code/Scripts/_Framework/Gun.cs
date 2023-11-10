@@ -30,7 +30,7 @@ public class Gun : ProjectileWeapon
     // Returns the aim point by default
     public virtual Transform GetAimPoint()
     {
-        return gunData.gunAimData.aimPoint;
+        return weaponTransformData.aimPoint;
     }
 
     public override void Initialize(EquipmentHandler eHandler)
@@ -123,44 +123,6 @@ public class Gun : ProjectileWeapon
         //Set the firemode to the coressponding saveable item
         //m_FireModes.Integer = selectedMode;
     }
-
-#if UNITY_EDITOR
-    public void SetupWeapon()
-    {
-        Transform FindPoint(Transform target, string searchName)
-        {
-            foreach (Transform child in target)
-            {
-                if (child.name.ToLower().Contains(searchName.ToLower()))
-                {
-                    return child;
-                }
-            }
-
-            return null;
-        }
-
-        if (gunData.gunAimData.pivotPoint == null)
-        {
-            var found = FindPoint(transform, "pivotpoint");
-            gunData.gunAimData.pivotPoint = found == null ? new GameObject("PivotPoint").transform : found;
-            gunData.gunAimData.pivotPoint.parent = transform;
-        }
-
-        if (gunData.gunAimData.aimPoint == null)
-        {
-            var found = FindPoint(transform, "aimpoint");
-            gunData.gunAimData.aimPoint = found == null ? new GameObject("AimPoint").transform : found;
-            gunData.gunAimData.aimPoint.parent = transform;
-        }
-    }
-
-    public void SavePose()
-    {
-        weaponBone.position = transform.localPosition;
-        weaponBone.rotation = transform.localRotation;
-    }
-#endif
 }
 
 public struct AmmoInfo

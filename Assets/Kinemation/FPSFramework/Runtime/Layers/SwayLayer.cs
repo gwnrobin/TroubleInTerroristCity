@@ -1,5 +1,6 @@
-// Designed by Kinemation, 2023
+// Designed by KINEMATION, 2023
 
+using Kinemation.FPSFramework.Runtime.Attributes;
 using Kinemation.FPSFramework.Runtime.Core.Components;
 using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
@@ -41,10 +42,10 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
             targetMoveLoc = targetMoveRot = Vector3.zero;
         }
-
+        
         public override void OnAnimUpdate()
         {
-            if (Mathf.Approximately(Time.deltaTime, 0f))
+            if (Mathf.Approximately(Time.deltaTime, 0f) || GetGunAsset() == null)
             {
                 return;
             }
@@ -52,7 +53,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             var master = GetMasterPivot();
             LocRot baseT = new LocRot(master.position, master.rotation);
 
-            freeAimData = GetGunAsset() != null ? GetGunAsset().freeAimData : GetGunData().freeAimData;
+            freeAimData = GetGunAsset().freeAimData;
 
             ApplySway();
             //ApplyFreeAim();
@@ -105,14 +106,14 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
         protected virtual void ApplySway()
         {
-            var springData = GetGunAsset() != null ? GetGunAsset().springData : core.gunData.springData;
-
             float deltaRight = GetCharData().deltaAimInput.x / Time.deltaTime;
             float deltaUp = GetCharData().deltaAimInput.y / Time.deltaTime; 
 
             swayTarget += new Vector2(deltaRight, deltaUp) * 0.01f;
             swayTarget.x = CoreToolkitLib.GlerpLayer(swayTarget.x * 0.01f, 0f, 5f);
             swayTarget.y = CoreToolkitLib.GlerpLayer(swayTarget.y * 0.01f, 0f, 5f);
+            
+            var springData = GetGunAsset().springData;
 
             Vector3 targetLoc = new Vector3(swayTarget.x, swayTarget.y,0f);
             Vector3 targetRot = new Vector3(swayTarget.y, swayTarget.x, swayTarget.x);
@@ -135,7 +136,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             var moveRotTarget = new Vector3();
             var moveLocTarget = new Vector3();
 
-            var moveSwayData = GetGunAsset() != null ? GetGunAsset().moveSwayData : GetGunData().moveSwayData;
+            var moveSwayData = GetGunAsset().moveSwayData;
             var moveInput = GetCharData().moveInput;
 
             moveRotTarget.x = moveInput.y * moveSwayData.maxMoveRotSway.x;
@@ -145,14 +146,6 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             moveLocTarget.x = moveInput.x * moveSwayData.maxMoveLocSway.x;
             moveLocTarget.y = moveInput.y * moveSwayData.maxMoveLocSway.y;
             moveLocTarget.z = moveInput.y * moveSwayData.maxMoveLocSway.z;
-
-            smoothMoveSwayRot = CoreToolkitLib.SpringInterp(smoothMoveSwayRot, targetMoveRot,
-                ref moveSwayData.moveRotSway,
-                ref moveRotState);
-            
-            smoothMoveSwayLoc = CoreToolkitLib.SpringInterp(smoothMoveSwayLoc, targetMoveLoc,
-                ref moveSwayData.moveLocSway,
-                ref moveLocState);
             
             targetMoveRot.x = CoreToolkitLib.Glerp(targetMoveRot.x, moveRotTarget.x, moveSwayData.rotSpeed.x);
             targetMoveRot.y = CoreToolkitLib.Glerp(targetMoveRot.y, moveRotTarget.y, moveSwayData.rotSpeed.y);
@@ -161,6 +154,14 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             targetMoveLoc.x = CoreToolkitLib.Glerp(targetMoveLoc.x, moveLocTarget.x, moveSwayData.locSpeed.x);
             targetMoveLoc.y = CoreToolkitLib.Glerp(targetMoveLoc.y, moveLocTarget.y, moveSwayData.locSpeed.y);
             targetMoveLoc.z = CoreToolkitLib.Glerp(targetMoveLoc.z, moveLocTarget.z, moveSwayData.locSpeed.z);
+
+            smoothMoveSwayRot = CoreToolkitLib.SpringInterp(smoothMoveSwayRot, targetMoveRot,
+                ref moveSwayData.moveRotSway,
+                ref moveRotState);
+
+            smoothMoveSwayLoc = CoreToolkitLib.SpringInterp(smoothMoveSwayLoc, targetMoveLoc,
+                ref moveSwayData.moveLocSway,
+                ref moveLocState);
             
             GetMasterIK().Move(GetRootBone(), smoothMoveSwayLoc, 1f);
             GetMasterIK().Rotate(GetRootBone().rotation, Quaternion.Euler(smoothMoveSwayRot), 1f);

@@ -220,7 +220,7 @@ public class PlayerMovement : PlayerComponent
         
         Player.DisabledMovement.SetStartTryer(TryDisableMovement);
 
-        networkPlayerAnimController.FpsAnimator.OnPostAnimUpdate += UpdateCameraRotation;
+        networkPlayerAnimController.FpsAnimator.onPostUpdate.AddListener(UpdateCameraRotation);
     }
 
     private void Update()

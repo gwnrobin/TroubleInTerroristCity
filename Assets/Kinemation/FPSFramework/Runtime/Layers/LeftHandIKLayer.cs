@@ -1,6 +1,7 @@
-// Designed by Kinemation, 2023
+// Designed by KINEMATION, 2023
 
 using System.Collections.Generic;
+using Kinemation.FPSFramework.Runtime.Attributes;
 using Kinemation.FPSFramework.Runtime.Core.Components;
 using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
@@ -8,35 +9,19 @@ using Quaternion = UnityEngine.Quaternion;
 
 namespace Kinemation.FPSFramework.Runtime.Layers
 {
-    public struct BoneTransform
-    {
-        public Transform bone;
-        public Quaternion rotation;
-
-        public BoneTransform(Transform boneRef)
-        {
-            bone = boneRef;
-            rotation = Quaternion.identity;
-        }
-
-        public void CopyBone()
-        {
-            rotation = bone.localRotation;
-        }
-    }
-    
     public class LeftHandIKLayer : AnimLayer
     {
-        [Header("Layer Blending")]
-        [AnimCurveName] public string maskCurveName;
-        public Transform leftHandTarget;
-        public AvatarMask leftHandMask;
+        [Header("Left Hand IK Settings")]
+
+        [AnimCurveName] [SerializeField] private string maskCurveName;
+        [SerializeField] private AvatarMask leftHandMask;
+        [SerializeField] private bool usePoseOverride = true;
 
         private LocRot _cache = LocRot.identity;
         private LocRot _final = LocRot.identity;
         
-        private LocRot defaultLeftHand = LocRot.identity;
-        private List<BoneTransform> leftHandChain = new List<BoneTransform>();
+        private LocRot _defaultLeftHand = LocRot.identity;
+        private List<BoneRef> _leftHandChain = new List<BoneRef>();
 
         public override void OnAnimStart()
         {
@@ -45,58 +30,64 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                 Debug.LogWarning("LeftHandIKLayer: no mask for the left hand assigned!");
                 return;
             }
-            
-            leftHandChain.Clear();
-            for (int i = 1; i < leftHandMask.transformCount; i++)
-            {
-                if (leftHandMask.GetTransformActive(i))
-                {
-                    var t = transform.Find(leftHandMask.GetTransformPath(i));
-                    leftHandChain.Add(new BoneTransform(t));
-                }
-            }
+
+            BoneRef.InitBoneChain(ref _leftHandChain, transform, leftHandMask);
         }
 
         public override void OnPoseSampled()
         {
+            if (!usePoseOverride)
+            {
+                return;
+            }
+            
             _cache = _final;
 
             if (leftHandMask == null) return;
 
-            for (int i = 0; i < leftHandChain.Count; i++)
+            for (int i = 0; i < _leftHandChain.Count; i++)
             {
-                var bone = leftHandChain[i];
+                var bone = _leftHandChain[i];
                 bone.CopyBone();
-                leftHandChain[i] = bone;
+                _leftHandChain[i] = bone;
             }
 
-            var rotOffset = GetGunAsset() != null ? GetGunAsset().rotationOffset : GetGunData().rotationOffset;
+            var rotOffset = GetGunAsset().rotationOffset;
+            var gunBone = GetRigData().weaponBone;
             
-            GetPivotPoint().rotation *= rotOffset;
-            defaultLeftHand.position = GetPivotPoint().InverseTransformPoint(GetLeftHandIK().target.position);
-            defaultLeftHand.rotation = Quaternion.Inverse(GetPivotPoint().rotation) * GetLeftHandIK().target.rotation;
-            GetPivotPoint().rotation *= Quaternion.Inverse(rotOffset);
+            gunBone.rotation *= rotOffset;
+            _defaultLeftHand.position = gunBone.InverseTransformPoint(GetLeftHandIK().target.position);
+            _defaultLeftHand.rotation = Quaternion.Inverse(gunBone.rotation) * GetLeftHandIK().target.rotation;
+            gunBone.rotation *= Quaternion.Inverse(rotOffset);
         }
 
         private void OverrideLeftHand(float weight)
         {
             weight = Mathf.Clamp01(weight);
-            foreach (var bone in leftHandChain)
+
+            if (Mathf.Approximately(weight, 0f))
             {
-                bone.bone.localRotation = Quaternion.Slerp(bone.bone.localRotation, bone.rotation, weight);
+                return;
+            }
+            
+            foreach (var bone in _leftHandChain)
+            {
+                bone.Slerp(weight);
             }
         }
+        
+        private LocRot basePoseT = LocRot.identity;
+        private LocRot handTransform = LocRot.identity;
 
-        public override void OnAnimUpdate()
+        public void UpdateHandTransforms()
         {
-            var basePos = GetMasterPivot().InverseTransformPoint(GetLeftHand().position) + GetPivotOffset();
-            var baseRot = 
+            basePoseT.position = GetMasterPivot().InverseTransformPoint(GetLeftHand().position) + GetPivotOffset();
+            basePoseT.rotation =
                 Quaternion.Inverse(Quaternion.Inverse(GetMasterPivot().rotation) * GetLeftHand().rotation);
-
-            LocRot handTransform;
+            
             if (GetTransforms().leftHandTarget == null)
             {
-                handTransform = defaultLeftHand;
+                handTransform = _defaultLeftHand;
             }
             else
             {
@@ -104,18 +95,46 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                 handTransform = new LocRot(target.localPosition, target.localRotation);
             }
             
+            handTransform.position -= basePoseT.position;
+            handTransform.rotation *= basePoseT.rotation;
+        }
+
+        public override void OnAnimUpdate()
+        {
+            if (GetGunAsset() == null) return;
+            
+            UpdateHandTransforms();
+            
             float alpha = (1f - GetCurveValue(maskCurveName)) * (1f - smoothLayerAlpha) * layerAlpha;
             float progress = core.animGraph.GetPoseProgress();
-            
-            handTransform.position -= basePos;
-            handTransform.rotation *= baseRot;
 
             _final = CoreToolkitLib.Lerp(_cache, handTransform, progress);
 
-            OverrideLeftHand(alpha);
+            if (usePoseOverride)
+            {
+                OverrideLeftHand(alpha);
+            }
+            
             GetLeftHandIK().Move(GetMasterPivot(), _final.position, alpha);
-            GetLeftHandIK().Rotate(GetMasterPivot().rotation, 
-                _final.rotation, alpha);
+            GetLeftHandIK().Rotate(GetMasterPivot().rotation, _final.rotation, alpha);
+
+            Vector3 ikOffset = new Vector3()
+            {
+                x = GetCurveValue(CurveLib.Curve_IK_LeftHand_X),
+                y = GetCurveValue(CurveLib.Curve_IK_LeftHand_Y),
+                z = GetCurveValue(CurveLib.Curve_IK_LeftHand_Z),
+            };
+            
+            GetLeftHandIK().Move(GetRootBone(), ikOffset);
+            
+            ikOffset = new Vector3()
+            {
+                x = GetCurveValue(CurveLib.Curve_IK_X),
+                y = GetCurveValue(CurveLib.Curve_IK_Y),
+                z = GetCurveValue(CurveLib.Curve_IK_Z),
+            };
+            
+            GetMasterIK().Move(GetRootBone(), ikOffset);
         }
     }
 }

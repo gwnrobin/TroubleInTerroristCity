@@ -198,22 +198,14 @@ public class EquipmentHandler : PlayerComponent
 
     protected void InitWeapon(ProjectileWeapon weapon)
     {
-        recoilAnimation.Init(weapon.recoilData, weapon.FireRate, weapon.FireMode);
-        if (weapon.weaponAsset != null)
-        {
-            networkPlayerAnimController.FpsAnimator.OnGunEquipped(weapon.weaponAsset, weapon.weaponTransformData);
-        }
-        else
-        {
-            networkPlayerAnimController.FpsAnimator.OnGunEquipped(weapon.weaponAnimData);
-        }
-        //playerAnimController.FpsAnimator.OnGunEquipped(weapon.gunData);
-        networkPlayerAnimController.FpsAnimator.ikRigData.weaponTransform = weapon.weaponBone;
-
-        networkPlayerAnimController.LookLayer.SetAimOffsetTable(weapon.aimOffsetTable);
+        recoilAnimation.Init(weapon.weaponAsset.recoilData, weapon.FireRate, weapon.FireMode);
+        networkPlayerAnimController.FpsAnimator.OnGunEquipped(weapon.weaponAsset, weapon.weaponTransformData);
+        
+        networkPlayerAnimController.FpsAnimator.ikRigData.weaponTransform = weapon.weaponAsset.weaponBone;
+        networkPlayerAnimController.LookLayer.SetAimOffsetTable(weapon.weaponAsset.aimOffsetTable);
 
         networkPlayerAnimController.FpsAnimator.OnPrePoseSampled();
-        networkPlayerAnimController.PlayPose(weapon.overlayPose);
+        networkPlayerAnimController.PlayPose(weapon.weaponAsset.overlayPose);
         networkPlayerAnimController.FpsAnimator.OnPoseSampled();
     }
 

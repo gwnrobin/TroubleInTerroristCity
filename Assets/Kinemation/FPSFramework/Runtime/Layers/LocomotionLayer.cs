@@ -1,5 +1,6 @@
-// Designed by Kinemation, 2023
+// Designed by KINEMATION, 2023
 
+using Kinemation.FPSFramework.Runtime.Attributes;
 using Kinemation.FPSFramework.Runtime.Core.Components;
 using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
@@ -44,6 +45,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
         private float smoothSprintLean;
         private LocRot smoothLoco = LocRot.identity;
+        
+        private LocRot curveAnimation = LocRot.identity;
 
         public void SetReadyWeight(float weight)
         {
@@ -53,9 +56,29 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         public override void OnPreAnimUpdate()
         {
             base.OnPreAnimUpdate();
-            smoothLayerAlpha *= 1f - core.animGraph.GetCurveValue("Overlay");
+            smoothLayerAlpha *= 1f - core.animGraph.GetCurveValue(CurveLib.Curve_Overlay);
             core.animGraph.SetGraphWeight(1f - smoothLayerAlpha);
-            core.ikRigData.weaponBoneWeight = GetCurveValue("WeaponBone");
+            core.ikRigData.weaponBoneWeight = GetCurveValue(CurveLib.Curve_WeaponBone);
+        }
+
+        public void UpdateCurveAnimation()
+        {
+            var animator = GetAnimator();
+            
+            Vector3 curveData;
+            curveData.x = animator.GetFloat(RotX);
+            curveData.y = animator.GetFloat(RotY);
+            curveData.z = animator.GetFloat(RotZ);
+
+            curveAnimation.rotation = Quaternion.Euler(curveData * rotationScale).normalized;
+            
+            curveData.x = animator.GetFloat(LocX);
+            curveData.y = animator.GetFloat(LocY);
+            curveData.z = animator.GetFloat(LocZ);
+
+            curveData *= translationScale;
+            
+            curveAnimation.position = curveData;
         }
 
         public override void OnAnimUpdate()
@@ -80,8 +103,6 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         private void ApplyLocomotion()
         {
             var master = GetMasterPivot();
-            var animator = GetAnimator();
-
             var mouseInput = GetCharData().deltaAimInput;
 
             smoothSprintLean = CoreToolkitLib.Glerp(smoothSprintLean, 4f * mouseInput.x, 3f);
@@ -95,21 +116,9 @@ namespace Kinemation.FPSFramework.Runtime.Layers
 
             CoreToolkitLib.RotateInBoneSpace(GetRootBone().rotation, GetPelvis(), sprintLean, 1f);
 
-            Vector3 curveData;
-            curveData.x = animator.GetFloat(RotX);
-            curveData.y = animator.GetFloat(RotY);
-            curveData.z = animator.GetFloat(RotZ);
-
-            Quaternion curveRotation = Quaternion.Euler(curveData * rotationScale).normalized;
-            CoreToolkitLib.RotateInBoneSpace(GetRootBone().rotation, master,
-                curveRotation, locoAlpha);
-
-            curveData.x = animator.GetFloat(LocX);
-            curveData.y = animator.GetFloat(LocY);
-            curveData.z = animator.GetFloat(LocZ);
-            curveData *= translationScale;
-            
-            CoreToolkitLib.MoveInBoneSpace(GetRootBone(), master, curveData, locoAlpha);
+            UpdateCurveAnimation();
+            CoreToolkitLib.RotateInBoneSpace(GetRootBone().rotation, master, curveAnimation.rotation, locoAlpha);
+            CoreToolkitLib.MoveInBoneSpace(GetRootBone(), master, curveAnimation.position, locoAlpha);
 
             smoothLoco = CoreToolkitLib.Glerp(smoothLoco,
                 new LocRot(GetRigData().weaponBoneAdditive, false), smoothSpeed);
