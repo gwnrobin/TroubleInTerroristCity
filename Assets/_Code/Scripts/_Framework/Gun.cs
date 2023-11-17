@@ -30,7 +30,7 @@ public class Gun : ProjectileWeapon
     // Returns the aim point by default
     public virtual Transform GetAimPoint()
     {
-        return weaponTransformData.aimPoint;
+        return generalInfo.weaponTransformData.aimPoint;
     }
 
     public override void Initialize(EquipmentHandler eHandler)

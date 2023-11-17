@@ -6,7 +6,7 @@ using Kinemation.FPSFramework.Runtime.Core.Types;
 using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using UnityEditor;
 using UnityEngine;
-
+/*
 [CustomEditor(typeof(Gun), true)]
 [CanEditMultipleObjects]
 public class GunEditor : UnityEditor.Editor
@@ -65,38 +65,6 @@ public class GunEditor : UnityEditor.Editor
                         new GUIContent(ObjectNames.NicifyVariableName(field.Name)));
                 }
             }
-
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Setup Weapon"))
-            {
-                //owner.SetupWeapon();
-
-                if (PrefabUtility.IsPartOfPrefabInstance(owner.gameObject))
-                {
-                    PrefabUtility.ApplyPrefabInstance(owner.gameObject, InteractionMode.AutomatedAction);
-                }
-            }
-
-            if (GUILayout.Button("Generate Anim Asset"))
-            {
-                //UpdateToTheLatestAPI();
-                Debug.Log("Remove");
-            }
-
-            GUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Save Weapon Position"))
-            {
-                //owner.SavePose();
-
-                if (PrefabUtility.IsPartOfPrefabInstance(owner.gameObject))
-                {
-                    // Apply the changes to the Prefab asset
-                    PrefabUtility.ApplyPrefabInstance(owner.gameObject, InteractionMode.AutomatedAction);
-                }
-            }
-
             // Reset the background color
             EditorGUILayout.EndVertical();
         }
@@ -117,4 +85,4 @@ public class GunEditor : UnityEditor.Editor
         DrawPropertiesExcluding(serializedObject, abstractFieldNames);
         serializedObject.ApplyModifiedProperties();
     }
-}
+}*/

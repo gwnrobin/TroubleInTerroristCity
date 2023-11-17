@@ -13,8 +13,24 @@ MonoBehaviour:
   m_Name: WAS_AR15
   m_EditorClassIdentifier: 
   rotationOffset: {x: 0.70710677, y: 0, z: 0, w: -0.70710677}
+  aimOffsetTable: {fileID: 11400000, guid: 7058601491d8f444287872b2f8c05086, type: 2}
+  recoilData: {fileID: 11400000, guid: 0720a1377eae4234b89eb7e573924ff2, type: 2}
+  weaponBone:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+  overlayPose: {fileID: 11400000, guid: 2d5602ddb144bb341ba8ff0107086af7, type: 2}
+  reloadClip: {fileID: 11400000, guid: cbe31e89123737c4fbe772058f60732f, type: 2}
+  grenadeClip: {fileID: 0}
   adsData:
-    target: {fileID: 0}
+    cameraData: {fileID: 0}
+    adsTranslationBlend:
+      x: 0
+      y: 0
+      z: 0
+    adsRotationBlend:
+      x: 0
+      y: 0
+      z: 0
     pointAimOffset:
       position: {x: -0.08, y: 0, z: 0}
       rotation: {x: 0.0026619053, y: 0.016806621, z: 0.15641183, w: 0.9875454}

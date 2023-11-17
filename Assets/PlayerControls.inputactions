@@ -525,6 +525,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2b8f866f-7b2b-4fb4-8950-249c19deaf52",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "621229f1-d936-4e7c-9c0a-8fc1a117c548",
                     "path": "<Keyboard>/p",
                     "interactions": "",
@@ -631,9 +642,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "exit",
+                    "name": "Exit",
                     "type": "Button",
                     "id": "c78125e9-e20d-4f19-a731-4114123c9fa5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BuyMenu",
+                    "type": "Button",
+                    "id": "2978ce0d-b4ba-4786-9445-d5859ab02de6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -1066,7 +1086,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "exit",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "412d328c-aa3e-4b29-bc3e-f60bb22e3ce2",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BuyMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,5 +1,6 @@
 using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using System;
+using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -35,6 +36,8 @@ public class EquipmentItem : PlayerComponent
         // General
         [DatabaseItem]
         public string CorrespondingItem;
+        
+        public WeaponAnimAsset weaponAnimAsset;
 
         [Space(4f)]
         public EquipmentItemInfo EquipmentInfo = null;
@@ -47,21 +50,7 @@ public class EquipmentItem : PlayerComponent
 
         [EnableIf("EquipmentAnimationInfo", true, 6f)]
         public Animator Animator = null;
-        
-        // Physics
-        //[Space(4f)]
-        //[BHeader("Physics", false, order = 2)]
-
-        //public EquipmentPhysicsInfo EquipmentPhysicsInfo = null;
-
-        //[EnableIf("EquipmentPhysicsInfo", true, 6f)]
-        //public Transform PhysicsPivot = null;
-
-        // Model (Skin Handler)
-        //[Space(4f)]
-        //[BHeader("Model", false, order = 2)]
-
-        //public EquipmentModelHandler EquipmentModel = null;
+        public WeaponTransformData weaponTransformData;
     }
     [Serializable]
     public class GeneralEvents
@@ -97,7 +86,7 @@ public class EquipmentItem : PlayerComponent
     public string CorrespondingItemName => generalInfo.CorrespondingItem;
     
     [SerializeField, Group]
-    protected GeneralInfo generalInfo = null;
+    public GeneralInfo generalInfo = null;
 
     [SerializeField, Group]
     public GeneralEvents m_GeneralEvents = null;

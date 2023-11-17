@@ -908,6 +908,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generalInfo:
     CorrespondingItem: Vector
+    weaponAnimAsset: {fileID: 11400000, guid: b6738378300756346b3f9a7847ef06f1, type: 2}
+    weaponTransformData:
+      pivotPoint: {fileID: 1318132880530323492}
+      aimPoint: {fileID: 8391065758887377918}
+      leftHandTarget: {fileID: 0}
     EquipmentInfo: {fileID: 11400000, guid: 1a73c9e1a4232bc41b513323cbfd661d, type: 2}
     Animator: {fileID: 1059830462733077900}
   m_GeneralEvents:
@@ -926,13 +931,6 @@ MonoBehaviour:
     OnChangeUseMode:
       m_PersistentCalls:
         m_Calls: []
-  reloadClip: {fileID: 11400000, guid: e5e9bcee90055934993359ad6087833c, type: 2}
-  grenadeClip: {fileID: 11400000, guid: 7adda7e80eac7dd4788902cca7ba77ae, type: 2}
-  weaponAsset: {fileID: 11400000, guid: b6738378300756346b3f9a7847ef06f1, type: 2}
-  weaponTransformData:
-    pivotPoint: {fileID: 1318132880530323492}
-    aimPoint: {fileID: 8391065758887377918}
-    leftHandTarget: {fileID: 0}
   scopes: []
 --- !u!114 &158349906670496266
 MonoBehaviour:

@@ -12,8 +12,11 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         public Quaternion rotationOffset = Quaternion.identity;
         public AimOffsetTable aimOffsetTable;
         public RecoilAnimData recoilData;
-        public AnimSequence overlayPose;
         public LocRot weaponBone = LocRot.identity;
+        [Header("Animations"), Tooltip("Adjusts weapon model rotation")]
+        public AnimSequence overlayPose;
+        public AnimSequence reloadClip;
+        public AnimSequence grenadeClip;
         
         [Header("AdsLayer")]
         public AdsData adsData;

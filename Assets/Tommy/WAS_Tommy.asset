@@ -13,8 +13,24 @@ MonoBehaviour:
   m_Name: WAS_Tommy
   m_EditorClassIdentifier: 
   rotationOffset: {x: 0.70710677, y: 0, z: 0, w: -0.70710677}
+  aimOffsetTable: {fileID: 11400000, guid: 7058601491d8f444287872b2f8c05086, type: 2}
+  recoilData: {fileID: 11400000, guid: bfca110af1bbd534084899e065542074, type: 2}
+  weaponBone:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+  overlayPose: {fileID: 11400000, guid: bd1afb39a7bd2624f8ea92dbb2c63d98, type: 2}
+  reloadClip: {fileID: 11400000, guid: 1591a065a212b4a4fa1369c2518d2790, type: 2}
+  grenadeClip: {fileID: 0}
   adsData:
-    target: {fileID: 0}
+    cameraData: {fileID: 0}
+    adsTranslationBlend:
+      x: 0
+      y: 0
+      z: 0
+    adsRotationBlend:
+      x: 0
+      y: 0
+      z: 0
     pointAimOffset:
       position: {x: -0.08, y: 0, z: 0}
       rotation: {x: 0.0026619053, y: 0.016806621, z: 0.15641183, w: 0.9875454}

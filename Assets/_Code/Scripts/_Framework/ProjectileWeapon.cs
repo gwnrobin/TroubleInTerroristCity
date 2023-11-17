@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ProjectileWeapon : EquipmentItem
 {
@@ -22,12 +23,6 @@ public class ProjectileWeapon : EquipmentItem
     protected ProjectileWeaponInfo _projectileWeaponInfo;
 
     public int SelectedFireMode { get; protected set; } = 8;
-
-    public AnimSequence reloadClip;
-    public AnimSequence grenadeClip;
-    
-    public WeaponAnimAsset weaponAsset;
-    public WeaponTransformData weaponTransformData;
 
     // Reloading
     private int m_AmmoToAdd;
@@ -182,7 +177,7 @@ public class ProjectileWeapon : EquipmentItem
                  m_ReloadStartTime = Time.time + _projectileWeaponInfo.Reloading.EmptyReloadDuration;
 
              //EHandler.Animator_SetTrigger(animHash_EmptyReload);
-             EHandler.NetworkPlayerAnimController.PlayAnimation(reloadClip);
+             EHandler.NetworkPlayerAnimController.PlayAnimation(generalInfo.weaponAnimAsset.reloadClip);
              Animator.Play("Reload", 0, 0f);
 
              //Player.Camera.Physics.PlayDelayedCameraForces(_weaponInfo.Reloading.EmptyReloadLoopCamForces);
@@ -195,7 +190,7 @@ public class ProjectileWeapon : EquipmentItem
              {
                  m_ReloadLoopEndTime = Time.time + _projectileWeaponInfo.Reloading.ReloadDuration;
 
-                 EHandler.NetworkPlayerAnimController.PlayAnimation(reloadClip);
+                 EHandler.NetworkPlayerAnimController.PlayAnimation(generalInfo.weaponAnimAsset.reloadClip);
                  Animator.Play("Reload", 0, 0f);
                  //EHandler.Animator_SetTrigger(animHash_Reload);
 
