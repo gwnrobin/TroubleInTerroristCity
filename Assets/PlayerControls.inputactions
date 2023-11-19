@@ -1092,6 +1092,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a29163c6-b897-472f-908c-80f404d22089",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "412d328c-aa3e-4b29-bc3e-f60bb22e3ce2",
                     "path": "<Keyboard>/x",
                     "interactions": "",

@@ -15,8 +15,6 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     
     [SerializedDictionary("id", "player")]
     public SerializedDictionary<ulong, PlayerData> Players = new SerializedDictionary<ulong, PlayerData>();
-    [SerializeField]
-    private ulong _localPrefabId = 0;
     
     public Player GetPlayerByObjectId(ulong objectId)
     {
@@ -59,6 +57,8 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         
         if (IsHost)
         { 
+            HandlePlayerJoin(NetworkManager.LocalClient.ClientId);
+            
             NetworkManager.Singleton.OnClientConnectedCallback += HandlePlayerJoin;
             NetworkManager.Singleton.OnClientDisconnectCallback += HandlePlayerLeave;
         }
@@ -69,7 +69,6 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         GameObject player = Instantiate(NetworkManager.Singleton.GetNetworkPrefabOverride(PlayerPrefab));
         player.transform.position = GameManager.Instance.GetRandomSpawnPoint().position;
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(id);
-
 
         RegisterPrefabClientRPC(id, player.GetComponent<NetworkObject>().NetworkObjectId);
     }
@@ -91,21 +90,15 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
 
     private void HandlePlayerJoin(ulong networkId)
     {
-        ulong prefabId = NetworkManager.Singleton.ConnectedClients[networkId].PlayerObject.GetComponent<NetworkObject>().NetworkObjectId;
-        Player player = NetworkManager.Singleton.ConnectedClients[networkId].PlayerObject.GetComponent<Player>();
-        
-        PlayerJoined.Invoke(player);
-        
         PlayerData playerData = new PlayerData();
-        playerData.PrefabId = prefabId;
-        playerData.playerObject = player;
         Players.Add(networkId, playerData);
         
         ulong[] networkIds = GetAllNetworkIds();
-        ulong[] prefabIds = GetAllObjectIds();
         
-        SendPlayerIdsToClient(networkIds, prefabIds, networkId);
-        ClientConnectedClientRPC(networkId, prefabId);
+        SendPlayerIdsToClient(networkIds, networkId);
+        
+        TroubleInTerroristGamemode.Instance.PlayerRegisterDeath(networkId);
+        TroubleInTerroristGamemode.Instance.CheckGameReady();
     }
     
     private void HandlePlayerLeave(ulong networkId)
@@ -113,7 +106,7 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         Players.Remove(networkId);
     }
 
-    private void SendPlayerIdsToClient(ulong[] networkIds, ulong[] prefabIds, ulong receiver)
+    private void SendPlayerIdsToClient(ulong[] networkIds, ulong receiver)
     {
         ClientRpcParams clientRpcParams = new ClientRpcParams
         {
@@ -122,39 +115,25 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
                 TargetClientIds = new ulong[] { receiver }
             }
         };
-        ClientConnectedClientRPC(networkIds, prefabIds, clientRpcParams);
+        ClientConnectedClientRPC(networkIds, clientRpcParams);
     }
     
     [ClientRpc]
-    private void ClientConnectedClientRPC(ulong[] networkIds, ulong[] prefabIds, ClientRpcParams clientRpcParams = default)
+    private void ClientConnectedClientRPC(ulong[] networkIds, ClientRpcParams clientRpcParams = default)
     {
         for (int i = 0; i < networkIds.Length; i++)
         {
-            RegisterPlayer(networkIds[i], prefabIds[i]);
+            RegisterPlayer(networkIds[i]);
         }
     }
-    
-    [ClientRpc]
-    private void ClientConnectedClientRPC(ulong networkId, ulong prefabId)
-    {
-        if (prefabId == NetworkManager.LocalClient.PlayerObject.NetworkObjectId)
-            return;
-        
-        RegisterPlayer(networkId, prefabId);
-    }
 
-    private void RegisterPlayer(ulong networkId, ulong prefabId)
+    private void RegisterPlayer(ulong networkId)
     {
         if (IsHost)
             return;
         
         PlayerData playerData = new PlayerData();
         
-        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(prefabId, out NetworkObject playerNetworkObject))
-        {
-            playerData.playerObject = playerNetworkObject.GetComponent<Player>();
-            playerData.PrefabId = prefabId;
-        }
         Players.Add(networkId, playerData);
     }
 }

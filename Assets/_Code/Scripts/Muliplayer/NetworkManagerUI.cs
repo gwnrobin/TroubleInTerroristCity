@@ -12,21 +12,14 @@ public class NetworkManagerUI : MonoBehaviour
     [SerializeField] private TMP_InputField ip;
     [SerializeField] private UnityTransport transport;
 
-    public UnityEvent JoinedServer;
-
     private string originText;
     private void Awake()
     {
         originText = ip.text;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
         
         hostBtn.onClick.AddListener(() =>
         {
             NetworkManager.Singleton.StartHost();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            JoinedServer?.Invoke();
         });
         clientBtn.onClick.AddListener(() =>
         {
@@ -35,9 +28,6 @@ public class NetworkManagerUI : MonoBehaviour
                 transport.ConnectionData.Address = ip.text;
             }
             NetworkManager.Singleton.StartClient();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            JoinedServer?.Invoke();
         });
     }
 }

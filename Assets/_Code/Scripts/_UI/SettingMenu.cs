@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -23,18 +25,14 @@ public class SettingMenu : Singleton<SettingMenu>
     
     public void ToggleMenu(InputAction.CallbackContext context)
     {
-       _gameObject.SetActive(!_gameObject.activeSelf);
-       Cursor.visible = !Cursor.visible;
-       if (Cursor.lockState == CursorLockMode.Locked)
-       {
-           Cursor.lockState = CursorLockMode.Confined;
-       }
-       else
-       {
-           Cursor.lockState = CursorLockMode.Locked;
-       }
+        if (context.started)
+        {
+            _gameObject.SetActive(!_gameObject.activeSelf);
+            Cursor.visible = !Cursor.visible;
+            Cursor.lockState = (Cursor.lockState == CursorLockMode.Locked) ? CursorLockMode.Confined : CursorLockMode.Locked;
+        }
     }
-    
+
     private void Start()
     {
         _resolutions = Screen.resolutions;

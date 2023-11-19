@@ -122,7 +122,6 @@ public class EquipmentHandler : PlayerComponent
         int itemId = item != null ? item.Id : 0;
 
         // Enable next equipment item
-        print(itemId);
         _attachedEquipmentItem = GetEquipmentItem(itemId);
         _attachedEquipmentItem.gameObject.SetActive(true);
         

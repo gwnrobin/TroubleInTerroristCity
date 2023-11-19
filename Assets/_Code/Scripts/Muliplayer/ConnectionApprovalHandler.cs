@@ -18,13 +18,13 @@ public class ConnectionApprovalHandler : MonoBehaviour
 
         // Your approval logic determines the following values
         response.Approved = true;
-        response.CreatePlayerObject = true;
+        //response.CreatePlayerObject = true;
 
         // The Prefab hash value of the NetworkPrefab, if null the default NetworkManager player Prefab is used
         response.PlayerPrefabHash = null;
 
         // Position to spawn the player object (if null it uses default of Vector3.zero)
-        response.Position = GameManager.Instance.GetRandomSpawnPoint().position;
+        //response.Position = GameManager.Instance.GetRandomSpawnPoint().position;
 
         // Rotation to spawn the player object (if null it uses the default of Quaternion.identity)
         response.Rotation = Quaternion.identity;

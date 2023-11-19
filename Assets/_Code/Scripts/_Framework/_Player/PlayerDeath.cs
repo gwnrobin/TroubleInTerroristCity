@@ -58,9 +58,14 @@ public class PlayerDeath : PlayerComponent
 			//m_HeadStartRotation = m_Head.transform.localRotation;
         }
 
+        public void DebugKill()
+        {
+	        OnChanged_Health(0);
+        }
+
 		private void OnChanged_Health(float health)
 		{
-			if (health == 0f)
+			if (health <= 0f)
 				StartCoroutine(C_OnDeath());
 		}
 

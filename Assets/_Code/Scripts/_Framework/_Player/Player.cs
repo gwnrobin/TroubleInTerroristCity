@@ -41,16 +41,6 @@ public class Player : Humanoid
     [SerializeField] private Camera m_PlayerCamera = null;
 
     public CharAnimData CharAnimData;
-
-    protected override void Start()
-    {
-        base.Start();
-        
-        Time.timeScale = 1f;
-        
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
     
     public Dictionary<string, Activity> GetAllActivities()
     {

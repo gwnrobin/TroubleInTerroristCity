@@ -113,7 +113,7 @@ public class PlayerMovement : PlayerComponent
     [Header("General")]
     [SerializeField] private CharacterController controller;
     [SerializeField] private Animator animator;
-    [FormerlySerializedAs("playerAnimController")] [SerializeField] private NetworkPlayerAnimController networkPlayerAnimController;
+    [SerializeField] private NetworkPlayerAnimController networkPlayerAnimController;
     [SerializeField] private float moveSmoothing = 2f;
     [SerializeField] private LayerMask m_ObstacleCheckMask = ~0;
     [SerializeField] private float gravity;

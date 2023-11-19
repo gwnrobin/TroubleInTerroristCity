@@ -33,6 +33,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     
     [SerializeField]
     private List<ulong> _playersAlive = new List<ulong>();
+    [SerializeField]
     private List<ulong> _playersDead = new List<ulong>();
     
     public List<ulong> GetInnocents => _innocents;
@@ -63,12 +64,23 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         if (!_gamemodeStarted)
             return;
 
+        DeletePlayerPrefab(id);
+        CheckGameState();
+    }
+
+    public void DeletePlayerPrefab(ulong id)
+    {
         var player = PlayerManager.Instance.GetPlayerByNetworkId(id).GetComponent<NetworkObject>();
         player.RemoveOwnership();
         player.Despawn();
-        _playersDead.Add(id);
         _playersAlive.Remove(id);
-        CheckGameState();
+        
+        PlayerRegisterDeath(id);
+    }
+
+    public void PlayerRegisterDeath(ulong id)
+    {
+        _playersDead.Add(id);
     }
 
     public void CheckGameState()
@@ -101,20 +113,22 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         if (!IsHost)
             return;
 
-        if (PlayerManager.Instance.Players.Count + 1 < _minimalPlayers)
+        if (PlayerManager.Instance.Players.Count < _minimalPlayers)
             return;
-
+        
         StartCoroutine((GetReadyCoroutine()));
     }
     
     private IEnumerator GetReadyCoroutine()
     {
         SendEventClientRPC("StartPreRound");
+
         foreach (var deadPlayer in _playersDead)
         {
             PlayerManager.Instance.SetNewPrefab(deadPlayer);
         }
         
+        SceneWeaponManager.Instance.SpawnWeapons();
         _playersDead.Clear();
         yield return new WaitForSeconds(_getReadyDuration);
         
@@ -133,7 +147,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         yield return new WaitForSeconds(_roundDuration);
         
         SendEventClientRPC("EndRound");
-        
+        SceneWeaponManager.Instance.ClearWeapons();
         // End the round when the duration is over
         OnRoundEnd();
     }
