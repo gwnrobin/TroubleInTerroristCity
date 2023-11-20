@@ -481,7 +481,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void UpdateLookInput()
     {
-        _freeLook = Input.GetKey(KeyCode.X);
+        //_freeLook = Input.GetKey(KeyCode.X);
 
         float deltaMouseX = Player.LookInput.Get().x * SettingMenu.Instance.GameSettings.Sensitivity;
         float deltaMouseY = -Player.LookInput.Get().y * SettingMenu.Instance.GameSettings.Sensitivity;

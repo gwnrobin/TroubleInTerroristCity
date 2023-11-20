@@ -39,6 +39,9 @@ public class SettingMenu : Singleton<SettingMenu>
 
         _resolutionDropdown.ClearOptions();
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;

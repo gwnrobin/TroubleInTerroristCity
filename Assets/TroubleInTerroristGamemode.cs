@@ -5,6 +5,7 @@ using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGamemode>
@@ -26,7 +27,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     [SerializeField] private float _roundDuration;
     [SerializeField] private float _getReadyDuration;
     
-    private bool _gamemodeStarted = false;
+    public bool gamemodeStarted = false;
     
     private List<ulong> _innocents = new List<ulong>();
     private List<ulong> _traitors = new List<ulong>();
@@ -50,6 +51,9 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         
         _events.Add("TraitorWin", TraitorWin);
         _events.Add("InnocentWin", InnocentWin);
+        
+        StartPreRound.AddListener(() => gamemodeStarted = false);
+        StartRound.AddListener(() => gamemodeStarted = true);
     }
 
     public void PlayerDie(ulong id)
@@ -61,7 +65,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     [ServerRpc(RequireOwnership = false)]
     public void PlayerDieServerRPC(ulong id)
     {
-        if (!_gamemodeStarted)
+        if (!gamemodeStarted)
             return;
 
         DeletePlayerPrefab(id);
@@ -139,7 +143,6 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     private IEnumerator RoundCoroutine()
     {
         GenerateRoles();
-        _gamemodeStarted = true;
         
         SendEventClientRPC("StartRound");
 
@@ -154,8 +157,6 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
 
     private void OnRoundEnd()
     {
-        _gamemodeStarted = false;
-
         _innocents.Clear();
         _traitors.Clear();
 
