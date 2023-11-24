@@ -1477,6 +1477,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3430949848005855603, guid: cc199e8209b1d7346b856555766d7c4e, type: 3}
+      propertyPath: SceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 0eb1cc35d95d7af448c550dbb258553f, type: 3}
+    - target: {fileID: 3430949848005855603, guid: cc199e8209b1d7346b856555766d7c4e, type: 3}
+      propertyPath: m_SceneName
+      value: L_Showcase
+      objectReference: {fileID: 0}
     - target: {fileID: 3593187415842427430, guid: cc199e8209b1d7346b856555766d7c4e, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3773624049

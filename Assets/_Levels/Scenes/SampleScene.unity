@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 1626.6506, g: 1809.6584, b: 2261.547, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16918,6 +16918,10 @@ PrefabInstance:
       propertyPath: m_UseViewFrustumForShadowCasterCull
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6352992303632787077, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6877696616810895657, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
       propertyPath: m_Name
       value: Spotlight_01b_large (7)
@@ -16927,8 +16931,20 @@ PrefabInstance:
       value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 7076391226359534647, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076391226359534647, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
       propertyPath: m_Intensity
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076391226359534647, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
+      propertyPath: m_AreaSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076391226359534647, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
+      propertyPath: m_AreaSize.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7099204274326008835, guid: 7acad438f204fae4899e35da52c815c5, type: 3}
       propertyPath: m_StaticEditorFlags

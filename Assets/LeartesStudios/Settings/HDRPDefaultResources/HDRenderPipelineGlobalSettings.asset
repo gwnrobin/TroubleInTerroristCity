@@ -60,7 +60,7 @@ MonoBehaviour:
     msaaMode: 1
     materialQuality: 0
   m_RenderPipelineResources: {fileID: 11400000, guid: 3ce144cff5783da45aa5d4fdc2da14b7, type: 2}
-  m_RenderPipelineRayTracingResources: {fileID: 0}
+  m_RenderPipelineRayTracingResources: {fileID: 11400000, guid: ba6e7f30e5cffc249a8bf7ee5756c196, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessBlursCustomPostProcesses: []
@@ -102,11 +102,55 @@ MonoBehaviour:
     serializedHasVolumes:
     - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
       hasProbeVolumes: 1
+    - sceneGUID: 3db1837cc97a95e4c98610966fac2b0b
+      hasProbeVolumes: 0
+    - sceneGUID: b40502bcfda28084ba14357d4b0d750d
+      hasProbeVolumes: 0
     serializedProfiles:
     - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
       profile: {fileID: 11400000, guid: 326132149a963584bbae891a45f740ec, type: 2}
+    - sceneGUID: 3db1837cc97a95e4c98610966fac2b0b
+      profile: {fileID: 11400000, guid: 326132149a963584bbae891a45f740ec, type: 2}
+    - sceneGUID: b40502bcfda28084ba14357d4b0d750d
+      profile: {fileID: 11400000, guid: 326132149a963584bbae891a45f740ec, type: 2}
     serializedBakeSettings:
     - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
+      settings:
+        m_Version: 1
+        dilationSettings:
+          enableDilation: 1
+          dilationDistance: 1
+          dilationValidityThreshold: 0.25
+          dilationIterations: 1
+          squaredDistWeighting: 1
+        virtualOffsetSettings:
+          useVirtualOffset: 1
+          outOfGeoOffset: 0.01
+          searchMultiplier: 0.2
+          rayOriginBias: -0.001
+          maxHitsPerRay: 10
+          collisionMask:
+            serializedVersion: 2
+            m_Bits: 4294967291
+    - sceneGUID: 3db1837cc97a95e4c98610966fac2b0b
+      settings:
+        m_Version: 1
+        dilationSettings:
+          enableDilation: 1
+          dilationDistance: 1
+          dilationValidityThreshold: 0.25
+          dilationIterations: 1
+          squaredDistWeighting: 1
+        virtualOffsetSettings:
+          useVirtualOffset: 1
+          outOfGeoOffset: 0.01
+          searchMultiplier: 0.2
+          rayOriginBias: -0.001
+          maxHitsPerRay: 10
+          collisionMask:
+            serializedVersion: 2
+            m_Bits: 4294967291
+    - sceneGUID: b40502bcfda28084ba14357d4b0d750d
       settings:
         m_Version: 1
         dilationSettings:
@@ -128,6 +172,8 @@ MonoBehaviour:
     - name: Default
       sceneGUIDs:
       - 0eb1cc35d95d7af448c550dbb258553f
+      - 3db1837cc97a95e4c98610966fac2b0b
+      - b40502bcfda28084ba14357d4b0d750d
       settings:
         m_Version: 1
         dilationSettings:
