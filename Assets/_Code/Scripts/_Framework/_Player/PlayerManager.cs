@@ -90,6 +90,9 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
 
     private void HandlePlayerJoin(ulong networkId)
     {
+        if (Players.ContainsKey(networkId))
+            return;
+        
         PlayerData playerData = new PlayerData();
         Players.Add(networkId, playerData);
         
