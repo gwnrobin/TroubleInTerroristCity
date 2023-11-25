@@ -42,7 +42,7 @@ public class BuyMenu : MonoBehaviour
     {
         MenuPanel.SetActive(!MenuPanel.activeSelf);
         
-        //Cursor.visible = !Cursor.visible;
+        Cursor.visible = !Cursor.visible;
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             Cursor.lockState = CursorLockMode.Confined;

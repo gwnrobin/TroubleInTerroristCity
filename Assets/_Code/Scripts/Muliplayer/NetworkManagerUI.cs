@@ -2,7 +2,6 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class NetworkManagerUI : MonoBehaviour
