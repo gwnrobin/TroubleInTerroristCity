@@ -5,11 +5,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SettingMenu : Singleton<SettingMenu>
 {
+    [SerializeField] private Volume _volume;
+    
     [SerializeField] private GameSettings _gameSettings;
     [SerializeField] private GameObject _gameObject;
     
@@ -98,5 +102,13 @@ public class SettingMenu : Singleton<SettingMenu>
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+    }
+    
+    public void SetShadowDistance(float value)
+    {
+        if (_volume.profile.TryGet(out HDShadowSettings shadows))
+        {
+            shadows.maxShadowDistance.value = value;
+        }
     }
 }

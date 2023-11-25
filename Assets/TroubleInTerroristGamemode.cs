@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -123,7 +124,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         StartCoroutine((GetReadyCoroutine()));
     }
     
-    private IEnumerator GetReadyCoroutine()
+    public IEnumerator GetReadyCoroutine()
     {
         SendEventClientRPC("StartPreRound");
 
@@ -198,5 +199,27 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
             _innocents.Add(player);
         }
         players.Clear();
+    }
+}
+
+[CustomEditor(typeof(TroubleInTerroristGamemode))]
+public class YourScriptEditor : Editor
+{
+    private ulong id = 999;
+    
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        TroubleInTerroristGamemode yourScript = (TroubleInTerroristGamemode)target;
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Join Player"))
+        {
+            // Code to be executed when the button is pressed
+            id--;
+            yourScript.StartCoroutine((yourScript.GetReadyCoroutine()));
+        }
     }
 }
