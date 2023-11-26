@@ -108,7 +108,7 @@ public class EquipmentController : PlayerComponent
 
     private void ChangeWeapon(int index)
     {
-        int maxWeapons = 4;
+        int maxWeapons = 3;
         _index = (_index + index + maxWeapons) % maxWeapons;
 
         string[] containerNames = { "Pistol", "Primary", "Special" };

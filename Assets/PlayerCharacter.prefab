@@ -18369,6 +18369,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: bf0b21aec451a0c4dbbebc7cee899697, type: 2}
     - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: generalInfo.weaponAnimAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b479c727365835b47911b938ef833fb6, type: 2}
+    - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: weaponTransformData.aimPoint
       value: 
       objectReference: {fileID: 7170606992199356586}
@@ -18378,6 +18382,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: weaponTransformData.pivotPoint
+      value: 
+      objectReference: {fileID: 4735945684958358463}
+    - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: generalInfo.weaponTransformData.aimPoint
+      value: 
+      objectReference: {fileID: 7170606992199356586}
+    - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: generalInfo.weaponTransformData.pivotPoint
       value: 
       objectReference: {fileID: 4735945684958358463}
     - target: {fileID: 5296938185864960985, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
