@@ -19,13 +19,18 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             
             foreach (var poseBlend in poseBlending)
             {
+                if(poseBlend == null) continue;
                 poseBlend.Initialize(transform, GetPelvis(), GetRigData().spineRoot);
             }
         }
 
         public override void OnPreAnimUpdate()
         {
-            base.OnPreAnimUpdate();
+            float target = GetAnimator().GetFloat(curveName);
+            target =  Mathf.Lerp(1f - Mathf.Clamp01(target), 1f, GetCurveValue(CurveLib.Curve_Overlay));
+            smoothLayerAlpha = CoreToolkitLib.GlerpLayer(smoothLayerAlpha, target, lerpSpeed);
+            smoothLayerAlpha *= layerAlpha;
+
             _spineRoot = GetRigData().spineRoot.localRotation;
         }
 

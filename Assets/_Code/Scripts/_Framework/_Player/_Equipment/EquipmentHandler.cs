@@ -124,13 +124,13 @@ public class EquipmentHandler : PlayerComponent
         // Enable next equipment item
         _attachedEquipmentItem = GetEquipmentItem(itemId);
         _attachedEquipmentItem.gameObject.SetActive(true);
-        
+
         //this should be moved
         if (_attachedEquipmentItem.GetType() == typeof(Gun))
         {
             animator.SetFloat(OverlayType, (float)_attachedEquipmentItem.EquipmentInfo.General.overlayType);
             networkPlayerAnimController.StopAnimation(0.1f);
-        
+
             InitWeapon((ProjectileWeapon)_attachedEquipmentItem);
             animator.Play(Equip);
             //animator.Play(gun.poseName);
@@ -199,7 +199,7 @@ public class EquipmentHandler : PlayerComponent
     {
         recoilAnimation.Init(weapon.generalInfo.weaponAnimAsset.recoilData, weapon.FireRate, weapon.FireMode);
         networkPlayerAnimController.FpsAnimator.OnGunEquipped(weapon.generalInfo.weaponAnimAsset, weapon.generalInfo.weaponTransformData);
-        
+        print(weapon);
         networkPlayerAnimController.FpsAnimator.ikRigData.weaponTransform = weapon.generalInfo.weaponAnimAsset.weaponBone;
         networkPlayerAnimController.LookLayer.SetAimOffsetTable(weapon.generalInfo.weaponAnimAsset.aimOffsetTable);
 

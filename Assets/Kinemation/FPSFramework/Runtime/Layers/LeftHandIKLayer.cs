@@ -125,7 +125,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                 z = GetCurveValue(CurveLib.Curve_IK_LeftHand_Z),
             };
             
-            GetLeftHandIK().Move(GetRootBone(), ikOffset);
+            GetLeftHandIK().Move(GetMasterPivot(), ikOffset);
             
             ikOffset = new Vector3()
             {

@@ -30,7 +30,7 @@ namespace Kinemation.FPSFramework.Editor.Layers
         private SerializedProperty aimUp;
         private SerializedProperty aimRight;
         private SerializedProperty smoothAim;
-        private SerializedProperty clampAngleSmoothing;
+        private SerializedProperty pelvisLean;
         
         private SerializedProperty leanDirection;
         private SerializedProperty leanAmount;
@@ -66,7 +66,7 @@ namespace Kinemation.FPSFramework.Editor.Layers
             aimUp = serializedObject.FindProperty("aimUp");
             aimRight = serializedObject.FindProperty("aimRight");
             smoothAim = serializedObject.FindProperty("smoothAim");
-            clampAngleSmoothing = serializedObject.FindProperty("clampAngleSmoothing");
+            pelvisLean = serializedObject.FindProperty("pelvisLean");
 
             leanDirection = serializedObject.FindProperty("leanDirection");
             leanAmount = serializedObject.FindProperty("leanAmount");
@@ -138,8 +138,7 @@ namespace Kinemation.FPSFramework.Editor.Layers
             EditorGUILayout.PropertyField(aimUp);
             EditorGUILayout.PropertyField(aimRight);
             EditorGUILayout.PropertyField(smoothAim);
-            EditorGUILayout.PropertyField(clampAngleSmoothing);
-
+           
             EditorGUILayout.EndVertical();
         }
         
@@ -147,6 +146,7 @@ namespace Kinemation.FPSFramework.Editor.Layers
         {
             EditorGUILayout.PropertyField(leanDirection);
             EditorGUILayout.PropertyField(leanAmount);
+            EditorGUILayout.PropertyField(pelvisLean);
             EditorGUILayout.PropertyField(leanSpeed);
         }
         

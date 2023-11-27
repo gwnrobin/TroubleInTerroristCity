@@ -24,17 +24,6 @@ namespace Kinemation.FPSFramework.Runtime.Attributes
             this.useDefaultDisplay = useDefaultDisplay;
         }
     }
-    
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    public class TabAttribute : PropertyAttribute
-    {
-        public readonly string tabName;
-
-        public TabAttribute(string tabName)
-        {
-            this.tabName = tabName;
-        }
-    }
 
     public class BoneAttribute : PropertyAttribute
     {

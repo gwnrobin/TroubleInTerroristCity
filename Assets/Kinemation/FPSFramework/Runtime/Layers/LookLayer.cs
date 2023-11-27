@@ -110,6 +110,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         [Header("Leaning")]
         [SerializeField] [Range(-1, 1)] protected int leanDirection;
         [SerializeField] protected float leanAmount = 45f;
+        [SerializeField, Range(0f, 1f)] protected float pelvisLean = 0f;
         [SerializeField] protected float leanSpeed;
 
         [Header("Misc")]
@@ -368,6 +369,9 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             
             float alpha = smoothLayerAlpha * (1f - GetCurveValue(CurveLib.Curve_MaskLookLayer));
             float aimOffsetAlpha = core.animGraph.GetPoseProgress();
+            
+            CoreToolkitLib.MoveInBoneSpace(GetRootBone(), GetPelvis(), 
+                new Vector3(-leanInput / leanAmount, 0f, 0f), pelvisLean);
 
             if (!Mathf.Approximately(leanInput, 0f))
             {

@@ -1,6 +1,5 @@
 // Designed by KINEMATION, 2023
 
-using System;
 using Kinemation.FPSFramework.Runtime.Core.Components;
 using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
@@ -16,8 +15,8 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             var recoilAnim = core.characterData.recoilAnim;
             
             LocRot baseT = new LocRot(masterDynamic.position, masterDynamic.rotation);
-            
-            OffsetMasterPivot(GetRigData().adsPivotOffset);
+            //print(GetGunAsset());
+            OffsetMasterPivot(GetGunAsset().adsRecoilOffset, GetRigData().aimWeight);
 
             if (useMeshSpace)
             {
@@ -34,7 +33,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                     recoilAnim.rotation, 1f);
             }
             
-            OffsetMasterPivot(-GetRigData().adsPivotOffset);
+            OffsetMasterPivot(-GetGunAsset().adsRecoilOffset, GetRigData().aimWeight);
             
             LocRot newT = new LocRot(masterDynamic.position, masterDynamic.rotation);
 

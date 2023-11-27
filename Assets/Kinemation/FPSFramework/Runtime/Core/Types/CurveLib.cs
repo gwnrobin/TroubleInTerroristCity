@@ -108,6 +108,10 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         public static string Curve_IK_LeftHand_X = "IK_LeftHand_X";
         public static string Curve_IK_LeftHand_Y = "IK_LeftHand_Y";
         public static string Curve_IK_LeftHand_Z = "IK_LeftHand_Z";
+        
+        public static string Curve_IK_RightHand_X = "IK_RightHand_X";
+        public static string Curve_IK_RightHand_Y = "IK_RightHand_Y";
+        public static string Curve_IK_RightHand_Z = "IK_RightHand_Z";
 
         public static readonly List<string> AnimCurveNames = new()
         {
@@ -121,6 +125,9 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
             Curve_IK_LeftHand_X,
             Curve_IK_LeftHand_Y,
             Curve_IK_LeftHand_Z,
+            Curve_IK_RightHand_X,
+            Curve_IK_RightHand_Y,
+            Curve_IK_RightHand_Z,
             Curve_IK_X,
             Curve_IK_Y,
             Curve_IK_Z,

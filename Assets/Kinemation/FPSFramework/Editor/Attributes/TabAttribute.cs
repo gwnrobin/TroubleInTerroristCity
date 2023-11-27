@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-
+/*
 namespace Kinemation.FPSFramework.Editor.Attributes
 {
     [CustomEditor(typeof(MonoBehaviour), true)]
@@ -83,4 +83,4 @@ namespace Kinemation.FPSFramework.Editor.Attributes
             return new T[0];
         }
     }
-}
+}*/

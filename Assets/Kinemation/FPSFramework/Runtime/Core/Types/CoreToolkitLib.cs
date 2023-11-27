@@ -161,7 +161,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
     }
     
     // General input data used by Anim Layers
-    public struct CharAnimData: INetworkSerializable
+    public struct CharAnimData : INetworkSerializable
     {
         // Input
         public Vector2 deltaAimInput;

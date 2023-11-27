@@ -131,7 +131,7 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
     public void PlayPose(AnimSequence motion)
     {
         if (motion == null) return;
-        fpsAnimator.animGraph.PlayPose(motion.clip, motion.blendTime.blendInTime);
+        fpsAnimator.animGraph.PlayPose(motion);
     }
 
     // Call this to play an animation on the character upper body

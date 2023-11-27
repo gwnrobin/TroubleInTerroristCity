@@ -55,6 +55,11 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         {
             CoreToolkitLib.RotateInBoneSpace(parent, obj.transform, rotation, alpha);
         }
+        
+        public void Rotate(Transform parent, Quaternion rotation, float alpha = 1f)
+        {
+            CoreToolkitLib.RotateInBoneSpace(parent.rotation, obj.transform, rotation, alpha);
+        }
 
         public void Rotate(Quaternion rotation, float alpha = 1f)
         {
@@ -92,7 +97,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
         [HideInInspector] public float weaponBoneWeight;
         [HideInInspector] public LocRot weaponTransform;
-        [HideInInspector] public Vector3 adsPivotOffset;
+        [HideInInspector] public float aimWeight;
 
         public DynamicBone masterDynamic;
         public DynamicBone rightHand;
@@ -475,6 +480,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         public void OnGunEquipped(WeaponAnimAsset asset, WeaponTransformData data)
         {
             weaponAsset = asset;
+            print(weaponAsset.name);
             weaponTransformData = data;
             isPivotValid = weaponTransformData.pivotPoint != null;
         }

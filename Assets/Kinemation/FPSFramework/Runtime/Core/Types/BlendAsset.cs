@@ -76,6 +76,8 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
                 var profile = BlendProfile[i];
                 
                 var t = root.Find(blendAsset.blendMask.GetTransformPath(profile.boneIndex));
+                if(t == null) continue;
+                
                 profile.boneRef = t;
                 profile.targetPoseTo = t.localRotation;
                 profile.localPose = profile.basePoseFrom = profile.basePoseTo = Quaternion.identity;

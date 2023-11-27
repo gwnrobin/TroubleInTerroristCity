@@ -146,23 +146,23 @@ namespace Kinemation.FPSFramework.Runtime.Core.Playables
             SamplePose(clip);
         }
         
-        public void PlayPose(AnimationClip clip, float blendIn)
+        public void PlayPose(AnimSequence motion)
         {
-            if (clip == null)
+            if (motion.clip == null)
             {
                 return;
             }
             
-            CoreAnimPlayable animPlayable = new CoreAnimPlayable(_playableGraph, clip)
+            CoreAnimPlayable animPlayable = new CoreAnimPlayable(_playableGraph, motion.clip)
             {
-                animTime = new AnimTime(blendIn, 0f)
+                animTime = new AnimTime(motion.blendTime.blendInTime, 0f)
             };
 
             animPlayable.playableClip.SetTime(0f);
             animPlayable.playableClip.SetSpeed(1f);
             _overlayPoseMixer.AddClip(animPlayable, upperBodyMask);
             
-            SamplePose(clip);
+            SamplePose(motion.clip);
         }
         
         public void PlayAnimation(AnimSequence animData, float startTime)

@@ -12,7 +12,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         [Header("Deadzone Rotation")]
         [SerializeField] [Bone] protected Transform headBone;
         [SerializeField] protected FreeAimData freeAimData;
-        [SerializeField] protected bool bFreeAim;
+        [SerializeField] protected bool bFreeAim = true;
         [SerializeField] protected bool useCircleMethod;
         
         protected Vector3 smoothMoveSwayRot;
@@ -50,19 +50,23 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                 return;
             }
             
+            OffsetMasterPivot(GetGunAsset().adsSwayOffset, GetRigData().aimWeight);
+            
             var master = GetMasterPivot();
             LocRot baseT = new LocRot(master.position, master.rotation);
 
             freeAimData = GetGunAsset().freeAimData;
 
             ApplySway();
-            //ApplyFreeAim();
             ApplyMoveSway();
+            ApplyFreeAim();
 
             LocRot newT = new LocRot(GetMasterPivot().position, GetMasterPivot().rotation);
         
             GetMasterPivot().position = Vector3.Lerp(baseT.position, newT.position, smoothLayerAlpha);
             GetMasterPivot().rotation = Quaternion.Slerp(baseT.rotation, newT.rotation, smoothLayerAlpha);
+            
+            OffsetMasterPivot(-GetGunAsset().adsSwayOffset, GetRigData().aimWeight);
         }
 
         protected virtual void ApplyFreeAim()
@@ -98,10 +102,15 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             Quaternion q = Quaternion.Euler(new Vector3(deadZoneRot.x, deadZoneRot.y, 0f));
             q.Normalize();
 
-            smoothFreeAimAlpha = CoreToolkitLib.Glerp(smoothFreeAimAlpha, bFreeAim ? 1f : 0f, 10f);
-            q = Quaternion.Slerp(Quaternion.identity, q, smoothFreeAimAlpha);
+            Vector3 headMS = GetRootBone().InverseTransformPoint(headBone.position);
+            Vector3 masterMS = GetRootBone().InverseTransformPoint(GetMasterPivot().position);
+
+            Vector3 offset = headMS - masterMS;
+            offset = q * offset - offset;
             
-            CoreToolkitLib.RotateInBoneSpace(GetRootBone().rotation, headBone,q, layerAlpha);
+            smoothFreeAimAlpha = CoreToolkitLib.Glerp(smoothFreeAimAlpha, bFreeAim ? 1f : 0f, 5f);
+            GetMasterIK().Move(GetRootBone(), -offset, smoothFreeAimAlpha);
+            GetMasterIK().Rotate(GetRootBone(), q, smoothFreeAimAlpha);
         }
 
         protected virtual void ApplySway()

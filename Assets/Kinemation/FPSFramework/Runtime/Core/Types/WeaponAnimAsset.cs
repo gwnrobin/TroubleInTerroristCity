@@ -12,11 +12,14 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         public Quaternion rotationOffset = Quaternion.identity;
         public AimOffsetTable aimOffsetTable;
         public RecoilAnimData recoilData;
-        public LocRot weaponBone = LocRot.identity;
-        [Header("Animations"), Tooltip("Adjusts weapon model rotation")]
         public AnimSequence overlayPose;
+        
+        [Header("Animations"), Tooltip("Adjusts weapon model rotation")]
         public AnimSequence reloadClip;
         public AnimSequence grenadeClip;
+        
+        [Tooltip("Defines weapon default position and rotation pose.")]
+        public LocRot weaponBone = LocRot.identity;
         
         [Header("AdsLayer")]
         public AdsData adsData;
@@ -25,11 +28,19 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         public LocRot viewOffset = LocRot.identity;
         
         [Header("SwayLayer")]
-        [Tooltip("Aiming sway")] public LocRotSpringData springData;
+        [Tooltip("Aiming sway")] 
+        public LocRotSpringData springData;
         public FreeAimData freeAimData;
         public MoveSwayData moveSwayData;
         
         [Header("WeaponCollision")] 
         public GunBlockData blockData;
+
+        [Header("Pivoting")] 
+        public Vector3 adsRecoilOffset;
+        public Vector3 adsSwayOffset;
+
+        [Header("RightHandIK")] 
+        public LocRot rightHandOffset = LocRot.identity;
     }
 }
