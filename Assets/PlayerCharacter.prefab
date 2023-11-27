@@ -2402,6 +2402,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &577483713778544859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347363769837142294}
+  m_Layer: 3
+  m_Name: Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1347363769837142294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577483713778544859}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 702701941028172680}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &658862978814390028
 GameObject:
   m_ObjectHideFlags: 0
@@ -15061,7 +15092,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1347363769837142294}
   m_Father: {fileID: 7599737077417503543}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15079,11 +15111,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generalInfo:
     CorrespondingItem: SilencedPistol
-    weaponAnimAsset: {fileID: 0}
+    weaponAnimAsset: {fileID: 11400000, guid: 7da022caab5a7734abc30992f1708464, type: 2}
     EquipmentInfo: {fileID: 11400000, guid: b3cd8acb13a48284183e5e45d6cfa447, type: 2}
     Animator: {fileID: 0}
     weaponTransformData:
-      pivotPoint: {fileID: 0}
+      pivotPoint: {fileID: 1347363769837142294}
       aimPoint: {fileID: 0}
       leftHandTarget: {fileID: 0}
   m_GeneralEvents:

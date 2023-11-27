@@ -1,6 +1,7 @@
 using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using System;
 using Kinemation.FPSFramework.Runtime.Core.Types;
+using Kinemation.FPSFramework.Runtime.Recoil;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -82,6 +83,10 @@ public class EquipmentItem : PlayerComponent
     //public EquipmentAnimationInfo EAnimation => m_GeneralInfo.EquipmentAnimationInfo;
     //public EquipmentPhysicsInfo EPhysics => m_GeneralInfo.EquipmentPhysicsInfo;
     //public Transform PhysicsPivot { get { return m_GeneralInfo.PhysicsPivot; } }
+    
+    public virtual float FireRate { get => 0; }
+    public virtual FireMode FireMode { get => 0; }
+    
     public Animator Animator => generalInfo.Animator;
     public string CorrespondingItemName => generalInfo.CorrespondingItem;
     

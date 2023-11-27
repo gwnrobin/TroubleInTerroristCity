@@ -15,7 +15,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
             var recoilAnim = core.characterData.recoilAnim;
             
             LocRot baseT = new LocRot(masterDynamic.position, masterDynamic.rotation);
-            //print(GetGunAsset());
+            print(GetGunAsset());
             OffsetMasterPivot(GetGunAsset().adsRecoilOffset, GetRigData().aimWeight);
 
             if (useMeshSpace)

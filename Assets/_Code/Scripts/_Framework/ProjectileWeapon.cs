@@ -15,8 +15,8 @@ public class ProjectileWeapon : EquipmentItem
 
     protected int _ammoProperty = 0;
 
-    public float FireRate { get => _projectileWeaponInfo.Shooting.RoundsPerMinute; }
-    public FireMode FireMode { get => _projectileWeaponInfo.Shooting.Modes; }
+    public override float FireRate { get => _projectileWeaponInfo.Shooting.RoundsPerMinute; }
+    public override FireMode FireMode { get => _projectileWeaponInfo.Shooting.Modes; }
     public int MagazineSize { get => _projectileWeaponInfo.Shooting.MagazineSize; }
     public bool AmmoEnabled { get => _projectileWeaponInfo.Shooting.EnableAmmo; }
     

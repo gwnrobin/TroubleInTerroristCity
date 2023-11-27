@@ -15,24 +15,24 @@ MonoBehaviour:
   aimOffsetUp:
   - boneIndex: 0
     angle: {x: 4, y: 20}
-  - boneIndex: 1
+  - boneIndex: 13
     angle: {x: 10, y: 14}
-  - boneIndex: 2
+  - boneIndex: 14
     angle: {x: 20, y: 14}
-  - boneIndex: 3
+  - boneIndex: 15
     angle: {x: 25, y: 14}
-  - boneIndex: 4
+  - boneIndex: 48
     angle: {x: 15.5, y: 14}
-  - boneIndex: 5
+  - boneIndex: 49
     angle: {x: 15.5, y: 14}
-  - boneIndex: 10
+  - boneIndex: 16
     angle: {x: 36.2, y: 38.6}
   aimOffsetRight:
   - boneIndex: 0
     angle: {x: 20, y: 20}
-  - boneIndex: 1
+  - boneIndex: 13
     angle: {x: 23.333334, y: 23.333334}
-  - boneIndex: 2
+  - boneIndex: 14
     angle: {x: 23.333334, y: 23.333334}
-  - boneIndex: 3
+  - boneIndex: 15
     angle: {x: 23.333334, y: 23.333334}

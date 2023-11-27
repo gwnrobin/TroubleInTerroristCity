@@ -480,7 +480,6 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         public void OnGunEquipped(WeaponAnimAsset asset, WeaponTransformData data)
         {
             weaponAsset = asset;
-            print(weaponAsset.name);
             weaponTransformData = data;
             isPivotValid = weaponTransformData.pivotPoint != null;
         }
