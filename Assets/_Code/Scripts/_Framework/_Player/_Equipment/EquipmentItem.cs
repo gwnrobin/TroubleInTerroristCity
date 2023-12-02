@@ -84,7 +84,7 @@ public class EquipmentItem : PlayerComponent
     //public EquipmentPhysicsInfo EPhysics => m_GeneralInfo.EquipmentPhysicsInfo;
     //public Transform PhysicsPivot { get { return m_GeneralInfo.PhysicsPivot; } }
     
-    public virtual float FireRate { get => 0; }
+    public virtual float FireRate { get => 450; }
     public virtual FireMode FireMode { get => 0; }
     
     public Animator Animator => generalInfo.Animator;

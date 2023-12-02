@@ -5,55 +5,47 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 public class PlayerMovement : PlayerComponent
 {
     #region Internal
+
     [Serializable]
     public class MovementStateModule
     {
         public bool Enabled = true;
 
-        [ShowIf("Enabled", true)]
-        [Range(0f, 10f)]
+        [ShowIf("Enabled", true)] [Range(0f, 10f)]
         public float SpeedMultiplier = 4.5f;
 
-        [ShowIf("Enabled", true)]
-        [Range(0f, 3f)]
+        [ShowIf("Enabled", true)] [Range(0f, 3f)]
         public float StepLength = 1.9f;
     }
 
     [Serializable]
     public class CoreMovementModule
     {
-        [Range(0f, 20f)]
-        public float Acceleration = 5f;
+        [Range(0f, 20f)] public float Acceleration = 5f;
 
-        [Range(0f, 20f)]
-        public float Damping = 8f;
+        [Range(0f, 20f)] public float Damping = 8f;
 
-        [Range(0f, 1f)]
-        public float AirborneControl = 0.15f;
+        [Range(0f, 1f)] public float AirborneControl = 0.15f;
 
-        [Range(0f, 3f)]
-        public float StepLength = 1.2f;
+        [Range(0f, 3f)] public float StepLength = 1.2f;
 
-        [Range(0f, 10f)]
-        public float ForwardSpeed = 2.5f;
+        [Range(0f, 10f)] public float ForwardSpeed = 2.5f;
 
-        [Range(0f, 10f)]
-        public float BackSpeed = 2.5f;
+        [Range(0f, 10f)] public float BackSpeed = 2.5f;
 
-        [Range(0f, 10f)]
-        public float SideSpeed = 2.5f;
+        [Range(0f, 10f)] public float SideSpeed = 2.5f;
 
         public AnimationCurve SlopeSpeedMult = new AnimationCurve(new Keyframe(0f, 1f), new Keyframe(1f, 1f));
 
         public float AntiBumpFactor = 1f;
 
-        [Range(0f, 1f)]
-        public float HeadBounceFactor = 0.65f;
+        [Range(0f, 1f)] public float HeadBounceFactor = 0.65f;
     }
 
     [Serializable]
@@ -61,24 +53,20 @@ public class PlayerMovement : PlayerComponent
     {
         public bool Enabled = true;
 
-        [ShowIf("Enabled", true)]
-        [Range(0f, 3f)]
+        [ShowIf("Enabled", true)] [Range(0f, 3f)]
         public float JumpHeight = 1f;
 
-        [ShowIf("Enabled", true)]
-        [Range(0f, 1.5f)]
+        [ShowIf("Enabled", true)] [Range(0f, 1.5f)]
         public float JumpTimer = 0.3f;
     }
 
     [Serializable]
     public class LowerHeightStateModule : MovementStateModule
     {
-        [ShowIf("Enabled", true)]
-        [Range(0f, 2f)]
+        [ShowIf("Enabled", true)] [Range(0f, 2f)]
         public float ControllerHeight = 1f;
 
-        [ShowIf("Enabled", true)]
-        [Range(0f, 1f)]
+        [ShowIf("Enabled", true)] [Range(0f, 1f)]
         public float TransitionDuration = 0.3f;
     }
 
@@ -87,88 +75,89 @@ public class PlayerMovement : PlayerComponent
     {
         public bool Enabled = false;
 
-        [ShowIf("Enabled", true)]
-        [Range(20f, 90f)]
+        [ShowIf("Enabled", true)] [Range(20f, 90f)]
         public float SlideTreeshold = 32f;
 
-        [ShowIf("Enabled", true)]
-        [Range(0f, 50f)]
+        [ShowIf("Enabled", true)] [Range(0f, 50f)]
         public float SlideSpeed = 15f;
     }
+
     #endregion
 
-    public bool IsGrounded { get => controller.isGrounded; }
-    public Vector3 Velocity { get => controller.velocity; }
+    public bool IsGrounded
+    {
+        get => controller.isGrounded;
+    }
+
+    public Vector3 Velocity
+    {
+        get => controller.velocity;
+    }
+
     public Vector3 SurfaceNormal { get; private set; }
-    public float SlopeLimit { get => controller.slopeLimit; }
+
+    public float SlopeLimit
+    {
+        get => controller.slopeLimit;
+    }
+
     public float DefaultHeight { get; private set; }
 
-    private static readonly int Crouching = Animator.StringToHash("Crouching");
-    private static readonly int Moving = Animator.StringToHash("Moving");
+    private static readonly int InAir = Animator.StringToHash("InAir");
     private static readonly int MoveX = Animator.StringToHash("MoveX");
     private static readonly int MoveY = Animator.StringToHash("MoveY");
+    private static readonly int VelocityHash = Animator.StringToHash("Velocity");
+    private static readonly int Moving = Animator.StringToHash("Moving");
+    private static readonly int Crouching = Animator.StringToHash("Crouching");
+    private static readonly int Sliding = Animator.StringToHash("Sliding");
+    private static readonly int Sprinting = Animator.StringToHash("Sprinting");
+    private static readonly int Proning = Animator.StringToHash("Proning");
     private static readonly int TurnRight = Animator.StringToHash("TurnRight");
     private static readonly int TurnLeft = Animator.StringToHash("TurnLeft");
 
-    [Header("General")]
-    [SerializeField] private CharacterController controller;
+    [Header("General")] [SerializeField] private CharacterController controller;
     [SerializeField] private Animator animator;
     [SerializeField] private NetworkPlayerAnimController networkPlayerAnimController;
     [SerializeField] private float moveSmoothing = 2f;
     [SerializeField] private LayerMask m_ObstacleCheckMask = ~0;
     [SerializeField] private float gravity;
 
-    [Space]
+    [Space] [Header("Camera")] [SerializeField]
+    private Transform mainCamera;
 
-    [Header("Camera")]
-    [SerializeField] private Transform mainCamera;
     [SerializeField] private Transform cameraHolder;
+
     [SerializeField] private Transform firstPersonCamera;
+
     //[SerializeField] private float sensitivity;
     [SerializeField] private Vector2 freeLookAngle;
 
-    [Space]
+    [Space] [Header("Dynamic Motions")] [SerializeField]
+    private IKAnimation aimMotionAsset;
 
-    [Header("Dynamic Motions")]
-    [SerializeField] private IKAnimation aimMotionAsset;
     [SerializeField] private IKAnimation leanMotionAsset;
     [SerializeField] private IKAnimation crouchMotionAsset;
     [SerializeField] private IKAnimation unCrouchMotionAsset;
     [SerializeField] private IKAnimation onJumpMotionAsset;
     [SerializeField] private IKAnimation onLandedMotionAsset;
 
-    [Space]
+    [Space] [Header("Turning")] [SerializeField]
+    private float turnInPlaceAngle;
 
-    [Header("Turning")]
-    [SerializeField] private float turnInPlaceAngle;
     [SerializeField] private AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
     [SerializeField] private float turnSpeed = 1f;
 
-    [Space]
+    [Space] [SerializeField] [Group] private CoreMovementModule m_CoreMovement;
 
-    [SerializeField]
-    [Group]
-    private CoreMovementModule m_CoreMovement;
+    [SerializeField] [Group] private MovementStateModule m_RunState;
 
-    [SerializeField]
-    [Group]
-    private MovementStateModule m_RunState;
+    [SerializeField] [Group] private LowerHeightStateModule m_CrouchState;
 
-    [SerializeField]
-    [Group]
-    private LowerHeightStateModule m_CrouchState;
+    [SerializeField] [Group] private LowerHeightStateModule m_ProneState;
 
-    [SerializeField]
-    [Group]
-    private LowerHeightStateModule m_ProneState;
+    [SerializeField] [Group] private JumpStateModule m_JumpState;
 
-    [SerializeField]
-    [Group]
-    private JumpStateModule m_JumpState;
-
-    [SerializeField]
-    [Group]
-    private SlidingStateModule m_SlidingState;
+    [SerializeField] [Group] private SlidingStateModule m_SlidingState;
 
     private MovementStateModule m_CurrentMovementState;
 
@@ -177,7 +166,7 @@ public class PlayerMovement : PlayerComponent
 
     private Quaternion moveRotation;
     private float turnProgress = 1f;
-    private bool isTurning = false;
+    private bool isTurning;
 
     private Vector2 _freeLookInput;
     private Vector2 _smoothAnimatorMove;
@@ -197,17 +186,29 @@ public class PlayerMovement : PlayerComponent
 
     private bool skippedFirstFrame = false;
 
+    private float _sprintAnimatorInterp = 8f;
+
     private void Start()
     {
         DefaultHeight = controller.height;
 
         moveRotation = transform.rotation;
 
+        Player.Slide.SetStartTryer(TrySlide);
+
+        Player.Slide.AddStartListener(StartSlide);
+
         Player.Crouch.AddStartListener(Crouch);
         Player.Crouch.AddStopListener(Standup);
 
         Player.Crouch.SetStartTryer(() => { return Try_ToggleCrouch(m_CrouchState); });
         Player.Crouch.SetStopTryer(() => { return Try_ToggleCrouch(null); });
+
+        Player.Prone.AddStartListener(Prone);
+        Player.Prone.AddStopListener(CancelProne);
+
+        Player.Prone.SetStartTryer(() => { return Try_ToggleProne(m_ProneState); });
+        Player.Prone.SetStopTryer(() => { return Try_ToggleProne(null); });
 
         Player.Jump.SetStartTryer(Try_Jump);
 
@@ -217,7 +218,7 @@ public class PlayerMovement : PlayerComponent
 
         Player.Lean.AddStartListener(Lean);
         Player.Lean.AddStopListener(() => Player.CharAnimData.leanDirection = 0);
-        
+
         Player.DisabledMovement.SetStartTryer(TryDisableMovement);
 
         networkPlayerAnimController.FpsAnimator.onPostUpdate.AddListener(UpdateCameraRotation);
@@ -225,9 +226,9 @@ public class PlayerMovement : PlayerComponent
 
     private void Update()
     {
-        if(Player.DisabledMovement.Active)
+        if (Player.DisabledMovement.Active)
             return;
-        
+
         float deltaTime = Time.deltaTime;
 
         Vector3 translation;
@@ -241,7 +242,7 @@ public class PlayerMovement : PlayerComponent
         }
         else
             translation = transform.TransformVector(m_DesiredVelocityLocal * deltaTime);
-        
+
         m_CollisionFlags = controller.Move(translation);
 
         if ((m_CollisionFlags & CollisionFlags.Below) == CollisionFlags.Below && !m_PreviouslyGrounded)
@@ -261,7 +262,8 @@ public class PlayerMovement : PlayerComponent
 
         // Check if the top of the controller collided with anything,
         // If it did then add a counter force
-        if (((m_CollisionFlags & CollisionFlags.Above) == CollisionFlags.Above && !controller.isGrounded) && m_DesiredVelocityLocal.y > 0)
+        if (((m_CollisionFlags & CollisionFlags.Above) == CollisionFlags.Above && !controller.isGrounded) &&
+            m_DesiredVelocityLocal.y > 0)
             m_DesiredVelocityLocal.y *= -.05f;
 
         Vector3 targetVelocity = CalcTargetVelocity(Player.MoveInput.Get());
@@ -283,19 +285,37 @@ public class PlayerMovement : PlayerComponent
         m_PreviouslyGrounded = IsGrounded;
     }
 
+    private bool TrySlide()
+    {
+        if (Player.Sprint.Active)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void StartSlide()
+    {
+        animator.CrossFade(Sliding, 0.1f);
+        Player.Slide.ForceStop();
+    }
+
     private bool TryDisableMovement()
     {
         return true;
     }
-    
+
     #region Sprint
+
     private bool TryStartSprint()
     {
         if (!m_RunState.Enabled || Player.Stamina.Get() < 15f)
             return false;
 
         bool wantsToMoveBack = Player.MoveInput.Get().y < 0f;
-        bool canChangeState = Player.IsGrounded.Get() && !wantsToMoveBack && !Player.Crouch.Active && !Player.Aim.Active && !Player.Prone.Active;
+        bool canChangeState = Player.IsGrounded.Get() && !wantsToMoveBack && !Player.Crouch.Active &&
+                              !Player.Aim.Active && !Player.Prone.Active;
 
         if (canChangeState)
             m_CurrentMovementState = m_RunState;
@@ -321,9 +341,11 @@ public class PlayerMovement : PlayerComponent
         networkPlayerAnimController.LookLayer.SetLayerAlpha(1f);
         networkPlayerAnimController.AdsLayer.SetLayerAlpha(1f);
     }
+
     #endregion
 
     #region Crouch
+
     private bool Try_ToggleCrouch(LowerHeightStateModule lowerHeightState)
     {
         if (!m_CrouchState.Enabled)
@@ -361,7 +383,49 @@ public class PlayerMovement : PlayerComponent
         animator.SetBool(Crouching, false);
         networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
     }
+
     #endregion
+
+    private bool Try_ToggleProne(LowerHeightStateModule lowerHeightState)
+    {
+        if (!m_ProneState.Enabled)
+            return false;
+
+        bool toggledSuccesfully;
+
+        if (!Player.Crouch.Active)
+        {
+            toggledSuccesfully = Try_ChangeControllerHeight(lowerHeightState);
+        }
+        else
+        {
+            toggledSuccesfully = Try_ChangeControllerHeight(null);
+        }
+
+
+        //Stop the prone state if the crouch state is enabled
+        if (toggledSuccesfully && Player.Prone.Active)
+            Player.Prone.ForceStop();
+
+        return toggledSuccesfully;
+    }
+
+    private void Prone()
+    {
+        networkPlayerAnimController.LookLayer.SetPelvisWeight(1f);
+        animator.SetBool(Crouching, false);
+        animator.SetBool(Proning, true);
+        networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
+    }
+
+    private void CancelProne()
+    {
+        networkPlayerAnimController.LookLayer.SetPelvisWeight(0f);
+        animator.SetBool(Crouching, true);
+        animator.SetBool(Proning, false);
+        networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
+    }
+
     private void Lean()
     {
         if (Player.Sprint.Active)
@@ -382,7 +446,8 @@ public class PlayerMovement : PlayerComponent
             Player.Crouch.TryStop();
             return false;
         }
-        else if (Player.Prone.Active)
+
+        if (Player.Prone.Active)
         {
             if (!Player.Prone.TryStop())
                 Player.Crouch.TryStart();
@@ -391,9 +456,9 @@ public class PlayerMovement : PlayerComponent
         }
 
         bool canJump = m_JumpState.Enabled &&
-            IsGrounded &&
-            !Player.Crouch.Active &&
-            Time.time > m_LastLandTime + m_JumpState.JumpTimer;
+                       IsGrounded &&
+                       !Player.Crouch.Active &&
+                       Time.time > m_LastLandTime + m_JumpState.JumpTimer;
 
         if (!canJump)
             return false;
@@ -403,26 +468,43 @@ public class PlayerMovement : PlayerComponent
 
         return true;
     }
+
     // ReSharper disable Unity.PerformanceAnalysis
     private void UpdateGroundedMovement(float deltaTime, Vector3 targetVelocity, ref Vector3 velocity)
     {
-        // Make sure to lower the speed when moving on steep surfaces.
+        AdjustSpeedOnSteepSurfaces(targetVelocity);
+        UpdateVelocity(deltaTime, targetVelocity, ref velocity);
+        UpdateWalkActivity(targetVelocity);
+        CheckAndStopSprint(targetVelocity);
+        HandleSliding(targetVelocity, deltaTime, ref velocity);
+        AdvanceStepCycle(deltaTime);
+    }
+
+    private void AdjustSpeedOnSteepSurfaces(Vector3 targetVelocity)
+    {
         float surfaceAngle = Vector3.Angle(Vector3.up, SurfaceNormal);
         targetVelocity *= m_CoreMovement.SlopeSpeedMult.Evaluate(surfaceAngle / SlopeLimit);
+    }
 
-        // Calculate the rate at which the current speed should increase / decrease. 
-        // If the player doesn't press any movement button, use the "m_Damping" value, otherwise use "m_Acceleration".
-        float targetAccel = targetVelocity.sqrMagnitude > 0f ? m_CoreMovement.Acceleration : m_CoreMovement.Damping;
-
+    private void UpdateVelocity(float deltaTime, Vector3 targetVelocity, ref Vector3 velocity)
+    {
+        float targetAccel = (targetVelocity.sqrMagnitude > 0f) ? m_CoreMovement.Acceleration : m_CoreMovement.Damping;
         velocity = Vector3.Lerp(velocity, targetVelocity, targetAccel * deltaTime);
+    }
 
-        // If we're moving and not running, start the "Walk" activity.
-        if (!Player.Walk.Active && targetVelocity.sqrMagnitude > 0.05f && !Player.Sprint.Active && !Player.Crouch.Active)
+    private void UpdateWalkActivity(Vector3 targetVelocity)
+    {
+        bool wantsToMove = targetVelocity.sqrMagnitude > 0.05f && !Player.Sprint.Active && !Player.Crouch.Active;
+
+        if (!Player.Walk.Active && wantsToMove)
             Player.Walk.ForceStart();
-        // If we're running, or not moving, stop the "Walk" activity.
-        else if (Player.Walk.Active && (targetVelocity.sqrMagnitude < 0.05f || Player.Sprint.Active || Player.Crouch.Active || Player.Prone.Active))
+        else if (Player.Walk.Active &&
+                 (!wantsToMove || Player.Sprint.Active || Player.Crouch.Active || Player.Prone.Active))
             Player.Walk.ForceStop();
+    }
 
+    private void CheckAndStopSprint(Vector3 targetVelocity)
+    {
         if (Player.Sprint.Active)
         {
             bool wantsToMoveBackwards = Player.MoveInput.Get().y < 0f;
@@ -431,33 +513,37 @@ public class PlayerMovement : PlayerComponent
             if (runShouldStop)
                 Player.Sprint.ForceStop();
         }
+    }
 
+    private void HandleSliding(Vector3 targetVelocity, float deltaTime, ref Vector3 velocity)
+    {
         if (m_SlidingState.Enabled)
         {
-            // Sliding...
+            float surfaceAngle = Vector3.Angle(Vector3.up, SurfaceNormal);
+
             if (surfaceAngle > m_SlidingState.SlideTreeshold && Player.MoveInput.Get().sqrMagnitude == 0f)
             {
                 Vector3 slideDirection = (SurfaceNormal + Vector3.down);
                 m_SlideVelocity += slideDirection * (m_SlidingState.SlideSpeed * deltaTime);
             }
             else
+            {
                 m_SlideVelocity = Vector3.Lerp(m_SlideVelocity, Vector3.zero, deltaTime * 10f);
+            }
 
             velocity += transform.InverseTransformVector(m_SlideVelocity);
         }
+    }
 
-        // Advance step
+    private void AdvanceStepCycle(float deltaTime)
+    {
         m_DistMovedSinceLastCycleEnded += m_DesiredVelocityLocal.magnitude * deltaTime;
 
-        // Which step length should be used?
-        float targetStepLength = m_CoreMovement.StepLength;
-
-        if (m_CurrentMovementState != null)
-            targetStepLength = m_CurrentMovementState.StepLength;
-
+        float targetStepLength = (m_CurrentMovementState != null)
+            ? m_CurrentMovementState.StepLength
+            : m_CoreMovement.StepLength;
         m_CurrentStepLength = Mathf.MoveTowards(m_CurrentStepLength, targetStepLength, deltaTime);
 
-        // If the step cycle is complete, reset it, and send a notification.
         if (m_DistMovedSinceLastCycleEnded > m_CurrentStepLength)
         {
             m_DistMovedSinceLastCycleEnded -= m_CurrentStepLength;
@@ -479,6 +565,7 @@ public class PlayerMovement : PlayerComponent
         velocity.y -= gravity * deltaTime;
         networkPlayerAnimController.SlotLayer.PlayMotion(!IsGrounded ? onJumpMotionAsset : onLandedMotionAsset);
     }
+
     private void UpdateLookInput()
     {
         //_freeLook = Input.GetKey(KeyCode.X);
@@ -504,7 +591,10 @@ public class PlayerMovement : PlayerComponent
         look.x += deltaMouseX;
         look.y += deltaMouseY;
 
-        look.y = Mathf.Clamp(look.y, -90f, 90f);
+        float proneWeight = animator.GetFloat("ProneWeight");
+        Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
+
+        look.y = Mathf.Clamp(look.y, pitchClamp.x, pitchClamp.y);
         moveRotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
         TurnInPlace();
 
@@ -577,7 +667,8 @@ public class PlayerMovement : PlayerComponent
         bool wantsToMove = moveInput.sqrMagnitude > 0f;
 
         // Calculate the direction (relative to the us), in which the player wants to move.
-        Vector3 targetDirection = (wantsToMove ? new Vector3(moveInput.x, 0f, moveInput.y) : m_DesiredVelocityLocal.normalized);
+        Vector3 targetDirection =
+            (wantsToMove ? new Vector3(moveInput.x, 0f, moveInput.y) : m_DesiredVelocityLocal.normalized);
 
         float desiredSpeed = 0f;
 
@@ -611,6 +702,8 @@ public class PlayerMovement : PlayerComponent
         return targetDirection * (desiredSpeed * Player.MovementSpeedFactor.Val);
     }
 
+    public Vector2 AnimatorVelocity { get; private set; }
+
     private void UpdateMovementAnimations()
     {
         float moveX = Player.MoveInput.Get().x;
@@ -619,6 +712,13 @@ public class PlayerMovement : PlayerComponent
         Vector2 rawInput = new Vector2(moveX, moveY);
         Vector2 normInput = new Vector2(moveX, moveY);
         normInput.Normalize();
+
+        var animatorVelocity = normInput;
+
+        animatorVelocity *= Player.IsGrounded.Get() ? 1f : 0f;
+
+        AnimatorVelocity = Vector2.Lerp(AnimatorVelocity, animatorVelocity,
+            FPSAnimLib.ExpDecayAlpha(2, Time.deltaTime));
 
         if (Player.Sprint.Active)
         {
@@ -633,14 +733,18 @@ public class PlayerMovement : PlayerComponent
 
         Player.CharAnimData.moveInput = normInput;
 
-        _smoothAnimatorMove.x = FPSAnimLib.ExpDecay(_smoothAnimatorMove.x, rawInput.x, 5f, Time.deltaTime);
-        _smoothAnimatorMove.y = FPSAnimLib.ExpDecay(_smoothAnimatorMove.y, rawInput.y, 4f, Time.deltaTime);
-
         bool moving = Mathf.Approximately(0f, normInput.magnitude);
 
         animator.SetBool(Moving, !moving);
-        animator.SetFloat(MoveX, _smoothAnimatorMove.x);
-        animator.SetFloat(MoveY, _smoothAnimatorMove.y);
+        animator.SetFloat(MoveX, AnimatorVelocity.x);
+        animator.SetFloat(MoveY, AnimatorVelocity.y);
+        animator.SetFloat(VelocityHash, AnimatorVelocity.magnitude);
+
+        float a = animator.GetFloat(Sprinting);
+        float b = Player.Sprint.Active ? 1f : 0f;
+
+        a = Mathf.Lerp(a, b, FPSAnimLib.ExpDecayAlpha(_sprintAnimatorInterp, Time.deltaTime));
+        animator.SetFloat(Sprinting, a);
     }
 
     private bool Try_ChangeControllerHeight(LowerHeightStateModule lowerHeightState)
@@ -678,7 +782,8 @@ public class PlayerMovement : PlayerComponent
         Vector3 rayOrigin = transform.position + (checkAbove ? Vector3.up * controller.height : Vector3.zero);
         Vector3 rayDirection = checkAbove ? Vector3.up : Vector3.down;
 
-        return Physics.Raycast(rayOrigin, rayDirection, maxDistance, m_ObstacleCheckMask, QueryTriggerInteraction.Ignore);
+        return Physics.Raycast(rayOrigin, rayDirection, maxDistance, m_ObstacleCheckMask,
+            QueryTriggerInteraction.Ignore);
     }
 
     private void SetHeight(float height)

@@ -46,14 +46,13 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
     {
         recoilAnimation = GetComponentInChildren<RecoilAnimation>();
         fpsAnimator = GetComponentInChildren<CoreAnimComponent>();
-
+        
         InitAnimController();
     }
     
     private void Update()
     {
         UpdateAnimController();
-
     }
 
     private void LateUpdate()
@@ -78,19 +77,17 @@ public class NetworkPlayerAnimController : NetworkPlayerComponent
 
     protected void InitAnimController()
     {
-        fpsAnimator = GetComponentInChildren<CoreAnimComponent>();
-        fpsAnimator.animGraph.InitPlayableGraph();
-        fpsAnimator.InitializeLayers();
-
-        Player.CharAnimData = new CharAnimData();
-
-        fpsCamera = GetComponentInChildren<FPSCamera>();
-
         LookLayer = GetComponentInChildren<LookLayer>();
         AdsLayer = GetComponentInChildren<AdsLayer>();
         LocoLayer = GetComponentInChildren<LocomotionLayer>();
         SwayLayer = GetComponentInChildren<SwayLayer>();
         SlotLayer = GetComponentInChildren<SlotLayer>();
+        fpsAnimator = GetComponentInChildren<CoreAnimComponent>();
+        fpsAnimator.animGraph.InitPlayableGraph();
+        fpsAnimator.InitializeLayers();
+        Player.CharAnimData = new CharAnimData();
+
+        fpsCamera = GetComponentInChildren<FPSCamera>();
     }
 
     // Call this during Update after all the gameplay logic

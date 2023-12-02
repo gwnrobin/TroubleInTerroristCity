@@ -268,3 +268,4 @@ MonoBehaviour:
       m_RotationOrder: 4
   blendSpeed: 2
   playRate: 1.8
+  scale: {x: 1, y: 1}

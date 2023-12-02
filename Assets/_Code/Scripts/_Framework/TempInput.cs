@@ -83,10 +83,23 @@ public class TempInput : PlayerComponent
         if (context.started)
         {
             Player.Crouch.TryStart();
+            Player.Slide.TryStart();
         }
         if (context.canceled)
         {
             Player.Crouch.TryStop();
+        }
+    }
+    
+    public void SetProne(CallbackContext context)
+    {
+        if (context.started)
+        {
+            Player.Prone.TryStart();
+        }
+        if (context.canceled)
+        {
+            Player.Prone.TryStop();
         }
     }
 

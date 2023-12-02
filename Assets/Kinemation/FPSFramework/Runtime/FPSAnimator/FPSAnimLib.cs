@@ -26,5 +26,10 @@ namespace Kinemation.FPSFramework.Runtime.FPSAnimator
             Quaternion outRot = offset * (Quaternion.Inverse(space) * original);
             return Quaternion.Slerp(original, space * outRot, alpha);
         }
+        
+        public static float ExpDecayAlpha(float speed, float deltaTime)
+        {
+            return 1 - Mathf.Exp(-speed * deltaTime);
+        }
     }
 }

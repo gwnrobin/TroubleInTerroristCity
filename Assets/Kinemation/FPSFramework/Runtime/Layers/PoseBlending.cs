@@ -16,7 +16,6 @@ namespace Kinemation.FPSFramework.Runtime.Layers
         public override void OnAnimStart()
         {
             if (!Application.isPlaying) return;
-            
             foreach (var poseBlend in poseBlending)
             {
                 if(poseBlend == null) continue;

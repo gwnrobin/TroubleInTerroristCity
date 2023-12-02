@@ -133,6 +133,7 @@ public class EquipmentHandler : PlayerComponent
         animator.Play(Equip);
         //animator.Play(gun.poseName);
         //Player.EquipmentController.SetActiveEquipment(gun);
+        animator.SetFloat(OverlayType, (float) _attachedEquipmentItem.EquipmentInfo.General.overlayType);
         
         _attachedEquipmentItem.gameObject.SetActive(true);
         // Notify the item components (e.g. animation, physics etc.) present on the Equipment Item object
@@ -196,7 +197,6 @@ public class EquipmentHandler : PlayerComponent
     {
         recoilAnimation.Init(weapon.generalInfo.weaponAnimAsset.recoilData, weapon.FireRate, weapon.FireMode);
         networkPlayerAnimController.FpsAnimator.OnGunEquipped(weapon.generalInfo.weaponAnimAsset, weapon.generalInfo.weaponTransformData);
-        print(weapon);
         networkPlayerAnimController.FpsAnimator.ikRigData.weaponTransform = weapon.generalInfo.weaponAnimAsset.weaponBone;
         networkPlayerAnimController.LookLayer.SetAimOffsetTable(weapon.generalInfo.weaponAnimAsset.aimOffsetTable);
 

@@ -204,7 +204,7 @@ namespace Kinemation.FPSFramework.Runtime.Layers
                     bones = meshRenderer.bones;
                 }
             }
-            
+
             if (bones == null)
             {
                 Debug.LogWarning("[LookLayer]: No Skinned Mesh Renderer or Bone Container!");

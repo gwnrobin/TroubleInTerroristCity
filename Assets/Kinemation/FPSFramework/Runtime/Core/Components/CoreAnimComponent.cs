@@ -173,7 +173,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
         public UnityEvent onPreUpdate;
         public UnityEvent onPostUpdate;
         
-        [FormerlySerializedAs("rigData")] public DynamicRigData ikRigData;
+        public DynamicRigData ikRigData;
         public CharAnimData characterData;
 
         public WeaponAnimAsset weaponAsset;
@@ -239,7 +239,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
             SolveIK(ikRigData.leftFoot, leftFootWeight, legIkWeight);
         }
 
-        private void OnEnable()
+        private void Enable()
         {
             animLayers ??= new List<AnimLayer>();
             animGraph = GetComponent<CoreAnimGraph>();
@@ -257,6 +257,7 @@ namespace Kinemation.FPSFramework.Runtime.Core.Components
 
         public void InitializeLayers()
         {
+            Enable();
             foreach (var layer in animLayers)
             {
                 layer.OnAnimStart();

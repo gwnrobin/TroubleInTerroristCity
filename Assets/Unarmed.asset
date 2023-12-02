@@ -19,7 +19,7 @@ MonoBehaviour:
     CrosshairID: 0
     StaminaTakePerUse: 0
     MovementSpeedMod: 1
-    overlayType: 0
+    overlayType: 1
   Equipping:
     Duration: 0.6
     AnimationSpeed: 1

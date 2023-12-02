@@ -432,7 +432,7 @@ MonoBehaviour:
   aimMotionAsset: {fileID: 11400000, guid: 8d4c00b0add69ee479563b13a59805f9, type: 2}
   leanMotionAsset: {fileID: 11400000, guid: ba2e1a2496024db428982ac4e189d5e2, type: 2}
   crouchMotionAsset: {fileID: 11400000, guid: e17c7783a4255b748bf51256f0ae18c6, type: 2}
-  unCrouchMotionAsset: {fileID: 11400000, guid: 2201ebb031bed8249a648b1e4a66b39d, type: 2}
+  unCrouchMotionAsset: {fileID: 11400000, guid: 991170ae987a91843b707059e6dd0d8a, type: 2}
   onJumpMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
   onLandedMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
   turnInPlaceAngle: 85
@@ -516,16 +516,16 @@ MonoBehaviour:
     TransitionDuration: 0.3
   m_ProneState:
     Enabled: 1
-    SpeedMultiplier: 4.5
-    StepLength: 1.9
-    ControllerHeight: 1
+    SpeedMultiplier: 0.35
+    StepLength: 0.6
+    ControllerHeight: 0.4
     TransitionDuration: 0.3
   m_JumpState:
     Enabled: 1
     JumpHeight: 1
     JumpTimer: 0.3
   m_SlidingState:
-    Enabled: 0
+    Enabled: 1
     SlideTreeshold: 32
     SlideSpeed: 15
 --- !u!114 &4370667411450566502
@@ -873,6 +873,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2978ce0d-b4ba-4786-9445-d5859ab02de6
     m_ActionName: UI/BuyMenu[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1699879842322006994}
+        m_TargetAssemblyTypeName: TempInput, Assembly-CSharp
+        m_MethodName: SetProne
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 502c28ee-be9a-48d4-b896-31794f5e06fe
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -14487,6 +14503,7 @@ GameObject:
   - component: {fileID: 6308755384958136034}
   - component: {fileID: 8625545941688421552}
   - component: {fileID: 1581712655066176444}
+  - component: {fileID: 5044392179830369435}
   m_Layer: 3
   m_Name: PoliceModel
   m_TagString: Untagged
@@ -14528,7 +14545,7 @@ Animator:
   m_GameObject: {fileID: 7019630529543876913}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b09d8a0688c5abe42998a0987f3f1210, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4734d6e243660e8409b54f19f5150a7e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -14606,6 +14623,7 @@ MonoBehaviour:
   animLayers:
   - {fileID: 5018652258621651914}
   - {fileID: 2405159666090635581}
+  - {fileID: 5044392179830369435}
   - {fileID: 4419237236883903304}
   - {fileID: 7243236491867432899}
   - {fileID: 774382748195930388}
@@ -14782,7 +14800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d427133594b8f1c4a93db4bd73736b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curveName: SprintWeight
+  curveName: FullBodyWeight
   layerAlpha: 1
   lerpSpeed: 12
   elbowsWeight: 0.4
@@ -15024,6 +15042,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 5724985945354436955}
+--- !u!114 &5044392179830369435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019630529543876913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee86ec1aafb9a1443930f8f4c12f2800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curveName: FullBodyWeight
+  layerAlpha: 1
+  lerpSpeed: 0
+  elbowsWeight: 0
+  drawDebugInfo: 1
+  runInEditor: 0
+  poseBlending:
+  - curveName: 
+    blendAsset: {fileID: 11400000, guid: f0451dff4a10a1f42ac90052dac1213f, type: 2}
 --- !u!1 &7084050536332533873
 GameObject:
   m_ObjectHideFlags: 0

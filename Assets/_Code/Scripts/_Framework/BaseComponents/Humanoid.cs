@@ -1,5 +1,4 @@
-﻿using Unity.Netcode;
-
+﻿
 public class Humanoid : Entity
 {
     public readonly Value<float> MovementSpeedFactor = new Value<float>(1f);
@@ -30,6 +29,7 @@ public class Humanoid : Entity
     public readonly Activity Crouch = new Activity();
     public readonly Activity<float> Lean = new Activity<float>();
     public readonly Activity Prone = new Activity();
+    public readonly Activity Slide = new Activity();
 
     public readonly Activity Jump = new Activity();
 
