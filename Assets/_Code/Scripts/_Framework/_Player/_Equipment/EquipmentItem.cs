@@ -93,6 +93,9 @@ public class EquipmentItem : PlayerComponent
     [SerializeField, Group]
     public GeneralInfo generalInfo = null;
 
+    [SerializeField]
+    public RecoilPattern recoilPattern;
+
     [SerializeField, Group]
     public GeneralEvents m_GeneralEvents = null;
 

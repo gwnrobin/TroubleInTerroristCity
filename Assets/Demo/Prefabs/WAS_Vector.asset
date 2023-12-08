@@ -15,12 +15,12 @@ MonoBehaviour:
   rotationOffset: {x: 0.70710677, y: 0, z: 0, w: -0.70710677}
   aimOffsetTable: {fileID: 11400000, guid: 7058601491d8f444287872b2f8c05086, type: 2}
   recoilData: {fileID: 11400000, guid: bfca110af1bbd534084899e065542074, type: 2}
-  weaponBone:
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 1}
   overlayPose: {fileID: 11400000, guid: d8c45cb2244843149a7bef11f7c7e8cd, type: 2}
   reloadClip: {fileID: 11400000, guid: e5e9bcee90055934993359ad6087833c, type: 2}
   grenadeClip: {fileID: 0}
+  weaponBone:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
   adsData:
     cameraData: {fileID: 0}
     adsTranslationBlend:
@@ -82,9 +82,9 @@ MonoBehaviour:
         maxValue: 2
       scale: {x: 20, y: 20, z: 35}
   freeAimData:
-    scalar: 0
-    maxValue: 0
-    speed: 0
+    scalar: 4.5
+    maxValue: 1
+    speed: 1
   moveSwayData:
     maxMoveLocSway: {x: 0.02, y: -0.01, z: 0.03}
     maxMoveRotSway: {x: 1, y: 2, z: -15}
@@ -137,3 +137,8 @@ MonoBehaviour:
     restPose:
       position: {x: -0.05, y: -0.09, z: -0.03}
       rotation: {x: -0.22627231, y: 0.18844119, z: -0.091121025, w: -0.9513084}
+  adsRecoilOffset: {x: 0, y: 0, z: 0}
+  adsSwayOffset: {x: 0, y: 0, z: 0}
+  rightHandOffset:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}

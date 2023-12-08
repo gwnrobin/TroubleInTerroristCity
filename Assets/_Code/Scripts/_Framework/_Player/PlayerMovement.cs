@@ -1,12 +1,6 @@
 using Kinemation.FPSFramework.Runtime.FPSAnimator;
-using Kinemation.FPSFramework.Runtime.Layers;
-using Kinemation.FPSFramework.Runtime.Recoil;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 public class PlayerMovement : PlayerComponent
 {
@@ -276,6 +270,7 @@ public class PlayerMovement : PlayerComponent
         if (!Player.Pause.Active)
         {
             UpdateLookInput();
+            UpdateRecoil();
         }
 
         UpdateMovementAnimations();
@@ -283,6 +278,46 @@ public class PlayerMovement : PlayerComponent
         Player.Velocity.Set(Velocity);
 
         m_PreviouslyGrounded = IsGrounded;
+    }
+
+    public Vector2 _cameraRecoilOffset;
+    public Vector2 _controllerRecoil;
+    public float _recoilStep;
+    private bool _isFiring;
+
+    private void UpdateRecoil()
+    {
+        if (Mathf.Approximately(_controllerRecoil.magnitude, 0f)
+            && Mathf.Approximately(_cameraRecoilOffset.magnitude, 0f))
+        {
+            return;
+        }
+
+        float smoothing = 8f;
+        float restoreSpeed = 8f;
+        float cameraWeight = 0f;
+
+        RecoilPattern recoilPattern = Player.ActiveEquipmentItem.Get().recoilPattern;
+        if (recoilPattern != null)
+        {
+            smoothing = recoilPattern.smoothing;
+            restoreSpeed = recoilPattern.cameraRestoreSpeed;
+            cameraWeight = recoilPattern.cameraWeight;
+        }
+
+        _controllerRecoil = Vector2.Lerp(_controllerRecoil, Vector2.zero,
+            FPSAnimLib.ExpDecayAlpha(smoothing, Time.deltaTime));
+        
+        look += _controllerRecoil * Time.deltaTime;
+
+        Vector2 clamp = Vector2.Lerp(Vector2.zero, new Vector2(90f, 90f), cameraWeight);
+        _cameraRecoilOffset -= _controllerRecoil * Time.deltaTime;
+        _cameraRecoilOffset = Vector2.ClampMagnitude(_cameraRecoilOffset, clamp.magnitude);
+
+        if (_isFiring) return;
+
+        _cameraRecoilOffset = Vector2.Lerp(_cameraRecoilOffset, Vector2.zero,
+            FPSAnimLib.ExpDecayAlpha(restoreSpeed, Time.deltaTime));
     }
 
     private bool TrySlide()
@@ -555,14 +590,30 @@ public class PlayerMovement : PlayerComponent
 
     private void UpdateAirborneMovement(float deltaTime, Vector3 targetVelocity, ref Vector3 velocity)
     {
+        AdjustVelocityForJump(deltaTime, ref velocity);
+        ApplyAirborneControl(targetVelocity, deltaTime, ref velocity);
+        ApplyGravity(deltaTime, ref velocity);
+        PlayMotionBasedOnGroundedState();
+    }
+
+    private void AdjustVelocityForJump(float deltaTime, ref Vector3 velocity)
+    {
         if (m_PreviouslyGrounded && !Player.Jump.Active)
             velocity.y = 0f;
+    }
 
-        // Modify the current velocity by taking into account how well we can change direction when not grounded (see "m_AirControl" tooltip).
+    private void ApplyAirborneControl(Vector3 targetVelocity, float deltaTime, ref Vector3 velocity)
+    {
         velocity += targetVelocity * (m_CoreMovement.Acceleration * m_CoreMovement.AirborneControl * deltaTime);
+    }
 
-        // Apply gravity.
+    private void ApplyGravity(float deltaTime, ref Vector3 velocity)
+    {
         velocity.y -= gravity * deltaTime;
+    }
+
+    private void PlayMotionBasedOnGroundedState()
+    {
         networkPlayerAnimController.SlotLayer.PlayMotion(!IsGrounded ? onJumpMotionAsset : onLandedMotionAsset);
     }
 
@@ -586,7 +637,8 @@ public class PlayerMovement : PlayerComponent
             return;
         }
 
-        _freeLookInput = FPSAnimLib.ExpDecay(_freeLookInput, Vector2.zero, 15f, Time.deltaTime);
+        _freeLookInput = Vector2.Lerp(_freeLookInput, Vector2.zero,
+            FPSAnimLib.ExpDecayAlpha(15f, Time.deltaTime));
 
         look.x += deltaMouseX;
         look.y += deltaMouseY;
@@ -598,9 +650,14 @@ public class PlayerMovement : PlayerComponent
         moveRotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
         TurnInPlace();
 
+        //_jumpState = Mathf.Lerp(_jumpState, movementComponent.IsInAir() ? 1f : 0f,
+        // FPSAnimLib.ExpDecayAlpha(10f, Time.deltaTime));
+
         float moveWeight = Mathf.Clamp01(Mathf.Abs(_smoothMove.magnitude));
         transform.rotation = Quaternion.Slerp(transform.rotation, moveRotation, moveWeight);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, moveRotation, _jumpState);
         look.x *= 1f - moveWeight;
+        //look.x *= 1f - _jumpState;
 
         Player.CharAnimData.SetAimInput(look);
         Player.CharAnimData.AddDeltaInput(new Vector2(deltaMouseX, Player.CharAnimData.deltaAimInput.y));

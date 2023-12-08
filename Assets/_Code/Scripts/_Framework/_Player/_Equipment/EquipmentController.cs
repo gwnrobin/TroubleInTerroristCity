@@ -3,10 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EquipmentController : PlayerComponent
 {
     public EquipmentHandler activeEHandler;
+
+    [SerializeField]
+    private PlayerMovement playerMovement;
 
     [SerializeField]
     private bool m_AimWhileReloading;
@@ -31,7 +35,7 @@ public class EquipmentController : PlayerComponent
         Player.DestroyEquippedItem.SetTryer(TryDestroyHeldItem);
 
         Player.UseItemHeld.SetStartTryer(TryStartUse);
-        Player.UseItemHeld.AddStopListener(() => activeEHandler.RecoilAnimation.Stop());
+        Player.UseItemHeld.AddStopListener(StopUseItemHeld);
         Player.Sprint.AddStopListener(() => activeEHandler.RecoilAnimation.Stop());
 
         Player.Aim.SetStartTryer(TryStartAim);
@@ -52,7 +56,22 @@ public class EquipmentController : PlayerComponent
         Player.Holster.AddStopListener(OnHolsterStop);
     }
 
-    private bool TryStartUse() { return true; }
+    private bool TryStartUse()
+    {
+        if (activeEHandler.EquipmentItem.recoilPattern != null)
+        {
+            playerMovement._recoilStep = activeEHandler.EquipmentItem.recoilPattern.step;
+        }
+        
+        return true;
+    }
+
+    private void StopUseItemHeld()
+    {
+        activeEHandler.RecoilAnimation.Stop();
+        playerMovement._recoilStep = 0;
+        print("test2");
+    }
     
     private void Update()
     {
@@ -72,7 +91,6 @@ public class EquipmentController : PlayerComponent
         //Equip the new item after the previous one has been unequipped
         if (m_WaitingToEquip && Time.time > m_NextTimeToEquip)
         {
-            //activeEHandler.EquipNewWeapon();
             Equip(Player.EquippedItem.Get());
             m_WaitingToEquip = false;
         }
@@ -247,6 +265,15 @@ public class EquipmentController : PlayerComponent
             {
                 //if (staminaTakePerUse > 0f)
                 //    Player.Stamina.Set(Mathf.Max(Player.Stamina.Get() - staminaTakePerUse, 0f));
+                if (activeEHandler.EquipmentItem.recoilPattern != null)
+                {
+                    float aimRatio = Player.Aim.Active ? activeEHandler.EquipmentItem.recoilPattern.aimRatio : 1f;
+                    float hRecoil = Random.Range(activeEHandler.EquipmentItem.recoilPattern.horizontalVariation.x,
+                        activeEHandler.EquipmentItem.recoilPattern.horizontalVariation.y);
+                
+                    playerMovement._controllerRecoil += new Vector2(hRecoil, playerMovement._recoilStep) * aimRatio;
+                }
+                playerMovement._recoilStep += activeEHandler.EquipmentItem.recoilPattern.acceleration;
 
                 m_NextTimeCanAutoReload = Time.time + 0.35f;
             }
@@ -255,11 +282,10 @@ public class EquipmentController : PlayerComponent
             {
                 activeEHandler.RecoilAnimation.Stop();
             }
-
+            
             //Try reload the item if the item can't be used (e.g. out of ammo) and 'Reload on empty' is active
             //if (!eItemCanBeUsed && m_AutoReloadOnEmpty && !continuously && m_NextTimeCanAutoReload < Time.time)
             //Player.Reload.TryStart();
-
             return usedSuccessfully;
         }
 

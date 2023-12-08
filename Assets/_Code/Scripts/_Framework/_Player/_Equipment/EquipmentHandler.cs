@@ -3,6 +3,7 @@ using Kinemation.FPSFramework.Runtime.Recoil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,6 +31,8 @@ public class EquipmentHandler : PlayerComponent
     public EquipmentItem EquipmentItem => _attachedEquipmentItem;
     public RecoilAnimation RecoilAnimation => recoilAnimation;
 
+    public RecoilSystem RecoilSystem => recoilSystem;
+
     public bool UnlimitedAmmo = false;
 
     [SerializeField]
@@ -38,6 +41,9 @@ public class EquipmentHandler : PlayerComponent
     [SerializeField]
     [Group("Inverse of Accuracy - ", true)]
     protected UseRaySpread _useRaySpread = new UseRaySpread();
+
+    [SerializeField]
+    private RecoilSystem recoilSystem;
 
     protected EquipmentItem _attachedEquipmentItem;
     protected Item _attachedItem;

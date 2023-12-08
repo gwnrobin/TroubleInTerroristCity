@@ -528,6 +528,9 @@ MonoBehaviour:
     Enabled: 1
     SlideTreeshold: 32
     SlideSpeed: 15
+  _cameraRecoilOffset: {x: 0, y: 0}
+  _controllerRecoil: {x: 0, y: 0}
+  _recoilStep: 0
 --- !u!114 &4370667411450566502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1395,6 +1398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeEHandler: {fileID: 1092326509248705420}
+  playerMovement: {fileID: 9002696774535915255}
   m_AimWhileReloading: 0
   m_AutoReloadOnEmpty: 1
 --- !u!114 &1092326509248705420
@@ -1418,6 +1422,7 @@ MonoBehaviour:
     ProneSpreadMod: 0.65
     WalkSpreadMod: 2.5
     AimSpreadMod: 0.5
+  recoilSystem: {fileID: 7998989277298157934}
   animator: {fileID: 5724985945354436955}
   networkPlayerAnimController: {fileID: 679187891474655109}
   recoilAnimation: {fileID: 4243781209551062720}
@@ -11103,6 +11108,50 @@ Transform:
   m_Father: {fileID: 797264416682667887}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5025001418219669960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7129698439783762811}
+  - component: {fileID: 7998989277298157934}
+  m_Layer: 3
+  m_Name: RecoilSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7129698439783762811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5025001418219669960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3743685662678354664}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7998989277298157934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5025001418219669960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f910c5a422a4949a42d0cbd78cf681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5046221182034896719
 GameObject:
   m_ObjectHideFlags: 0
@@ -14394,6 +14443,7 @@ MonoBehaviour:
       pivotPoint: {fileID: 0}
       aimPoint: {fileID: 0}
       leftHandTarget: {fileID: 0}
+  recoilPattern: {fileID: 0}
   m_GeneralEvents:
     OnEquipped:
       m_PersistentCalls:
@@ -15100,6 +15150,7 @@ Transform:
   - {fileID: 4929510333774477805}
   - {fileID: 2033577386576409066}
   - {fileID: 5578084450712346954}
+  - {fileID: 7129698439783762811}
   m_Father: {fileID: 1639508042764286975}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15157,6 +15208,7 @@ MonoBehaviour:
       pivotPoint: {fileID: 1347363769837142294}
       aimPoint: {fileID: 0}
       leftHandTarget: {fileID: 0}
+  recoilPattern: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
   m_GeneralEvents:
     OnEquipped:
       m_PersistentCalls:
@@ -17798,6 +17850,7 @@ MonoBehaviour:
       pivotPoint: {fileID: 1105515734893173610}
       aimPoint: {fileID: 5822197830058115220}
       leftHandTarget: {fileID: 0}
+  recoilPattern: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
   m_GeneralEvents:
     OnEquipped:
       m_PersistentCalls:
@@ -18544,6 +18597,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
+      propertyPath: recoilPattern
+      value: 
+      objectReference: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
+    - target: {fileID: 4389270120994231496, guid: afbc6f467c44b664ea2ef07ec9fd6bf6, type: 3}
       propertyPath: generalInfo.Animator
       value: 
       objectReference: {fileID: 2422425519842544121}
@@ -18681,6 +18738,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7599737077417503543}
     m_Modifications:
+    - target: {fileID: 775604741565534379, guid: 8c3f0ac312d5554448e60214becbc806, type: 3}
+      propertyPath: recoilPattern
+      value: 
+      objectReference: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
     - target: {fileID: 775604741565534379, guid: 8c3f0ac312d5554448e60214becbc806, type: 3}
       propertyPath: generalInfo.weaponAnimAsset
       value: 
@@ -18865,6 +18926,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8632780011357439193, guid: 5ef84050b1531ad49a9a2369b994a9c3, type: 3}
+      propertyPath: recoilPattern
+      value: 
+      objectReference: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
     - target: {fileID: 8761244615785884998, guid: 5ef84050b1531ad49a9a2369b994a9c3, type: 3}
       propertyPath: m_RootOrder
       value: -1
