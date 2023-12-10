@@ -28,8 +28,8 @@ public class Respawn : NetworkPlayerComponent
     {
         yield return new WaitForEndOfFrame();
         
-        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<FPSPlayerMovement>().enabled = false;
         transform.position = GameManager.Instance.GetRandomSpawnPoint().position;
-        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<FPSPlayerMovement>().enabled = true;
     }
 }

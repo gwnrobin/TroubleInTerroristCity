@@ -1,98 +1,23 @@
 using Kinemation.FPSFramework.Runtime.FPSAnimator;
-using System;
 using UnityEngine;
 
-public class PlayerMovement : PlayerComponent
+public class FPSPlayerMovement : FPSPlayerComponent
 {
-    #region Internal
-
-    [Serializable]
-    public class MovementStateModule
-    {
-        public bool Enabled = true;
-
-        [ShowIf("Enabled", true)] [Range(0f, 10f)]
-        public float SpeedMultiplier = 4.5f;
-
-        [ShowIf("Enabled", true)] [Range(0f, 3f)]
-        public float StepLength = 1.9f;
+    private bool IsGrounded
+    { 
+        get => PlayerController.Controller.isGrounded;
     }
 
-    [Serializable]
-    public class CoreMovementModule
+    private Vector3 Velocity
     {
-        [Range(0f, 20f)] public float Acceleration = 5f;
-
-        [Range(0f, 20f)] public float Damping = 8f;
-
-        [Range(0f, 1f)] public float AirborneControl = 0.15f;
-
-        [Range(0f, 3f)] public float StepLength = 1.2f;
-
-        [Range(0f, 10f)] public float ForwardSpeed = 2.5f;
-
-        [Range(0f, 10f)] public float BackSpeed = 2.5f;
-
-        [Range(0f, 10f)] public float SideSpeed = 2.5f;
-
-        public AnimationCurve SlopeSpeedMult = new AnimationCurve(new Keyframe(0f, 1f), new Keyframe(1f, 1f));
-
-        public float AntiBumpFactor = 1f;
-
-        [Range(0f, 1f)] public float HeadBounceFactor = 0.65f;
-    }
-
-    [Serializable]
-    public class JumpStateModule
-    {
-        public bool Enabled = true;
-
-        [ShowIf("Enabled", true)] [Range(0f, 3f)]
-        public float JumpHeight = 1f;
-
-        [ShowIf("Enabled", true)] [Range(0f, 1.5f)]
-        public float JumpTimer = 0.3f;
-    }
-
-    [Serializable]
-    public class LowerHeightStateModule : MovementStateModule
-    {
-        [ShowIf("Enabled", true)] [Range(0f, 2f)]
-        public float ControllerHeight = 1f;
-
-        [ShowIf("Enabled", true)] [Range(0f, 1f)]
-        public float TransitionDuration = 0.3f;
-    }
-
-    [Serializable]
-    public class SlidingStateModule
-    {
-        public bool Enabled = false;
-
-        [ShowIf("Enabled", true)] [Range(20f, 90f)]
-        public float SlideTreeshold = 32f;
-
-        [ShowIf("Enabled", true)] [Range(0f, 50f)]
-        public float SlideSpeed = 15f;
-    }
-
-    #endregion
-
-    public bool IsGrounded
-    {
-        get => controller.isGrounded;
-    }
-
-    public Vector3 Velocity
-    {
-        get => controller.velocity;
+        get => PlayerController.Controller.velocity;
     }
 
     public Vector3 SurfaceNormal { get; private set; }
 
-    public float SlopeLimit
+    private float SlopeLimit
     {
-        get => controller.slopeLimit;
+        get => PlayerController.Controller.slopeLimit;
     }
 
     public float DefaultHeight { get; private set; }
@@ -106,40 +31,21 @@ public class PlayerMovement : PlayerComponent
     private static readonly int Sliding = Animator.StringToHash("Sliding");
     private static readonly int Sprinting = Animator.StringToHash("Sprinting");
     private static readonly int Proning = Animator.StringToHash("Proning");
-    private static readonly int TurnRight = Animator.StringToHash("TurnRight");
-    private static readonly int TurnLeft = Animator.StringToHash("TurnLeft");
 
-    [Header("General")] [SerializeField] private CharacterController controller;
-    [SerializeField] private Animator animator;
+    [Header("General")] 
     [SerializeField] private NetworkPlayerAnimController networkPlayerAnimController;
     [SerializeField] private float moveSmoothing = 2f;
     [SerializeField] private LayerMask m_ObstacleCheckMask = ~0;
     [SerializeField] private float gravity;
 
-    [Space] [Header("Camera")] [SerializeField]
-    private Transform mainCamera;
-
-    [SerializeField] private Transform cameraHolder;
-
-    [SerializeField] private Transform firstPersonCamera;
-
-    //[SerializeField] private float sensitivity;
-    [SerializeField] private Vector2 freeLookAngle;
-
-    [Space] [Header("Dynamic Motions")] [SerializeField]
-    private IKAnimation aimMotionAsset;
+    [Space] [Header("Dynamic Motions")] 
+    [SerializeField] private IKAnimation aimMotionAsset;
 
     [SerializeField] private IKAnimation leanMotionAsset;
     [SerializeField] private IKAnimation crouchMotionAsset;
     [SerializeField] private IKAnimation unCrouchMotionAsset;
     [SerializeField] private IKAnimation onJumpMotionAsset;
     [SerializeField] private IKAnimation onLandedMotionAsset;
-
-    [Space] [Header("Turning")] [SerializeField]
-    private float turnInPlaceAngle;
-
-    [SerializeField] private AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
-    [SerializeField] private float turnSpeed = 1f;
 
     [Space] [SerializeField] [Group] private CoreMovementModule m_CoreMovement;
 
@@ -152,22 +58,14 @@ public class PlayerMovement : PlayerComponent
     [SerializeField] [Group] private JumpStateModule m_JumpState;
 
     [SerializeField] [Group] private SlidingStateModule m_SlidingState;
+    
+    public Vector2 AnimatorVelocity { get; private set; }
 
     private MovementStateModule m_CurrentMovementState;
-
-
-    private CollisionFlags m_CollisionFlags;
-
-    private Quaternion moveRotation;
-    private float turnProgress = 1f;
-    private bool isTurning;
-
-    private Vector2 _freeLookInput;
+    
     private Vector2 _smoothAnimatorMove;
-    private Vector2 _smoothMove;
-
-    private Vector2 look;
-    private bool _freeLook;
+    
+    private CollisionFlags _mCollisionFlags;
 
     private float m_DistMovedSinceLastCycleEnded;
     private float m_CurrentStepLength;
@@ -178,15 +76,11 @@ public class PlayerMovement : PlayerComponent
     private float m_LastLandTime;
     private float m_NextTimeCanChangeHeight;
 
-    private bool skippedFirstFrame = false;
-
     private float _sprintAnimatorInterp = 8f;
 
     private void Start()
     {
-        DefaultHeight = controller.height;
-
-        moveRotation = transform.rotation;
+        DefaultHeight = PlayerController.Controller.height;
 
         Player.Slide.SetStartTryer(TrySlide);
 
@@ -214,8 +108,6 @@ public class PlayerMovement : PlayerComponent
         Player.Lean.AddStopListener(() => Player.CharAnimData.leanDirection = 0);
 
         Player.DisabledMovement.SetStartTryer(TryDisableMovement);
-
-        networkPlayerAnimController.FpsAnimator.onPostUpdate.AddListener(UpdateCameraRotation);
     }
 
     private void Update()
@@ -237,9 +129,9 @@ public class PlayerMovement : PlayerComponent
         else
             translation = transform.TransformVector(m_DesiredVelocityLocal * deltaTime);
 
-        m_CollisionFlags = controller.Move(translation);
+        _mCollisionFlags = PlayerController.Controller.Move(translation);
 
-        if ((m_CollisionFlags & CollisionFlags.Below) == CollisionFlags.Below && !m_PreviouslyGrounded)
+        if ((_mCollisionFlags & CollisionFlags.Below) == CollisionFlags.Below && !m_PreviouslyGrounded)
         {
             bool wasJumping = Player.Jump.Active;
 
@@ -256,7 +148,7 @@ public class PlayerMovement : PlayerComponent
 
         // Check if the top of the controller collided with anything,
         // If it did then add a counter force
-        if (((m_CollisionFlags & CollisionFlags.Above) == CollisionFlags.Above && !controller.isGrounded) &&
+        if (((_mCollisionFlags & CollisionFlags.Above) == CollisionFlags.Above && !PlayerController.Controller.isGrounded) &&
             m_DesiredVelocityLocal.y > 0)
             m_DesiredVelocityLocal.y *= -.05f;
 
@@ -267,57 +159,13 @@ public class PlayerMovement : PlayerComponent
         else if (!Player.Jump.Active)
             UpdateGroundedMovement(deltaTime, targetVelocity, ref m_DesiredVelocityLocal);
 
-        if (!Player.Pause.Active)
-        {
-            UpdateLookInput();
-            UpdateRecoil();
-        }
+
 
         UpdateMovementAnimations();
         Player.IsGrounded.Set(IsGrounded);
         Player.Velocity.Set(Velocity);
 
         m_PreviouslyGrounded = IsGrounded;
-    }
-
-    public Vector2 _cameraRecoilOffset;
-    public Vector2 _controllerRecoil;
-    public float _recoilStep;
-    private bool _isFiring;
-
-    private void UpdateRecoil()
-    {
-        if (Mathf.Approximately(_controllerRecoil.magnitude, 0f)
-            && Mathf.Approximately(_cameraRecoilOffset.magnitude, 0f))
-        {
-            return;
-        }
-
-        float smoothing = 8f;
-        float restoreSpeed = 8f;
-        float cameraWeight = 0f;
-
-        RecoilPattern recoilPattern = Player.ActiveEquipmentItem.Get().recoilPattern;
-        if (recoilPattern != null)
-        {
-            smoothing = recoilPattern.smoothing;
-            restoreSpeed = recoilPattern.cameraRestoreSpeed;
-            cameraWeight = recoilPattern.cameraWeight;
-        }
-
-        _controllerRecoil = Vector2.Lerp(_controllerRecoil, Vector2.zero,
-            FPSAnimLib.ExpDecayAlpha(smoothing, Time.deltaTime));
-        
-        look += _controllerRecoil * Time.deltaTime;
-
-        Vector2 clamp = Vector2.Lerp(Vector2.zero, new Vector2(90f, 90f), cameraWeight);
-        _cameraRecoilOffset -= _controllerRecoil * Time.deltaTime;
-        _cameraRecoilOffset = Vector2.ClampMagnitude(_cameraRecoilOffset, clamp.magnitude);
-
-        if (_isFiring) return;
-
-        _cameraRecoilOffset = Vector2.Lerp(_cameraRecoilOffset, Vector2.zero,
-            FPSAnimLib.ExpDecayAlpha(restoreSpeed, Time.deltaTime));
     }
 
     private bool TrySlide()
@@ -332,7 +180,7 @@ public class PlayerMovement : PlayerComponent
 
     private void StartSlide()
     {
-        animator.CrossFade(Sliding, 0.1f);
+        PlayerController.Animator.CrossFade(Sliding, 0.1f);
         Player.Slide.ForceStop();
     }
 
@@ -408,14 +256,14 @@ public class PlayerMovement : PlayerComponent
     private void Crouch()
     {
         networkPlayerAnimController.LookLayer.SetPelvisWeight(0f);
-        animator.SetBool(Crouching, true);
+        PlayerController.Animator.SetBool(Crouching, true);
         networkPlayerAnimController.SlotLayer.PlayMotion(crouchMotionAsset);
     }
 
     private void Standup()
     {
         networkPlayerAnimController.LookLayer.SetPelvisWeight(1f);
-        animator.SetBool(Crouching, false);
+        PlayerController.Animator.SetBool(Crouching, false);
         networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
     }
 
@@ -448,16 +296,16 @@ public class PlayerMovement : PlayerComponent
     private void Prone()
     {
         networkPlayerAnimController.LookLayer.SetPelvisWeight(1f);
-        animator.SetBool(Crouching, false);
-        animator.SetBool(Proning, true);
+        PlayerController.Animator.SetBool(Crouching, false);
+        PlayerController.Animator.SetBool(Proning, true);
         networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
     }
 
     private void CancelProne()
     {
         networkPlayerAnimController.LookLayer.SetPelvisWeight(0f);
-        animator.SetBool(Crouching, true);
-        animator.SetBool(Proning, false);
+        PlayerController.Animator.SetBool(Crouching, true);
+        PlayerController.Animator.SetBool(Proning, false);
         networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
     }
 
@@ -617,106 +465,6 @@ public class PlayerMovement : PlayerComponent
         networkPlayerAnimController.SlotLayer.PlayMotion(!IsGrounded ? onJumpMotionAsset : onLandedMotionAsset);
     }
 
-    private void UpdateLookInput()
-    {
-        //_freeLook = Input.GetKey(KeyCode.X);
-
-        float deltaMouseX = Player.LookInput.Get().x * SettingMenu.Instance.GameSettings.Sensitivity;
-        float deltaMouseY = -Player.LookInput.Get().y * SettingMenu.Instance.GameSettings.Sensitivity;
-
-        if (_freeLook)
-        {
-            // No input for both controller and animation component. We only want to rotate the camera
-
-            _freeLookInput.x += deltaMouseX;
-            _freeLookInput.y += deltaMouseY;
-
-            _freeLookInput.x = Mathf.Clamp(_freeLookInput.x, -freeLookAngle.x, freeLookAngle.x);
-            _freeLookInput.y = Mathf.Clamp(_freeLookInput.y, -freeLookAngle.y, freeLookAngle.y);
-
-            return;
-        }
-
-        _freeLookInput = Vector2.Lerp(_freeLookInput, Vector2.zero,
-            FPSAnimLib.ExpDecayAlpha(15f, Time.deltaTime));
-
-        look.x += deltaMouseX;
-        look.y += deltaMouseY;
-
-        float proneWeight = animator.GetFloat("ProneWeight");
-        Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
-
-        look.y = Mathf.Clamp(look.y, pitchClamp.x, pitchClamp.y);
-        moveRotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
-        TurnInPlace();
-
-        //_jumpState = Mathf.Lerp(_jumpState, movementComponent.IsInAir() ? 1f : 0f,
-        // FPSAnimLib.ExpDecayAlpha(10f, Time.deltaTime));
-
-        float moveWeight = Mathf.Clamp01(Mathf.Abs(_smoothMove.magnitude));
-        transform.rotation = Quaternion.Slerp(transform.rotation, moveRotation, moveWeight);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, moveRotation, _jumpState);
-        look.x *= 1f - moveWeight;
-        //look.x *= 1f - _jumpState;
-
-        Player.CharAnimData.SetAimInput(look);
-        Player.CharAnimData.AddDeltaInput(new Vector2(deltaMouseX, Player.CharAnimData.deltaAimInput.y));
-    }
-
-    private void UpdateCameraRotation()
-    {
-        Vector2 finalInput = new Vector2(look.x, look.y);
-        (Quaternion, Vector3) cameraTransform =
-            (transform.rotation * Quaternion.Euler(finalInput.y, finalInput.x, 0f),
-                firstPersonCamera.position);
-
-        cameraHolder.rotation = cameraTransform.Item1;
-        cameraHolder.position = cameraTransform.Item2;
-
-        mainCamera.rotation = cameraHolder.rotation * Quaternion.Euler(_freeLookInput.y, _freeLookInput.x, 0f);
-    }
-
-    private void TurnInPlace()
-    {
-        float turnInput = look.x;
-        look.x = Mathf.Clamp(look.x, -90f, 90f);
-        turnInput -= look.x;
-
-        float sign = Mathf.Sign(look.x);
-        if (Mathf.Abs(look.x) > turnInPlaceAngle)
-        {
-            if (!isTurning)
-            {
-                turnProgress = 0f;
-
-                animator.ResetTrigger(TurnRight);
-                animator.ResetTrigger(TurnLeft);
-
-                animator.SetTrigger(sign > 0f ? TurnRight : TurnLeft);
-            }
-
-            isTurning = true;
-        }
-
-        transform.rotation *= Quaternion.Euler(0f, turnInput, 0f);
-
-        float lastProgress = turnCurve.Evaluate(turnProgress);
-        turnProgress += Time.deltaTime * turnSpeed;
-        turnProgress = Mathf.Min(turnProgress, 1f);
-
-        float deltaProgress = turnCurve.Evaluate(turnProgress) - lastProgress;
-
-        look.x -= sign * turnInPlaceAngle * deltaProgress;
-
-        transform.rotation *= Quaternion.Slerp(Quaternion.identity,
-            Quaternion.Euler(0f, sign * turnInPlaceAngle, 0f), deltaProgress);
-
-        if (Mathf.Approximately(turnProgress, 1f) && isTurning)
-        {
-            isTurning = false;
-        }
-    }
-
     private Vector3 CalcTargetVelocity(Vector2 moveInput)
     {
         moveInput = Vector2.ClampMagnitude(moveInput, 1f);
@@ -759,8 +507,6 @@ public class PlayerMovement : PlayerComponent
         return targetDirection * (desiredSpeed * Player.MovementSpeedFactor.Val);
     }
 
-    public Vector2 AnimatorVelocity { get; private set; }
-
     private void UpdateMovementAnimations()
     {
         float moveX = Player.MoveInput.Get().x;
@@ -783,25 +529,25 @@ public class PlayerMovement : PlayerComponent
             normInput.y = rawInput.y = 2f;
         }
 
-        _smoothMove = FPSAnimLib.ExpDecay(_smoothMove, normInput, moveSmoothing, Time.deltaTime);
+        PlayerController._smoothMove = FPSAnimLib.ExpDecay(PlayerController._smoothMove, normInput, moveSmoothing, Time.deltaTime);
 
-        moveX = _smoothMove.x;
-        moveY = _smoothMove.y;
+        moveX = PlayerController._smoothMove.x;
+        moveY = PlayerController._smoothMove.y;
 
         Player.CharAnimData.moveInput = normInput;
 
         bool moving = Mathf.Approximately(0f, normInput.magnitude);
 
-        animator.SetBool(Moving, !moving);
-        animator.SetFloat(MoveX, AnimatorVelocity.x);
-        animator.SetFloat(MoveY, AnimatorVelocity.y);
-        animator.SetFloat(VelocityHash, AnimatorVelocity.magnitude);
+        PlayerController.Animator.SetBool(Moving, !moving);
+        PlayerController.Animator.SetFloat(MoveX, AnimatorVelocity.x);
+        PlayerController.Animator.SetFloat(MoveY, AnimatorVelocity.y);
+        PlayerController.Animator.SetFloat(VelocityHash, AnimatorVelocity.magnitude);
 
-        float a = animator.GetFloat(Sprinting);
+        float a = PlayerController.Animator.GetFloat(Sprinting);
         float b = Player.Sprint.Active ? 1f : 0f;
 
         a = Mathf.Lerp(a, b, FPSAnimLib.ExpDecayAlpha(_sprintAnimatorInterp, Time.deltaTime));
-        animator.SetFloat(Sprinting, a);
+        PlayerController.Animator.SetFloat(Sprinting, a);
     }
 
     private bool Try_ChangeControllerHeight(LowerHeightStateModule lowerHeightState)
@@ -817,9 +563,9 @@ public class PlayerMovement : PlayerComponent
             float height = (lowerHeightState == null) ? DefaultHeight : lowerHeightState.ControllerHeight;
 
             //If the "lowerHeightState" height is bigger than the current one check if there's anything over the Player's head
-            if (height > controller.height)
+            if (height > PlayerController.Controller.height)
             {
-                if (DoCollisionCheck(true, Mathf.Abs(height - controller.height)))
+                if (DoCollisionCheck(true, Mathf.Abs(height - PlayerController.Controller.height)))
                     return false;
             }
 
@@ -836,7 +582,7 @@ public class PlayerMovement : PlayerComponent
 
     private bool DoCollisionCheck(bool checkAbove, float maxDistance)
     {
-        Vector3 rayOrigin = transform.position + (checkAbove ? Vector3.up * controller.height : Vector3.zero);
+        Vector3 rayOrigin = transform.position + (checkAbove ? Vector3.up * PlayerController.Controller.height : Vector3.zero);
         Vector3 rayDirection = checkAbove ? Vector3.up : Vector3.down;
 
         return Physics.Raycast(rayOrigin, rayDirection, maxDistance, m_ObstacleCheckMask,
@@ -845,7 +591,7 @@ public class PlayerMovement : PlayerComponent
 
     private void SetHeight(float height)
     {
-        controller.height = height;
-        controller.center = Vector3.up * height * 0.5f;
+        PlayerController.Controller.height = height;
+        PlayerController.Controller.center = Vector3.up * height * 0.5f;
     }
 }

@@ -25,15 +25,11 @@ public class EquipmentHandler : PlayerComponent
     public Message OnChangeItem = new Message();
     public Activity UsingItem = new Activity();
     
-    public bool SetUnlimitedAmmo{ set => UnlimitedAmmo = value; } 
     public Transform ItemUseTransform => _itemUseTransform;
     public NetworkPlayerAnimController NetworkPlayerAnimController => networkPlayerAnimController;
     public EquipmentItem EquipmentItem => _attachedEquipmentItem;
     public RecoilAnimation RecoilAnimation => recoilAnimation;
-
-    public RecoilSystem RecoilSystem => recoilSystem;
-
-    public bool UnlimitedAmmo = false;
+    
 
     [SerializeField]
     protected Transform _itemUseTransform = null;
@@ -41,9 +37,6 @@ public class EquipmentHandler : PlayerComponent
     [SerializeField]
     [Group("Inverse of Accuracy - ", true)]
     protected UseRaySpread _useRaySpread = new UseRaySpread();
-
-    [SerializeField]
-    private RecoilSystem recoilSystem;
 
     protected EquipmentItem _attachedEquipmentItem;
     protected Item _attachedItem;

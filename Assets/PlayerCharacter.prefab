@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 1895776271821003155}
   - component: {fileID: 419679949317790978}
   - component: {fileID: 679187891474655109}
+  - component: {fileID: 5134971943985847803}
   - component: {fileID: 9002696774535915255}
   - component: {fileID: 4370667411450566502}
   - component: {fileID: 1699879842322006994}
@@ -270,6 +271,7 @@ GameObject:
   - component: {fileID: 7497252067756136866}
   - component: {fileID: 3521887106797249875}
   - component: {fileID: 1735444475744356481}
+  - component: {fileID: 4878195068895703616}
   m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -405,6 +407,23 @@ MonoBehaviour:
   SwayLayer: {fileID: 0}
   LocoLayer: {fileID: 0}
   SlotLayer: {fileID: 0}
+--- !u!114 &5134971943985847803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60831130146646323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04f41aa437d3a74fa48a41deef306ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1895776271821003155}
+  animator: {fileID: 5724985945354436955}
+  _smoothMove: {x: 0, y: 0}
+  _controllerRecoil: {x: 0, y: 0}
+  _recoilStep: 0
 --- !u!114 &9002696774535915255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,59 +436,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87325c0def1eda042afbab8157680f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1895776271821003155}
-  animator: {fileID: 5724985945354436955}
   networkPlayerAnimController: {fileID: 679187891474655109}
   moveSmoothing: 2
   m_ObstacleCheckMask:
     serializedVersion: 2
     m_Bits: 4294967295
   gravity: 20
-  mainCamera: {fileID: 3179879015786282014}
-  cameraHolder: {fileID: 7898899187186550477}
-  firstPersonCamera: {fileID: 5876332864707849072}
-  freeLookAngle: {x: 60, y: 60}
   aimMotionAsset: {fileID: 11400000, guid: 8d4c00b0add69ee479563b13a59805f9, type: 2}
   leanMotionAsset: {fileID: 11400000, guid: ba2e1a2496024db428982ac4e189d5e2, type: 2}
   crouchMotionAsset: {fileID: 11400000, guid: e17c7783a4255b748bf51256f0ae18c6, type: 2}
   unCrouchMotionAsset: {fileID: 11400000, guid: 991170ae987a91843b707059e6dd0d8a, type: 2}
   onJumpMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
   onLandedMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
-  turnInPlaceAngle: 85
-  turnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.002176483
-      value: -0.0024765858
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.021981
-      outSlope: 2.021981
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.06816644
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1.8089235
-      outSlope: 1.8089235
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.058966875
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 1.2
   m_CoreMovement:
     Acceleration: 5
     Damping: 8
@@ -528,9 +506,6 @@ MonoBehaviour:
     Enabled: 1
     SlideTreeshold: 32
     SlideSpeed: 15
-  _cameraRecoilOffset: {x: 0, y: 0}
-  _controllerRecoil: {x: 0, y: 0}
-  _recoilStep: 0
 --- !u!114 &4370667411450566502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1079,6 +1054,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ff2b872ea77274f8c7fc1fca2f534a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4878195068895703616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60831130146646323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc58c448c6e729040bbd101729247581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnInPlaceAngle: 85
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.002176483
+      value: -0.0024765858
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.021981
+      outSlope: 2.021981
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06816644
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.8089235
+      outSlope: 1.8089235
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.058966875
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1.2
+  mainCamera: {fileID: 3179879015786282014}
+  cameraHolder: {fileID: 7898899187186550477}
+  firstPersonCamera: {fileID: 5876332864707849072}
+  freeLookAngle: {x: 60, y: 60}
 --- !u!1 &61806343679571557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,7 +1424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeEHandler: {fileID: 1092326509248705420}
-  playerMovement: {fileID: 9002696774535915255}
+  playerController: {fileID: 5134971943985847803}
   m_AimWhileReloading: 0
   m_AutoReloadOnEmpty: 1
 --- !u!114 &1092326509248705420
@@ -1413,7 +1439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18adfc1f0cd81e048ab449b975cbf31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnlimitedAmmo: 0
   _itemUseTransform: {fileID: 3179879015786282014}
   _useRaySpread:
     JumpSpreadMod: 3.5
@@ -1422,7 +1447,6 @@ MonoBehaviour:
     ProneSpreadMod: 0.65
     WalkSpreadMod: 2.5
     AimSpreadMod: 0.5
-  recoilSystem: {fileID: 7998989277298157934}
   animator: {fileID: 5724985945354436955}
   networkPlayerAnimController: {fileID: 679187891474655109}
   recoilAnimation: {fileID: 4243781209551062720}
@@ -11108,50 +11132,6 @@ Transform:
   m_Father: {fileID: 797264416682667887}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5025001418219669960
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7129698439783762811}
-  - component: {fileID: 7998989277298157934}
-  m_Layer: 3
-  m_Name: RecoilSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7129698439783762811
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5025001418219669960}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3743685662678354664}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7998989277298157934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5025001418219669960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f910c5a422a4949a42d0cbd78cf681, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5046221182034896719
 GameObject:
   m_ObjectHideFlags: 0
@@ -14623,7 +14603,19 @@ MonoBehaviour:
       m_Calls: []
   onPostUpdate:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4878195068895703616}
+        m_TargetAssemblyTypeName: PlayerRotation, Assembly-CSharp
+        m_MethodName: UpdateCameraRotation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ikRigData:
     tPose: {fileID: 7400000, guid: 2df364b9152cd864bb0133f377909316, type: 2}
     animator: {fileID: 5724985945354436955}
@@ -15150,7 +15142,6 @@ Transform:
   - {fileID: 4929510333774477805}
   - {fileID: 2033577386576409066}
   - {fileID: 5578084450712346954}
-  - {fileID: 7129698439783762811}
   m_Father: {fileID: 1639508042764286975}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

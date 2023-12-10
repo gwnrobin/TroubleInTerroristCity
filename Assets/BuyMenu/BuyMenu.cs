@@ -65,8 +65,6 @@ public class BuyMenu : MonoBehaviour
     {
         if (selectedItem == null)
             return;
-
-        print("Test");
         
         player.Inventory.AddItem(new Item(selectedItem), ItemContainerFlags.Holster);
     }

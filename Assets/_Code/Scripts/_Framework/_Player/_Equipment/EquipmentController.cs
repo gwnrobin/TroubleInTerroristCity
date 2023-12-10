@@ -1,7 +1,4 @@
-using Kinemation.FPSFramework.Runtime.Recoil;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +7,7 @@ public class EquipmentController : PlayerComponent
     public EquipmentHandler activeEHandler;
 
     [SerializeField]
-    private PlayerMovement playerMovement;
+    private FPSPlayerController playerController;
 
     [SerializeField]
     private bool m_AimWhileReloading;
@@ -60,7 +57,7 @@ public class EquipmentController : PlayerComponent
     {
         if (activeEHandler.EquipmentItem.recoilPattern != null)
         {
-            playerMovement._recoilStep = activeEHandler.EquipmentItem.recoilPattern.step;
+            playerController._recoilStep = activeEHandler.EquipmentItem.recoilPattern.step;
         }
         
         return true;
@@ -69,8 +66,7 @@ public class EquipmentController : PlayerComponent
     private void StopUseItemHeld()
     {
         activeEHandler.RecoilAnimation.Stop();
-        playerMovement._recoilStep = 0;
-        print("test2");
+        playerController._recoilStep = 0;
     }
     
     private void Update()
@@ -271,9 +267,9 @@ public class EquipmentController : PlayerComponent
                     float hRecoil = Random.Range(activeEHandler.EquipmentItem.recoilPattern.horizontalVariation.x,
                         activeEHandler.EquipmentItem.recoilPattern.horizontalVariation.y);
                 
-                    playerMovement._controllerRecoil += new Vector2(hRecoil, playerMovement._recoilStep) * aimRatio;
+                    playerController._controllerRecoil += new Vector2(hRecoil, playerController._recoilStep) * aimRatio;
                 }
-                playerMovement._recoilStep += activeEHandler.EquipmentItem.recoilPattern.acceleration;
+                playerController._recoilStep += activeEHandler.EquipmentItem.recoilPattern.acceleration;
 
                 m_NextTimeCanAutoReload = Time.time + 0.35f;
             }
