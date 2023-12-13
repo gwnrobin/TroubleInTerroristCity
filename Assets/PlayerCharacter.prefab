@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 679187891474655109}
   - component: {fileID: 5134971943985847803}
   - component: {fileID: 9002696774535915255}
+  - component: {fileID: 4878195068895703616}
   - component: {fileID: 4370667411450566502}
   - component: {fileID: 1699879842322006994}
   - component: {fileID: 6184403301912317808}
@@ -271,7 +272,6 @@ GameObject:
   - component: {fileID: 7497252067756136866}
   - component: {fileID: 3521887106797249875}
   - component: {fileID: 1735444475744356481}
-  - component: {fileID: 4878195068895703616}
   m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -421,9 +421,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1895776271821003155}
   animator: {fileID: 5724985945354436955}
-  _smoothMove: {x: 0, y: 0}
-  _controllerRecoil: {x: 0, y: 0}
-  _recoilStep: 0
 --- !u!114 &9002696774535915255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkPlayerAnimController: {fileID: 679187891474655109}
   moveSmoothing: 2
-  m_ObstacleCheckMask:
+  obstacleCheckMask:
     serializedVersion: 2
     m_Bits: 4294967295
   gravity: 20
@@ -448,11 +445,11 @@ MonoBehaviour:
   unCrouchMotionAsset: {fileID: 11400000, guid: 991170ae987a91843b707059e6dd0d8a, type: 2}
   onJumpMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
   onLandedMotionAsset: {fileID: 11400000, guid: 3802f713565b150488506dd04aa04ea2, type: 2}
-  m_CoreMovement:
+  _coreMovement:
     Acceleration: 5
     Damping: 8
     AirborneControl: 0.15
-    StepLength: 1
+    StepLength: 1.2
     ForwardSpeed: 2.5
     BackSpeed: 2.5
     SideSpeed: 2.5
@@ -480,32 +477,84 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    AntiBumpFactor: 0.05
+    AntiBumpFactor: 1
     HeadBounceFactor: 0.65
-  m_RunState:
+  _runState:
     Enabled: 1
     SpeedMultiplier: 4.5
-    StepLength: 1.6
-  m_CrouchState:
+    StepLength: 1.9
+  _crouchState:
     Enabled: 1
-    SpeedMultiplier: 0.65
-    StepLength: 0.85
-    ControllerHeight: 1.1
+    SpeedMultiplier: 4.5
+    StepLength: 1.9
+    ControllerHeight: 1
     TransitionDuration: 0.3
-  m_ProneState:
+  _proneState:
     Enabled: 1
-    SpeedMultiplier: 0.35
-    StepLength: 0.6
-    ControllerHeight: 0.4
+    SpeedMultiplier: 4.5
+    StepLength: 1.9
+    ControllerHeight: 1
     TransitionDuration: 0.3
-  m_JumpState:
+  _jumpState:
     Enabled: 1
     JumpHeight: 1
     JumpTimer: 0.3
-  m_SlidingState:
-    Enabled: 1
+  _slidingState:
+    Enabled: 0
     SlideTreeshold: 32
     SlideSpeed: 15
+--- !u!114 &4878195068895703616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60831130146646323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc58c448c6e729040bbd101729247581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 9002696774535915255}
+  turnInPlaceAngle: 85
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.002176483
+      value: -0.0024765858
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.021981
+      outSlope: 2.021981
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06816644
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.8089235
+      outSlope: 1.8089235
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.058966875
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1.2
+  mainCamera: {fileID: 3179879015786282014}
+  cameraHolder: {fileID: 7898899187186550477}
+  firstPersonCamera: {fileID: 5876332864707849072}
+  freeLookAngle: {x: 60, y: 60}
 --- !u!114 &4370667411450566502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1054,57 +1103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ff2b872ea77274f8c7fc1fca2f534a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4878195068895703616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 60831130146646323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc58c448c6e729040bbd101729247581, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnInPlaceAngle: 85
-  turnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.002176483
-      value: -0.0024765858
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.021981
-      outSlope: 2.021981
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.06816644
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1.8089235
-      outSlope: 1.8089235
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.058966875
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 1.2
-  mainCamera: {fileID: 3179879015786282014}
-  cameraHolder: {fileID: 7898899187186550477}
-  firstPersonCamera: {fileID: 5876332864707849072}
-  freeLookAngle: {x: 60, y: 60}
 --- !u!1 &61806343679571557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeEHandler: {fileID: 1092326509248705420}
-  playerController: {fileID: 5134971943985847803}
+  playerCameraController: {fileID: 4878195068895703616}
   m_AimWhileReloading: 0
   m_AutoReloadOnEmpty: 1
 --- !u!114 &1092326509248705420

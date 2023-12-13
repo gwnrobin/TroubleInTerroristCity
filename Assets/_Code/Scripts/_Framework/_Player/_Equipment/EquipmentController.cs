@@ -7,7 +7,7 @@ public class EquipmentController : PlayerComponent
     public EquipmentHandler activeEHandler;
 
     [SerializeField]
-    private FPSPlayerController playerController;
+    private FPSPlayerCamera playerCameraController;
 
     [SerializeField]
     private bool m_AimWhileReloading;
@@ -20,6 +20,8 @@ public class EquipmentController : PlayerComponent
     private float m_NextTimeCanAutoReload;
     private float m_NextTimeToEquip;
     private bool m_WaitingToEquip = true;
+    
+    private float _recoilStep;
 
     private int _index;
 
@@ -52,22 +54,6 @@ public class EquipmentController : PlayerComponent
         Player.Holster.SetStartTryer(TryStartHolster);
         Player.Holster.AddStopListener(OnHolsterStop);
     }
-
-    private bool TryStartUse()
-    {
-        if (activeEHandler.EquipmentItem.recoilPattern != null)
-        {
-            playerController._recoilStep = activeEHandler.EquipmentItem.recoilPattern.step;
-        }
-        
-        return true;
-    }
-
-    private void StopUseItemHeld()
-    {
-        activeEHandler.RecoilAnimation.Stop();
-        playerController._recoilStep = 0;
-    }
     
     private void Update()
     {
@@ -94,6 +80,22 @@ public class EquipmentController : PlayerComponent
         LastFrameActiveReload = Player.Reload.Active;
 
         StartCoroutine(UseLate());
+    }
+
+    private bool TryStartUse()
+    {
+        if (activeEHandler.EquipmentItem.recoilPattern != null)
+        {
+            _recoilStep = activeEHandler.EquipmentItem.recoilPattern.step;
+        }
+        
+        return true;
+    }
+
+    private void StopUseItemHeld()
+    {
+        activeEHandler.RecoilAnimation.Stop();
+        _recoilStep = 0;
     }
 
     private IEnumerator UseLate()
@@ -180,7 +182,6 @@ public class EquipmentController : PlayerComponent
         Player.EquippedItem.Set(item);
     }
 
-
     private bool TrySwapItems(Item item)
     {
         Item currentItem = Player.EquippedItem.Get();
@@ -223,9 +224,7 @@ public class EquipmentController : PlayerComponent
             return true;
         }
     }
-
-    //public virtual bool TryStartReload() => _attachedEquipmentItem.TryStartReload();
-
+    
     private bool TryStartReload()
     {
         bool reloadStarted = activeEHandler.TryStartReload();
@@ -267,9 +266,9 @@ public class EquipmentController : PlayerComponent
                     float hRecoil = Random.Range(activeEHandler.EquipmentItem.recoilPattern.horizontalVariation.x,
                         activeEHandler.EquipmentItem.recoilPattern.horizontalVariation.y);
                 
-                    playerController._controllerRecoil += new Vector2(hRecoil, playerController._recoilStep) * aimRatio;
+                    playerCameraController.AddRecoil(new Vector2(hRecoil, _recoilStep) * aimRatio);
                 }
-                playerController._recoilStep += activeEHandler.EquipmentItem.recoilPattern.acceleration;
+                _recoilStep += activeEHandler.EquipmentItem.recoilPattern.acceleration;
 
                 m_NextTimeCanAutoReload = Time.time + 0.35f;
             }

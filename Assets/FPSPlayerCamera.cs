@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class FPSPlayerCamera : FPSPlayerComponent
 {
-    [Space] [Header("Turning")] [SerializeField]
-    private float turnInPlaceAngle;
+    [SerializeField] private FPSPlayerMovement playerMovement;
+    
+    [Space] [Header("Turning")] 
+    [SerializeField] private float turnInPlaceAngle;
 
     [SerializeField] private AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
     [SerializeField] private float turnSpeed = 1f;
@@ -16,6 +18,8 @@ public class FPSPlayerCamera : FPSPlayerComponent
     
     [SerializeField] private Vector2 freeLookAngle;
     
+    private Vector2 _controllerRecoil;
+    
     private Quaternion _moveRotation;
     private float _turnProgress = 1f;
     private bool _isTurning;
@@ -25,7 +29,7 @@ public class FPSPlayerCamera : FPSPlayerComponent
     private bool _isFiring;
     
     private Vector2 _freeLookInput;
-    private Vector2 look;
+    private Vector2 _look;
     private bool _freeLook;
     
     private static readonly int TurnRight = Animator.StringToHash("TurnRight");
@@ -45,10 +49,14 @@ public class FPSPlayerCamera : FPSPlayerComponent
         }
     }
 
+    public void AddRecoil(Vector2 recoil)
+    {
+        _controllerRecoil += recoil;
+    }
 
     private void UpdateRecoil()
     {
-        if (Mathf.Approximately(PlayerController._controllerRecoil.magnitude, 0f)
+        if (Mathf.Approximately(_controllerRecoil.magnitude, 0f)
             && Mathf.Approximately(_cameraRecoilOffset.magnitude, 0f))
         {
             return;
@@ -66,13 +74,13 @@ public class FPSPlayerCamera : FPSPlayerComponent
             cameraWeight = recoilPattern.cameraWeight;
         }
 
-        PlayerController._controllerRecoil = Vector2.Lerp(PlayerController._controllerRecoil, Vector2.zero,
+        _controllerRecoil = Vector2.Lerp(_controllerRecoil, Vector2.zero,
             FPSAnimLib.ExpDecayAlpha(smoothing, Time.deltaTime));
 
-        look += PlayerController._controllerRecoil * Time.deltaTime;
+        _look += _controllerRecoil * Time.deltaTime;
 
         Vector2 clamp = Vector2.Lerp(Vector2.zero, new Vector2(90f, 90f), cameraWeight);
-        _cameraRecoilOffset -= PlayerController._controllerRecoil * Time.deltaTime;
+        _cameraRecoilOffset -= _controllerRecoil * Time.deltaTime;
         _cameraRecoilOffset = Vector2.ClampMagnitude(_cameraRecoilOffset, clamp.magnitude);
 
         if (_isFiring) return;
@@ -104,32 +112,32 @@ public class FPSPlayerCamera : FPSPlayerComponent
         _freeLookInput = Vector2.Lerp(_freeLookInput, Vector2.zero,
             FPSAnimLib.ExpDecayAlpha(15f, Time.deltaTime));
 
-        look.x += deltaMouseX;
-        look.y += deltaMouseY;
+        _look.x += deltaMouseX;
+        _look.y += deltaMouseY;
 
         float proneWeight = PlayerController.Animator.GetFloat("ProneWeight");
         Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
 
-        look.y = Mathf.Clamp(look.y, pitchClamp.x, pitchClamp.y);
+        _look.y = Mathf.Clamp(_look.y, pitchClamp.x, pitchClamp.y);
         _moveRotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
         TurnInPlace();
 
         //_jumpState = Mathf.Lerp(_jumpState, movementComponent.IsInAir() ? 1f : 0f,
         // FPSAnimLib.ExpDecayAlpha(10f, Time.deltaTime));
 
-        float moveWeight = Mathf.Clamp01(Mathf.Abs(PlayerController._smoothMove.magnitude));
+        float moveWeight = Mathf.Clamp01(Mathf.Abs(playerMovement.SmoothMove.magnitude));
         transform.rotation = Quaternion.Slerp(transform.rotation, _moveRotation, moveWeight);
         //transform.rotation = Quaternion.Slerp(transform.rotation, moveRotation, _jumpState);
-        look.x *= 1f - moveWeight;
+        _look.x *= 1f - moveWeight;
         //look.x *= 1f - _jumpState;
 
-        Player.CharAnimData.SetAimInput(look);
+        Player.CharAnimData.SetAimInput(_look);
         Player.CharAnimData.AddDeltaInput(new Vector2(deltaMouseX, Player.CharAnimData.deltaAimInput.y));
     }
 
     public void UpdateCameraRotation()
     {
-        Vector2 finalInput = new Vector2(look.x, look.y);
+        Vector2 finalInput = new Vector2(_look.x, _look.y);
         (Quaternion, Vector3) cameraTransform =
             (transform.rotation * Quaternion.Euler(finalInput.y, finalInput.x, 0f),
                 firstPersonCamera.position);
@@ -142,12 +150,12 @@ public class FPSPlayerCamera : FPSPlayerComponent
 
     private void TurnInPlace()
     {
-        float turnInput = look.x;
-        look.x = Mathf.Clamp(look.x, -90f, 90f);
-        turnInput -= look.x;
+        float turnInput = _look.x;
+        _look.x = Mathf.Clamp(_look.x, -90f, 90f);
+        turnInput -= _look.x;
 
-        float sign = Mathf.Sign(look.x);
-        if (Mathf.Abs(look.x) > turnInPlaceAngle)
+        float sign = Mathf.Sign(_look.x);
+        if (Mathf.Abs(_look.x) > turnInPlaceAngle)
         {
             if (!_isTurning)
             {
@@ -170,7 +178,7 @@ public class FPSPlayerCamera : FPSPlayerComponent
 
         float deltaProgress = turnCurve.Evaluate(_turnProgress) - lastProgress;
 
-        look.x -= sign * turnInPlaceAngle * deltaProgress;
+        _look.x -= sign * turnInPlaceAngle * deltaProgress;
 
         transform.rotation *= Quaternion.Slerp(Quaternion.identity,
             Quaternion.Euler(0f, sign * turnInPlaceAngle, 0f), deltaProgress);

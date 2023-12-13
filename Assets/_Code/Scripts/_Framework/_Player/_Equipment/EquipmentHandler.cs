@@ -1,11 +1,9 @@
-using Kinemation.FPSFramework.Runtime.Layers;
-using Kinemation.FPSFramework.Runtime.Recoil;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Kinemation.FPSFramework.Runtime.FPSAnimator;
+using Kinemation.FPSFramework.Runtime.Recoil;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class EquipmentHandler : PlayerComponent
 {
@@ -22,8 +20,8 @@ public class EquipmentHandler : PlayerComponent
     }
 
     public int ContinuouslyUsedTimes { get => _continuouslyUsedTimes; }
-    public Message OnChangeItem = new Message();
-    public Activity UsingItem = new Activity();
+    public Message OnChangeItem = new();
+    public Activity UsingItem = new();
     
     public Transform ItemUseTransform => _itemUseTransform;
     public NetworkPlayerAnimController NetworkPlayerAnimController => networkPlayerAnimController;
@@ -32,11 +30,11 @@ public class EquipmentHandler : PlayerComponent
     
 
     [SerializeField]
-    protected Transform _itemUseTransform = null;
+    protected Transform _itemUseTransform;
 
     [SerializeField]
-    [Group("Inverse of Accuracy - ", true)]
-    protected UseRaySpread _useRaySpread = new UseRaySpread();
+    [Group("Inverse of Accuracy - ")]
+    protected UseRaySpread _useRaySpread;
 
     protected EquipmentItem _attachedEquipmentItem;
     protected Item _attachedItem;
@@ -53,7 +51,7 @@ public class EquipmentHandler : PlayerComponent
     protected AudioSource m_AudioSource;
     protected AudioSource m_PersistentAudioSource;
 
-    protected int _continuouslyUsedTimes = 0;
+    protected int _continuouslyUsedTimes;
     protected float _nextTimeCanUseItem = -1f;
 
     protected List<QueuedSound> m_QueuedSounds = new List<QueuedSound>();
@@ -63,7 +61,6 @@ public class EquipmentHandler : PlayerComponent
     protected void Start()
     {
         _unarmed = GetComponentInChildren<Unarmed>(true);
-        //yield return new WaitForEndOfFrame();
 
         EquipmentItem[] equipmentItems = GetComponentsInChildren<EquipmentItem>(true);
         ItemInfo itemInfo;
@@ -97,7 +94,7 @@ public class EquipmentHandler : PlayerComponent
         }
         
         // Equipment Items AudioSource (For Overall first person items audio)
-        m_AudioSource = AudioUtils.CreateAudioSource("Audio Source", transform, Vector3.zero, false, 1f, 1f);
+        m_AudioSource = AudioUtils.CreateAudioSource("Audio Source", transform, Vector3.zero);
         m_AudioSource.bypassEffects = m_AudioSource.bypassListenerEffects = m_AudioSource.bypassReverbZones = false;
         m_AudioSource.maxDistance = 500f;
 
@@ -165,8 +162,7 @@ public class EquipmentHandler : PlayerComponent
 
         if (_equipmentItems.TryGetValue(itemId, out EquipmentItem equipmentItem))
             return equipmentItem;
-        else
-            return null;
+        return null;
     }
 
     protected virtual void Update()
@@ -337,7 +333,7 @@ public class EquipmentHandler : PlayerComponent
 
         for (int i = 0; i < itemUseRays.Length; i++)
         {
-            Vector3 raySpreadVector = anchor.TransformVector(new Vector3(UnityEngine.Random.Range(-raySpread, raySpread), UnityEngine.Random.Range(-raySpread, raySpread), 0f));
+            Vector3 raySpreadVector = anchor.TransformVector(new Vector3(Random.Range(-raySpread, raySpread), Random.Range(-raySpread, raySpread), 0f));
             Vector3 rayDirection = Quaternion.Euler(raySpreadVector) * anchor.forward;
 
             itemUseRays[i] = new Ray(anchor.position, rayDirection);

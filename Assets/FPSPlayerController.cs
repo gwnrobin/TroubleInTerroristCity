@@ -9,10 +9,6 @@ public class FPSPlayerController : PlayerComponent
 
     public CharacterController Controller => controller;
     public Animator Animator => animator;
-
-    public Vector2 _smoothMove;
-    public Vector2 _controllerRecoil;
-    public float _recoilStep;
 }
 
 public class FPSPlayerComponent : PlayerComponent
@@ -21,7 +17,6 @@ public class FPSPlayerComponent : PlayerComponent
     {
         get
         {
-
             if (!_playerController)
                 _playerController = GetComponent<FPSPlayerController>();
             if (!_playerController)
