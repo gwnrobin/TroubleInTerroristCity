@@ -13,7 +13,7 @@ public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a 
 	[Space]
 
 	[SerializeField]
-	protected Vector3 m_DropOffset = new Vector3(0f, 0f, 0.8f);
+	protected Vector3 m_DropOffset = new(0f, 0f, 0.8f);
 
 	[SerializeField]
 	[Range(0.01f, 1f)]

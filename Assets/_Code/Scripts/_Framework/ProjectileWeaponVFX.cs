@@ -58,7 +58,7 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 	}
 	#endregion
 
-	[Group] public ParticleEffectsInfo ParticleEffects = new ParticleEffectsInfo();
+	[Group] public ParticleEffectsInfo ParticleEffects = new();
 	[Group] public CasingEjectionInfo CasingEjection;
 	[Group] public MagazineEjectionInfo MagazineEjection;
 

@@ -28,7 +28,7 @@ public class ProjectileWeaponInfo : EquipmentItemInfo
         public FireMode Modes = FireMode.Semi;
 
         [Tooltip("How the fire rate will transform (in continuous use) on the duration of the magazine, the max x value(1) will be used if the whole magazine has been used")]
-        public AnimationCurve FireRateOverTime = new AnimationCurve(
+        public AnimationCurve FireRateOverTime = new(
             new Keyframe(0f, 1f),
             new Keyframe(1f, 1f));
 

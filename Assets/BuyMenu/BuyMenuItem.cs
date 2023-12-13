@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class BuyMenuItem : MonoBehaviour
 {
-    public UnityEvent<ItemInfo> ButtonPress = new UnityEvent<ItemInfo>();
+    public UnityEvent<ItemInfo> ButtonPress = new();
     
     [SerializeField] private Image image;
     [SerializeField] private Button button;

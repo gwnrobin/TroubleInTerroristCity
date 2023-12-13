@@ -34,7 +34,7 @@ public class OnCollisionBehaviour : MonoBehaviour
 	[Space]
 
 	[SerializeField]
-	private UnityEvent m_OnCollisionEvent = new UnityEvent();
+	private UnityEvent m_OnCollisionEvent = new();
 
 	[SerializeField]
 	[Group]

@@ -8,7 +8,7 @@ public class FPSPlayerCamera : FPSPlayerComponent
     [Space] [Header("Turning")] 
     [SerializeField] private float turnInPlaceAngle;
 
-    [SerializeField] private AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
+    [SerializeField] private AnimationCurve turnCurve = new(new Keyframe(0f, 0f));
     [SerializeField] private float turnSpeed = 1f;
     
     [Space] [Header("Camera")] 

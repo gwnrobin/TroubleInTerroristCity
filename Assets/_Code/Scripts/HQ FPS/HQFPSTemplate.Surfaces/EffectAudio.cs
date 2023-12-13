@@ -11,7 +11,7 @@ namespace HQFPSTemplate.Surfaces
         [SerializeField]
         private SoundPlayer m_SoundPlayer;
 
-        private static Dictionary<string, SoundPlayer> SOUND_PLAYERS = new Dictionary<string, SoundPlayer>();
+        private static Dictionary<string, SoundPlayer> SOUND_PLAYERS = new();
 
 
         public void PlayAudio3D(float volume)

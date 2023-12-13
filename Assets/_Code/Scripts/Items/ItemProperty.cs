@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class ItemProperty
 {
-    public Message<ItemProperty> Changed = new Message<ItemProperty>();
+    public Message<ItemProperty> Changed = new();
 
     public string Name { get => m_Name; }
     public ItemPropertyType Type { get => m_Type; }

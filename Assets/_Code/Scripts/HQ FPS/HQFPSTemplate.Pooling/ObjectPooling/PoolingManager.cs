@@ -5,8 +5,8 @@ namespace HQFPSTemplate.Pooling
 {
     public class PoolingManager : Singleton<PoolingManager>
     {
-        private Dictionary<string, ObjectPool> m_Pools = new Dictionary<string, ObjectPool>(50);
-        private SortedList<float, PoolableObject> m_ObjectsToRelease = new SortedList<float, PoolableObject>();
+        private Dictionary<string, ObjectPool> m_Pools = new(50);
+        private SortedList<float, PoolableObject> m_ObjectsToRelease = new();
 
 
         public ObjectPool CreatePool(GameObject template, int minSize, int maxSize, bool autoShrink, string poolId, float autoReleaseDelay = Mathf.Infinity)

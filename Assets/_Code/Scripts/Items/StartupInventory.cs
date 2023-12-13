@@ -19,7 +19,7 @@ public class ItemGenerator
     [DatabaseItem] [SerializeField] public string Name;
 
     [SerializeField] [MinMax(1, 100, false)]
-    private Vector2Int CountRange = new Vector2Int(1, 100);
+    private Vector2Int CountRange = new(1, 100);
 
 
     public int GetRandomCount()

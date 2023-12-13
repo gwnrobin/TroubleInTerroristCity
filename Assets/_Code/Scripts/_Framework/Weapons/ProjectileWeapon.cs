@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class ProjectileWeapon : EquipmentItem
 {
-    public Value<AmmoInfo> CurrentAmmoInfo = new Value<AmmoInfo>();
-    public Message<Vector3[]> FireHitPoints = new Message<Vector3[]>();
+    public Value<AmmoInfo> CurrentAmmoInfo = new();
+    public Message<Vector3[]> FireHitPoints = new();
 
     protected int _ammoProperty;
 

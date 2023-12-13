@@ -15,8 +15,8 @@ public class InteractiveObject : MonoBehaviour
 	}
 	#endregion
 
-	public readonly Value<float> InteractionProgress = new Value<float>();
-	public readonly Value<string> InteractionText = new Value<string>();
+	public readonly Value<float> InteractionProgress = new();
+	public readonly Value<string> InteractionText = new();
 
 	public bool InteractionEnabled { get { return m_InteractionEnabled; } set { m_InteractionEnabled = value; } }
 

@@ -13,7 +13,7 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     public GameObject PlayerPrefab;
     
     [SerializedDictionary("id", "player")]
-    public SerializedDictionary<ulong, PlayerData> Players = new SerializedDictionary<ulong, PlayerData>();
+    public SerializedDictionary<ulong, PlayerData> Players = new();
     
     public Player GetPlayerByObjectId(ulong objectId)
     {

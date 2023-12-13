@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioUtils : Singleton<AudioUtils>
 {
-	private readonly Dictionary<AudioSource, Coroutine> m_LevelSetters = new Dictionary<AudioSource, Coroutine>();
+	private readonly Dictionary<AudioSource, Coroutine> m_LevelSetters = new();
 
 	[SerializeField]
 	private AudioSource m_2DAudioSource;

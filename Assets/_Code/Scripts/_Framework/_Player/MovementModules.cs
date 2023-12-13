@@ -30,7 +30,7 @@ public class CoreMovementModule
 
     [Range(0f, 10f)] public float SideSpeed = 2.5f;
 
-    public AnimationCurve SlopeSpeedMult = new AnimationCurve(new Keyframe(0f, 1f), new Keyframe(1f, 1f));
+    public AnimationCurve SlopeSpeedMult = new(new Keyframe(0f, 1f), new Keyframe(1f, 1f));
 
     public float AntiBumpFactor = 1f;
 

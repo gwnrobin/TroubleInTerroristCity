@@ -9,7 +9,7 @@ public abstract class ReorderableArray<T> : ICloneable, IList<T>, ICollection<T>
     public List<T> List { get { return m_List; } set { m_List = value; } }
 
     [SerializeField]
-    private List<T> m_List = new List<T>();
+    private List<T> m_List = new();
 
 
     public ReorderableArray(): this(0) {  }

@@ -54,9 +54,9 @@ public class EquipmentHandler : PlayerComponent
     protected int _continuouslyUsedTimes;
     protected float _nextTimeCanUseItem = -1f;
 
-    protected List<QueuedSound> m_QueuedSounds = new List<QueuedSound>();
+    protected List<QueuedSound> m_QueuedSounds = new();
 
-    public Dictionary<int, EquipmentItem> _equipmentItems = new Dictionary<int, EquipmentItem>();
+    public Dictionary<int, EquipmentItem> _equipmentItems = new();
 
     protected void Start()
     {

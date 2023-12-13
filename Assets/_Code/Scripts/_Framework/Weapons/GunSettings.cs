@@ -18,7 +18,7 @@ public class GunSettings
         public float RaySpread = 1f;
 
         [Tooltip("How the bullet spread will transform (in continuous use) on the duration of the magazine, the max x value(1) will be used if the whole magazine has been used")]
-        public AnimationCurve SpreadOverTime = new AnimationCurve(
+        public AnimationCurve SpreadOverTime = new(
             new Keyframe(0f, .8f),
             new Keyframe(1f, 1f));
 
@@ -46,7 +46,7 @@ public class GunSettings
 
         [SerializeField]
         [Tooltip("How damage and impulse lowers over distance.")]
-        private AnimationCurve m_DistanceCurve = new AnimationCurve(
+        private AnimationCurve m_DistanceCurve = new(
             new Keyframe(0f, 1f),
             new Keyframe(0.8f, 0.5f),
             new Keyframe(1f, 0f));

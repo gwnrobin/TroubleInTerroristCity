@@ -5,5 +5,5 @@ using UnityEngine;
 public class BuyMenuItemCollection : ScriptableObject
 {
     [DatabaseItem]
-    public List<string> items = new List<string>();
+    public List<string> items = new();
 }

@@ -18,9 +18,9 @@ using Random = UnityEngine.Random;
 		//[Reorderable]
 		private ItemPropertyDefinitionList m_ItemProperties;
 
-		private List<ItemInfo> m_Items = new List<ItemInfo>();
-		private Dictionary<int, ItemInfo> m_ItemsById = new Dictionary<int, ItemInfo>();
-		private Dictionary<string, ItemInfo> m_ItemsByName = new Dictionary<string, ItemInfo>();
+		private List<ItemInfo> m_Items = new();
+		private Dictionary<int, ItemInfo> m_ItemsById = new();
+		private Dictionary<string, ItemInfo> m_ItemsByName = new();
 
 
 		public static ItemInfo GetItemAtIndex(int index)

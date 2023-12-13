@@ -12,7 +12,7 @@ public enum SlotChangeType
 public class ItemSlot
 {
 	/// <summary>Sent when this slot has changed (e.g. when the item has changed).</summary>
-	public Message<ItemSlot, SlotChangeType> Changed = new Message<ItemSlot, SlotChangeType>();
+	public Message<ItemSlot, SlotChangeType> Changed = new();
 
 	public bool HasItem { get { return Item != null; } }
 	public Item Item { get { return m_Item; } }

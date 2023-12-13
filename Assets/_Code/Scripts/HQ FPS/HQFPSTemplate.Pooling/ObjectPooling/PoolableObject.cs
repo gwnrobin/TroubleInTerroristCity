@@ -7,8 +7,8 @@ namespace HQFPSTemplate.Pooling
     {
         public string PoolId { get => m_PoolId; }
 
-        public UnityEvent OnReleasedEvent = new UnityEvent();
-        public UnityEvent OnUseEvent = new UnityEvent();
+        public UnityEvent OnReleasedEvent = new();
+        public UnityEvent OnUseEvent = new();
 
         private bool m_Initialized;
         private string m_PoolId;

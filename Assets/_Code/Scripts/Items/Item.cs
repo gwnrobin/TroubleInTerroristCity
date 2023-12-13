@@ -4,10 +4,10 @@ using UnityEngine;
 public class Item
 {
 	[NonSerialized]
-	public Message<ItemProperty> PropertyChanged = new Message<ItemProperty>();
+	public Message<ItemProperty> PropertyChanged = new();
 
 	[NonSerialized]
-	public Message StackChanged = new Message();
+	public Message StackChanged = new();
 
 	public ItemInfo Info { get { return ItemDatabase.GetItemById(m_Id); } }
 

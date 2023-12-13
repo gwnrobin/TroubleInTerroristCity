@@ -4,7 +4,7 @@ using UnityEngine;
 public class Inventory : EntityComponent
 {
 
-	public Message ContainerChanged = new Message();
+	public Message ContainerChanged = new();
 
 	public List<ItemContainer> Containers
 	{

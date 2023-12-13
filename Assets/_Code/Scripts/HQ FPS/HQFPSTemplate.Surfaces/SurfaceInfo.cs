@@ -41,7 +41,7 @@ namespace HQFPSTemplate.Surfaces
 		[Group]
 		public EffectPair StabEffect;
 
-		private HashSet<Texture> m_CachedTextures = new HashSet<Texture>();
+		private HashSet<Texture> m_CachedTextures = new();
 
 
 		public void CacheTextures()

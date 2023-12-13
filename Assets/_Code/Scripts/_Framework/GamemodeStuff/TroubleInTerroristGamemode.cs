@@ -18,7 +18,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     
     public UnityEvent PlayerDied;
 
-    private Dictionary<string, UnityEvent> _events = new Dictionary<string, UnityEvent>();
+    private Dictionary<string, UnityEvent> _events = new();
     
     [SerializeField] private float _minimalPlayers;
     [SerializeField] private float _roundDuration;
@@ -26,13 +26,13 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     
     public bool gamemodeStarted;
     
-    private List<ulong> _innocents = new List<ulong>();
-    private List<ulong> _traitors = new List<ulong>();
+    private List<ulong> _innocents = new();
+    private List<ulong> _traitors = new();
     
     [SerializeField]
-    private List<ulong> _playersAlive = new List<ulong>();
+    private List<ulong> _playersAlive = new();
     [SerializeField]
-    private List<ulong> _playersDead = new List<ulong>();
+    private List<ulong> _playersDead = new();
     
     public List<ulong> GetInnocents => _innocents;
     public List<ulong> GetTraitors => _traitors;

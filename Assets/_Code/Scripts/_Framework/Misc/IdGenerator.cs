@@ -2,7 +2,7 @@ using System;
 
 public class IdGenerator
 {
-    private static Random m_Random = new Random();
+    private static Random m_Random = new();
 
 
     /// <summary>

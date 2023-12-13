@@ -39,10 +39,10 @@ public class ItemPickup : InteractiveObject
 	[Space]
 
 	[SerializeField]
-	protected Color m_BaseMessageColor = new Color(1f, 1f, 1f, 0.678f);
+	protected Color m_BaseMessageColor = new(1f, 1f, 1f, 0.678f);
 
 	[SerializeField]
-	protected Color m_ItemCountColor = new Color(0.976f, 0.6f, 0.129f, 1f);
+	protected Color m_ItemCountColor = new(0.976f, 0.6f, 0.129f, 1f);
 
 	[SerializeField]
 	protected Color m_InventoryFullColor = Color.red;

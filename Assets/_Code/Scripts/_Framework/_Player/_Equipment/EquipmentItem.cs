@@ -59,13 +59,13 @@ public class EquipmentItem : PlayerComponent
         { }
 
         [BHeader("Equipped / Unequipped", true)]
-        public SimpleBoolEvent OnEquipped = new SimpleBoolEvent();
+        public SimpleBoolEvent OnEquipped = new();
 
         [BHeader("Reload Start / Reload Stop", true)]
-        public SimpleBoolEvent OnReload = new SimpleBoolEvent();
+        public SimpleBoolEvent OnReload = new();
 
         [BHeader("Aim Start / Aim Stop", true)]
-        public SimpleBoolEvent OnAim = new SimpleBoolEvent();
+        public SimpleBoolEvent OnAim = new();
 
         [Space]
 

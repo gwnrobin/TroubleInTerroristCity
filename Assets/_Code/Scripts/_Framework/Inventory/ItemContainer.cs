@@ -13,7 +13,7 @@ public class ItemContainer : IEnumerable
 	/// <summary>
 	/// Useful for component syncing (e.g. item wheel and equipment selection)
 	/// </summary>
-	public Value<int> SelectedSlot = new Value<int>();
+	public Value<int> SelectedSlot = new();
 
 	public ItemSlot[] Slots { get { return m_Slots; } }
 
@@ -22,7 +22,7 @@ public class ItemContainer : IEnumerable
 	public ItemContainerFlags Flag { get { return m_Flag; } }
 	public Transform Transform { get { return m_Transform; } }
 
-	public Message<ItemSlot> Changed = new Message<ItemSlot>();
+	public Message<ItemSlot> Changed = new();
 
 	private Transform m_Transform;
 
