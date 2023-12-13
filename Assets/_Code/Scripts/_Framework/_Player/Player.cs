@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Kinemation.FPSFramework.Runtime.Core.Types;
-using Unity.Netcode;
 using UnityEngine;
 
 public class Player : Humanoid
@@ -38,7 +37,7 @@ public class Player : Humanoid
     //public readonly Activity Sliding = new Activity();
 
     [Header("Camera")]
-    [SerializeField] private Camera m_PlayerCamera = null;
+    [SerializeField] private Camera m_PlayerCamera;
 
     public CharAnimData CharAnimData;
     

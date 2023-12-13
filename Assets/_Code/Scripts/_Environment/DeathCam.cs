@@ -6,8 +6,8 @@ public class DeathCam : MonoBehaviour
     public float mouseSensitivity = .1f;
     public float moveSpeed = 5f;
 
-    private float rotationX = 0f;
-    private float rotationY = 0f; // Store horizontal rotation separately
+    private float rotationX;
+    private float rotationY; // Store horizontal rotation separately
 
     private float mouseX;
     private float mouseY;

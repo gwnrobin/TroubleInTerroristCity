@@ -1,19 +1,12 @@
-using Kinemation.FPSFramework.Runtime.Core;
-using Kinemation.FPSFramework.Runtime.Core.Types;
-using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using Kinemation.FPSFramework.Runtime.Recoil;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ProjectileWeapon : EquipmentItem
 {
     public Value<AmmoInfo> CurrentAmmoInfo = new Value<AmmoInfo>();
     public Message<Vector3[]> FireHitPoints = new Message<Vector3[]>();
 
-    protected int _ammoProperty = 0;
+    protected int _ammoProperty;
 
     public override float FireRate { get => _projectileWeaponInfo.Shooting.RoundsPerMinute; }
     public override FireMode FireMode { get => _projectileWeaponInfo.Shooting.Modes; }
@@ -322,7 +315,7 @@ public class ProjectileWeapon : EquipmentItem
             return;
 
         CurrentAmmoInfo.Set(
-            new AmmoInfo()
+            new AmmoInfo
             {
                 CurrentInMagazine = _ammoProperty,
 

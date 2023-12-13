@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -31,13 +29,13 @@ public class DamageResistance
     {
         if (damageData.DamageType == DamageType.Generic)
             return m_GenericResistance;
-        else if (damageData.DamageType == DamageType.Cut)
+        if (damageData.DamageType == DamageType.Cut)
             return m_CutResistance;
-        else if (damageData.DamageType == DamageType.Hit)
+        if (damageData.DamageType == DamageType.Hit)
             return m_HitResistance;
-        else if (damageData.DamageType == DamageType.Stab)
+        if (damageData.DamageType == DamageType.Stab)
             return m_StabResistance;
-        else if (damageData.DamageType == DamageType.Bullet)
+        if (damageData.DamageType == DamageType.Bullet)
             return m_BulletResistance;
 
         return 0f;
@@ -86,13 +84,13 @@ public class GenericVitals : EntityComponent
 
     [SerializeField]
     [Group]
-    private GenericStatData m_HealthStat = null;
+    private GenericStatData m_HealthStat;
 
     [Space]
 
     [SerializeField]
     [Group]
-    private DamageResistance m_DamageResistance = null;
+    private DamageResistance m_DamageResistance;
 
 
     protected virtual void Awake()

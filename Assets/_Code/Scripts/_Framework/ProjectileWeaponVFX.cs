@@ -1,8 +1,8 @@
-using HQFPSTemplate.Pooling;
 using System;
 using System.Collections;
-using Random = UnityEngine.Random;
+using HQFPSTemplate.Pooling;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 {
@@ -59,19 +59,19 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 	#endregion
 
 	[Group] public ParticleEffectsInfo ParticleEffects = new ParticleEffectsInfo();
-	[Group] public CasingEjectionInfo CasingEjection = null;
-	[Group] public MagazineEjectionInfo MagazineEjection = null;
+	[Group] public CasingEjectionInfo CasingEjection;
+	[Group] public MagazineEjectionInfo MagazineEjection;
 
 	[SerializeField]
-	private Transform muzzle = null;
+	private Transform muzzle;
 
 	[SerializeField]
-	private Transform casingEjectionPoint = null;
+	private Transform casingEjectionPoint;
 
 	[Space]
 
 	[SerializeField]
-	private LightEffect m_LightEffect = null;
+	private LightEffect m_LightEffect;
 
 	private ProjectileWeapon weapon;
 	private WaitForSeconds casingSpawnDelay;

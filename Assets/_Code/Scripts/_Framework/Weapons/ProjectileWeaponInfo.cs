@@ -1,6 +1,6 @@
-using UnityEngine;
 using System;
 using Kinemation.FPSFramework.Runtime.Recoil;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Projectile Weapon Info", menuName = "Equipment/Projectile Weapon")]
 public class ProjectileWeaponInfo : EquipmentItemInfo
@@ -55,9 +55,9 @@ public class ProjectileWeaponInfo : EquipmentItemInfo
 
         [BHeader("( Animation )", order = 2)]
 
-        public bool HasDryFireAnim = false;
+        public bool HasDryFireAnim;
 
-        public bool HasAlternativeFireAnim = false;
+        public bool HasAlternativeFireAnim;
 
         [Tooltip("The minimum time that can pass between consecutive shots.")]
         [Range(0.1f, 5f)]
@@ -92,18 +92,18 @@ public class ProjectileWeaponInfo : EquipmentItemInfo
         public ReloadType ReloadType = ReloadType.Once;
 
         [Tooltip("The time between reloading starts and the first bullet insert.")]
-        [EnableIf("ReloadType", (int)ReloadType.Progressive, 0f)]
+        [EnableIf("ReloadType", (int)ReloadType.Progressive)]
         public float ReloadStartDuration;
 
         [Tooltip("How much time it takes to reload the gun.")]
         public float ReloadDuration = 2.5f;
 
-        [EnableIf("ReloadType", (int)ReloadType.Progressive, 0f)]
+        [EnableIf("ReloadType", (int)ReloadType.Progressive)]
         public float ReloadEndDuration;
 
         [Space(4f)]
 
-        public bool HasEmptyReload = false;
+        public bool HasEmptyReload;
 
         [Tooltip("How much time it takes to reload the gun and chamber the first bullet.")]
         [EnableIf("HasEmptyReload", true, 5f)]

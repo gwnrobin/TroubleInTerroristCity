@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public partial class Unarmed : MeleeWeapon
+public class Unarmed : MeleeWeapon
 {
     #region Anim Hashing
 
@@ -74,7 +71,7 @@ public partial class Unarmed : MeleeWeapon
 
     public override bool TryUseOnce(Ray[] itemUseRays, int useType)
     {
-        if (Player.IsGrounded.Val == true)
+        if (Player.IsGrounded.Val)
         {
             m_NextTimeToHideArms = Time.time + _unarmedInfo.UnarmedSettings.ArmsShowDuration;
 
@@ -100,11 +97,8 @@ public partial class Unarmed : MeleeWeapon
 
             m_NextTimeCanUse = Time.time + _unarmedInfo.MeleeSettings.Swings[0].Cooldown;
         }
-        else
-        {
-            //EHandler.Animator_SetTrigger(animHash_Falling);
-            //EHandler.Animator_SetBool(animHash_Airborne, true);
-        }
+        //EHandler.Animator_SetTrigger(animHash_Falling);
+        //EHandler.Animator_SetBool(animHash_Airborne, true);
     }
 
     protected virtual void OnStartRunning()

@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 public class Item
@@ -64,8 +61,7 @@ public class Item
 
 		if(itemInfo != null)
 			return new Item(itemInfo, count);
-		else
-			return null;
+		return null;
 	}
 
 	/// <summary>

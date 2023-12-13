@@ -77,7 +77,7 @@ public abstract class ReorderableArray<T> : ICloneable, IList<T>, ICollection<T>
 
     public void CopyTo(T[] array, int arrayIndex) {
 
-        this.m_List.CopyTo(array, arrayIndex);
+        m_List.CopyTo(array, arrayIndex);
     }
 
     public bool Remove(T item) {

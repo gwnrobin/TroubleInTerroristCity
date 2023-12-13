@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EquipmentController : PlayerComponent
 {
@@ -15,7 +14,7 @@ public class EquipmentController : PlayerComponent
     [SerializeField]
     private bool m_AutoReloadOnEmpty = true;
     
-    private bool LastFrameActiveReload = false;
+    private bool LastFrameActiveReload;
 
     private float m_NextTimeCanAutoReload;
     private float m_NextTimeToEquip;
@@ -216,13 +215,10 @@ public class EquipmentController : PlayerComponent
     {
         if (Player.EquippedItem.Get() == null)
             return false;
-        else
-        {
-            Player.Inventory.RemoveItem(Player.EquippedItem.Get());
-            //Player.EquippedItem.Get().gameObject.SetActive(false);
-            Player.EquipItem.Try(null, true);
-            return true;
-        }
+        Player.Inventory.RemoveItem(Player.EquippedItem.Get());
+        //Player.EquippedItem.Get().gameObject.SetActive(false);
+        Player.EquipItem.Try(null, true);
+        return true;
     }
     
     private bool TryStartReload()

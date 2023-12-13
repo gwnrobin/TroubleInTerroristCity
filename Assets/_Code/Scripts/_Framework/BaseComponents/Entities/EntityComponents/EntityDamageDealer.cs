@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Entity))]
@@ -18,14 +16,15 @@ public class EntityDamageDealer : EntityComponent
 
             return true;
         }
-        else if (damageInfo.HitObject.TryGetComponent(out IDamageable dmgObject))
+
+        if (damageInfo.HitObject.TryGetComponent(out IDamageable dmgObject))
         {
             DealDamage(dmgObject, damageInfo);
 
             return true;
         }
-        else 
-            return false;
+
+        return false;
     }
 
     protected virtual void DealDamage(IDamageable damageable, DamageInfo damageInfo)

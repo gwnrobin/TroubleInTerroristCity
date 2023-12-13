@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using HQFPSTemplate.Surfaces;
 using UnityEngine;
 
@@ -122,7 +121,7 @@ public class MeleeWeaponInfo : EquipmentItemInfo
     [Serializable]
     public class MeleeSettingsInfo
     {
-        [BHeader("General", true)] public LayerMask HitMask = new LayerMask();
+        [BHeader("General", true)] public LayerMask HitMask;
 
         [Range(0f, 3f)] [Tooltip("How far can this weapon hit stuff?")]
         public float MaxHitDistance = 1.5f;
@@ -131,15 +130,15 @@ public class MeleeWeaponInfo : EquipmentItemInfo
         public DamageType DamageType = DamageType.Hit;
 
         [Space(3f)] [BHeader("( Swings )", order = 2)]
-        public bool CanContinuouslyAttack = false;
+        public bool CanContinuouslyAttack;
 
-        public bool ResetSwingsIfNotUsed = false;
+        public bool ResetSwingsIfNotUsed;
 
-        [ShowIf("ResetSwingsIfNotUsed", true, 10f)]
+        [ShowIf("ResetSwingsIfNotUsed", true)]
         public float ResetSwingsDelay = 1f;
 
         public ItemSelection.Method SwingSelection = ItemSelection.Method.RandomExcludeLast;
-        public SwingData[] Swings = null;
+        public SwingData[] Swings;
     }
 
     [Serializable]
@@ -172,5 +171,5 @@ public class MeleeWeaponInfo : EquipmentItemInfo
 
     #endregion
 
-    [Group("5: ")] public MeleeSettingsInfo MeleeSettings = null;
+    [Group("5: ")] public MeleeSettingsInfo MeleeSettings;
 }

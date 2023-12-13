@@ -1,15 +1,11 @@
-using System;
 using Kinemation.FPSFramework.Runtime.Camera;
 using Kinemation.FPSFramework.Runtime.Core.Components;
+using Kinemation.FPSFramework.Runtime.Core.Playables;
 using Kinemation.FPSFramework.Runtime.Core.Types;
-using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using Kinemation.FPSFramework.Runtime.Layers;
 using Kinemation.FPSFramework.Runtime.Recoil;
 using Unity.Netcode;
-using System.Collections;
-using Kinemation.FPSFramework.Runtime.Core.Playables;
 using UnityEngine;
-using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using UnityEngine.Events;
 
 public class NetworkPlayerAnimController : NetworkPlayerComponent

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public partial class DatabaseCategory : PropertyAttribute 
+public class DatabaseCategory : PropertyAttribute 
 {
 		
 }

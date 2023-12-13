@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDeath : PlayerComponent
@@ -7,13 +6,13 @@ public class PlayerDeath : PlayerComponent
 		[BHeader("Stuff To Disable On Death", true)]
 
 		[SerializeField]
-		private GameObject[] m_ObjectsToDisable = null;
+		private GameObject[] m_ObjectsToDisable;
 
 		[SerializeField]
-		private Behaviour[] m_BehavioursToDisable = null;
+		private Behaviour[] m_BehavioursToDisable;
 
 		[SerializeField]
-		private Collider[] m_CollidersToDisable = null;
+		private Collider[] m_CollidersToDisable;
 
 		//[BHeader("Player Head Hitbox")]
 

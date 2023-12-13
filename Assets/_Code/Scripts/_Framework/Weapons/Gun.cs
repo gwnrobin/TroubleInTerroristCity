@@ -1,12 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Demo.Scripts.Runtime.Base;
 using HQFPSTemplate.Surfaces;
-using Kinemation.FPSFramework.Runtime.Core;
-using Kinemation.FPSFramework.Runtime.Core.Types;
-using Kinemation.FPSFramework.Runtime.FPSAnimator;
-using Kinemation.FPSFramework.Runtime.Recoil;
 using UnityEngine;
 
 public enum OverlayType

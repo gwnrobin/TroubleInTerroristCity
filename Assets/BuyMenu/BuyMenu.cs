@@ -16,7 +16,7 @@ public class BuyMenu : MonoBehaviour
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text description;
 
-    private ItemInfo selectedItem = null;
+    private ItemInfo selectedItem;
 
     private Humanoid player;
 

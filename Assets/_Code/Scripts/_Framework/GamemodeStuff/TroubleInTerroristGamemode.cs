@@ -1,13 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGamemode>
 {
@@ -28,7 +24,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     [SerializeField] private float _roundDuration;
     [SerializeField] private float _getReadyDuration;
     
-    public bool gamemodeStarted = false;
+    public bool gamemodeStarted;
     
     private List<ulong> _innocents = new List<ulong>();
     private List<ulong> _traitors = new List<ulong>();

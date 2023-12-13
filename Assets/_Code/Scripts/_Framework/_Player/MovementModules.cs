@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -64,7 +62,7 @@ public class LowerHeightStateModule : MovementStateModule
 [Serializable]
 public class SlidingStateModule
 {
-    public bool Enabled = false;
+    public bool Enabled;
 
     [ShowIf("Enabled", true)] [Range(20f, 90f)]
     public float SlideTreeshold = 32f;

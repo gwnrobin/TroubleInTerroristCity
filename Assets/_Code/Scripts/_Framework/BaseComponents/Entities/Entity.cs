@@ -34,7 +34,7 @@ public class Entity : NetworkBehaviour
     public Hitbox[] Hitboxes;
 
     [SerializeField]
-    private Inventory m_Inventory = null;
+    private Inventory m_Inventory;
 
     protected virtual void Start()
     {

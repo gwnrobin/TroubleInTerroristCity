@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -148,23 +147,20 @@ public class ItemContainer : IEnumerable
 		{
 			if (item.Info.StackSize > 1)
 				return AddItem(item.Info, item.CurrentStackSize, item.Properties) > 0;
-			else
+			// The item's not stackable, try find an empty slot for it
+			for(int i = 0;i < m_Slots.Length;i ++)
 			{
-				// The item's not stackable, try find an empty slot for it
-				for(int i = 0;i < m_Slots.Length;i ++)
+				if(!m_Slots[i].HasItem)
 				{
-					if(!m_Slots[i].HasItem)
-					{
-						m_Slots[i].SetItem(item);
-						return true;
-					}
+					m_Slots[i].SetItem(item);
+					return true;
 				}
-
-				return false;
 			}
-		}
-		else
+
 			return false;
+		}
+
+		return false;
 	}
 
 	public bool AddOrSwap(ItemContainer slotParent, ItemSlot slot)
@@ -199,8 +195,8 @@ public class ItemContainer : IEnumerable
 
 			return false;
 		}
-		else
-			return false;
+
+		return false;
 	}
 
 	public int RemoveItem(string name, int amount)

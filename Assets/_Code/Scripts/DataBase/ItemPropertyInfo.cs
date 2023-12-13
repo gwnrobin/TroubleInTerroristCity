@@ -52,16 +52,13 @@ public class ItemPropertyInfo
     {
         if(m_Type == ItemPropertyType.Boolean || m_Type == ItemPropertyType.ItemId)
             return m_FixedValue;
-        else
-        {
-            float value = 0f;
+        float value = 0f;
 
-            if(m_Type == ItemPropertyType.Float)
-                value = m_UseRandomValue ? Random.Range(m_RandomValueRange.x, m_RandomValueRange.y) : m_FixedValue;
-            else if(m_Type == ItemPropertyType.Integer)
-                value = m_UseRandomValue ? Random.Range((int)m_RandomValueRange.x, (int)m_RandomValueRange.y) : m_FixedValue;
+        if(m_Type == ItemPropertyType.Float)
+            value = m_UseRandomValue ? Random.Range(m_RandomValueRange.x, m_RandomValueRange.y) : m_FixedValue;
+        else if(m_Type == ItemPropertyType.Integer)
+            value = m_UseRandomValue ? Random.Range((int)m_RandomValueRange.x, (int)m_RandomValueRange.y) : m_FixedValue;
 
-            return value;
-        }
+        return value;
     }
 }

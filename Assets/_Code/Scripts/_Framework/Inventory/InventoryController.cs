@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]
 public class InventoryController: HumanoidComponent
 {
 	[SerializeField]
-	protected LayerMask m_WallsLayer = new LayerMask();
+	protected LayerMask m_WallsLayer;
 
 	[SerializeField]
 	protected bool m_DropItemsOnDeath = true;
@@ -14,7 +13,7 @@ public class InventoryController: HumanoidComponent
 	[Space]
 
 	[SerializeField]
-	protected Vector3 m_DropOffset = new Vector3(0f, 0f, 0.8f);
+	protected Vector3 m_DropOffset = new(0f, 0f, 0.8f);
 
 	[SerializeField]
 	[Range(0.01f, 1f)]
@@ -30,7 +29,7 @@ public class InventoryController: HumanoidComponent
 
 	[SerializeField]
 	[Group]
-	protected SoundPlayer m_DropSounds = null;
+	protected SoundPlayer m_DropSounds;
 
 	protected Inventory m_Inventory;
 
@@ -98,7 +97,7 @@ public class InventoryController: HumanoidComponent
 			dropRotation = Random.rotationUniform;
 		}
 
-		GameObject droppedItem = Instantiate(item.Info.Pickup, dropPosition, dropRotation) as GameObject;
+		GameObject droppedItem = Instantiate(item.Info.Pickup, dropPosition, dropRotation);
 
 		droppedItem.transform.parent = null;
 		droppedItem.SetActive(true);
@@ -121,7 +120,7 @@ public class InventoryController: HumanoidComponent
 			}
 		}
 
-		m_DropSounds.Play2D(ItemSelection.Method.RandomExcludeLast);
+		m_DropSounds.Play2D();
 
 		var pickup = droppedItem.GetComponent<ItemPickup>();
 

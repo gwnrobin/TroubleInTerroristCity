@@ -1,10 +1,8 @@
-using Kinemation.FPSFramework.Runtime.FPSAnimator;
 using System;
 using Kinemation.FPSFramework.Runtime.Core.Types;
 using Kinemation.FPSFramework.Runtime.Recoil;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class DelayedSound : ICloneable
@@ -41,7 +39,7 @@ public class EquipmentItem : PlayerComponent
         public WeaponAnimAsset weaponAnimAsset;
 
         [Space(4f)]
-        public EquipmentItemInfo EquipmentInfo = null;
+        public EquipmentItemInfo EquipmentInfo;
 
         // Animation
         [Space(4f)]
@@ -50,7 +48,7 @@ public class EquipmentItem : PlayerComponent
         //public EquipmentAnimationInfo EquipmentAnimationInfo = null;
 
         [EnableIf("EquipmentAnimationInfo", true, 6f)]
-        public Animator Animator = null;
+        public Animator Animator;
         public WeaponTransformData weaponTransformData;
     }
     [Serializable]
@@ -91,13 +89,13 @@ public class EquipmentItem : PlayerComponent
     public string CorrespondingItemName => generalInfo.CorrespondingItem;
     
     [SerializeField, Group]
-    public GeneralInfo generalInfo = null;
+    public GeneralInfo generalInfo;
 
     [SerializeField]
     public RecoilPattern recoilPattern;
 
     [SerializeField, Group]
-    public GeneralEvents m_GeneralEvents = null;
+    public GeneralEvents m_GeneralEvents;
 
     // Using
     protected float m_UseThreshold = 0.1f;

@@ -5,7 +5,7 @@ namespace HQFPSTemplate.Surfaces
     public class SurfaceEffect : MonoBehaviour
     {
         [SerializeField]
-        private SoundPlayer m_Audio = null;
+        private SoundPlayer m_Audio;
 
         [SerializeField]
         [HideInInspector]

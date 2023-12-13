@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using HQFPSTemplate.Surfaces;
+using UnityEngine;
 
 public class PlayerAudio : PlayerComponent
 {
@@ -80,18 +80,18 @@ public class PlayerAudio : PlayerComponent
 	#endregion
 
 	[SerializeField]
-	private AudioSource m_AudioSource = null;
+	private AudioSource m_AudioSource;
 
 	[Space]
 
 	[SerializeField, Group]
-	private PlayerMovementAudio m_PlayerMovementAudio = new PlayerMovementAudio();
+	private PlayerMovementAudio m_PlayerMovementAudio;
 
 	[SerializeField, Group]
-	private PlayerVitalsAudio m_PlayerVitalsAudio = new PlayerVitalsAudio();
+	private PlayerVitalsAudio m_PlayerVitalsAudio;
 
 	[SerializeField, Group]
-	private PlayerFootstepsAudio m_PlayerFootsteps = new PlayerFootstepsAudio();
+	private PlayerFootstepsAudio m_PlayerFootsteps;
 
 	private float m_LastHeavyBreathTime;
 	private float m_NextTimeCanScream;

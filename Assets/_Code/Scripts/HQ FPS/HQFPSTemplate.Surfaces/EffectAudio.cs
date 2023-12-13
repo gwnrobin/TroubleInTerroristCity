@@ -9,7 +9,7 @@ namespace HQFPSTemplate.Surfaces
         private string m_EffectName = string.Empty;
 
         [SerializeField]
-        private SoundPlayer m_SoundPlayer = null;
+        private SoundPlayer m_SoundPlayer;
 
         private static Dictionary<string, SoundPlayer> SOUND_PLAYERS = new Dictionary<string, SoundPlayer>();
 

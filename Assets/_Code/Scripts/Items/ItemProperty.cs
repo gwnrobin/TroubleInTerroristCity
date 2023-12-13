@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -20,7 +18,7 @@ public class ItemProperty
         set
         {
             if (m_Type == ItemPropertyType.Boolean)
-                SetInternalValue(value == true ? 1 : 0);
+                SetInternalValue(value ? 1 : 0);
         }
     }
 

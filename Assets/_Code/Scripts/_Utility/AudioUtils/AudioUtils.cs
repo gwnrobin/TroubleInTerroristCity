@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class AudioUtils : Singleton<AudioUtils>
 {
 	private readonly Dictionary<AudioSource, Coroutine> m_LevelSetters = new Dictionary<AudioSource, Coroutine>();
 
 	[SerializeField]
-	private AudioSource m_2DAudioSource = null;
+	private AudioSource m_2DAudioSource;
 
 
 	/// <summary>

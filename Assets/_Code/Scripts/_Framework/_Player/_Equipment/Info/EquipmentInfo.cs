@@ -9,18 +9,18 @@ public abstract class EquipmentItemInfo : ScriptableObject
     {
         [BHeader("( Use Settings )")]
 
-        public bool UseWhileAirborne = false;
-        public bool UseWhileRunning = false;
-        public bool CanStopReloading = false;
+        public bool UseWhileAirborne;
+        public bool UseWhileRunning;
+        public bool CanStopReloading;
 
         [Space(3f)]
 
         [BHeader("( Others )", order = 2)]
 
-        public int CrosshairID = 0;
+        public int CrosshairID;
 
         [Range(0f, 100f)]
-        public float StaminaTakePerUse = 0f;
+        public float StaminaTakePerUse;
 
         [Range(0.01f, 2f)]
         public float MovementSpeedMod = 1f;
@@ -64,7 +64,7 @@ public abstract class EquipmentItemInfo : ScriptableObject
 
         public float AnimationSpeed = 1f;
 
-        public DelayedSound[] Audio = null;
+        public DelayedSound[] Audio;
         //public DelayedCameraForce[] CameraForces = null;
     }
     #endregion

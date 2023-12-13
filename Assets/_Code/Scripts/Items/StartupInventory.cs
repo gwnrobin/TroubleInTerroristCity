@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
- [Serializable]
+[Serializable]
 public class ItemGenerator
 {
     public enum Method
@@ -14,9 +14,9 @@ public class ItemGenerator
 
     [SerializeField] public Method GenerateMethod = Method.Specific;
 
-    [DatabaseCategory] [SerializeField] public string Category = null;
+    [DatabaseCategory] [SerializeField] public string Category;
 
-    [DatabaseItem] [SerializeField] public string Name = null;
+    [DatabaseItem] [SerializeField] public string Name;
 
     [SerializeField] [MinMax(1, 100, false)]
     private Vector2Int CountRange = new Vector2Int(1, 100);
@@ -24,7 +24,7 @@ public class ItemGenerator
 
     public int GetRandomCount()
     {
-        return Mathf.Clamp((int)Random.Range(CountRange.x, CountRange.y + 1), 1, 100);
+        return Mathf.Clamp(Random.Range(CountRange.x, CountRange.y + 1), 1, 100);
     }
 }
 
@@ -36,7 +36,7 @@ public class StartupInventory : EntityComponent
     {
         public string Name;
 
-        [Space] public ItemGeneratorList StartupItems = null;
+        [Space] public ItemGeneratorList StartupItems;
     }
 
     [SerializeField] private ItemContainerStartupItems[] m_ItemContainersStartupItems;

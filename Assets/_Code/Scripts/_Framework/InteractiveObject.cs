@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class InteractiveObject : MonoBehaviour
 {
 	#region Internal
-	[System.Serializable]
+	[Serializable]
 	protected struct InteractionAudio
 	{
 		public SoundPlayer RaycastStartAudio;
@@ -31,14 +30,14 @@ public class InteractiveObject : MonoBehaviour
 	private string m_InteractionText = string.Empty;
 
 	[SerializeField]
-	private InteractionAudio m_InteractionAudio = new InteractionAudio();
+	private InteractionAudio m_InteractionAudio;
 
 	[Space(3f)]
 
 	[SerializeField]
 	private UnityEvent m_InteractionEvent;
 
-	private float m_InteractStart = 0f;
+	private float m_InteractStart;
 
 
 	/// <summary>

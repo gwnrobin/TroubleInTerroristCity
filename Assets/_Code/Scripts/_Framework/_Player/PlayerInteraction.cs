@@ -13,7 +13,7 @@ public class PlayerInteraction : PlayerComponent
 	#endregion
 
 	[SerializeField]
-	private LayerMask m_LayerMask = new LayerMask();
+	private LayerMask m_LayerMask;
 
 	[Space]
 

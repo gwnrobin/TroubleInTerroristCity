@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -29,10 +27,10 @@ public class Hitbox : MonoBehaviour, IDamageable
     [Space]
 
     [SerializeField]
-    private DamageEvent m_OnDamageEvent = null;
+    private DamageEvent m_OnDamageEvent;
 
     [SerializeField]
-    private DamageEventSimple m_OnDamageEventSimple = null;
+    private DamageEventSimple m_OnDamageEventSimple;
 
     //[SerializeField]
     //[Group]

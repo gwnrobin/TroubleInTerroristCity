@@ -1,14 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
 public class TempInput : PlayerComponent
 {
-    private bool _holster = false;
-    private bool _pause = false;
+    private bool _holster;
+    private bool _pause;
     
     public void SetPause(CallbackContext context)
     {

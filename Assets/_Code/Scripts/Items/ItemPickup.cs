@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPickup : InteractiveObject
@@ -116,15 +114,11 @@ public class ItemPickup : InteractiveObject
 				Destroy(gameObject);
 			}
 			// Item not added to inventory
-			else
-			{
-				//UI_MessageDisplayer.Instance.PushMessage(string.Format("<color={0}>Inventory Full</color>", ColorUtils.ColorToHex(m_InventoryFullColor)), m_BaseMessageColor);
-			}
+			//UI_MessageDisplayer.Instance.PushMessage(string.Format("<color={0}>Inventory Full</color>", ColorUtils.ColorToHex(m_InventoryFullColor)), m_BaseMessageColor);
 		}
 		else
 		{
 			Debug.LogError("Item Instance is null, can't pick up anything.");
-			return;
 		}
 	}
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -115,7 +114,7 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         {
             Send = new ClientRpcSendParams
             {
-                TargetClientIds = new ulong[] { receiver }
+                TargetClientIds = new[] { receiver }
             }
         };
         ClientConnectedClientRPC(networkIds, clientRpcParams);

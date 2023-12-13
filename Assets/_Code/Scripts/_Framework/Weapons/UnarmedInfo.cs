@@ -10,13 +10,13 @@ public class UnarmedInfo : MeleeWeaponInfo
     {
         [BHeader("( Arm Show )")]
 
-        public bool AlwaysShowArms = false;
+        public bool AlwaysShowArms;
 
         [EnableIf("AlwaysShowArms", false, 10f)]
         [Tooltip("How much time the arms will be on the screen if the Player punches")]
         public float ArmsShowDuration = 3f;
 
-        public DelayedSound ShowArmsAudio = null;
+        public DelayedSound ShowArmsAudio;
 
         [BHeader("( Running )")]
             
@@ -26,5 +26,5 @@ public class UnarmedInfo : MeleeWeaponInfo
 
     #endregion
 
-    [Group("5: ")] public UnarmedSettingsInfo UnarmedSettings = null;
+    [Group("5: ")] public UnarmedSettingsInfo UnarmedSettings;
 }

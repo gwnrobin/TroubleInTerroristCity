@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using HQFPSTemplate;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,8 +29,7 @@ using Random = UnityEngine.Random;
 
 			if(items != null && items.Count > 0)
 				return items[Mathf.Clamp(index, 0, items.Count - 1)];
-			else
-				return null;
+			return null;
 		}
 
 		public static int IndexOfItem(int itemId)
@@ -73,8 +69,7 @@ using Random = UnityEngine.Random;
 
 			if(Instance.m_ItemsByName.TryGetValue(name, out ItemInfo itemInfo))
 				return itemInfo;
-			else
-				return null;
+			return null;
 		}
 
 		public static ItemInfo GetItemById(int id)
@@ -87,8 +82,7 @@ using Random = UnityEngine.Random;
 
 			if(Instance.m_ItemsById.TryGetValue(id, out ItemInfo itemInfo))
 				return itemInfo;
-			else
-				return null;
+			return null;
 		}
 
 		public static List<string> GetItemNames()
@@ -161,8 +155,7 @@ using Random = UnityEngine.Random;
 		{
 			if(index >= Instance.m_ItemProperties.Length)
 				return null;
-			else
-				return Instance.m_ItemProperties[index];
+			return Instance.m_ItemProperties[index];
 		}
 
 		public static ItemCategory GetCategoryByName(string name)
@@ -281,11 +274,9 @@ using Random = UnityEngine.Random;
 						Debug.LogError("Couldn't generate an unique id for item: " + item.Name);
 						return;
 					}
-					else
-					{
-						idList[i] = assignedId;
-						AssignIdToItem(item, assignedId);
-					}
+
+					idList[i] = assignedId;
+					AssignIdToItem(item, assignedId);
 
 					i++;
 				}

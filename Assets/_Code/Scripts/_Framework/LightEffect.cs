@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Light))]
@@ -46,7 +44,7 @@ public class LightEffect : MonoBehaviour
     public bool IsPlaying => m_IsPlaying;
     public float IntensityMultiplier { get; set; }
 
-    [SerializeField] private bool m_PlayOnAwake = false;
+    [SerializeField] private bool m_PlayOnAwake;
 
     [SerializeField] private float m_Intensity = 1f;
 
@@ -59,9 +57,9 @@ public class LightEffect : MonoBehaviour
 
     [SerializeField] [Range(0f, 2f)] private float m_FadeOutTime = 0.5f;
 
-    [Header("Effects")] [SerializeField] private PulseSettings m_Pulse = null;
+    [Header("Effects")] [SerializeField] private PulseSettings m_Pulse;
 
-    [SerializeField] private NoiseSettings m_Noise = null;
+    [SerializeField] private NoiseSettings m_Noise;
 
     private bool m_IsPlaying;
     private bool m_LightsEnabled;

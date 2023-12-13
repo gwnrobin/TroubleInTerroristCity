@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using HQFPSTemplate.Pooling;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace HQFPSTemplate.Surfaces
@@ -51,7 +51,7 @@ namespace HQFPSTemplate.Surfaces
 	public class SurfaceManager : Singleton<SurfaceManager>
 	{
 		[SerializeField]
-		private bool m_SpatializeAudio = false;
+		private bool m_SpatializeAudio;
 
 		[SerializeField]
 		private SurfaceInfo m_DefaultSurface;
@@ -76,7 +76,7 @@ namespace HQFPSTemplate.Surfaces
 
 			if (surfInfo != null)
 			{
-				PoolableObject effect = PoolingManager.Instance.GetObject(surfInfo.GetInstanceID().ToString() + effectType.ToString());
+				PoolableObject effect = PoolingManager.Instance.GetObject(surfInfo.GetInstanceID() + effectType.ToString());
 
 				if(effect != null)
 				{
@@ -91,7 +91,7 @@ namespace HQFPSTemplate.Surfaces
 		{
 			SurfaceInfo surfInfo = Instance.GetSurfaceWithId(surfaceId);
 
-			PoolableObject effect = PoolingManager.Instance.GetObject(surfInfo.GetInstanceID().ToString() + effectType.ToString());
+			PoolableObject effect = PoolingManager.Instance.GetObject(surfInfo.GetInstanceID() + effectType.ToString());
 
 			if(effect != null)
 			{
@@ -184,13 +184,13 @@ namespace HQFPSTemplate.Surfaces
 			{
 				string surfInstanceId = surfInfo.GetInstanceID().ToString();
 
-				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.SoftFootstep.ToString(), surfInfo.SoftFootstepEffect, 25, 50, true, surfInstanceId + SurfaceEffects.SoftFootstep.ToString());
-				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.HardFootstep.ToString(), surfInfo.HardFootstepEffect, 25, 50, true, surfInstanceId + SurfaceEffects.HardFootstep.ToString());
-				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.FallImpact.ToString(), surfInfo.FallImpactEffect, 25, 50, true, surfInstanceId + SurfaceEffects.FallImpact.ToString());
+				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.SoftFootstep, surfInfo.SoftFootstepEffect, 25, 50, true, surfInstanceId + SurfaceEffects.SoftFootstep);
+				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.HardFootstep, surfInfo.HardFootstepEffect, 25, 50, true, surfInstanceId + SurfaceEffects.HardFootstep);
+				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.FallImpact, surfInfo.FallImpactEffect, 25, 50, true, surfInstanceId + SurfaceEffects.FallImpact);
 
-				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.BulletHit.ToString(), surfInfo.BulletHitEffect, 50, 100, true, surfInstanceId + SurfaceEffects.BulletHit.ToString());
-				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.Slash.ToString(), surfInfo.SlashEffect, 25, 50, true, surfInstanceId + SurfaceEffects.Slash.ToString());
-				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.Stab.ToString(), surfInfo.StabEffect, 25, 50, true, surfInstanceId + SurfaceEffects.Stab.ToString());
+				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.BulletHit, surfInfo.BulletHitEffect, 50, 100, true, surfInstanceId + SurfaceEffects.BulletHit);
+				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.Slash, surfInfo.SlashEffect, 25, 50, true, surfInstanceId + SurfaceEffects.Slash);
+				CreatePoolForEffect(surfInfo.name + "_" + SurfaceEffects.Stab, surfInfo.StabEffect, 25, 50, true, surfInstanceId + SurfaceEffects.Stab);
 
 				if(m_DefaultSurface != null && m_DefaultSurface.name == surfInfo.name)
 					m_DefaultSurface = surfInfo;
@@ -232,7 +232,7 @@ namespace HQFPSTemplate.Surfaces
 
 			if(!renderer || !renderer.sharedMaterial || !renderer.sharedMaterial.mainTexture)
 				return null;
-			else if(!meshCollider || meshCollider.convex)
+			if(!meshCollider || meshCollider.convex)
 				return renderer.material.mainTexture;
 
 			Mesh mesh = meshCollider.sharedMesh;

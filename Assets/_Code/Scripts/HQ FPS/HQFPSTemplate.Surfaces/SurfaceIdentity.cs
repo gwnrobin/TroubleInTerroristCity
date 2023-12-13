@@ -7,6 +7,6 @@ namespace HQFPSTemplate.Surfaces
 		public SurfaceInfo Surface { get => m_Surface; set => m_Surface = value; }
 
 		[SerializeField]
-		private SurfaceInfo m_Surface = null;
+		private SurfaceInfo m_Surface;
 	}
 }

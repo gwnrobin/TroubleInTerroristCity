@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public abstract class PlayerComponent : EntityComponent 
+﻿public abstract class PlayerComponent : EntityComponent 
 {
     /// <summary></summary>
     public Player Player

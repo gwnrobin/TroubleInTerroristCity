@@ -47,7 +47,6 @@ public class EquipmentPickup : ItemPickup
 		else
 		{
 			Debug.LogError("Item Instance is null, can't pick up anything.");
-			return;
 		}
 	}
 }

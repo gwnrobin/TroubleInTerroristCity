@@ -112,8 +112,7 @@ namespace HQFPSTemplate.Pooling
 
             if(pool != null)
                 return pool.GetObject();
-            else
-                return null;
+            return null;
         }
 
         public bool ReleaseObject(PoolableObject obj)
@@ -130,8 +129,7 @@ namespace HQFPSTemplate.Pooling
 
             if(pool != null)
                 return pool.TryPoolObject(obj);
-            else
-                return false;
+            return false;
         }
 
         public void QueueObjectRelease(PoolableObject obj, float delay)

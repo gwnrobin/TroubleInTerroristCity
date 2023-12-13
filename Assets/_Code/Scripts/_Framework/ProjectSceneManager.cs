@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ public class ProjectSceneManager : NetworkBehaviour
     /// but this code assures if the scene name changes you won't have to remember to
     /// manually update it.
 #if UNITY_EDITOR
-    public UnityEditor.SceneAsset SceneAsset;
+    public SceneAsset SceneAsset;
     private void OnValidate()
     {
         if (SceneAsset != null)

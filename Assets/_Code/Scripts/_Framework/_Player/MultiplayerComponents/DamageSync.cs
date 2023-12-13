@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -81,8 +79,8 @@ public struct NetworkDamageInfo : INetworkSerializable
 
     public NetworkDamageInfo(float delta, ulong source)
     {
-        this.Delta = delta;
-        this.HitObjectId = source;
+        Delta = delta;
+        HitObjectId = source;
     }
 
     

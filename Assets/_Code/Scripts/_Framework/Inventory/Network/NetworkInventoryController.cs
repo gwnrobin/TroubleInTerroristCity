@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
 public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a way to reuse InventoryController
 {
 	[SerializeField]
-	protected LayerMask m_WallsLayer = new LayerMask();
+	protected LayerMask m_WallsLayer;
 
 	[SerializeField]
 	protected bool m_DropItemsOnDeath = true;
@@ -30,7 +29,7 @@ public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a 
 
 	[SerializeField]
 	[Group]
-	protected SoundPlayer m_DropSounds = null;
+	protected SoundPlayer m_DropSounds;
 
 	protected Inventory m_Inventory;
 
@@ -42,7 +41,7 @@ public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a 
 		}
 		else
 		{
-			Player.DropItem.AddListener((Item item) => SendToServerRPC(item.Id));
+			Player.DropItem.AddListener(item => SendToServerRPC(item.Id));
 		}
 		m_Inventory = GetComponent<Inventory>();
 		Player.DropItem.SetTryer(TryDropItem);
@@ -98,7 +97,7 @@ public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a 
 			dropRotation = Random.rotationUniform;
 		}
 
-		GameObject droppedItem = Instantiate(item.Info.Pickup, dropPosition, dropRotation) as GameObject;
+		GameObject droppedItem = Instantiate(item.Info.Pickup, dropPosition, dropRotation);
 
 		droppedItem.transform.parent = null;
 		droppedItem.SetActive(true);
@@ -122,7 +121,7 @@ public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a 
 			}
 		}
 
-		m_DropSounds.Play2D(ItemSelection.Method.RandomExcludeLast);
+		m_DropSounds.Play2D();
 
 		var pickup = droppedItem.GetComponent<ItemPickup>();
 
@@ -155,6 +154,6 @@ public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a 
     {
         ItemInfo itemInfo = ItemDatabase.GetItemById(itemId);
 
-        StartCoroutine(C_Drop(new Item(itemInfo, 1)));
+        StartCoroutine(C_Drop(new Item(itemInfo)));
     }
 }

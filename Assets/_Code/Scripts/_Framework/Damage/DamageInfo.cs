@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDamageable
@@ -50,73 +48,73 @@ public struct DamageInfo
 
     public DamageInfo(float delta, Entity source = null, Transform hitObject = null)
     {
-        this.Delta = delta;
-        this.DamageType = DamageType.Generic;
-        this.HitPoint = Vector3.zero;
-        this.HitDirection = Vector3.zero;
-        this.HitImpulse = 0f;
-        this.HitNormal = Vector3.zero;
-        this.Source = source;
-        this.HitObject = hitObject;
+        Delta = delta;
+        DamageType = DamageType.Generic;
+        HitPoint = Vector3.zero;
+        HitDirection = Vector3.zero;
+        HitImpulse = 0f;
+        HitNormal = Vector3.zero;
+        Source = source;
+        HitObject = hitObject;
     }
 
     public DamageInfo(float delta, DamageType damageType, Entity source = null, Transform hitObject = null)
     {
-        this.Delta = delta;
-        this.DamageType = damageType;
-        this.HitPoint = Vector3.zero;
-        this.HitDirection = Vector3.zero;
-        this.HitImpulse = 0f;
-        this.HitNormal = Vector3.zero;
-        this.Source = source;
-        this.HitObject = hitObject;
+        Delta = delta;
+        DamageType = damageType;
+        HitPoint = Vector3.zero;
+        HitDirection = Vector3.zero;
+        HitImpulse = 0f;
+        HitNormal = Vector3.zero;
+        Source = source;
+        HitObject = hitObject;
     }
 
     public DamageInfo(float delta, Vector3 hitPoint, Vector3 hitDirection, float hitImpulse, Entity source = null, Transform hitObject = null)
     {
-        this.Delta = delta;
-        this.DamageType = DamageType.Generic;
-        this.HitPoint = hitPoint;
-        this.HitDirection = hitDirection;
-        this.HitImpulse = hitImpulse;
-        this.HitNormal = Vector3.zero;
-        this.Source = source;
-        this.HitObject = hitObject;
+        Delta = delta;
+        DamageType = DamageType.Generic;
+        HitPoint = hitPoint;
+        HitDirection = hitDirection;
+        HitImpulse = hitImpulse;
+        HitNormal = Vector3.zero;
+        Source = source;
+        HitObject = hitObject;
     }
 
     public DamageInfo(float delta, DamageType damageType, Vector3 hitPoint, Vector3 hitDirection, float hitImpulse, Entity source = null, Transform hitObject = null)
     {
-        this.Delta = delta;
-        this.DamageType = damageType;
-        this.HitPoint = hitPoint;
-        this.HitDirection = hitDirection;
-        this.HitImpulse = hitImpulse;
-        this.HitNormal = Vector3.zero;
-        this.Source = source;
-        this.HitObject = hitObject;
+        Delta = delta;
+        DamageType = damageType;
+        HitPoint = hitPoint;
+        HitDirection = hitDirection;
+        HitImpulse = hitImpulse;
+        HitNormal = Vector3.zero;
+        Source = source;
+        HitObject = hitObject;
     }
 
     public DamageInfo(float delta, Vector3 hitPoint, Vector3 hitDirection = default, float hitImpulse = 0f, Vector3 hitNormal = default, Entity source = null, Transform hitObject = null)
     {
-        this.Delta = delta;
-        this.DamageType = DamageType.Generic;
-        this.HitPoint = hitPoint;
-        this.HitDirection = hitDirection;
-        this.HitImpulse = hitImpulse;
-        this.HitNormal = hitNormal;
-        this.Source = source;
-        this.HitObject = hitObject;
+        Delta = delta;
+        DamageType = DamageType.Generic;
+        HitPoint = hitPoint;
+        HitDirection = hitDirection;
+        HitImpulse = hitImpulse;
+        HitNormal = hitNormal;
+        Source = source;
+        HitObject = hitObject;
     }
 
     public DamageInfo(float delta, DamageType damageType, Vector3 hitPoint = default, Vector3 hitDirection = default, float hitImpulse = default, Vector3 hitNormal = default, Entity source = null, Transform hitObject = null)
     {
-        this.Delta = delta;
-        this.DamageType = damageType;
-        this.HitPoint = hitPoint;
-        this.HitDirection = hitDirection;
-        this.HitImpulse = hitImpulse;
-        this.HitNormal = hitNormal;
-        this.Source = source;
-        this.HitObject = hitObject;
+        Delta = delta;
+        DamageType = damageType;
+        HitPoint = hitPoint;
+        HitDirection = hitDirection;
+        HitImpulse = hitImpulse;
+        HitNormal = hitNormal;
+        Source = source;
+        HitObject = hitObject;
     }
 }

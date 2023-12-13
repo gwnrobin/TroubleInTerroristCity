@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 881426349669975026}
-  - component: {fileID: 1520529762629545365}
   m_Layer: 0
   m_Name: Mk23Mod0
   m_TagString: Untagged
@@ -67,150 +66,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1520529762629545365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4910695102810075455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponAnimData:
-    leftHandTarget: {fileID: 0}
-    rotationOffset: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
-    gunAimData:
-      target: {fileID: 0}
-      pivotPoint: {fileID: 5900204409153896922}
-      aimPoint: {fileID: 6506212990733282748}
-      pointAimOffset:
-        position: {x: -0.01, y: 0.02, z: -0.03}
-        rotation: {x: 0.000019564823, y: 0.000610666, z: -0.0320214, w: -0.999487}
-      aimSpeed: 3
-      changeSightSpeed: 3
-      pointAimSpeed: 3
-    viewOffset:
-      position: {x: -0.005, y: 0.05, z: 0.1}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-    springData:
-      loc:
-        x:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        y:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        z:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        scale: {x: 0, y: 0, z: 0}
-      rot:
-        x:
-          stiffness: 0.6
-          criticalDamping: 0.4
-          speed: 14
-          mass: 1
-          maxValue: 2
-        y:
-          stiffness: 0.6
-          criticalDamping: 0.4
-          speed: 12
-          mass: 1
-          maxValue: 2
-        z:
-          stiffness: 0.72
-          criticalDamping: 0.4
-          speed: 11
-          mass: 1
-          maxValue: 2
-        scale: {x: 35, y: 30, z: 45}
-    freeAimData:
-      scalar: 0
-      maxValue: 0
-      speed: 0
-    moveSwayData:
-      maxMoveLocSway: {x: 0, y: 0, z: 0}
-      maxMoveRotSway: {x: 0, y: 0, z: 0}
-      moveLocSway:
-        x:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        y:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        z:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        scale: {x: 0, y: 0, z: 0}
-      moveRotSway:
-        x:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        y:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        z:
-          stiffness: 0
-          criticalDamping: 0
-          speed: 0
-          mass: 0
-          maxValue: 0
-        scale: {x: 0, y: 0, z: 0}
-      locSpeed: {x: 0, y: 0, z: 0}
-      rotSpeed: {x: 0, y: 0, z: 0}
-    blockData:
-      weaponLength: 0.52
-      startOffset: 0.05
-      threshold: 0.1
-      restPose:
-        position: {x: -0.05, y: -0.09, z: -0.03}
-        rotation: {x: -0.22627231, y: 0.18844119, z: -0.091121025, w: -0.9513084}
-  weaponAsset: {fileID: 11400000, guid: b479c727365835b47911b938ef833fb6, type: 2}
-  weaponTransformData:
-    pivotPoint: {fileID: 5900204409153896922}
-    aimPoint: {fileID: 6506212990733282748}
-    leftHandTarget: {fileID: 0}
-  aimOffsetTable: {fileID: 11400000, guid: 052241ee40ded7e449d93b8dc8023f3d, type: 2}
-  recoilData: {fileID: 11400000, guid: b8322254b95a80542b94c6fdb865f169, type: 2}
-  fireMode: 0
-  fireRate: 400
-  burstAmount: 0
-  overlayPose: {fileID: 11400000, guid: 94168b0a0a7e82c4eb7349cd26d88748, type: 2}
-  weaponBone:
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 1}
-  reloadClip: {fileID: 11400000, guid: 555679f5377209b4dafead2f716653da, type: 2}
-  grenadeClip: {fileID: 0}
-  overlayType: 1
-  scopes:
-  - {fileID: 6506212990733282748}
 --- !u!1 &5480914323491122808
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +102,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 881426349669975026}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
@@ -366,6 +222,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3602806972434536129}
   m_SourcePrefab: {fileID: 100100000, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
 --- !u!1 &2483537677852872849 stripped
 GameObject:
@@ -374,7 +236,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &3602806972434536129
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -391,7 +253,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &2971422411046013483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 664d4d7408d76494c988d5eccd4610eb, type: 3}
@@ -402,6 +265,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 881426349669975026}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9bd46054662bb554d8a667aad87d9247, type: 3}
@@ -453,6 +317,9 @@ PrefabInstance:
       value: Pistol_Silencer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bd46054662bb554d8a667aad87d9247, type: 3}
 --- !u!4 &8809333251033677246 stripped
 Transform:

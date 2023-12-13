@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -15,11 +13,11 @@ public class GearSync : NetworkPlayerComponent
             
         if (IsHost)
         {
-            Player.EquippedItem.AddChangeListener((Item item) => SyncGearClientRpc(item != null ? item.Id : 0));
+            Player.EquippedItem.AddChangeListener(item => SyncGearClientRpc(item != null ? item.Id : 0));
         }
         else if(IsClient)
         {
-            Player.EquippedItem.AddChangeListener((Item item) => SyncGearServerRpc(item != null ? item.Id : 0));
+            Player.EquippedItem.AddChangeListener(item => SyncGearServerRpc(item != null ? item.Id : 0));
         }
     }
     
@@ -45,6 +43,6 @@ public class GearSync : NetworkPlayerComponent
         }
         
         //equipmentController.Equip(new Item(item, 1));
-        Player.EquipItem.Try(new Item(item, 1), true);
+        Player.EquipItem.Try(new Item(item), true);
     }
 }
