@@ -2543,8 +2543,7 @@ MonoBehaviour:
     m_Flag: 2
     m_Size: 1
     m_OneStackPerItem: 0
-    m_ValidCategories:
-    - Special
+    m_ValidCategories: []
     m_RequiredProperties: []
 --- !u!114 &2812088036944789398
 MonoBehaviour:

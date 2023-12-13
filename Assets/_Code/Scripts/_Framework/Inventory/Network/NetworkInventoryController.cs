@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class NetworkInventoryController : NetworkPlayerComponent
+public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a way to reuse InventoryController
 {
 	[SerializeField]
 	protected LayerMask m_WallsLayer = new LayerMask();

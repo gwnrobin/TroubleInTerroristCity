@@ -216,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8244119194453420095, guid: 0651560b4af1fea4c9241f28a232dd7d, type: 3}
       propertyPath: m_Item
-      value: AR15
+      value: Tommy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
