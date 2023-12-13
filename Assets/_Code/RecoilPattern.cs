@@ -1,8 +1,6 @@
-// Designed by KINEMATION, 2023
-
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewRecoilPattern", menuName = "FPS Animator Demo/Recoil Pattern")]
+[CreateAssetMenu(fileName = "NewRecoilPattern", menuName = "Recoil Pattern")]
 public class RecoilPattern : ScriptableObject
 {
     [Min(0f)] public float smoothing;
