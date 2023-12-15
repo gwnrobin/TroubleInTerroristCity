@@ -46,16 +46,16 @@ MonoBehaviour:
     materialQuality: 0
   m_RenderingPathDefaultRealtimeReflectionFrameSettings:
     bitDatas:
-      data1: 139923393879885
+      data1: 139923391782733
       data2: 13763000465807638544
     lodBias: 1
     lodBiasMode: 0
-    lodBiasQualityLevel: 2
+    lodBiasQualityLevel: 0
     maximumLODLevel: 0
     maximumLODLevelMode: 0
-    maximumLODLevelQualityLevel: 2
+    maximumLODLevelQualityLevel: 0
     sssQualityMode: 0
-    sssQualityLevel: 2
+    sssQualityLevel: 0
     sssCustomSampleBudget: 20
     msaaMode: 1
     materialQuality: 0
@@ -90,31 +90,57 @@ MonoBehaviour:
   rendererListCulling: 0
   DLSSProjectId: 000000
   useDLSSCustomProjectId: 0
-  supportProbeVolumes: 0
+  supportProbeVolumes: 1
   supportRuntimeDebugDisplay: 0
   autoRegisterDiffusionProfiles: 0
   apvScenesData:
     serializedBounds:
     - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
       bounds:
-        m_Center: {x: 0, y: 81, z: 40.5}
-        m_Extent: {x: 81, y: 81, z: 40.5}
+        m_Center: {x: -40.5, y: 81, z: 40.5}
+        m_Extent: {x: 121.5, y: 81, z: 40.5}
     serializedHasVolumes:
+    - sceneGUID: 1ac2dda6dd6084740a3d0990fb6250ee
+      hasProbeVolumes: 0
+    - sceneGUID: b40502bcfda28084ba14357d4b0d750d
+      hasProbeVolumes: 0
+    - sceneGUID: 3db1837cc97a95e4c98610966fac2b0b
+      hasProbeVolumes: 0
     - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
       hasProbeVolumes: 1
-    - sceneGUID: 3db1837cc97a95e4c98610966fac2b0b
-      hasProbeVolumes: 0
-    - sceneGUID: b40502bcfda28084ba14357d4b0d750d
+    - sceneGUID: 26a8ada3229658a43b92b9a035f7660d
       hasProbeVolumes: 0
     serializedProfiles:
-    - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
-      profile: {fileID: 11400000, guid: 326132149a963584bbae891a45f740ec, type: 2}
-    - sceneGUID: 3db1837cc97a95e4c98610966fac2b0b
-      profile: {fileID: 11400000, guid: 326132149a963584bbae891a45f740ec, type: 2}
+    - sceneGUID: 1ac2dda6dd6084740a3d0990fb6250ee
+      profile: {fileID: 11400000, guid: 673ee635950a8204c9fa164a32c9b0ae, type: 2}
     - sceneGUID: b40502bcfda28084ba14357d4b0d750d
-      profile: {fileID: 11400000, guid: 326132149a963584bbae891a45f740ec, type: 2}
+      profile: {fileID: 11400000, guid: 673ee635950a8204c9fa164a32c9b0ae, type: 2}
+    - sceneGUID: 3db1837cc97a95e4c98610966fac2b0b
+      profile: {fileID: 11400000, guid: 673ee635950a8204c9fa164a32c9b0ae, type: 2}
+    - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
+      profile: {fileID: 11400000, guid: 673ee635950a8204c9fa164a32c9b0ae, type: 2}
+    - sceneGUID: 26a8ada3229658a43b92b9a035f7660d
+      profile: {fileID: 11400000, guid: 673ee635950a8204c9fa164a32c9b0ae, type: 2}
     serializedBakeSettings:
-    - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
+    - sceneGUID: 1ac2dda6dd6084740a3d0990fb6250ee
+      settings:
+        m_Version: 1
+        dilationSettings:
+          enableDilation: 1
+          dilationDistance: 1
+          dilationValidityThreshold: 0.25
+          dilationIterations: 1
+          squaredDistWeighting: 1
+        virtualOffsetSettings:
+          useVirtualOffset: 1
+          outOfGeoOffset: 0.01
+          searchMultiplier: 0.2
+          rayOriginBias: -0.001
+          maxHitsPerRay: 10
+          collisionMask:
+            serializedVersion: 2
+            m_Bits: 4294967291
+    - sceneGUID: b40502bcfda28084ba14357d4b0d750d
       settings:
         m_Version: 1
         dilationSettings:
@@ -150,7 +176,25 @@ MonoBehaviour:
           collisionMask:
             serializedVersion: 2
             m_Bits: 4294967291
-    - sceneGUID: b40502bcfda28084ba14357d4b0d750d
+    - sceneGUID: 0eb1cc35d95d7af448c550dbb258553f
+      settings:
+        m_Version: 1
+        dilationSettings:
+          enableDilation: 1
+          dilationDistance: 1
+          dilationValidityThreshold: 0.25
+          dilationIterations: 1
+          squaredDistWeighting: 1
+        virtualOffsetSettings:
+          useVirtualOffset: 1
+          outOfGeoOffset: 0.01
+          searchMultiplier: 0.2
+          rayOriginBias: -0.001
+          maxHitsPerRay: 10
+          collisionMask:
+            serializedVersion: 2
+            m_Bits: 4294967291
+    - sceneGUID: 26a8ada3229658a43b92b9a035f7660d
       settings:
         m_Version: 1
         dilationSettings:
@@ -171,9 +215,11 @@ MonoBehaviour:
     serializedBakingSets:
     - name: Default
       sceneGUIDs:
-      - 0eb1cc35d95d7af448c550dbb258553f
-      - 3db1837cc97a95e4c98610966fac2b0b
+      - 1ac2dda6dd6084740a3d0990fb6250ee
       - b40502bcfda28084ba14357d4b0d750d
+      - 3db1837cc97a95e4c98610966fac2b0b
+      - 0eb1cc35d95d7af448c550dbb258553f
+      - 26a8ada3229658a43b92b9a035f7660d
       settings:
         m_Version: 1
         dilationSettings:
@@ -191,7 +237,7 @@ MonoBehaviour:
           collisionMask:
             serializedVersion: 2
             m_Bits: 4294967291
-      profile: {fileID: 11400000, guid: 326132149a963584bbae891a45f740ec, type: 2}
+      profile: {fileID: 11400000, guid: 673ee635950a8204c9fa164a32c9b0ae, type: 2}
       lightingScenarios:
       - Default
     m_LightingScenario: Default

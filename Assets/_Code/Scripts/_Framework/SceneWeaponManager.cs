@@ -7,6 +7,7 @@ public class SceneWeaponManager : NetworkSingleton<SceneWeaponManager>
     public List<Transform> spawnPoints = new();
     public List<GameObject> items = new();
 
+    [SerializeField]
     private List<GameObject> _existingItems = new();
     
     public void SpawnWeapons()

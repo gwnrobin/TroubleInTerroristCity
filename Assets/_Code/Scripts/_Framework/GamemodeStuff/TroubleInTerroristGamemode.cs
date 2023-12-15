@@ -63,8 +63,8 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     public void PlayerDieServerRPC(ulong id)
     {
         if (!gamemodeStarted)
-            return;
-
+            return; 
+        
         DeletePlayerPrefab(id);
         CheckGameState();
     }
@@ -113,7 +113,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     {
         if (!IsHost)
             return;
-
+        
         if (PlayerManager.Instance.Players.Count < _minimalPlayers)
             return;
         
@@ -123,12 +123,13 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     public IEnumerator GetReadyCoroutine()
     {
         SendEventClientRPC("StartPreRound");
-
+        
         foreach (var deadPlayer in _playersDead)
         {
+            print(deadPlayer);
             PlayerManager.Instance.SetNewPrefab(deadPlayer);
         }
-        
+        print("test");
         SceneWeaponManager.Instance.SpawnWeapons();
         _playersDead.Clear();
         yield return new WaitForSeconds(_getReadyDuration);
@@ -195,27 +196,5 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
             _innocents.Add(player);
         }
         players.Clear();
-    }
-}
-
-[CustomEditor(typeof(TroubleInTerroristGamemode))]
-public class YourScriptEditor : Editor
-{
-    private ulong id = 999;
-    
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-
-        TroubleInTerroristGamemode yourScript = (TroubleInTerroristGamemode)target;
-
-        GUILayout.Space(10);
-
-        if (GUILayout.Button("Join Player"))
-        {
-            // Code to be executed when the button is pressed
-            id--;
-            yourScript.StartCoroutine((yourScript.GetReadyCoroutine()));
-        }
     }
 }

@@ -11,10 +11,6 @@ public class UIItemSlot : MonoBehaviour
 
     public void ChangeText(ItemSlot item)
     {
-
-        if(item.Item != null)
-            textComponent.text = item.Item.Name;
-        else
-            textComponent.text = "Empty";
+        textComponent.text = item.Item != null ? item.Item.Name : "Empty";
     }
 }
