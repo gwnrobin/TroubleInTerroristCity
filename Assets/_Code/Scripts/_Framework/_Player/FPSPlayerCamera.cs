@@ -93,9 +93,9 @@ public class FPSPlayerCamera : FPSPlayerComponent
     {
         //_freeLook = Input.GetKey(KeyCode.X);
 
-        float deltaMouseX = Player.LookInput.Get().x * SettingMenu.Instance.GameSettings.Sensitivity;
-        float deltaMouseY = -Player.LookInput.Get().y * SettingMenu.Instance.GameSettings.Sensitivity;
-
+        float deltaMouseX = (Player.LookInput.Get().x * PlayerPrefs.GetFloat("Slider_Sensitivity")) * Time.deltaTime;
+        float deltaMouseY = -(Player.LookInput.Get().y * PlayerPrefs.GetFloat("Slider_Sensitivity")) * Time.deltaTime;
+        
         if (_freeLook)
         {
             // No input for both controller and animation component. We only want to rotate the camera

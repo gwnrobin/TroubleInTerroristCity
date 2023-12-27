@@ -80,7 +80,6 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
             if (NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject playerObject))
             {
                 data.playerObject = playerObject.GetComponent<Player>();
-                print(data.playerObject);
                 data.PrefabId = playerObject.GetComponent<NetworkObject>().NetworkObjectId;
             
                 Players[networkId] = data;

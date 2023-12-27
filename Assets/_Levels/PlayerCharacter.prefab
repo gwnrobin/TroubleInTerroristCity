@@ -491,7 +491,7 @@ MonoBehaviour:
     TransitionDuration: 0.3
   _proneState:
     Enabled: 1
-    SpeedMultiplier: 4.5
+    SpeedMultiplier: 0.1
     StepLength: 1.9
     ControllerHeight: 1
     TransitionDuration: 0.3
@@ -500,7 +500,7 @@ MonoBehaviour:
     JumpHeight: 1
     JumpTimer: 0.3
   _slidingState:
-    Enabled: 0
+    Enabled: 1
     SlideTreeshold: 32
     SlideSpeed: 15
 --- !u!114 &4878195068895703616
@@ -15066,7 +15066,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 679187891474655109}
-  equipmentController: {fileID: 2114579983816872446}
 --- !u!114 &1581712655066176444
 MonoBehaviour:
   m_ObjectHideFlags: 0

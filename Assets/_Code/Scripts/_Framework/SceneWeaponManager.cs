@@ -5,19 +5,31 @@ using UnityEngine;
 public class SceneWeaponManager : NetworkSingleton<SceneWeaponManager>
 {
     public List<Transform> spawnPoints = new();
-    public List<GameObject> items = new();
 
+    [SerializeField] 
+    private ItemCollection weaponItemCollection;
+    [SerializeField] 
+    private ItemCollection traitorItemCollection;
+    
     [SerializeField]
+    private List<VendingMachine> vendingMachines = new();
+    
     private List<GameObject> _existingItems = new();
     
     public void SpawnWeapons()
     {
         if (!IsServer)
             return;
+
+        foreach (var machine in vendingMachines)
+        {
+            machine.SetWeapon(traitorItemCollection.items[Random.Range(0, traitorItemCollection.items.Count)]);
+        }
         
         foreach (var spawnTransform in spawnPoints)
         {
-            GameObject weapon = Instantiate(items[Random.Range(0, items.Count)], spawnTransform.position, Quaternion.identity);
+            int index = Random.Range(0, weaponItemCollection.items.Count);
+            GameObject weapon = Instantiate(ItemDatabase.GetItemByName(weaponItemCollection.items[index]).Pickup, spawnTransform.position, Quaternion.identity);
             weapon.GetComponent<NetworkObject>().Spawn();
             
             _existingItems.Add(weapon);

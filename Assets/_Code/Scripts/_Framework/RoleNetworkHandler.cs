@@ -3,7 +3,8 @@ using UnityEngine.Events;
 
 public class RoleNetworkHandler : NetworkBehaviour
 {
-    public UnityEvent<string> ReceiveRole;
+    public UnityEvent ReceiveTraitorRole;
+    public UnityEvent ReceiveInnocentRole;
     
     private TroubleInTerroristGamemode _gamemode;
     
@@ -45,12 +46,12 @@ public class RoleNetworkHandler : NetworkBehaviour
     [ClientRpc]
     private void GetRoleInnocentClientRPC(ClientRpcParams clientRpcParams = default)
     {
-        ReceiveRole.Invoke("Innocent");
+        ReceiveInnocentRole.Invoke();
     }
     
     [ClientRpc]
     private void GetRoleTraitorClientRPC(ClientRpcParams clientRpcParams = default)
     {
-        ReceiveRole.Invoke("Traitor");
+        ReceiveTraitorRole.Invoke();
     }
 }

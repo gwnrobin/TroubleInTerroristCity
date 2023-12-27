@@ -2,9 +2,9 @@ using UnityEngine.Events;
 
 public class PlayerSpawnDispatcher : NetworkSingleton<PlayerSpawnDispatcher>
 {
-    public UnityEvent<Player> PlayerSpawn;
+    public UnityEvent<Player> playerSpawn;
     public void OnPlayerSpawn(Player player)
     {
-        PlayerSpawn.Invoke(player);
+        playerSpawn.Invoke(player);
     }
 }

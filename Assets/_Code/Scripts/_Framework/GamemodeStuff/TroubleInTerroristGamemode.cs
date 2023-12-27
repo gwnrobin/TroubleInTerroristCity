@@ -66,6 +66,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
             return; 
         
         DeletePlayerPrefab(id);
+        _playersAlive.Remove(id);
         CheckGameState();
     }
 
@@ -74,7 +75,6 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         var player = PlayerManager.Instance.GetPlayerByNetworkId(id).GetComponent<NetworkObject>();
         player.RemoveOwnership();
         player.Despawn();
-        _playersAlive.Remove(id);
         
         PlayerRegisterDeath(id);
     }
@@ -122,14 +122,15 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     
     public IEnumerator GetReadyCoroutine()
     {
+        yield return new WaitForEndOfFrame();
+        
         SendEventClientRPC("StartPreRound");
         
         foreach (var deadPlayer in _playersDead)
         {
-            print(deadPlayer);
             PlayerManager.Instance.SetNewPrefab(deadPlayer);
         }
-        print("test");
+
         SceneWeaponManager.Instance.SpawnWeapons();
         _playersDead.Clear();
         yield return new WaitForSeconds(_getReadyDuration);
@@ -155,6 +156,13 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
 
     private void OnRoundEnd()
     {
+        foreach (var player in _playersAlive)
+        {
+            DeletePlayerPrefab(player);
+        }
+
+        _playersAlive.Clear();
+        
         _innocents.Clear();
         _traitors.Clear();
 
