@@ -51,11 +51,11 @@ public class ItemPickup : InteractiveObject
 	private string m_InitialInteractionText;
 
 
-	public override void OnInteractionEnd(Humanoid humanoid)
+	public override void OnInteractionEnd(Player player)
 	{
-		TryPickUp(humanoid, InteractionProgress.Get());
+		TryPickUp(player, InteractionProgress.Get());
 
-		base.OnInteractionEnd(humanoid);
+		base.OnInteractionEnd(player);
 	}
 
 	public void SetItem(Item item)

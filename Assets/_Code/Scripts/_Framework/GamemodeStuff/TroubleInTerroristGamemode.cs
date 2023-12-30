@@ -49,8 +49,8 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         _events.Add("TraitorWin", TraitorWin);
         _events.Add("InnocentWin", InnocentWin);
         
-        StartPreRound.AddListener(() => gamemodeStarted = false);
-        StartRound.AddListener(() => gamemodeStarted = true);
+        EndRound.AddListener(() => gamemodeStarted = false);
+        StartPreRound.AddListener(() => gamemodeStarted = true);
     }
 
     public void PlayerDie(ulong id)
@@ -72,7 +72,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
 
     public void DeletePlayerPrefab(ulong id)
     {
-        var player = PlayerManager.Instance.GetPlayerByNetworkId(id).GetComponent<NetworkObject>();
+        var player = PlayerManager.Instance.GetPlayerDataByNetworkId(id).playerObject.GetComponent<NetworkObject>();
         player.RemoveOwnership();
         player.Despawn();
         
@@ -117,6 +117,10 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         if (PlayerManager.Instance.Players.Count < _minimalPlayers)
             return;
         
+        if (gamemodeStarted)
+            return; 
+        
+        print("CheckGameReady");
         StartCoroutine((GetReadyCoroutine()));
     }
     
@@ -126,14 +130,20 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         
         SendEventClientRPC("StartPreRound");
         
+        print("StartPreRound");
+        
         foreach (var deadPlayer in _playersDead)
         {
             PlayerManager.Instance.SetNewPrefab(deadPlayer);
         }
+        
+        StartPreRound.Invoke();
 
         SceneWeaponManager.Instance.SpawnWeapons();
         _playersDead.Clear();
         yield return new WaitForSeconds(_getReadyDuration);
+        
+        print("EndPreRound");
         
         SendEventClientRPC("EndPreRound");
         StartCoroutine((RoundCoroutine()));
@@ -142,12 +152,12 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     private IEnumerator RoundCoroutine()
     {
         GenerateRoles();
-        
+        print("StartRound");
         SendEventClientRPC("StartRound");
 
         // Wait for the round duration
         yield return new WaitForSeconds(_roundDuration);
-        
+        print("EndRound");
         SendEventClientRPC("EndRound");
         SceneWeaponManager.Instance.ClearWeapons();
         // End the round when the duration is over
@@ -165,7 +175,10 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         
         _innocents.Clear();
         _traitors.Clear();
-
+        
+        EndRound.Invoke();
+        
+        print("OnRoundEnd");
         CheckGameReady();
     }
     

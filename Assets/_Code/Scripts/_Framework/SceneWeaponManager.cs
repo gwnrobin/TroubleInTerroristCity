@@ -12,7 +12,7 @@ public class SceneWeaponManager : NetworkSingleton<SceneWeaponManager>
     private ItemCollection traitorItemCollection;
     
     [SerializeField]
-    private List<VendingMachine> vendingMachines = new();
+    private List<NetworkVendingMachine> vendingMachines = new();
     
     private List<GameObject> _existingItems = new();
     

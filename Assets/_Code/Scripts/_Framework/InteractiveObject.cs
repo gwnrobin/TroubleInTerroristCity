@@ -43,7 +43,7 @@ public class InteractiveObject : MonoBehaviour
 	/// <summary>
 	/// Called when a player starts looking at the object.
 	/// </summary>
-	public virtual void OnRaycastStart(Humanoid humanoid)
+	public virtual void OnRaycastStart(Player player)
 	{
 		m_InteractionAudio.RaycastStartAudio.Play2D();
 	}
@@ -51,12 +51,12 @@ public class InteractiveObject : MonoBehaviour
 	/// <summary>
 	/// Called while a player is looking at the object.
 	/// </summary>
-	public virtual void OnRaycastUpdate(Humanoid humanoid) { }
+	public virtual void OnRaycastUpdate(Player player) { }
 
 	/// <summary>
 	/// Called when a player stops looking at the object.
 	/// </summary>
-	public virtual void OnRaycastEnd(Humanoid humanoid)
+	public virtual void OnRaycastEnd(Player player)
 	{
 		m_InteractionAudio.RaycastEndAudio.Play2D();
 	}
@@ -64,7 +64,7 @@ public class InteractiveObject : MonoBehaviour
 	/// <summary>
 	/// Called when a player starts interacting with the object.
 	/// </summary>
-	public virtual void OnInteractionStart(Humanoid humanoid)
+	public virtual void OnInteractionStart(Player player)
 	{
 		m_InteractionEvent.Invoke();
 
@@ -76,7 +76,7 @@ public class InteractiveObject : MonoBehaviour
 	/// <summary>
 	/// Called while a player is interacting with the object.
 	/// </summary>
-	public virtual void OnInteractionUpdate(Humanoid humanoid)
+	public virtual void OnInteractionUpdate(Player player)
 	{
 		InteractionProgress.Set(Time.time - m_InteractStart);
 	}
@@ -84,7 +84,7 @@ public class InteractiveObject : MonoBehaviour
 	/// <summary>
 	/// Called when a player stops interacting with the object.
 	/// </summary>
-	public virtual void OnInteractionEnd(Humanoid humanoid)
+	public virtual void OnInteractionEnd(Player player)
 	{
 		InteractionProgress.Set(0f);
 

@@ -2,6 +2,7 @@
 using System.Reflection;
 using Kinemation.FPSFramework.Runtime.Core.Types;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Player : Humanoid
 {
@@ -30,6 +31,9 @@ public class Player : Humanoid
     public readonly Activity DisabledMovement = new();
 
     public readonly Attempt DestroyEquippedItem = new();
+
+    public readonly Value<int> GamemodeCurrency = new(0);
+    
     //public readonly Attempt ChangeUseMode = new Attempt();
 
     //public readonly Activity Swimming = new Activity();

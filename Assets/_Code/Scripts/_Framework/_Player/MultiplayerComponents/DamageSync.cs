@@ -40,13 +40,11 @@ public class DamageSync : NetworkPlayerComponent
     {
         if (IsOwner)
             return;
-
-        print(TroubleInTerroristGamemode.Instance.gamemodeStarted);
         
         if (!TroubleInTerroristGamemode.Instance.gamemodeStarted)
             return;
         
-        PlayerManager.Instance.GetPlayerByObjectId(info.HitObjectId)?.ChangeHealth.Try(new DamageInfo(info.Delta, DamageType.Generic, Vector3.zero));
+        PlayerManager.Instance.GetPlayerDataByObjectId(info.HitObjectId)?.playerObject.ChangeHealth.Try(new DamageInfo(info.Delta, DamageType.Generic, Vector3.zero));
     }
 }
 

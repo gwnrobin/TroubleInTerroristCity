@@ -53,5 +53,9 @@ public class RoleNetworkHandler : NetworkBehaviour
     private void GetRoleTraitorClientRPC(ClientRpcParams clientRpcParams = default)
     {
         ReceiveTraitorRole.Invoke();
+
+        PlayerData playerData = PlayerManager.Instance.GetPlayerData();
+
+        playerData.playerObject.GamemodeCurrency.Set(5);
     }
 }

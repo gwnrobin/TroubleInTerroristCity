@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class VendingMachine : InteractiveObject
 {
+    public Action pickedUpItem;
+    
     [SerializeField] private Transform rotator;
     [SerializeField] private GameObject light;
     
@@ -18,16 +19,30 @@ public class VendingMachine : InteractiveObject
         
         _itemInfo = ItemDatabase.GetItemByName(itemName);
 
-         currentGameobject = Instantiate(_itemInfo.Pickup, rotator);
+         currentGameobject = Instantiate(_itemInfo.WeaponModel, rotator);
     }
     
-    public override void OnInteractionStart(Humanoid humanoid)
+    public override void OnInteractionStart(Player player)
     {
-        if(humanoid.Inventory.AddItem(new Item(_itemInfo), ItemContainerFlags.Holster))
+        if (currentGameobject == null)
+            return;
+
+        int gamemodeCurrency = player.GamemodeCurrency.Get();
+        
+        if (gamemodeCurrency < 1)
+            return;
+        
+        if (player.Inventory.AddItem(new Item(_itemInfo), ItemContainerFlags.Holster))
+        {
             RemoveCurrentItem();
+
+            pickedUpItem();
+
+            player.GamemodeCurrency.Set(gamemodeCurrency - 1);
+        }
     }
 
-    private void RemoveCurrentItem()
+    public void RemoveCurrentItem()
     {
         if (currentGameobject == null)
             return;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
@@ -15,22 +16,27 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     [SerializedDictionary("id", "player")]
     public SerializedDictionary<ulong, PlayerData> Players = new();
     
-    public Player GetPlayerByObjectId(ulong objectId)
+    public PlayerData GetPlayerData()
+    {
+        return GetPlayerDataByNetworkId(NetworkManager.LocalClient.ClientId);
+    }
+    
+    public PlayerData GetPlayerDataByObjectId(ulong objectId)
     {
         foreach (var player in Players)
         {
             if (player.Value.PrefabId == objectId)
             {
-                return player.Value.playerObject;
+                return player.Value;
             }
         }
 
         return null;
     }
     
-    public Player GetPlayerByNetworkId(ulong networkId)
+    public PlayerData GetPlayerDataByNetworkId(ulong networkId)
     {
-        return Players.TryGetValue(networkId, out PlayerData data) ? data.playerObject : null;
+        return Players.TryGetValue(networkId, out PlayerData data) ? data : default(PlayerData);
     }
 
     public ulong[] GetAllNetworkIds()
@@ -66,10 +72,28 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     public void SetNewPrefab(ulong id)
     {
         GameObject player = Instantiate(NetworkManager.Singleton.GetNetworkPrefabOverride(PlayerPrefab));
-        player.transform.position = GameManager.Instance.GetRandomSpawnPoint().position;
+        
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(id);
         
+        ClientRpcParams clientRpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new[] { id }
+            }
+        };
+        
         RegisterPrefabClientRPC(id, player.GetComponent<NetworkObject>().NetworkObjectId);
+        
+        SetSpawnClientRPC(clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void SetSpawnClientRPC(ClientRpcParams clientRpcParams = default)
+    {
+        GetPlayerData().playerObject.gameObject.transform.position = GameManager.Instance.GetRandomSpawnPoint().position;
+
+        GetPlayerData().playerObject.gameObject.GetComponent<CharacterController>().enabled = true;
     }
 
     [ClientRpc]
@@ -141,7 +165,7 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
 }
 
 [Serializable]
-public struct PlayerData
+public class PlayerData
 {
     public ulong PrefabId;
     public Player playerObject;

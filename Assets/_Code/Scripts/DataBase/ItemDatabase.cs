@@ -322,6 +322,8 @@ public class ItemInfo
 	public string Description { get { return m_Description; } }
 
 	public GameObject Pickup { get { return m_Pickup; } }
+	
+	public GameObject WeaponModel { get { return m_Model; } }
 
 	public int StackSize { get { return m_StackSize; } }
 
@@ -354,6 +356,9 @@ public class ItemInfo
 
 	[SerializeField]
 	private GameObject m_Pickup;
+	
+	[SerializeField]
+	private GameObject m_Model;
 
 	[SerializeField]
 	//[Clamp(1, 1000)]
