@@ -6,22 +6,6 @@ public class TempInput : PlayerComponent
 {
     private bool _holster;
     private bool _pause;
-    
-    public void SetPause(CallbackContext context)
-    {
-        if (context.started)
-        {
-            _pause = !_pause;
-            if(_pause)
-            {
-                Player.Pause.ForceStart();
-            }
-            else
-            {
-                Player.Pause.ForceStop();
-            }
-        }
-    }
 
     public void SetLookInput(CallbackContext context)
     {

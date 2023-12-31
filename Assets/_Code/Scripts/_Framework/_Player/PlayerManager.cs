@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
@@ -15,6 +14,16 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     
     [SerializedDictionary("id", "player")]
     public SerializedDictionary<ulong, PlayerData> Players = new();
+    
+    public void PausePlayer()
+    {
+        GetPlayerData().playerObject.Pause.ForceStart();
+    }
+
+    public void UnPausePlayer()
+    {
+        GetPlayerData().playerObject.Pause.ForceStop();
+    }
     
     public PlayerData GetPlayerData()
     {
