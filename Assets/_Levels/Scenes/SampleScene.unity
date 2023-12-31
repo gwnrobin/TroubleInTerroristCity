@@ -39037,7 +39037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630825578171585184, guid: 49179ab9a1a91854d84bf3f564b90ad2, type: 3}
       propertyPath: _minimalPlayers
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6630825578171585184, guid: 49179ab9a1a91854d84bf3f564b90ad2, type: 3}
       propertyPath: _getReadyDuration
