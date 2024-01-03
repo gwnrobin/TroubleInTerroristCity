@@ -80,7 +80,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3827979128305879915, guid: 25f86914c866684498f3c1db8e909625, type: 3}
       propertyPath: m_Name
-      value: Network Weapon Pickup Variant Variant
+      value: Network AR15 Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006462303934379761, guid: 25f86914c866684498f3c1db8e909625, type: 3}
+      propertyPath: m_Item
+      value: AR15
       objectReference: {fileID: 0}
     - target: {fileID: 8821580175247896042, guid: 25f86914c866684498f3c1db8e909625, type: 3}
       propertyPath: m_RootOrder

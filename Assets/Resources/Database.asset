@@ -77,6 +77,21 @@ MonoBehaviour:
           m_FixedValue: 30
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
+    - m_Name: GrenadeLauncher
+      m_Id: -4979178
+      m_Category: Primary
+      m_Icon: {fileID: 21300000, guid: ad3f397d16532ce4abe25e6516661a27, type: 3}
+      m_Description: piew
+      m_Pickup: {fileID: 5161930832920529412, guid: 736167e8d002750488abf311dc292b98, type: 3}
+      m_Model: {fileID: 8670834170760051729, guid: 2379eaa7eaba0104090d5deafcd181fe, type: 3}
+      m_StackSize: 1
+      m_Properties:
+        m_List:
+        - m_Name: Ammo
+          m_Type: 1
+          m_FixedValue: 3
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
   m_ItemProperties:
     m_List:
     - Name: Ammo
