@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1fb12a7d6f45ad9de02232442a17ff, type: 3}
   m_Name: GrenadeLauncher_Static
   m_EditorClassIdentifier: 
-  clip: {fileID: 7400000, guid: c774bd535cc66ff4d985b811509dbc5f, type: 2}
+  clip: {fileID: 7400000, guid: d2d01319414c1c8459149d6c5d9dc965, type: 2}
   mask: {fileID: 0}
   spineRotation: {x: 0, y: 0, z: 0, w: 1}
   overrideMask: {fileID: 0}
