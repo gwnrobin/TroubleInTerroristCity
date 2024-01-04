@@ -83,7 +83,7 @@ MonoBehaviour:
       m_Icon: {fileID: 21300000, guid: ad3f397d16532ce4abe25e6516661a27, type: 3}
       m_Description: piew
       m_Pickup: {fileID: 5161930832920529412, guid: 736167e8d002750488abf311dc292b98, type: 3}
-      m_Model: {fileID: 8670834170760051729, guid: 2379eaa7eaba0104090d5deafcd181fe, type: 3}
+      m_Model: {fileID: 7420662808882850434, guid: ee51189e453b677478685bf24e1965c7, type: 3}
       m_StackSize: 1
       m_Properties:
         m_List:

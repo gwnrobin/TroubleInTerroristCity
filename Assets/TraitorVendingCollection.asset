@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: TraitorVendingCollection
   m_EditorClassIdentifier: 
   items:
-  - Vector
-  - AR15
-  - Tommy
+  - GrenadeLauncher

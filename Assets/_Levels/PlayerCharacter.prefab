@@ -13667,7 +13667,7 @@ MonoBehaviour:
     CorrespondingItem: GrenadeLauncher
     weaponAnimAsset: {fileID: 11400000, guid: 324257dbd2e1cd64bb86b415c73c8c78, type: 2}
     EquipmentInfo: {fileID: 11400000, guid: 944fc861130890b46844916876152cf3, type: 2}
-    Animator: {fileID: 4492071823549385047}
+    Animator: {fileID: 204731195561216112}
     weaponTransformData:
       pivotPoint: {fileID: 3718306209118658550}
       aimPoint: {fileID: 5573177910507441083}
@@ -19054,11 +19054,6 @@ Transform:
 --- !u!4 &3951216382345534850 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 112890970492936742, guid: 8c3f0ac312d5554448e60214becbc806, type: 3}
-  m_PrefabInstance: {fileID: 3982479360484212644}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4492071823549385047 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 654025142196745971, guid: 8c3f0ac312d5554448e60214becbc806, type: 3}
   m_PrefabInstance: {fileID: 3982479360484212644}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5427772515930001508 stripped

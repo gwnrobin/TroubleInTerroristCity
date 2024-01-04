@@ -123,6 +123,9 @@ public class EquipmentController : PlayerComponent
 
     private void ChangeWeapon(int index)
     {
+        if (m_WaitingToEquip)
+            return;
+        
         int maxWeapons = 3;
         _index = (_index + index + maxWeapons) % maxWeapons;
 
@@ -133,11 +136,11 @@ public class EquipmentController : PlayerComponent
 
         if (item != null)
         {
-            Player.EquipItem.Try(item, true);
+            Player.EquipItem.Try(item, false);
         }
         else
         {
-            Player.EquipItem.Try(null, true);
+            Player.EquipItem.Try(null, false);
         }
     }
     
@@ -192,7 +195,7 @@ public class EquipmentController : PlayerComponent
             if (Player.DropItem.Try(currentItem))
             {
                 Player.DestroyEquippedItem.Try();
-                Player.EquipItem.Try(item, true);
+                Player.EquipItem.Try(item, false);
 
                 itemSlot.SetItem(item);
 
@@ -217,7 +220,7 @@ public class EquipmentController : PlayerComponent
             return false;
         Player.Inventory.RemoveItem(Player.EquippedItem.Get());
         //Player.EquippedItem.Get().gameObject.SetActive(false);
-        Player.EquipItem.Try(null, true);
+        Player.EquipItem.Try(null, false);
         return true;
     }
     

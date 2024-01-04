@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1fb12a7d6f45ad9de02232442a17ff, type: 3}
   m_Name: C_GrenadeLauncher_ReloadEmpty
   m_EditorClassIdentifier: 
-  clip: {fileID: 7400000, guid: 3f5b89a5f0339ec4ab74564f04fcf755, type: 2}
+  clip: {fileID: 7400000, guid: 479b4eb9de5d5d84c9cbcb0cd07eb599, type: 2}
   mask: {fileID: 0}
+  spineRotation: {x: 0, y: 0, z: 0, w: 1}
+  overrideMask: {fileID: 0}
+  isAdditive: 0
   blendTime:
     blendInTime: 0.15
     blendOutTime: 0.2
+    rateScale: 1
   curves:
   - name: MaskLeftHand
     curve:
