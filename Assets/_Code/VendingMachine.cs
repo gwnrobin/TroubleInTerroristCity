@@ -6,7 +6,7 @@ public class VendingMachine : InteractiveObject
     public Action pickedUpItem;
     
     [SerializeField] private Transform rotator;
-    [SerializeField] private GameObject light;
+    [SerializeField] private new GameObject light;
     
     private ItemInfo _itemInfo;
 

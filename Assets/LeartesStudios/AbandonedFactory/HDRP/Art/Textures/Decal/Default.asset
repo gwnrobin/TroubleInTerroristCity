@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   version: 0
+  freezePlacement: 0
   simplificationLevels: 3
-  minDistanceBetweenProbes: 1
+  minDistanceBetweenProbes: 0.1
+  renderersLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  minRendererVolumeSize: 0.1
