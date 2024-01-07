@@ -202,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 75ca37048ed30b2499503b6c2cb52d6a, type: 2}
     - target: {fileID: 919132149155446097, guid: de147944306089e4ebc94ef8449e70db, type: 3}
       propertyPath: m_Name
-      value: GrenadeLauncher Variant
+      value: GrenadeLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 1433108602377567966, guid: de147944306089e4ebc94ef8449e70db, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -220,6 +220,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 75ca37048ed30b2499503b6c2cb52d6a, type: 2}
+    - target: {fileID: 2919339553814613765, guid: de147944306089e4ebc94ef8449e70db, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c29dea9d41b06d40874edbc459b4ead, type: 2}
     - target: {fileID: 3677399616541509441, guid: de147944306089e4ebc94ef8449e70db, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

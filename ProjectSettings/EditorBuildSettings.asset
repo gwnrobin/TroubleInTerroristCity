@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Levels/Scenes/SampleScene.unity
     guid: 3db1837cc97a95e4c98610966fac2b0b
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Levels/Scenes/EmtpyMuliplayer.unity
     guid: 26a8ada3229658a43b92b9a035f7660d
   - enabled: 1
