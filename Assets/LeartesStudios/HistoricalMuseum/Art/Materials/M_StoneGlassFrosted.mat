@@ -108,8 +108,8 @@ Material:
     - _CullMode: 2
     - _CullModeForward: 2
     - _DepthOffsetEnable: 0
-    - _DirtContrast: 0.67
-    - _DirtOpacity: 0.51
+    - _DirtContrast: 1.47
+    - _DirtOpacity: 0.15
     - _DirtRoughness: 0
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0

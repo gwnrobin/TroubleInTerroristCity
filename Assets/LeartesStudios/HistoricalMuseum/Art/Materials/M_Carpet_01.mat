@@ -146,7 +146,7 @@ Material:
     - _FuzzyDarkness: 0.3
     - _FuzzyPower: 9.88
     - _FuzzyShading: 1
-    - _MetallicOrnaments: 0
+    - _MetallicOrnaments: 1
     - _NormalBlend: 0.15
     - _NormalStrength: 7
     - _OpaqueCullMode: 2
