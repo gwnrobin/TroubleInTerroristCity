@@ -146,8 +146,8 @@ public class EquipmentItem : PlayerComponent
 
     public virtual void Unequip()
     {
-        //if (m_GeneralInfo.EquipmentInfo.Unequipping.Audio != null)
-        //	EHandler.PlayPersistentAudio(m_GeneralInfo.EquipmentInfo.Unequipping.Audio[0].Sound, 1f, ItemSelection.Method.RandomExcludeLast);
+        if (generalInfo.EquipmentInfo.Unequipping.Audio != null)
+        	EHandler.PlayPersistentAudio(generalInfo.EquipmentInfo.Unequipping.Audio[0].Sound, 1f, ItemSelection.Method.RandomExcludeLast);
 
         //Player.Camera.Physics.PlayDelayedCameraForces(m_GeneralInfo.EquipmentInfo.Unequipping.CameraForces);
 
