@@ -25,9 +25,16 @@ MonoBehaviour:
     AnimationSpeed: 1
     Audio: []
   Unequipping:
-    Duration: 2
+    Duration: 0.8
     AnimationSpeed: 1
-    Audio: []
+    Audio:
+    - Delay: 0
+      Sound:
+        m_Clips:
+        - {fileID: 8300000, guid: 5b1f9678bc3929d42b41b10ee277742c, type: 3}
+        m_VolumeRange: {x: 0, y: 1}
+        m_PitchRange: {x: 0, y: 0}
+        m_VolumeMultiplier: 0.3
   Aiming:
     Enabled: 1
     AimThreshold: 0
@@ -134,11 +141,11 @@ MonoBehaviour:
     - Delay: 0.7
       Sound:
         m_Clips:
-        - {fileID: 8300000, guid: 38fbdc72c97a2ad4ab876cecfc62701e, type: 3}
-        - {fileID: 8300000, guid: 575c4e2899cf99c4e93358cea2c31cfd, type: 3}
-        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
         - {fileID: 8300000, guid: f1db6630a910cf94485de3b65d4a8d67, type: 3}
+        - {fileID: 8300000, guid: 38fbdc72c97a2ad4ab876cecfc62701e, type: 3}
+        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
         - {fileID: 8300000, guid: 4bb85b09ed0bf484c98e550c60bc9e4c, type: 3}
+        - {fileID: 8300000, guid: 575c4e2899cf99c4e93358cea2c31cfd, type: 3}
         m_VolumeRange: {x: 0.5, y: 0.65}
         m_PitchRange: {x: 0.95, y: 1.05}
         m_VolumeMultiplier: 1
