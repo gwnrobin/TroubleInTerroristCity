@@ -133,22 +133,15 @@ public class EquipmentController : PlayerComponent
         string containerName = containerNames[_index];
 
         Item item = Player.Inventory.GetContainerWithName(containerName).Slots[0].Item;
-
-        if (item != null)
-        {
-            Player.EquipItem.Try(item, false);
-        }
-        else
-        {
-            Player.EquipItem.Try(null, false);
-        }
+        
+        Player.EquipItem.Try(item, false);
     }
     
     private bool TryChangeItem(Item item, bool instantly)
     {
-        if (Player.EquippedItem.Get() == item && item != null)
+        if (Player.EquippedItem.Get() == item && item == null)
             return false;
-
+        
         ChangeItem(item, instantly);
         activeEHandler.StartWeaponChange();
 
