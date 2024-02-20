@@ -4,7 +4,14 @@ using UnityEngine;
 public class GunSettings
 {
     [Serializable]
-    public class Shooting : ICloneable
+    public class ProjectileShooting : ICloneable
+    {
+        public object Clone() => MemberwiseClone();
+    }
+    
+    
+    [Serializable]
+    public class RayShooting : ICloneable
     {
         [Tooltip("The layers that will be affected when you fire.")]
         public LayerMask RayMask;

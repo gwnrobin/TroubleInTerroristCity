@@ -2,19 +2,12 @@ using System.Collections.Generic;
 using HQFPSTemplate.Surfaces;
 using UnityEngine;
 
-public enum OverlayType
-{
-    Default,
-    Pistol,
-    Rifle
-}
-
-public class Gun : ProjectileWeapon
+public class HitScanWeapon : Weapon
 {
     [SerializeField] 
     private List<Transform> scopes;
 
-    private GunSettings.Shooting _raycastData;
+    private GunSettings.RayShooting _raycastData;
 
     private int _scopeIndex;
 
@@ -30,14 +23,14 @@ public class Gun : ProjectileWeapon
     {
         base.Initialize(eHandler);
 
-        _raycastData = (EquipmentInfo as GunInfo).Projectile;
+        _raycastData = (EquipmentInfo as HitScanWeaponInfo)?.projectile;
     }
 
     public override void Equip(Item item)
     {
         base.Equip(item);
 
-        SelectedFireMode = (int)_projectileWeaponInfo.Shooting.Modes;
+        SelectedFireMode = (int)WeaponInfo.Shooting.Modes;
 
         SelectFireMode(SelectedFireMode);
     }
@@ -115,17 +108,6 @@ public class Gun : ProjectileWeapon
 
         //Set the firemode to the coressponding saveable item
         //m_FireModes.Integer = selectedMode;
-    }
-}
-
-public struct AmmoInfo
-{
-    public int CurrentInMagazine;
-    public int CurrentInStorage;
-
-    public override string ToString()
-    {
-        return string.Format("Ammo In Mag: {0}. Total Ammo: {1}", CurrentInMagazine, CurrentInStorage);
     }
 }
 

@@ -3,7 +3,7 @@ using Kinemation.FPSFramework.Runtime.Recoil;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Projectile Weapon Info", menuName = "Equipment/Projectile Weapon")]
-public class ProjectileWeaponInfo : EquipmentItemInfo
+public class WeaponInfo : EquipmentItemInfo
 {
     #region Internal
 

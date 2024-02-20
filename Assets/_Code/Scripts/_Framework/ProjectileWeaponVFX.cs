@@ -73,12 +73,12 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 	[SerializeField]
 	private LightEffect m_LightEffect;
 
-	private ProjectileWeapon weapon;
+	private Weapon weapon;
 	private WaitForSeconds casingSpawnDelay;
 
 	public void Initialize(EquipmentItem equipmentItem)
 	{
-		weapon = equipmentItem as ProjectileWeapon;
+		weapon = equipmentItem as Weapon;
 
 		casingSpawnDelay = new WaitForSeconds(CasingEjection.SpawnDelay);
 
