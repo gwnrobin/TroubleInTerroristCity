@@ -69,5 +69,6 @@ namespace Kinemation.FPSFramework.Runtime.Core.Types
         public Transform pivotPoint;
         public Transform aimPoint;
         public Transform leftHandTarget;
+        public Transform barrel;
     }
 }

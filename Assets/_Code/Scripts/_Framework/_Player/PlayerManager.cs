@@ -48,6 +48,19 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         return Players.TryGetValue(networkId, out PlayerData data) ? data : default(PlayerData);
     }
 
+    public ulong GetPlayerIdByPlayerObject(ulong objectId)
+    {
+        foreach (var player in Players)
+        {
+            if (player.Value.PrefabId == objectId)
+            {
+                return player.Key;
+            }
+        }
+
+        return 9999;
+    }
+
     public ulong[] GetAllNetworkIds()
     {
         return Players.Keys.ToArray();

@@ -3728,14 +3728,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7714355166249158670}
-  - component: {fileID: 7090110248516516397}
+  - component: {fileID: 7663118883508739836}
   m_Layer: 3
   m_Name: GrenadeLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7714355166249158670
 Transform:
   m_ObjectHideFlags: 0
@@ -3751,10 +3751,11 @@ Transform:
   - {fileID: 2534324149751113983}
   - {fileID: 49826117709096906}
   - {fileID: 466711584782905007}
+  - {fileID: 937760261762007984}
   m_Father: {fileID: 6859781800492628591}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7090110248516516397
+--- !u!114 &7663118883508739836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3763,18 +3764,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1841013961956122490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32bc7aa9a25bafb4d85fa6f8e7a16e8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 45a505e54e5d4264dbfa622e6bed0156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   generalInfo:
     CorrespondingItem: GrenadeLauncher
     weaponAnimAsset: {fileID: 11400000, guid: 324257dbd2e1cd64bb86b415c73c8c78, type: 2}
-    EquipmentInfo: {fileID: 11400000, guid: 944fc861130890b46844916876152cf3, type: 2}
+    EquipmentInfo: {fileID: 11400000, guid: 0c70c7d3a42a5f7429886340f53fe474, type: 2}
     Animator: {fileID: 577478013198926473}
     weaponTransformData:
       pivotPoint: {fileID: 49826117709096906}
       aimPoint: {fileID: 466711584782905007}
       leftHandTarget: {fileID: 0}
+      barrel: {fileID: 937760261762007984}
   recoilPattern: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
   m_GeneralEvents:
     OnEquipped:
@@ -6423,6 +6425,7 @@ MonoBehaviour:
       pivotPoint: {fileID: 0}
       aimPoint: {fileID: 0}
       leftHandTarget: {fileID: 0}
+      barrel: {fileID: 0}
   recoilPattern: {fileID: 0}
   m_GeneralEvents:
     OnEquipped:
@@ -7750,6 +7753,7 @@ MonoBehaviour:
     pivotPoint: {fileID: 0}
     aimPoint: {fileID: 0}
     leftHandTarget: {fileID: 0}
+    barrel: {fileID: 0}
   animGraph: {fileID: 4763392408258913454}
   animLayers:
   - {fileID: 5507071522023167696}
@@ -11820,6 +11824,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5633231047417397248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937760261762007984}
+  m_Layer: 3
+  m_Name: Barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &937760261762007984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5633231047417397248}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0046, z: 0.3087}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7714355166249158670}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5646839231721989070
 GameObject:
   m_ObjectHideFlags: 0
@@ -14782,6 +14817,7 @@ MonoBehaviour:
       pivotPoint: {fileID: 9010758208105883534}
       aimPoint: {fileID: 1663215804589676627}
       leftHandTarget: {fileID: 0}
+      barrel: {fileID: 0}
   recoilPattern: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
   m_GeneralEvents:
     OnEquipped:
@@ -16581,6 +16617,7 @@ MonoBehaviour:
       pivotPoint: {fileID: 1614726823105968574}
       aimPoint: {fileID: 0}
       leftHandTarget: {fileID: 0}
+      barrel: {fileID: 0}
   recoilPattern: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
   m_GeneralEvents:
     OnEquipped:

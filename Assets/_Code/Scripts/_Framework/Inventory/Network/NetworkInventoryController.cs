@@ -41,7 +41,7 @@ public class NetworkInventoryController : NetworkPlayerComponent //TODO: find a 
 		}
 		else
 		{
-			Player.DropItem.AddListener(item => SendToServerRPC(item.Id));
+			//Player.DropItem.AddListener(item => SendToServerRPC(item.Id));
 		}
 		m_Inventory = GetComponent<Inventory>();
 		Player.DropItem.SetTryer(TryDropItem);

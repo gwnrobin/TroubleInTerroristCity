@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class HitScanWeapon : Weapon
 {
-    [SerializeField] 
-    private List<Transform> scopes;
-
     private GunSettings.RayShooting _raycastData;
-
-    private int _scopeIndex;
 
     protected ItemProperty m_FireModes;
 
@@ -25,15 +20,7 @@ public class HitScanWeapon : Weapon
 
         _raycastData = (EquipmentInfo as HitScanWeaponInfo)?.projectile;
     }
-
-    public override void Equip(Item item)
-    {
-        base.Equip(item);
-
-        SelectedFireMode = (int)WeaponInfo.Shooting.Modes;
-
-        SelectFireMode(SelectedFireMode);
-    }
+    
 
     public override void Shoot(Ray[] itemUseRays)
     {
@@ -55,13 +42,6 @@ public class HitScanWeapon : Weapon
             hitPoints[0] = DoHitscan(itemUseRays[0]);
             
         FireHitPoints.Send(hitPoints);
-    }
-
-    public Transform GetScope()
-    {
-        _scopeIndex++;
-        _scopeIndex = _scopeIndex > scopes.Count - 1 ? 0 : _scopeIndex;
-        return scopes[_scopeIndex];
     }
 
     public override float GetUseRaySpreadMod()
@@ -100,14 +80,6 @@ public class HitScanWeapon : Weapon
             hitInfo.point = itemUseRay.GetPoint(10f);
 
         return hitInfo.point;
-    }
-
-    private void SelectFireMode(int selectedMode)
-    {
-        UpdateFireModeSettings(selectedMode);
-
-        //Set the firemode to the coressponding saveable item
-        //m_FireModes.Integer = selectedMode;
     }
 }
 

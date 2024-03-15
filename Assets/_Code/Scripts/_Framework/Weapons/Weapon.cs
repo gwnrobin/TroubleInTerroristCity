@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Kinemation.FPSFramework.Runtime.Recoil;
 using UnityEngine;
 
@@ -14,6 +15,11 @@ public class Weapon : EquipmentItem
     public bool AmmoEnabled { get => WeaponInfo.Shooting.EnableAmmo; }
     
     protected WeaponInfo WeaponInfo;
+    
+    [SerializeField] 
+    private List<Transform> scopes;
+    
+    private int _scopeIndex;
 
     public int SelectedFireMode { get; protected set; } = 8;
 
@@ -33,6 +39,22 @@ public class Weapon : EquipmentItem
 
         _ammoProperty = WeaponInfo.Shooting.MagazineSize;
         UpdateAmmoInfo();
+    }
+    
+    public override void Equip(Item item)
+    {
+        base.Equip(item);
+
+        SelectedFireMode = (int)WeaponInfo.Shooting.Modes;
+
+        SelectFireMode(SelectedFireMode);
+    }
+    
+    public Transform GetScope()
+    {
+        _scopeIndex++;
+        _scopeIndex = _scopeIndex > scopes.Count - 1 ? 0 : _scopeIndex;
+        return scopes[_scopeIndex];
     }
 
     public override void OnAimStart()
@@ -339,6 +361,14 @@ public class Weapon : EquipmentItem
             m_UseThreshold = WeaponInfo.Shooting.FireDuration;
         else if ((int)FireMode.Safety == selectedMode)
             m_UseThreshold = WeaponInfo.Shooting.FireDuration;
+    }
+    
+    protected void SelectFireMode(int selectedMode)
+    {
+        UpdateFireModeSettings(selectedMode);
+
+        //Set the firemode to the coressponding saveable item
+        //m_FireModes.Integer = selectedMode;
     }
 }
 

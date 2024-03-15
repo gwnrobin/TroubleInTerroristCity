@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Projectile Weapon Info
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileWeaponInfo
+  General:
+    UseWhileAirborne: 0
+    UseWhileRunning: 0
+    CanStopReloading: 0
+    CrosshairID: 0
+    StaminaTakePerUse: 0
+    MovementSpeedMod: 1
+    overlayType: 0
+  Equipping:
+    Duration: 0.6
+    AnimationSpeed: 1
+    Audio: []
+  Unequipping:
+    Duration: 0.6
+    AnimationSpeed: 1
+    Audio: []
+  Aiming:
+    Enabled: 0
+    AimThreshold: 0
+    AimCamHeadbobMod: 0
+    AimMovementSpeedMod: 0
+    AimWhileAirborne: 0
+    UseAimBlur: 0
+    AimSounds:
+      m_Clips: []
+      m_VolumeRange: {x: 0.5, y: 0.75}
+      m_PitchRange: {x: 0.9, y: 1.1}
+      m_VolumeMultiplier: 1
+  Shooting:
+    EnableAmmo: 1
+    MagazineSize: 30
+    Modes: 2
+    FireRateOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    FireDuration: 0.22
+    BurstLength: 3
+    BurstDuration: 0.3
+    BurstPause: 0.35
+    RoundsPerMinute: 450
+    HasDryFireAnim: 0
+    HasAlternativeFireAnim: 0
+    FireAnimationSpeed: 1
+    ShootAudio:
+      m_Clips: []
+      m_VolumeRange: {x: 0.5, y: 0.75}
+      m_PitchRange: {x: 0.9, y: 1.1}
+      m_VolumeMultiplier: 1
+    ShootTailAudio:
+      m_Clips: []
+      m_VolumeRange: {x: 0.5, y: 0.75}
+      m_PitchRange: {x: 0.9, y: 1.1}
+      m_VolumeMultiplier: 1
+    DryShootAudio:
+      m_Clips: []
+      m_VolumeRange: {x: 0.5, y: 0.75}
+      m_PitchRange: {x: 0.9, y: 1.1}
+      m_VolumeMultiplier: 1
+    FireModeChangeAudio:
+      Delay: 0
+      Sound:
+        m_Clips: []
+        m_VolumeRange: {x: 0.5, y: 0.75}
+        m_PitchRange: {x: 0.9, y: 1.1}
+        m_VolumeMultiplier: 1
+    HandlingAudio: []
+    CasingDropAudio: []
+  Reloading:
+    ReloadType: 0
+    ReloadStartDuration: 0
+    ReloadDuration: 2.5
+    ReloadEndDuration: 0
+    HasEmptyReload: 0
+    EmptyReloadDuration: 3
+    ProgressiveEmptyReload: 0
+    ReloadAnimationSpeed: 1
+    EmptyReloadAnimationSpeed: 1
+    ReloadSounds: []
+    ReloadStartSounds: []
+    ReloadEndSounds: []
+    EmptyReloadSounds: []

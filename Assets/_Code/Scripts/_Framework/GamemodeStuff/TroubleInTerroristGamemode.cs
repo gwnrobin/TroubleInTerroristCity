@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -57,6 +56,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     {
         PlayerDied?.Invoke();
         PlayerDieServerRPC(id);
+        print(id);
     }
 
     [ServerRpc(RequireOwnership = false)]

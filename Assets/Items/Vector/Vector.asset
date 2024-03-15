@@ -142,10 +142,10 @@ MonoBehaviour:
       Sound:
         m_Clips:
         - {fileID: 8300000, guid: f1db6630a910cf94485de3b65d4a8d67, type: 3}
-        - {fileID: 8300000, guid: 38fbdc72c97a2ad4ab876cecfc62701e, type: 3}
-        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
         - {fileID: 8300000, guid: 4bb85b09ed0bf484c98e550c60bc9e4c, type: 3}
+        - {fileID: 8300000, guid: 38fbdc72c97a2ad4ab876cecfc62701e, type: 3}
         - {fileID: 8300000, guid: 575c4e2899cf99c4e93358cea2c31cfd, type: 3}
+        - {fileID: 8300000, guid: 66cde499edbacbf42acbd4119ad8143b, type: 3}
         m_VolumeRange: {x: 0.5, y: 0.65}
         m_PitchRange: {x: 0.95, y: 1.05}
         m_VolumeMultiplier: 1
@@ -310,18 +310,18 @@ MonoBehaviour:
         m_VolumeRange: {x: 0.1, y: 0.1}
         m_PitchRange: {x: 0.4, y: 0.5}
         m_VolumeMultiplier: 0.75
-  Projectile:
+  projectile:
     RayMask:
       serializedVersion: 2
       m_Bits: 9
     RayCount: 1
-    RaySpread: 2
+    RaySpread: 1
     SpreadOverTime:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.8016697
-        value: 0.7002763
+        time: 0
+        value: 0.8
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -329,8 +329,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.9998746
-        value: 1.0010873
+        time: 1
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -341,8 +341,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     RayImpact:
-      m_MaxDamage: 40
-      m_MaxImpulse: 40
+      m_MaxDamage: 15
+      m_MaxImpulse: 15
       m_DistanceCurve:
         serializedVersion: 2
         m_Curve:
@@ -353,8 +353,8 @@ MonoBehaviour:
           outSlope: 0
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0
         - serializedVersion: 3
           time: 0.8
           value: 0.5
@@ -362,8 +362,8 @@ MonoBehaviour:
           outSlope: 0
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0
         - serializedVersion: 3
           time: 1
           value: 0
@@ -371,8 +371,8 @@ MonoBehaviour:
           outSlope: 0
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4

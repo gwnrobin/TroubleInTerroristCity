@@ -6,6 +6,7 @@ public class GunSettings
     [Serializable]
     public class ProjectileShooting : ICloneable
     {
+        public GameObject projectile;
         public object Clone() => MemberwiseClone();
     }
     
