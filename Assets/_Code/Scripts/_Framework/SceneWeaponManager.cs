@@ -45,7 +45,6 @@ public class SceneWeaponManager : NetworkSingleton<SceneWeaponManager>
                 
             Destroy(_existingItems[i]);
         }
-        
         _existingItems.Clear(); 
     }
 }

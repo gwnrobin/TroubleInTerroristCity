@@ -159,7 +159,6 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         yield return new WaitForSeconds(_roundDuration);
         print("EndRound");
         SendEventClientRPC("EndRound");
-        SceneWeaponManager.Instance.ClearWeapons();
         // End the round when the duration is over
         OnRoundEnd();
     }
@@ -170,7 +169,8 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         {
             DeletePlayerPrefab(player);
         }
-
+        SceneWeaponManager.Instance.ClearWeapons();
+        LevelResetter.Instance.ResetLevel();
         _playersAlive.Clear();
         
         _innocents.Clear();

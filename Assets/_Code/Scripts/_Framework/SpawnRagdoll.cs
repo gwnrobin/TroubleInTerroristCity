@@ -17,5 +17,7 @@ public class SpawnRagdoll : NetworkPlayerComponent
     {
         GameObject ragdoll = Instantiate(prefab, transform.position, transform.rotation);
         ragdoll.GetComponent<NetworkObject>().Spawn();
+        
+        LevelResetter.Instance.AddToDelete(ragdoll);
     }
 }
