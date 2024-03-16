@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ProjectSceneManager : NetworkBehaviour
+public class ProjectSceneManager : NetworkSingleton<ProjectSceneManager>
 {
     /// INFO: You can remove the #if UNITY_EDITOR code segment and make SceneName public,
     /// but this code assures if the scene name changes you won't have to remember to
@@ -45,6 +45,12 @@ public class ProjectSceneManager : NetworkBehaviour
         NetworkManager.SceneManager.OnLoadComplete += SetActiveScene;
 
         base.OnNetworkSpawn();
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        SceneManager.LoadScene("Menu");
     }
 
     private void SetActiveScene(ulong clientid, string scenename, LoadSceneMode loadscenemode)
