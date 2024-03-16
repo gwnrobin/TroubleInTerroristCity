@@ -52,6 +52,12 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         StartPreRound.AddListener(() => gamemodeStarted = true);
     }
 
+    public void RemovePlayerFromGame(ulong id)
+    {
+        _playersAlive.Remove(id);
+        _playersDead.Remove(id);
+    }
+
     public void PlayerDie(ulong id)
     {
         PlayerDied?.Invoke();
@@ -73,6 +79,10 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     public void DeletePlayerPrefab(ulong id)
     {
         var player = PlayerManager.Instance.GetPlayerDataByNetworkId(id).playerObject.GetComponent<NetworkObject>();
+
+        if (player == null)
+            return;
+        
         player.RemoveOwnership();
         player.Despawn();
         
@@ -89,13 +99,13 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         if (AreAllPlayersDeadOfRole(_innocents))
         {
             StopAllCoroutines();
-            OnRoundEnd();
+            StartCoroutine(OnRoundEnd());
             SendEventClientRPC("TraitorWin");
         }
         else if(AreAllPlayersDeadOfRole(_traitors))
         {
             StopAllCoroutines();
-            OnRoundEnd();
+            StartCoroutine(OnRoundEnd());
             SendEventClientRPC("InnocentWin");
         }
     }
@@ -160,11 +170,15 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         print("EndRound");
         SendEventClientRPC("EndRound");
         // End the round when the duration is over
-        OnRoundEnd();
+        StartCoroutine(OnRoundEnd());
     }
 
-    private void OnRoundEnd()
+    private IEnumerator OnRoundEnd()
     {
+        EndRound.Invoke();
+        
+        yield return new WaitForSeconds(10);
+        
         foreach (var player in _playersAlive)
         {
             DeletePlayerPrefab(player);
@@ -175,8 +189,6 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         
         _innocents.Clear();
         _traitors.Clear();
-        
-        EndRound.Invoke();
         
         print("OnRoundEnd");
         CheckGameReady();

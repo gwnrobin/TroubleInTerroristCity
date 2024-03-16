@@ -152,6 +152,8 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     private void HandlePlayerLeave(ulong networkId)
     {
         Players.Remove(networkId);
+        TroubleInTerroristGamemode.Instance.RemovePlayerFromGame(networkId);
+        TroubleInTerroristGamemode.Instance.CheckGameState();
     }
 
     private void SendPlayerIdsToClient(ulong[] networkIds, ulong receiver)
