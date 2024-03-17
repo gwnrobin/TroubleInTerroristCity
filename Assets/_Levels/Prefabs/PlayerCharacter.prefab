@@ -18261,7 +18261,7 @@ PrefabInstance:
     - target: {fileID: 775604741565534379, guid: 8c3f0ac312d5554448e60214becbc806, type: 3}
       propertyPath: recoilPattern
       value: 
-      objectReference: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
+      objectReference: {fileID: 11400000, guid: eb2b30521b3537d4c8f7716fbae64f86, type: 2}
     - target: {fileID: 775604741565534379, guid: 8c3f0ac312d5554448e60214becbc806, type: 3}
       propertyPath: generalInfo.weaponAnimAsset
       value: 
@@ -18449,7 +18449,7 @@ PrefabInstance:
     - target: {fileID: 8632780011357439193, guid: 5ef84050b1531ad49a9a2369b994a9c3, type: 3}
       propertyPath: recoilPattern
       value: 
-      objectReference: {fileID: 11400000, guid: 86773e7fe607d664ebd197701e57b4c5, type: 2}
+      objectReference: {fileID: 11400000, guid: 9ad8755ff96093a468c08b648f54b359, type: 2}
     - target: {fileID: 8761244615785884998, guid: 5ef84050b1531ad49a9a2369b994a9c3, type: 3}
       propertyPath: m_RootOrder
       value: -1
