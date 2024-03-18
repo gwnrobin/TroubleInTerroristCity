@@ -145,15 +145,14 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         
         SendPlayerIdsToClient(networkIds, networkId);
         
-        TroubleInTerroristGamemode.Instance.PlayerRegisterDeath(networkId);
         TroubleInTerroristGamemode.Instance.CheckGameReady();
     }
     
     private void HandlePlayerLeave(ulong networkId)
     {
         Players.Remove(networkId);
-        //TroubleInTerroristGamemode.Instance.RemovePlayerFromGame(networkId);
-        //TroubleInTerroristGamemode.Instance.CheckGameState();
+        TroubleInTerroristGamemode.Instance.RemovePlayerFromGame(networkId);
+        TroubleInTerroristGamemode.Instance.CheckGameState();
     }
 
     private void SendPlayerIdsToClient(ulong[] networkIds, ulong receiver)

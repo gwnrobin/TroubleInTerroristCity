@@ -852,7 +852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474196050947749640, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: _minimalPlayers
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7606003340015092205, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: m_AnchoredPosition.y

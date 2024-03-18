@@ -55,7 +55,6 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
     public void RemovePlayerFromGame(ulong id)
     {
         _playersAlive.Remove(id);
-        _playersDead.Remove(id);
     }
 
     public void PlayerDie(ulong id)
@@ -78,7 +77,7 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
 
     public void DeletePlayerPrefab(ulong id)
     {
-        var player = PlayerManager.Instance.GetPlayerDataByNetworkId(id).playerObject.GetComponent<NetworkObject>();
+        var player = PlayerManager.Instance.GetPlayerDataByNetworkId(id)?.playerObject.GetComponent<NetworkObject>();
 
         if (player == null)
             return;
@@ -142,9 +141,9 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         
         print("StartPreRound");
         
-        foreach (var deadPlayer in _playersDead)
+        foreach (var player in PlayerManager.Instance.GetAllNetworkIds())
         {
-            PlayerManager.Instance.SetNewPrefab(deadPlayer);
+            PlayerManager.Instance.SetNewPrefab(player);
         }
         
         StartPreRound.Invoke();
@@ -212,7 +211,16 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
 
     private void GenerateRoles()
     {
-        List<ulong> players = new List<ulong>(PlayerManager.Instance.GetAllNetworkIds());
+        List<ulong> players = new List<ulong>();
+
+        foreach (var playerId in PlayerManager.Instance.GetAllNetworkIds())
+        {
+            if (PlayerManager.Instance.GetPlayerDataByNetworkId(playerId).playerObject != null)
+            {
+                players.Add(playerId);
+            }
+        }
+        
         _playersAlive = new List<ulong>(players);
         int totalPlayers = players.Count;
         int numberOfTraitors = Mathf.Max(1, totalPlayers / 3);
