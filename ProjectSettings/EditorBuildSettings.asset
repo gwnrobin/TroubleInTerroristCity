@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Levels/Scenes/EmtpyMuliplayer.unity
     guid: 26a8ada3229658a43b92b9a035f7660d
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Levels/Scenes/L_Showcase.unity
     guid: 0eb1cc35d95d7af448c550dbb258553f
   - enabled: 0
