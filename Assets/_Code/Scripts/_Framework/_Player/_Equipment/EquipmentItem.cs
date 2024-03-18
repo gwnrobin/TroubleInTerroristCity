@@ -169,6 +169,8 @@ public class EquipmentItem : PlayerComponent
     public virtual bool CanBeUsed() { return true; } // E.g. Gun: has enough bullets in the magazine
     public virtual int GetUseRaysAmount() { return 1; }
 
+    public virtual Transform GetBarrel() { return generalInfo.weaponTransformData.barrel; }
+
     // Reloading Methods
     public virtual bool TryStartReload() { return false; }
     public virtual void StartReload() {; }
