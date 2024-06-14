@@ -8,6 +8,9 @@ public class SpawnRagdoll : NetworkPlayerComponent
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+
+        if (!IsOwner)
+            return;
         
         Player.Death.AddListener(SendToServerRPC);
     }

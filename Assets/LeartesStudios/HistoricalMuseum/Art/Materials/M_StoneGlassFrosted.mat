@@ -115,14 +115,19 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 10
+    - _DstBlend2: 10
     - _Emissive_Int: 0
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
+    - _ExcludeFromTUAndAA: 0
     - _FresnelStrength: 5
     - _GlassOpacity: 0.01
     - _GlassRoughness: 0.05
+    - _MaterialID: 1
+    - _MaterialTypeMask: 2
     - _Metallic: 4
     - _OpaqueCullMode: 2
+    - _PerPixelSorting: 0
     - _QueueControl: 1
     - _QueueOffset: 0
     - _RayTracing: 0
@@ -146,6 +151,7 @@ Material:
     - _SupportDecals: 1
     - _Surface: 1
     - _SurfaceType: 1
+    - _TransmissionEnable: 1
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
     - _TransparentDepthPostpassEnable: 0
@@ -167,6 +173,7 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlassColor: {r: 0.8196079, g: 0.8784314, b: 0.909804, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1304159556748728598
 MonoBehaviour:
   m_ObjectHideFlags: 11

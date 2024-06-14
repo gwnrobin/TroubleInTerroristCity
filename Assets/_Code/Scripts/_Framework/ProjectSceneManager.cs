@@ -44,6 +44,8 @@ public class ProjectSceneManager : NetworkSingleton<ProjectSceneManager>
         }
         NetworkManager.SceneManager.OnLoadComplete += SetActiveScene;
 
+        print("sceneManager do shit");
+            
         base.OnNetworkSpawn();
     }
 
@@ -55,6 +57,8 @@ public class ProjectSceneManager : NetworkSingleton<ProjectSceneManager>
 
     private void SetActiveScene(ulong clientid, string scenename, LoadSceneMode loadscenemode)
     {
+        print("switch to " + scenename);
+        
         SceneManager.UnloadSceneAsync("Menu");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenename));
     }

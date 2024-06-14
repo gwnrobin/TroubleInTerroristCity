@@ -12,7 +12,7 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     
     public GameObject PlayerPrefab;
     
-    [SerializedDictionary("id", "player")]
+    //[SerializedDictionary("id", "player")]
     public SerializedDictionary<ulong, PlayerData> Players = new();
     
     public void PausePlayer()

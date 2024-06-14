@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DamageSyncManager : NetworkSingleton<DamageSyncManager>
 {
-    public void SendDataToClient(DamageInfo info, IDamageable damageable)
+    public void SendDataToClient(DamageInfo info, IDamageable damageable = default)
     {
         ulong networkObjectId = info.HitObject.GetComponent<Hitbox>().Entity.NetworkObjectId;
         
@@ -18,7 +18,7 @@ public class DamageSyncManager : NetworkSingleton<DamageSyncManager>
         SendHitToClientRpc(new NetworkDamageInfo(info.Delta, networkObjectId));
     }
 
-    public void SendDataToServer(DamageInfo info, IDamageable damageable)
+    public void SendDataToServer(DamageInfo info, IDamageable damageable= default)
     {
         print(info.Delta);
         SendHitToServerRpc(new NetworkDamageInfo(info.Delta, info.HitObject.GetComponent<Hitbox>().Entity.NetworkObjectId));

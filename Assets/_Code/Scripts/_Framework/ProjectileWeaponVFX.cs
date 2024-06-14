@@ -189,7 +189,7 @@ public class ProjecttileWeaponVFX : PlayerComponent, IEquipmentComponent
 
 		cassingRB.maxAngularVelocity = 10000f;
 
-		cassingRB.velocity = transform.TransformVector(new Vector3(
+		cassingRB.linearVelocity = transform.TransformVector(new Vector3(
 			CasingEjection.SpawnVelocity.x * Random.Range(0.75f, 1.15f),
 			CasingEjection.SpawnVelocity.y * Random.Range(0.9f, 1.1f),
 			CasingEjection.SpawnVelocity.z * Random.Range(0.85f, 1.15f))) + Player.Velocity.Get();
