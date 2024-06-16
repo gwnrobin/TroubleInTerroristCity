@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine.Events;
 
@@ -7,6 +8,8 @@ public class RoleNetworkHandler : NetworkBehaviour
     public UnityEvent ReceiveInnocentRole;
     
     private TroubleInTerroristGamemode _gamemode;
+
+    public Roles role;
     
     public override void OnNetworkSpawn()
     {
@@ -47,6 +50,8 @@ public class RoleNetworkHandler : NetworkBehaviour
     private void GetRoleInnocentClientRPC(ClientRpcParams clientRpcParams = default)
     {
         ReceiveInnocentRole.Invoke();
+
+        role = Roles.Innocent;
     }
     
     [ClientRpc]
@@ -57,5 +62,13 @@ public class RoleNetworkHandler : NetworkBehaviour
         PlayerData playerData = PlayerManager.Instance.GetPlayerData();
 
         playerData.playerObject.GamemodeCurrency.Set(5);
+
+        role = Roles.Traitor;
     }
+}
+
+public enum Roles
+{
+    Innocent,
+    Traitor
 }

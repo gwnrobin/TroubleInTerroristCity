@@ -72,13 +72,42 @@ namespace AYellowpaper.SerializedCollections.Editor
 
         public static bool HasDrawerForType(Type type)
         {
-            Type attributeUtilityType = typeof(SerializedProperty).Assembly.GetType("UnityEditor.ScriptAttributeUtility");
-            if (attributeUtilityType == null)
+            try
+            {
+                Type attributeUtilityType = typeof(SerializedProperty).Assembly.GetType("UnityEditor.ScriptAttributeUtility");
+                if (attributeUtilityType == null)
+                {
+                    Debug.LogError("Failed to get type UnityEditor.ScriptAttributeUtility");
+                    return false;
+                }
+        
+                var getDrawerMethod = attributeUtilityType.GetMethod("GetDrawerTypeForType", BindingFlags.Static | BindingFlags.NonPublic);
+                if (getDrawerMethod == null)
+                {
+                    Debug.LogError("Failed to get method GetDrawerTypeForType");
+                    return false;
+                }
+
+                // Check the parameter count and type
+                var parameters = getDrawerMethod.GetParameters();
+                if (parameters.Length != 1 || parameters[0].ParameterType != typeof(Type))
+                {
+                    Debug.LogError("GetDrawerTypeForType method signature does not match the expected parameters.");
+                    return false;
+                }
+
+                return getDrawerMethod.Invoke(null, new object[] { type }) != null;
+            }
+            catch (TargetParameterCountException e)
+            {
+                Debug.LogError($"Parameter count mismatch: {e.Message}");
                 return false;
-            var getDrawerMethod = attributeUtilityType.GetMethod("GetDrawerTypeForType", BindingFlags.Static | BindingFlags.NonPublic);
-            if (getDrawerMethod == null)
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Unexpected error: {e.Message}");
                 return false;
-            return getDrawerMethod.Invoke(null, new object[] { type }) != null;
+            }
         }
 
         internal static void AddGenericMenuItem(GenericMenu genericMenu, bool isOn, bool isEnabled, GUIContent content, GenericMenu.MenuFunction action)
