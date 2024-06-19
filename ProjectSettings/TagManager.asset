@@ -13,7 +13,7 @@ TagManager:
   - Water
   - UI
   - WeaponImmune
-  - 
+  - TraitorLayer
   - PostProcessing
   - Not in Reflection
   - 
@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UILayer
+    uniqueID: 3751470245
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

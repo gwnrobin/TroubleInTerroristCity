@@ -7768,6 +7768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7288343751317775856}
   - component: {fileID: 6566135264872426161}
+  - component: {fileID: 2217421959464880295}
   m_Layer: 3
   m_Name: PlayerInteraction
   m_TagString: Untagged
@@ -7809,6 +7810,25 @@ MonoBehaviour:
   m_UpdateTime: 0.03
   m_InteractionDistance: 2
   m_MaxInteractionAngle: 18
+--- !u!114 &2217421959464880295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826496274862954077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2cf7125f0e7474fa189b22ef995ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  m_LoopingMethod: 1
+  m_UpdateTime: 0.03
+  m_InteractionDistance: 100
+  m_MaxInteractionAngle: 30
 --- !u!1 &3829573831522845671
 GameObject:
   m_ObjectHideFlags: 0

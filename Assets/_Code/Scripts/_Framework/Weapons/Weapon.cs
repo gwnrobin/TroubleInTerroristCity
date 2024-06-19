@@ -43,7 +43,6 @@ public class Weapon : EquipmentItem
                 // Get the ammo count from the inventory
                 CurrentInStorage = GetAmmoCount()
             });
-        print(_ammoProperty.Integer);
     }
 
     public override void Initialize(EquipmentHandler eHandler)
