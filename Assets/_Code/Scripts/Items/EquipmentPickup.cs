@@ -1,10 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
-
 public class EquipmentPickup : ItemPickup
 {
-	public UnityEvent PickedUpEquipment;
-	
 	protected override void TryPickUp(Humanoid humanoid, float interactProgress)
 	{
 		if (m_ItemInstance != null)
@@ -21,8 +17,6 @@ public class EquipmentPickup : ItemPickup
 				bool addedItem;
 
 				addedItem = humanoid.Inventory.AddItem(m_ItemInstance, m_TargetContainers); 
-					
-
 				
 				// Item added to inventory
 				if (addedItem)

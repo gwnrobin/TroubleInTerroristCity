@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemPickup : InteractiveObject
 {
@@ -9,7 +10,7 @@ public class ItemPickup : InteractiveObject
 		InteractionBased
 	}
 	#endregion
-
+	public UnityEvent PickedUpEquipment;
 	public Item ItemInstance { get { return m_ItemInstance; } }
 
 	[BHeader("Item", true, order = 100)]
@@ -105,12 +106,14 @@ public class ItemPickup : InteractiveObject
 			if (humanoid.Inventory.AddItem(m_ItemInstance, m_TargetContainers))
 			{
 				if (m_ItemInstance.Info.StackSize > 1)
-					print("");
+					print(string.Format("Picked up <color={0}>{1}</color> x {2}", m_ItemCountColor, m_ItemInstance.Name, m_ItemInstance.CurrentStackSize));
 				//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color> x {2}", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name, m_ItemInstance.CurrentStackSize), m_BaseMessageColor);
 				else
 					//UI_MessageDisplayer.Instance.PushMessage(string.Format("Picked up <color={0}>{1}</color>", ColorUtils.ColorToHex(m_ItemCountColor), m_ItemInstance.Name), m_BaseMessageColor);
-					print("");
+					print(string.Format("Picked up <color={0}>{1}</color>", m_ItemCountColor, m_ItemInstance.Name));
 
+				PickedUpEquipment.Invoke();
+				
 				Destroy(gameObject);
 			}
 			// Item not added to inventory

@@ -30,6 +30,11 @@ MonoBehaviour:
           m_FixedValue: 7
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
+        - m_Name: AmmoType
+          m_Type: 3
+          m_FixedValue: -2090846
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
   - m_Name: Primary
     m_Items:
     - m_Name: Vector
@@ -37,7 +42,7 @@ MonoBehaviour:
       m_Category: Primary
       m_Icon: {fileID: 21300000, guid: c25913f4b723da841b7a16b759a6f86d, type: 3}
       m_Description: piew
-      m_Pickup: {fileID: 7809316921128779825, guid: 468a4af651a8e9c46a34566652bf5a68, type: 3}
+      m_Pickup: {fileID: 9016940677243780470, guid: 468a4af651a8e9c46a34566652bf5a68, type: 3}
       m_Model: {fileID: 3174257466599879320, guid: 6da8410a2c672d04aa291541beac8561, type: 3}
       m_StackSize: 1
       m_Properties:
@@ -45,6 +50,11 @@ MonoBehaviour:
         - m_Name: Ammo
           m_Type: 1
           m_FixedValue: 30
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
+        - m_Name: AmmoType
+          m_Type: 3
+          m_FixedValue: 6449298
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
     - m_Name: Tommy
@@ -59,7 +69,12 @@ MonoBehaviour:
         m_List:
         - m_Name: Ammo
           m_Type: 1
-          m_FixedValue: 30
+          m_FixedValue: 100
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
+        - m_Name: AmmoType
+          m_Type: 3
+          m_FixedValue: -2090846
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
     - m_Name: AR15
@@ -67,7 +82,7 @@ MonoBehaviour:
       m_Category: Primary
       m_Icon: {fileID: 21300000, guid: ad3f397d16532ce4abe25e6516661a27, type: 3}
       m_Description: piew
-      m_Pickup: {fileID: 722514603324043150, guid: 0f12e2a5510a3fa41b60f5fd29f05605, type: 3}
+      m_Pickup: {fileID: 1964762049852461769, guid: 0f12e2a5510a3fa41b60f5fd29f05605, type: 3}
       m_Model: {fileID: 8670834170760051729, guid: 2379eaa7eaba0104090d5deafcd181fe, type: 3}
       m_StackSize: 1
       m_Properties:
@@ -77,12 +92,17 @@ MonoBehaviour:
           m_FixedValue: 30
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
+        - m_Name: AmmoType
+          m_Type: 3
+          m_FixedValue: 4289123
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
     - m_Name: GrenadeLauncher
       m_Id: -4979178
       m_Category: Primary
       m_Icon: {fileID: 21300000, guid: ad3f397d16532ce4abe25e6516661a27, type: 3}
       m_Description: piew
-      m_Pickup: {fileID: 5161930832920529412, guid: 736167e8d002750488abf311dc292b98, type: 3}
+      m_Pickup: {fileID: 6260006947125983043, guid: 736167e8d002750488abf311dc292b98, type: 3}
       m_Model: {fileID: 7420662808882850434, guid: ee51189e453b677478685bf24e1965c7, type: 3}
       m_StackSize: 1
       m_Properties:
@@ -92,7 +112,78 @@ MonoBehaviour:
           m_FixedValue: 3
           m_UseRandomValue: 0
           m_RandomValueRange: {x: 0, y: 0}
+        - m_Name: AmmoType
+          m_Type: 3
+          m_FixedValue: -1172995
+          m_UseRandomValue: 0
+          m_RandomValueRange: {x: 0, y: 0}
+  - m_Name: Ammo
+    m_Items:
+    - m_Name: 357M
+      m_Id: -2090846
+      m_Category: Ammo
+      m_Icon: {fileID: 0}
+      m_Description: 
+      m_Pickup: {fileID: 36740786862257034, guid: f71b632ac7718904ba41a4661b931598, type: 3}
+      m_Model: {fileID: 36740786862257034, guid: f71b632ac7718904ba41a4661b931598, type: 3}
+      m_StackSize: 30
+      m_Properties:
+        m_List: []
+    - m_Name: 45ACP
+      m_Id: 6449298
+      m_Category: Ammo
+      m_Icon: {fileID: 0}
+      m_Description: 
+      m_Pickup: {fileID: 3328120415746168360, guid: 9a54f820d4d926a47ad07ce5a9d36905, type: 3}
+      m_Model: {fileID: 3328120415746168360, guid: 9a54f820d4d926a47ad07ce5a9d36905, type: 3}
+      m_StackSize: 120
+      m_Properties:
+        m_List: []
+    - m_Name: 300WM
+      m_Id: -1172995
+      m_Category: Ammo
+      m_Icon: {fileID: 0}
+      m_Description: 
+      m_Pickup: {fileID: 2537516386621482725, guid: d6ddebf84561ecf438743fead283951a, type: 3}
+      m_Model: {fileID: 2537516386621482725, guid: d6ddebf84561ecf438743fead283951a, type: 3}
+      m_StackSize: 50
+      m_Properties:
+        m_List: []
+    - m_Name: 5.56x45mm
+      m_Id: 4289123
+      m_Category: Ammo
+      m_Icon: {fileID: 0}
+      m_Description: 
+      m_Pickup: {fileID: 5501260718264316448, guid: 4d9827378e01fbf4db836cbaa8f8f9b0, type: 3}
+      m_Model: {fileID: 5501260718264316448, guid: 4d9827378e01fbf4db836cbaa8f8f9b0, type: 3}
+      m_StackSize: 120
+      m_Properties:
+        m_List: []
+    - m_Name: 7.62x51mm
+      m_Id: 5891332
+      m_Category: Ammo
+      m_Icon: {fileID: 0}
+      m_Description: 
+      m_Pickup: {fileID: 5507661243739369011, guid: 481d9f659a1dd804dab1dfc64df71851, type: 3}
+      m_Model: {fileID: 5507661243739369011, guid: 481d9f659a1dd804dab1dfc64df71851, type: 3}
+      m_StackSize: 90
+      m_Properties:
+        m_List: []
+    - m_Name: 7.62x39mm
+      m_Id: -1494131
+      m_Category: Ammo
+      m_Icon: {fileID: 0}
+      m_Description: 
+      m_Pickup: {fileID: 4783110227008939968, guid: 944a0b0633c45d4458bbd6c6b02c84e1, type: 3}
+      m_Model: {fileID: 4783110227008939968, guid: 944a0b0633c45d4458bbd6c6b02c84e1, type: 3}
+      m_StackSize: 120
+      m_Properties:
+        m_List: []
   m_ItemProperties:
     m_List:
     - Name: Ammo
+      Type: 1
+    - Name: AmmoType
+      Type: 3
+    - Name: Firemode
       Type: 1

@@ -7,7 +7,8 @@ public class Weapon : EquipmentItem
     public Value<AmmoInfo> CurrentAmmoInfo = new();
     public Message<Vector3[]> FireHitPoints = new();
 
-    protected int _ammoProperty;
+    protected ItemProperty _ammoProperty;
+    protected ItemProperty _ammoTypeProperty;
 
     public override float FireRate { get => WeaponInfo.Shooting.RoundsPerMinute; }
     public override FireMode FireMode { get => WeaponInfo.Shooting.Modes; }
@@ -29,6 +30,21 @@ public class Weapon : EquipmentItem
     private float m_ReloadLoopEndTime;
     private float m_ReloadStartTime;
     private bool m_EndReload;
+    
+    public void UpdateAmmoInfo()
+    {
+        if (!WeaponInfo.Shooting.EnableAmmo)
+            return;
+
+        CurrentAmmoInfo.Set(
+            new AmmoInfo
+            {
+                CurrentInMagazine = _ammoProperty.Integer,
+                // Get the ammo count from the inventory
+                CurrentInStorage = GetAmmoCount()
+            });
+        print(_ammoProperty.Integer);
+    }
 
     public override void Initialize(EquipmentHandler eHandler)
     {
@@ -36,14 +52,31 @@ public class Weapon : EquipmentItem
 
         WeaponInfo = EquipmentInfo as WeaponInfo;
         UpdateFireModeSettings(SelectedFireMode);
-
-        _ammoProperty = WeaponInfo.Shooting.MagazineSize;
-        UpdateAmmoInfo();
     }
     
     public override void Equip(Item item)
     {
         base.Equip(item);
+        
+        _ammoProperty = item.GetProperty(EHandler.ItemProperties.AmmoProperty);
+        _ammoTypeProperty = item.GetProperty(EHandler.ItemProperties.AmmoTypeProperty);
+        
+        if (WeaponInfo.Shooting.EnableAmmo)
+        {
+            if (_ammoProperty != null)
+            {
+                int extraAmmo = _ammoProperty.Integer - WeaponInfo.Shooting.MagazineSize;
+
+                if (extraAmmo > 0)
+                    AddAmmoToInventory(extraAmmo);
+
+                _ammoProperty.Integer = Mathf.Clamp(_ammoProperty.Integer, 0, WeaponInfo.Shooting.MagazineSize);
+            }
+            else
+                Debug.LogError($"Equipment item with name '{name}' has ammo enabled but no ammo property found on the item.");
+
+            UpdateAmmoInfo();
+        }
 
         SelectedFireMode = (int)WeaponInfo.Shooting.Modes;
 
@@ -156,7 +189,7 @@ public class Weapon : EquipmentItem
         EHandler.NetworkPlayerAnimController.PlayCameraShake(EHandler.NetworkPlayerAnimController.shake);
 
         // Ammo
-        _ammoProperty--;
+        _ammoProperty.Integer--;
 
         UpdateAmmoInfo();
     }
@@ -181,8 +214,6 @@ public class Weapon : EquipmentItem
     public override void StartReload()
     {
          //EHandler.ClearDelayedSounds();
-         m_AmmoToAdd = WeaponInfo.Shooting.MagazineSize - CurrentAmmoInfo.Val.CurrentInMagazine;
-         
          if (CurrentAmmoInfo.Val.CurrentInMagazine == 0 && WeaponInfo.Reloading.HasEmptyReload)
          {
              //Dry Reload
@@ -238,8 +269,9 @@ public class Weapon : EquipmentItem
                 if (CurrentAmmoInfo.Val.CurrentInMagazine == 0 && WeaponInfo.Reloading.HasEmptyReload)
                 {
                     //Empty/Dry Reload
+                    print("dryReload");
+                    
                     m_ReloadLoopStarted = true;
-
                     if (WeaponInfo.Reloading.ProgressiveEmptyReload && WeaponInfo.Reloading.ReloadType == WeaponInfo.ReloadType.Progressive)
                     {
                         if (m_AmmoToAdd > 1)
@@ -254,11 +286,10 @@ public class Weapon : EquipmentItem
                         }
                         else
                         {
-                            //GetAmmoFromInventory(1);
+                            GetAmmoFromInventory(1);
 
-                            _ammoProperty++;
+                            _ammoProperty.Integer++;
                             m_AmmoToAdd--;
-
                             return true;
                         }
                     }
@@ -283,17 +314,18 @@ public class Weapon : EquipmentItem
         {
             if (WeaponInfo.Reloading.ReloadType == WeaponInfo.ReloadType.Once || (CurrentAmmoInfo.Val.CurrentInMagazine == 0 && !WeaponInfo.Reloading.ProgressiveEmptyReload))
             {
-                _ammoProperty += m_AmmoToAdd;
-                //GetAmmoFromInventory(m_AmmoToAdd);
+                _ammoProperty.Integer += m_AmmoToAdd;
+                GetAmmoFromInventory(m_AmmoToAdd);
+                
                 m_AmmoToAdd = 0;
             }
             else if (WeaponInfo.Reloading.ReloadType == WeaponInfo.ReloadType.Progressive)
             {
                 if (m_AmmoToAdd > 0)
                 {
-                    //GetAmmoFromInventory(1);
+                    GetAmmoFromInventory(1);
 
-                    _ammoProperty++;
+                    _ammoProperty.Integer++;
                     m_AmmoToAdd--;
                 }
 
@@ -330,21 +362,10 @@ public class Weapon : EquipmentItem
     {
         return CurrentAmmoInfo.Get().CurrentInMagazine > 0 || !WeaponInfo.Shooting.EnableAmmo;
     }
-
-    public void UpdateAmmoInfo()
-    {
-        if (!WeaponInfo.Shooting.EnableAmmo)
-            return;
-
-        CurrentAmmoInfo.Set(
-            new AmmoInfo
-            {
-                CurrentInMagazine = _ammoProperty,
-
-                // Get the ammo count from the inventory
-                CurrentInStorage = 300
-            });
-    }
+    
+    protected int GetAmmoCount() => Player.Inventory.GetItemCount(_ammoTypeProperty.ItemId);
+    protected int GetAmmoFromInventory(int amount) => Player.Inventory.RemoveItemsWithID(_ammoTypeProperty.ItemId, amount, ItemContainerFlags.Storage);
+    protected int AddAmmoToInventory(int amount) => Player.Inventory.AddItem(_ammoTypeProperty.ItemId, amount, ItemContainerFlags.Storage);
 
     public override float GetTimeBetweenUses()
     {

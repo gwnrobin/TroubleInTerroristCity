@@ -32,11 +32,11 @@ public class Unarmed : MeleeWeapon
     {
         //EAnimation.AssignArmAnimations(EHandler.FPArmsHandler.Animator);
 
-       // if (_unarmedInfo.UnarmedSettings.AlwaysShowArms || Player.Sprint.Active)
-       //     ChangeArmsVisibility(true);
+        // if (_unarmedInfo.UnarmedSettings.AlwaysShowArms || Player.Sprint.Active)
+        //     ChangeArmsVisibility(true);
         m_NextTimeCanUse = Time.time + _unarmedInfo.MeleeSettings.Swings[0].Cooldown;
-
-        Player.Sprint.AddStartListener(OnStartRunning);
+        
+        Player.Sprint.AddStartListener(OnStartRunning); 
         Player.Sprint.AddStopListener(OnStopRunning);
         Player.Jump.AddStartListener(OnStartJumping);
         Player.IsGrounded.AddChangeListener(OnStartFalling);

@@ -98,6 +98,24 @@ public class Inventory : EntityComponent
 
 		return false;
 	}
+	
+	public int AddItem(int id, int amountToAdd, ItemContainerFlags flags)
+	{
+		int addedInTotal = 0;
+
+		for (int i = 0; i < Containers.Count; i++)
+		{
+			if (flags.HasFlag(m_AllContainers[i].Flag))
+			{
+				int addedNow = Containers[i].AddItem(id, amountToAdd);
+				addedInTotal += addedNow;
+				if (addedNow == addedInTotal)
+					return addedInTotal;
+			}
+		}
+
+		return addedInTotal;
+	}
 
 	///// <summary>
 	///// </summary>

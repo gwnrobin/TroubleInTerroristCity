@@ -2,11 +2,11 @@ using Unity.Netcode;
 
 public class NetworkPickup : NetworkBehaviour
 {
-    private EquipmentPickup _equipmentPickup;
+    private ItemPickup _equipmentPickup;
     private NetworkObject _networkObject;
     private void Start()
     {
-        _equipmentPickup = GetComponent<EquipmentPickup>();
+        _equipmentPickup = GetComponent<ItemPickup>();
         _networkObject = GetComponent<NetworkObject>();
         
         _equipmentPickup.PickedUpEquipment.AddListener(DespawnServerRpc);

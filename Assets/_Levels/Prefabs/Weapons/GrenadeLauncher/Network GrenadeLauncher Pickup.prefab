@@ -76,7 +76,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 880042687762719625, guid: 25f86914c866684498f3c1db8e909625, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 951099334
+      value: 1578359321
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509487041231355461, guid: 25f86914c866684498f3c1db8e909625, type: 3}
+      propertyPath: SyncScaleX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509487041231355461, guid: 25f86914c866684498f3c1db8e909625, type: 3}
+      propertyPath: SyncScaleY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509487041231355461, guid: 25f86914c866684498f3c1db8e909625, type: 3}
+      propertyPath: SyncScaleZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620366164827485740, guid: 25f86914c866684498f3c1db8e909625, type: 3}
+      propertyPath: m_Name
+      value: Network GrenadeLauncher Pickup
       objectReference: {fileID: 0}
     - target: {fileID: 3827979128305879915, guid: 25f86914c866684498f3c1db8e909625, type: 3}
       propertyPath: m_Name

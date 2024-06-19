@@ -29,8 +29,22 @@ public class SceneWeaponManager : NetworkSingleton<SceneWeaponManager>
         foreach (var spawnTransform in spawnPoints)
         {
             int index = Random.Range(0, weaponItemCollection.items.Count);
-            GameObject weapon = Instantiate(ItemDatabase.GetItemByName(weaponItemCollection.items[index]).Pickup, spawnTransform.position, Quaternion.identity);
+
+            ItemInfo item = ItemDatabase.GetItemByName(weaponItemCollection.items[index]);
+            int ammoName = 0;
+            foreach (var prop in item.Properties)
+            {
+                if (prop.Name == "AmmoType")
+                {
+                    ammoName = prop.GetAsInteger();
+                }
+            }
+            ItemInfo ammo = ItemDatabase.GetItemById(ammoName);
+            
+            GameObject weapon = Instantiate(item.Pickup, spawnTransform.position, Quaternion.identity);
+            GameObject weaponAmmo = Instantiate(ammo.Pickup, spawnTransform.position, Quaternion.identity);
             weapon.GetComponent<NetworkObject>().Spawn();
+            weaponAmmo.GetComponent<NetworkObject>().Spawn();
             
             _existingItems.Add(weapon);
         }

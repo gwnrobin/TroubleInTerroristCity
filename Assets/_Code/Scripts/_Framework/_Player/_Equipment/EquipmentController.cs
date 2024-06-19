@@ -241,8 +241,8 @@ public class EquipmentController : PlayerComponent
         //float staminaTakePerUse = eItem.EInfo.General.StaminaTakePerUse;
         bool eItemCanBeUsed = eItem.CanBeUsed();
         // Interrupt the reload if possible
-        if (!continuously && Player.Reload.Active /*&& eItem.EInfo.General.CanStopReloading*/ && eItemCanBeUsed)
-            Player.Reload.ForceStop();
+        if (Player.Reload.Active /*&& eItem.EInfo.General.CanStopReloading*/)
+            return false;
 
         if (CanUseItem(eItem))
         {

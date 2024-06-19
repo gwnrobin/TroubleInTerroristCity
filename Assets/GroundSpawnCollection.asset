@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GroundSpawnCollection
   m_EditorClassIdentifier: 
   items:
-  - AR15
-  - Tommy
   - Vector
+  - Tommy
+  - AR15

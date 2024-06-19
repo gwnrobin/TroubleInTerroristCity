@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections.Generic;
 using Kinemation.FPSFramework.Runtime.Recoil;
 using UnityEngine;
@@ -18,6 +18,23 @@ public class EquipmentHandler : PlayerComponent
                      WalkSpreadMod,
                      AimSpreadMod;
     }
+    
+    [Serializable]
+    public class ItemPropertiesDictionary
+    {
+        public string AmmoProperty => m_AmmoProperty;
+        public string AmmoTypeProperty => m_AmmoTypeProperty;
+        public string FireModeProperty => m_FireModeProperty;
+
+        [DatabaseProperty]
+        public string m_AmmoProperty = "Ammo";
+
+        [DatabaseProperty]
+        public string m_AmmoTypeProperty = "Ammo Type";
+
+        [DatabaseProperty]
+        public string m_FireModeProperty = "Fire Mode";
+    }
 
     public int ContinuouslyUsedTimes { get => _continuouslyUsedTimes; }
     public Message OnChangeItem = new();
@@ -28,13 +45,18 @@ public class EquipmentHandler : PlayerComponent
     public EquipmentItem EquipmentItem => _attachedEquipmentItem;
     public RecoilAnimation RecoilAnimation => recoilAnimation;
     
-
+    public ItemPropertiesDictionary ItemProperties => m_ItemProperties;
+    
     [SerializeField]
     protected Transform _itemUseTransform;
 
     [SerializeField]
     [Group("Inverse of Accuracy - ")]
     protected UseRaySpread _useRaySpread;
+    
+    [SerializeField]
+    [Group]
+    protected ItemPropertiesDictionary m_ItemProperties = null;
 
     protected EquipmentItem _attachedEquipmentItem;
     protected Item _attachedItem;
@@ -58,12 +80,13 @@ public class EquipmentHandler : PlayerComponent
 
     public Dictionary<int, EquipmentItem> _equipmentItems = new();
 
-    protected void Start()
+    protected void Awake()
     {
         _unarmed = GetComponentInChildren<Unarmed>(true);
 
         EquipmentItem[] equipmentItems = GetComponentsInChildren<EquipmentItem>(true);
         ItemInfo itemInfo;
+        
         foreach (var eItem in equipmentItems)
         {
             itemInfo = ItemDatabase.GetItemByName(eItem.CorrespondingItemName);
@@ -78,7 +101,7 @@ public class EquipmentHandler : PlayerComponent
                 else
                     Debug.LogWarning($"There are multiple equipment items that correspond to the same item under '{gameObject.name}'");
             }
-                
+
             eItem.Initialize(this);
 
             // Notify the item components (e.g. animation, physics etc.) present on the Equipment Item object

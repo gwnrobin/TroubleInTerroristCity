@@ -155,7 +155,7 @@ public class EquipmentItem : PlayerComponent
 
         m_GeneralEvents.OnEquipped.Invoke(false);
     }
-
+    
     // Using Methods
     public virtual bool TryUseOnce(Ray[] itemUseRays, int useType = 0) { return false; }
     public virtual bool TryUseContinuously(Ray[] itemUseRays, int useType = 0) { return false; }

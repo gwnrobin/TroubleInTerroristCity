@@ -9527,6 +9527,13 @@ MonoBehaviour:
     m_OneStackPerItem: 0
     m_ValidCategories: []
     m_RequiredProperties: []
+  - m_Name: Ammo
+    m_Flag: 1
+    m_Size: 16
+    m_OneStackPerItem: 1
+    m_ValidCategories:
+    - Ammo
+    m_RequiredProperties: []
 --- !u!114 &1462335855027495014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13052,6 +13059,10 @@ MonoBehaviour:
     ProneSpreadMod: 0.65
     WalkSpreadMod: 2.5
     AimSpreadMod: 0.5
+  m_ItemProperties:
+    m_AmmoProperty: Ammo
+    m_AmmoTypeProperty: AmmoType
+    m_FireModeProperty: Firemode
   animator: {fileID: 2164768649760178402}
   networkPlayerAnimController: {fileID: 1079694655544669580}
   recoilAnimation: {fileID: 5194586152187375129}
@@ -15125,7 +15136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1759605093783722846
 Transform:
   m_ObjectHideFlags: 0
