@@ -15,6 +15,7 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     [SerializedDictionary("id", "player")]
     public SerializedDictionary<ulong, PlayerData> Players = new();
 
+    [SerializeField]
     private List<NetworkObject> playersNetworkObjects = new();
     
     public void PausePlayer()
@@ -121,7 +122,7 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         foreach (var player in playersNetworkObjects)
         {
             if (player == null)
-                return;
+                continue;
         
             player.RemoveOwnership();
             player.Despawn();

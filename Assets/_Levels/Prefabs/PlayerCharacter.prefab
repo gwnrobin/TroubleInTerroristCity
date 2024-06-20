@@ -4649,8 +4649,8 @@ Transform:
   m_Children:
   - {fileID: 841680166794339768}
   - {fileID: 4636694603012436529}
-  - {fileID: 7288343751317775856}
   - {fileID: 2583519352488037053}
+  - {fileID: 7288343751317775856}
   - {fileID: 7888367593336387211}
   - {fileID: 7404455829850777133}
   - {fileID: 3900697494764583368}
@@ -6561,7 +6561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2583519352488037053
 Transform:
   m_ObjectHideFlags: 0
@@ -7859,7 +7859,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 1
-  m_LoopingMethod: 0
+  m_LoopingMethod: 1
   m_UpdateTime: 0.03
   m_InteractionDistance: 2
   m_MaxInteractionAngle: 18

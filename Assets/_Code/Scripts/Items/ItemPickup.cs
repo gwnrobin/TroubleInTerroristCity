@@ -114,7 +114,7 @@ public class ItemPickup : InteractiveObject
 
 				PickedUpEquipment.Invoke();
 				
-				Destroy(gameObject);
+				//Destroy(gameObject);
 			}
 			// Item not added to inventory
 			//UI_MessageDisplayer.Instance.PushMessage(string.Format("<color={0}>Inventory Full</color>", ColorUtils.ColorToHex(m_InventoryFullColor)), m_BaseMessageColor);
