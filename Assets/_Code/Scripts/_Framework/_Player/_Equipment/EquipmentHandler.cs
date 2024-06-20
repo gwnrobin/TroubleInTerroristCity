@@ -242,7 +242,8 @@ public class EquipmentHandler : PlayerComponent
     {
         if (_nextTimeCanUseItem > Time.time ||
             (!_attachedEquipmentItem.EquipmentInfo.Aiming.AimWhileAirborne && !Player.IsGrounded.Get()) || // Can this item be aimed while airborne?
-            !_attachedEquipmentItem.EquipmentInfo.Aiming.Enabled || !_attachedEquipmentItem.CanAim()) // Can this item be aimed?
+            !_attachedEquipmentItem.EquipmentInfo.Aiming.Enabled || !_attachedEquipmentItem.CanAim() ||// Can this item be aimed?
+            Player.Pause.Active)
             return false;
 
         return true;
@@ -299,6 +300,9 @@ public class EquipmentHandler : PlayerComponent
     public virtual bool TryUse(bool continuously, int useType)
     {
         bool usedSuccessfully = false;
+
+        if (Player.Pause.Active)
+            return false;
 
         if (_nextTimeCanUseItem < Time.time)
         {
