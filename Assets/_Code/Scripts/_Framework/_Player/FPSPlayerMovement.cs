@@ -326,8 +326,7 @@ public class FPSPlayerMovement : FPSPlayerComponent
         {
             toggledSuccesfully = Try_ChangeControllerHeight(null);
         }
-
-
+        
         //Stop the prone state if the crouch state is enabled
         if (toggledSuccesfully && Player.Prone.Active)
             Player.Prone.ForceStop();
@@ -340,6 +339,8 @@ public class FPSPlayerMovement : FPSPlayerComponent
         networkPlayerAnimController.LookLayer.SetPelvisWeight(0f);
         PlayerController.Animator.SetBool(Crouching, true);
         networkPlayerAnimController.SlotLayer.PlayMotion(crouchMotionAsset);
+        
+        print("crouch");
     }
 
     private void Standup()
@@ -347,6 +348,8 @@ public class FPSPlayerMovement : FPSPlayerComponent
         networkPlayerAnimController.LookLayer.SetPelvisWeight(1f);
         PlayerController.Animator.SetBool(Crouching, false);
         networkPlayerAnimController.SlotLayer.PlayMotion(unCrouchMotionAsset);
+        
+        print("uncrouch");
     }
 
     #endregion
@@ -533,8 +536,7 @@ public class FPSPlayerMovement : FPSPlayerComponent
             (Time.time > _nextTimeCanChangeHeight || _nextTimeCanChangeHeight == 0f) &&
             Player.IsGrounded.Get() &&
             !Player.Sprint.Active;
-
-
+        
         if (canChangeHeight)
         {
             float height = (lowerHeightState == null) ? DefaultHeight : lowerHeightState.ControllerHeight;

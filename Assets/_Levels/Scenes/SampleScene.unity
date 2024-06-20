@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1619.7874, g: 1813.5823, b: 2268.4846, a: 1}
+  m_IndirectSpecularColor: {r: 1619.6614, g: 1813.5686, b: 2268.426, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2365,6 +2365,7 @@ GameObject:
   - component: {fileID: 154400067}
   - component: {fileID: 154400066}
   - component: {fileID: 154400065}
+  - component: {fileID: 154400069}
   m_Layer: 7
   m_Name: TButton
   m_TagString: Untagged
@@ -2513,6 +2514,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 98.707, z: 0}
+--- !u!114 &154400069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea565eee60077d045b2c6b58f1d3180a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &159377153
 GameObject:
   m_ObjectHideFlags: 0
@@ -6265,6 +6278,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1235911499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &370764433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6446417935133789134, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+  m_PrefabInstance: {fileID: 4863031666860510981}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &377576765
 GameObject:
   m_ObjectHideFlags: 0
@@ -23074,6 +23092,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1507928208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370764433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa00d673a70e3e0498f8e759385aff79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traps:
+  - {fileID: 154400064}
 --- !u!1 &1515774628
 GameObject:
   m_ObjectHideFlags: 0
@@ -37370,6 +37402,62 @@ PrefabInstance:
       propertyPath: m_VertexColorAlwaysGammaSpace
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveTraitorRole.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveInnocentRole.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveTraitorRole.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveInnocentRole.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveTraitorRole.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1507928208}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveInnocentRole.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1507928208}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveTraitorRole.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveInnocentRole.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveTraitorRole.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ShowTraps
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveInnocentRole.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: HideTraps
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveTraitorRole.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TraitorTrapHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveInnocentRole.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TraitorTrapHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveTraitorRole.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: ReceiveInnocentRole.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6093993673182640406, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2781730600
@@ -37535,6 +37623,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3739360847405761456, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4863031666860510987}
+    - targetCorrespondingSourceObject: {fileID: 6446417935133789134, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1507928208}
   m_SourcePrefab: {fileID: 100100000, guid: e78909605b13caa4f97521eb3508df62, type: 3}
 --- !u!224 &4863031666860510982 stripped
 RectTransform:
@@ -37546,7 +37637,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
   m_PrefabInstance: {fileID: 4863031666860510981}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 370764433}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f3ce51195f4b043b2e404f8892b94d, type: 3}
