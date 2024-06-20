@@ -44,7 +44,8 @@ public class PlayerInteraction : PlayerComponent
 	private int m_ClosestObjectIndex = -1;
 	private float m_SmallestAngle;
 
-
+	private RaycastInfo _raycastInfo;
+	
 	private void Start()
 	{
 		Player.Death.AddListener(() => { StopAllCoroutines(); });
@@ -55,7 +56,6 @@ public class PlayerInteraction : PlayerComponent
 	private void OnEnable()
 	{
 		Player.Interact.AddChangeListener(OnChanged_WantsToInteract);
-
 		if (m_LoopingMethod == LoopingMethod.Periodically)
 			StartCoroutine(C_UpdateInteraction());
 	}
@@ -78,7 +78,7 @@ public class PlayerInteraction : PlayerComponent
 
 	private void OnChanged_WantsToInteract(bool wantsToInteract)
 	{
-		var raycastData = Player.RaycastInfo.Get();
+		var raycastData = _raycastInfo;
 
 		var wantedToInteractPreviously = Player.Interact.GetPreviousValue();
 		var wantsToInteractNow = wantsToInteract;
@@ -102,7 +102,7 @@ public class PlayerInteraction : PlayerComponent
 	private void UpdateInteraction()
 	{
 		var lastRaycastData = Player.RaycastInfo.Get();
-
+		
 		m_SmallestAngle = 1000f;
 		m_ClosestObject = null;
 		m_ClosestObjectIndex = -1;
@@ -155,7 +155,9 @@ public class PlayerInteraction : PlayerComponent
 		if (m_SmallestAngle < m_MaxInteractionAngle && ((lastRaycastData != null && lastRaycastData.Collider != m_CollidersInRange[m_ClosestObjectIndex]) || lastRaycastData == null))
 		{
 			var raycastData = new RaycastInfo(m_CollidersInRange[m_ClosestObjectIndex], m_ClosestObject);
+
 			Player.RaycastInfo.Set(raycastData);
+			_raycastInfo = raycastData;
 
 			//Notify the object the ray is on it.
 			if (raycastData != null && raycastData.IsInteractive)
@@ -168,6 +170,7 @@ public class PlayerInteraction : PlayerComponent
 		else if (m_SmallestAngle > m_MaxInteractionAngle)
 		{
 			Player.RaycastInfo.Set(null);
+			_raycastInfo = null;
 
 			// Let the object know the ray it's not on it anymore.
 			if (lastRaycastData != null && lastRaycastData.IsInteractive)

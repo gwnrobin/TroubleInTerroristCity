@@ -6561,7 +6561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2583519352488037053
 Transform:
   m_ObjectHideFlags: 0
@@ -6593,7 +6593,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   m_LoopingMethod: 1
-  m_UpdateTime: 0.03
+  m_UpdateTime: 0.05
   m_InteractionDistance: 100
   m_MaxInteractionAngle: 30
 --- !u!1 &3117139772514072863
