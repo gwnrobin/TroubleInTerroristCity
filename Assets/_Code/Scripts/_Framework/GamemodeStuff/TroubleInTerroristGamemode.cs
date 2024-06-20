@@ -180,8 +180,10 @@ public class TroubleInTerroristGamemode : NetworkSingleton<TroubleInTerroristGam
         
         foreach (var player in _playersAlive)
         {
-            DeletePlayerPrefab(player);
+            //DeletePlayerPrefab(player);
         }
+        
+        PlayerManager.Instance.DeleteAllPlayerGameObjects();
         SceneWeaponManager.Instance.ClearWeapons();
         LevelResetter.Instance.ResetLevel();
         _playersAlive.Clear();

@@ -14,6 +14,8 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     
     [SerializedDictionary("id", "player")]
     public SerializedDictionary<ulong, PlayerData> Players = new();
+
+    private List<NetworkObject> playersNetworkObjects = new();
     
     public void PausePlayer()
     {
@@ -94,8 +96,12 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
     public void SetNewPrefab(ulong id)
     {
         GameObject player = Instantiate(NetworkManager.Singleton.GetNetworkPrefabOverride(PlayerPrefab));
+
+        NetworkObject networkPlayer = player.GetComponent<NetworkObject>();
+
+        networkPlayer.SpawnAsPlayerObject(id);
         
-        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(id);
+        playersNetworkObjects.Add(networkPlayer);
         
         ClientRpcParams clientRpcParams = new ClientRpcParams
         {
@@ -108,6 +114,20 @@ public class PlayerManager : NetworkSingleton<PlayerManager>
         RegisterPrefabClientRPC(id, player.GetComponent<NetworkObject>().NetworkObjectId);
         
         SetSpawnClientRPC(clientRpcParams);
+    }
+
+    public void DeleteAllPlayerGameObjects()
+    {
+        foreach (var player in playersNetworkObjects)
+        {
+            if (player == null)
+                return;
+        
+            player.RemoveOwnership();
+            player.Despawn();
+        }
+        
+        playersNetworkObjects.Clear();
     }
 
     [ClientRpc]
