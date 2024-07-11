@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1619.4846, g: 1813.4495, b: 2268.4768, a: 1}
+  m_IndirectSpecularColor: {r: 1618.6467, g: 1812.885, b: 2268.176, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6278,11 +6278,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1235911499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &370764433 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6446417935133789134, guid: e78909605b13caa4f97521eb3508df62, type: 3}
-  m_PrefabInstance: {fileID: 4863031666860510981}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &377576765
 GameObject:
   m_ObjectHideFlags: 0
@@ -10170,7 +10165,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 150.28, y: 50}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &629862882
 GameObject:
@@ -22818,20 +22813,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &1507928208
+--- !u!114 &1507928208 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3793815022696667804, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+  m_PrefabInstance: {fileID: 4863031666860510981}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 370764433}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa00d673a70e3e0498f8e759385aff79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  traps:
-  - {fileID: 154400064}
 --- !u!1 &1515774628
 GameObject:
   m_ObjectHideFlags: 0
@@ -37124,6 +37116,10 @@ PrefabInstance:
       propertyPath: 'vendingMachines.Array.data[0]'
       value: 
       objectReference: {fileID: 1838605085}
+    - target: {fileID: 3793815022696667804, guid: e78909605b13caa4f97521eb3508df62, type: 3}
+      propertyPath: 'traps.Array.data[0]'
+      value: 
+      objectReference: {fileID: 154400064}
     - target: {fileID: 3886942100097109295, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: m_VertexColorAlwaysGammaSpace
       value: 1
@@ -37270,7 +37266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153904867162319318, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -51.129997
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 7359213088239089160, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: m_RootOrder
@@ -37318,7 +37314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474196050947749640, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: _minimalPlayers
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7606003340015092205, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -37349,9 +37345,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3739360847405761456, guid: e78909605b13caa4f97521eb3508df62, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4863031666860510987}
-    - targetCorrespondingSourceObject: {fileID: 6446417935133789134, guid: e78909605b13caa4f97521eb3508df62, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1507928208}
   m_SourcePrefab: {fileID: 100100000, guid: e78909605b13caa4f97521eb3508df62, type: 3}
 --- !u!224 &4863031666860510982 stripped
 RectTransform:
@@ -37363,7 +37356,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4059397014501129914, guid: e78909605b13caa4f97521eb3508df62, type: 3}
   m_PrefabInstance: {fileID: 4863031666860510981}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 370764433}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f3ce51195f4b043b2e404f8892b94d, type: 3}
