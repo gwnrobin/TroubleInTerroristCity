@@ -18,12 +18,10 @@ MonoBehaviour:
   m_PlatformBuildProfile:
     rid: 3687964504436506654
   m_Scenes:
-  - m_enabled: 0
+  - m_enabled: 1
     m_path: Assets/_Levels/Scenes/Menu.unity
   - m_enabled: 0
     m_path: Assets/_Levels/Scenes/EmtpyMuliplayer.unity
-  - m_enabled: 0
-    m_path: Assets/_Levels/Scenes/L_Showcase.unity
   - m_enabled: 1
     m_path: Assets/_Levels/Scenes/SampleScene.unity
   m_ScriptingDefines: []
