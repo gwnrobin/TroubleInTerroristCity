@@ -24,6 +24,8 @@ MonoBehaviour:
     m_path: Assets/_Levels/Scenes/EmtpyMuliplayer.unity
   - m_enabled: 1
     m_path: Assets/_Levels/Scenes/SampleScene.unity
+  - m_enabled: 1
+    m_path: Assets/_Levels/Scenes/L_Showcase.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
