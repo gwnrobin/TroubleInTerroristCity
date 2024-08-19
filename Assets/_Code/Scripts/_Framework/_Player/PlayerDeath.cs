@@ -42,7 +42,7 @@ public class PlayerDeath : PlayerComponent
 
         public override void OnEntityStart()
         {
-			Player.Health.AddChangeListener(OnChanged_Health);
+			Entity.Health.AddChangeListener(OnChanged_Health);
 			Player.Dead.SetStartTryer(TryDead);
 			//m_Head.isKinematic = true;
 			//m_Head.gameObject.SetActive(false);
@@ -105,7 +105,7 @@ public class PlayerDeath : PlayerComponent
 			//m_Head.AddForce(Vector3.ClampMagnitude(Player.Velocity.Get() * 0.5f, 10f), ForceMode.Force);
 			//m_Head.AddRelativeTorque(new Vector3(Random.value - 0.5f, Random.value - 0.5f, Random.value - 0.5f) * 35, ForceMode.Force);
 
-			Player.Death.Send();
+			Entity.Death.Send();
 
 			if (m_Respawn)
 			{

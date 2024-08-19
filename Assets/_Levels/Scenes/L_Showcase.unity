@@ -19402,6 +19402,7 @@ MonoBehaviour:
   m_Script: {fileID: 1533277976}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &576409266
 Transform:
   m_ObjectHideFlags: 19
@@ -64089,10 +64090,22 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1030976986, guid: abc00000000011564932334720114564, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1030976995}
+    - targetCorrespondingSourceObject: {fileID: 1030976986, guid: abc00000000011564932334720114564, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1030976989}
     - targetCorrespondingSourceObject: {fileID: 1030976986, guid: abc00000000011564932334720114564, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1030976988}
+    - targetCorrespondingSourceObject: {fileID: 1030976986, guid: abc00000000011564932334720114564, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030976993}
+    - targetCorrespondingSourceObject: {fileID: 1030976986, guid: abc00000000011564932334720114564, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030976994}
+    - targetCorrespondingSourceObject: {fileID: 1030976986, guid: abc00000000011564932334720114564, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030976996}
   m_SourcePrefab: {fileID: 100100000, guid: abc00000000011564932334720114564, type: 3}
 --- !u!4 &1030976987 stripped
 Transform:
@@ -64133,6 +64146,79 @@ MonoBehaviour:
   Hitboxes:
   - {fileID: 1030976988}
   m_Inventory: {fileID: 0}
+--- !u!114 &1030976993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014180204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a956e097b4d4a9e42b18be2c16801180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthStat:
+    m_InitialValue: 100
+    m_RegenEnabled: 0
+    m_RegenPause: 2
+    m_RegenSpeed: 10
+  m_DamageResistance:
+    m_GenericResistance: 0.1
+    m_CutResistance: 0.1
+    m_HitResistance: 0.1
+    m_StabResistance: 0.1
+    m_BulletResistance: 0.1
+--- !u!114 &1030976994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014180204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf22ce0200a6be4983b24fb9b8c653d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1030976995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014180204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 839011242
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &1030976996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014180204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba1ef2745ef780479c02f1f260187cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObjectsToDisable: []
+  m_BehavioursToDisable: []
+  m_CollidersToDisable: []
+  m_Respawn: 0
+  m_RespawnDuration: 5
 --- !u!1001 &1030977006
 PrefabInstance:
   m_ObjectHideFlags: 0

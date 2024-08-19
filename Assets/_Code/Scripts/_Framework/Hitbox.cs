@@ -56,7 +56,7 @@ public class Hitbox : MonoBehaviour, IDamageable
                 {
                     damageData.Delta *= m_DamageMultiplier;
                     DamageSyncManager.Instance.SendDataToServer(damageData);
-                    //m_ParentEntity.ChangeHealth.Try(damageData);
+                    m_ParentEntity.ChangeHealth.Try(damageData);
                 }
 
                 if (m_Rigidbody != null)

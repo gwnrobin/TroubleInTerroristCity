@@ -11397,7 +11397,7 @@ MonoBehaviour:
   m_ObjectsToDisable: []
   m_BehavioursToDisable: []
   m_CollidersToDisable: []
-  m_Respawn: 1
+  m_Respawn: 0
   m_RespawnDuration: 5
 --- !u!114 &2256516653400171739
 MonoBehaviour:

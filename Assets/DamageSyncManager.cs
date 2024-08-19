@@ -18,9 +18,8 @@ public class DamageSyncManager : NetworkSingleton<DamageSyncManager>
         SendHitToClientRpc(new NetworkDamageInfo(info.Delta, networkObjectId));
     }
 
-    public void SendDataToServer(DamageInfo info, IDamageable damageable= default)
+    public void SendDataToServer(DamageInfo info, IDamageable damageable = default)
     {
-        print(info.Delta);
         SendHitToServerRpc(new NetworkDamageInfo(info.Delta, info.HitObject.GetComponent<Hitbox>().Entity.NetworkObjectId));
     }
     
