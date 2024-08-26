@@ -34,11 +34,9 @@ MonoBehaviour:
     supportWater: 0
     waterSimulationResolution: 128
     supportWaterExclusion: 1
-    supportWaterDeformation: 1
-    deformationAtlasSize: 512
-    maximumDeformerCount: 64
-    supportWaterFoam: 1
-    foamAtlasSize: 512
+    supportWaterDecals: 1
+    waterDecalAtlasSize: 1024
+    maximumWaterDecalCount: 48
     waterScriptInteractionsMode: 0
     waterFullCPUSimulation: 0
     supportComputeThickness: 0
@@ -102,7 +100,7 @@ MonoBehaviour:
       reflectionProbeTexLastValidCubeMip: 3
       reflectionProbeTexLastValidPlanarMip: 0
       reflectionProbeDecreaseResToFit: 1
-      skyReflectionSize: 256
+      skyReflectionSize: 128
       skyLightingOverrideLayerMask:
         serializedVersion: 2
         m_Bits: 0
@@ -170,6 +168,9 @@ MonoBehaviour:
       advancedUpscalersByPriority: 00
       DLSSPerfQualitySetting: 3
       DLSSInjectionPoint: 0
+      TAAUInjectionPoint: 0
+      STPInjectionPoint: 0
+      defaultInjectionPoint: 2
       DLSSUseOptimalSettings: 1
       DLSSSharpness: 0.5
       FSR2EnableSharpness: 0
@@ -307,9 +308,9 @@ MonoBehaviour:
       - 0.5
       - 0.5
     gpuResidentDrawerSettings:
-      mode: 0
+      mode: 1
       smallMeshScreenPercentage: 0
-      enableOcclusionCullingInCameras: 0
+      enableOcclusionCullingInCameras: 1
       useDepthPrepassForOccluders: 1
     m_ObsoleteLightLayerName0: Light LayerDefault
     m_ObsoleteLightLayerName1: InteriorOnly
@@ -541,4 +542,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 11400000, guid: 2b7005ba3a4d8474b8cdc34141ad766e, type: 2}
-  m_PrefilterUseLegacyLightmaps: 0
+  m_PrefilterUseLegacyLightmaps: 1

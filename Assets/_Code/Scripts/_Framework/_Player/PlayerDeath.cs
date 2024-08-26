@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerDeath : PlayerComponent
@@ -43,7 +44,9 @@ public class PlayerDeath : PlayerComponent
         public override void OnEntityStart()
         {
 			Entity.Health.AddChangeListener(OnChanged_Health);
-			Player.Dead.SetStartTryer(TryDead);
+			Entity.Dead.SetStartTryer(TryDead);
+			
+			Entity.Death.AddListener(() => StartCoroutine(C_OnDeath()));
 			//m_Head.isKinematic = true;
 			//m_Head.gameObject.SetActive(false);
 
@@ -65,15 +68,15 @@ public class PlayerDeath : PlayerComponent
 		private void OnChanged_Health(float health)
 		{
 			if (health <= 0f)
-				StartCoroutine(C_OnDeath());
+				Entity.Death.Send();
 		}
 
 		private IEnumerator C_OnDeath()
 		{
 			/*Player.DropItem.Try(Player.EquippedItem.Get());
-
+*/
 			yield return null;
-
+			
 			foreach (var obj in m_ObjectsToDisable)
 			{
 				if (obj != null)
@@ -97,7 +100,9 @@ public class PlayerDeath : PlayerComponent
 				else
 					Debug.LogWarning("Check out PlayerDeath for missing references, a collider reference was found null!", this);
 			}
-			*/
+		
+		
+			/*
 			//Player.Camera.transform.parent = m_Head.transform;
 
 			//m_Head.gameObject.SetActive(true);
@@ -105,7 +110,7 @@ public class PlayerDeath : PlayerComponent
 			//m_Head.AddForce(Vector3.ClampMagnitude(Player.Velocity.Get() * 0.5f, 10f), ForceMode.Force);
 			//m_Head.AddRelativeTorque(new Vector3(Random.value - 0.5f, Random.value - 0.5f, Random.value - 0.5f) * 35, ForceMode.Force);
 
-			Entity.Death.Send();
+			
 
 			if (m_Respawn)
 			{
@@ -113,6 +118,7 @@ public class PlayerDeath : PlayerComponent
 
 				Respawn();
 			}
+			*/
 		}
 
 		private bool TryDead() => true;
@@ -137,14 +143,14 @@ public class PlayerDeath : PlayerComponent
 
 				Player.Respawn.Send();
 
-				//foreach (var obj in m_ObjectsToDisable)
-				//	obj.SetActive(true);
+				foreach (var obj in m_ObjectsToDisable)
+					obj.SetActive(true);
 
-				//foreach (var behaviour in m_BehavioursToDisable)
-				//	behaviour.enabled = true;
+				foreach (var behaviour in m_BehavioursToDisable)
+					behaviour.enabled = true;
 
-				//foreach (var collider in m_CollidersToDisable)
-				//	collider.enabled = true;
+				foreach (var collider in m_CollidersToDisable)
+					collider.enabled = true;
 
 				//if (Player.OnLadder.Active) Player.OnLadder.TryStop();
 				if (Player.Sprint.Active) Player.Sprint.ForceStop();

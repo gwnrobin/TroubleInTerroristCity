@@ -7,9 +7,10 @@ using UnityEngine.Rendering;
 public class Player : Humanoid
 {
     public Camera Camera { get => m_PlayerCamera; }
-
-    //Only in Single Player
+    
     public readonly Activity Pause = new();
+
+    public readonly Activity Fire = new();
 
     // Movement
     public readonly Value<float> MoveCycle = new();
@@ -34,6 +35,8 @@ public class Player : Humanoid
 
     public readonly Value<int> GamemodeCurrency = new(0);
     
+    public readonly Value<PlayerType> PlayerTyper = new(0);
+    
     //public readonly Attempt ChangeUseMode = new Attempt();
 
     //public readonly Activity Swimming = new Activity();
@@ -44,7 +47,20 @@ public class Player : Humanoid
     [SerializeField] private Camera m_PlayerCamera;
 
     public CharAnimData CharAnimData;
-    
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        if (IsOwner)
+        {
+            PlayerTyper.Set(PlayerType.Self);
+        }
+        else
+        {
+            PlayerTyper.Set(PlayerType.Other);
+        }
+    }
+
     public Dictionary<string, Activity> GetAllActivities()
     {
         Dictionary<string, Activity> activities = new Dictionary<string, Activity>();
@@ -68,4 +84,10 @@ public class Player : Humanoid
 
         return activities;
     }
+}
+
+public enum PlayerType
+{
+    Self,
+    Other
 }

@@ -15,7 +15,8 @@ public class NetworkManagerUI : MonoBehaviour
 
     public void Client()
     {
-        transport.ConnectionData.Address = "217.62.31.230";
+        //transport.ConnectionData.Address = "217.62.31.230";
+        transport.ConnectionData.Address = "192.168.178.180";
         NetworkManager.Singleton.StartClient();
         
         print("Client try connect");

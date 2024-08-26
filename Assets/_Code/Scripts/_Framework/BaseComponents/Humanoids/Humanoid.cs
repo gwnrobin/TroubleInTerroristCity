@@ -37,8 +37,6 @@ public class Humanoid : Entity
     public readonly Activity PointAim = new();
     public readonly Activity Reload = new();
     public readonly Activity Healing = new();
-    
-    public readonly Activity Dead = new();
 
     public readonly Activity Holster = new();
     public readonly Attempt ChangeScope = new();

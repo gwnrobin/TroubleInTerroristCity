@@ -7,12 +7,29 @@ public class NetworkEntityDeathNotifier : NetworkEntityComponent
     {
         base.OnNetworkSpawn();
         
-        Entity.Death.AddListener(() => EntityDieServerRPC());
+        Entity.Death.AddListener(() =>
+        {
+            if (Entity.Dead.Active)
+                return;
+            
+            EntityDieServerRPC();
+        });
     }
     
     [ServerRpc(RequireOwnership = false)]
     private void EntityDieServerRPC()
     {
-        GetComponent<NetworkObject>().Despawn();
+        EntityDieClientRPC();
+    }
+    
+    [ClientRpc]
+    private void EntityDieClientRPC()
+    {
+        if (IsHost)
+            return;
+        
+        Entity.Dead.ForceStart();
+        
+        Entity.Death.Send();
     }
 }

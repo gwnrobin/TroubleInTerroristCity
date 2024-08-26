@@ -308,7 +308,7 @@ public class EquipmentHandler : PlayerComponent
         {
             // Use Rays (E.g Weapons with more projectiles per shot will need more rays - Shotguns)
             Ray[] itemUseRays = GenerateItemUseRays(Player, _attachedEquipmentItem.GetBarrel(), _attachedEquipmentItem.GetUseRaysAmount(), _attachedEquipmentItem.GetUseRaySpreadMod());
-
+            //print(continuously);
             if (continuously)
                 usedSuccessfully = _attachedEquipmentItem.TryUseContinuously(itemUseRays, useType);
             else

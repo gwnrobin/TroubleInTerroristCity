@@ -101,7 +101,12 @@ public class EquipmentController : PlayerComponent
     {
         yield return new WaitForEndOfFrame();
 
-        if (Player.UseItemHeld.Active)
+        if (Player.UseItemHeld.Active && Player.PlayerTyper.Val == PlayerType.Self)
+        {
+            Player.UseItem.Try(true, 0);
+        }
+        
+        if (Player.Fire.Active && Player.PlayerTyper.Val == PlayerType.Other)
         {
             Player.UseItem.Try(true, 0);
         }
@@ -263,6 +268,12 @@ public class EquipmentController : PlayerComponent
                 _recoilStep += activeEHandler.EquipmentItem.recoilPattern.acceleration;
 
                 m_NextTimeCanAutoReload = Time.time + 0.35f;
+                
+                Player.Fire.ForceStart();
+            }
+            else
+            {
+                Player.Fire.ForceStop();
             }
 
             if (!eItemCanBeUsed)
@@ -275,7 +286,7 @@ public class EquipmentController : PlayerComponent
             //Player.Reload.TryStart();
             return usedSuccessfully;
         }
-
+        
         return false;
     }
 

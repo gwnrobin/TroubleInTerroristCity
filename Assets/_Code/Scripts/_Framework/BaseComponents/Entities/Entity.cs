@@ -35,6 +35,8 @@ public class Entity : NetworkBehaviour
 
     [SerializeField]
     private Inventory m_Inventory;
+    
+    public readonly Activity Dead = new();
 
     protected virtual void Start()
     {

@@ -110,6 +110,9 @@ public class Weapon : EquipmentItem
                 //if (SelectedFireMode == (int)fireMode.Burst)
                 //    StartCoroutine(C_DoBurst());
                 //else
+                
+                print("shooting");
+
                 Shoot(itemUseRays);
 
                 m_NextTimeCanUse = Time.time + (m_UseThreshold * Mathf.Clamp(1 / WeaponInfo.Shooting.FireRateOverTime.Evaluate(EHandler.ContinuouslyUsedTimes / (float)MagazineSize), 0.1f, 10f));
